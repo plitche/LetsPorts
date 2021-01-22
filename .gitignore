@@ -1,25 +1,9 @@
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-# https://github.com/takari/maven-wrapper#usage-without-binary-jar
-.mvn/wrapper/maven-wrapper.jar
-
-
 /.metadata/
 .classpath
 .project
 
-
-
-
-# Created by https://www.toptal.com/developers/gitignore/api/macos,windows,java,eclipse
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,java,eclipse
+# Created by https://www.toptal.com/developers/gitignore/api/windows,macos,java,eclipse,maven
+# Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,java,eclipse,maven
 
 ### Eclipse ###
 .metadata
@@ -141,6 +125,19 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -167,4 +164,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/macos,windows,java,eclipse
+# End of https://www.toptal.com/developers/gitignore/api/windows,macos,java,eclipse,maven
