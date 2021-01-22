@@ -1,5 +1,5 @@
 package com.koreait.project.wooki.dao;
 
-public class WookiDao {
+public interface WookiDao {
 
 }

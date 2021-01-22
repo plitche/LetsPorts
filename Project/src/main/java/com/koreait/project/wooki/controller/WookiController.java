@@ -1,5 +1,8 @@
 package com.koreait.project.wooki.controller;
 
-public class WookiController {
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class WookiController {
+	
 }
