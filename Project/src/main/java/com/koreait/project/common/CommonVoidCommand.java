@@ -6,4 +6,5 @@ import org.springframework.ui.Model;
 public interface CommonVoidCommand {
 
 	public void execute(SqlSession sqlSession, Model model);
+
 }

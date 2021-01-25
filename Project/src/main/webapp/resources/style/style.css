@@ -1,0 +1,128 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style-type: none;
+}
+
+#logo {
+	display: block;
+	float: left;
+	width: 150px;
+	height: 150px;
+}
+
+.top-wrap {
+	width: 1080px;
+	margin: 0 auto;
+	height: 280px;
+}
+
+.top {
+	display: flex;
+	float: right;
+}
+
+.top>li>a {
+	display: inline-block;
+	width: 150px;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	height: 60px;
+	line-height: 60px;
+	text-decoration: none;
+}
+
+nav {
+	width: 1080px;
+	margin: 0 auto;
+}
+
+.menu-bar {
+	clear: both;
+	display: flex;
+	width: 1080px;
+	margin: 0 auto;
+	padding: 0 120px;
+}
+
+.header {
+	background-image: url("../images/jogging.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	height: 350px;
+	width: 1080px;
+	margin: 0 auto;
+}
+
+.menu-bar>li>a, .depth1>li>a {
+	display: inline-block;
+	width: 160px;
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+	color: black;
+	text-decoration: none;
+}
+
+.menu-bar>li>a {
+	color: white;
+}
+
+.menu-bar>li>a:nth-of-type(1), .depth1>li>a:nth-of-type(1) {
+	backgournd: #
+}
+.depth1{
+	position: absolute;
+	z-index: 2;
+	padding: 0;
+}
+.depth1>li {
+	display: none;
+}
+
+.menu-bar>li:hover>.depth1>li {
+	display: block;
+}
+
+.body-wrap {
+	width: 1080px;
+	height: 500px;
+	margin: 0 auto;
+}
+
+.footer {
+	display: grid;
+	background: black;
+	padding: 5px;
+	grid-template-rows: 50px 120px;
+	grid-template-columns: 40% 30% 30%;
+	align-items: center;
+	width: 1080px;
+	margin: 0 auto;
+}
+
+.footer>div, .footer-title {
+	color: white;
+	margin-left: 10px;
+}
+
+.footer-title {
+	grid-column: span 3;
+}
+
+.footer>div {
+	padding: 15px 0;
+}
+
+.company, .customer-center {
+	border-right: 1px solid white;
+}
