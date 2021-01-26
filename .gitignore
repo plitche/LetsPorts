@@ -2,6 +2,9 @@
 .classpath
 .project
 
+# Properties file  (생성된 .gitignore에 추가해 준 내용)
+config.properties
+
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,java,eclipse,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,java,eclipse,maven
 
