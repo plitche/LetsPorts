@@ -1,0 +1,38 @@
+1. 객체 생성 방법 정하기
+	java.class
+
+2. java source 패키지 관리법
+	역할분담 하는대로 사람인원에 맞추어 패키지 나누기
+ 		- command (void, Map< , >) 2개 가장 상위 패키지 안에 생성해 놓는다.
+			command - 용수, 영욱, 혜준, 예원 
+
+		- mapper 
+		<property name="mapperLocations" value="classpath:com/koreait/mybatis3/용수dao/mapper/*.xml" />
+		<property name="mapperLocations" value="classpath:com/koreait/mybatis3/혜준dao/mapper/*.xml" />
+		<property name="mapperLocations" value="classpath:com/koreait/mybatis3/영욱dao/mapper/*.xml" />
+		<property name="mapperLocations" value="classpath:com/koreait/mybatis3/예원dao/mapper/*.xml" />
+		<property name="mapperLocations" value="classpath:com/koreait/mybatis3/정호dao/mapper/*.xml" />
+
+		- 안건 하나로 남겨둠 (폴더 네이밍)
+
+3. 작업 순서
+	1) 기능 리스트 명세(사이트맵)
+
+	2)	
+  	  (2-1) DB작업 (2명) (최소 table 개수 5개 이상 (선생님 曰))
+ 	  (2-2) 와이어프레임 (3명->2명)
+ 	  (2-3) main 페이지 간단 작업 (index, header, footer)	(1명)
+
+	3) 역할분담(백 -> 프론트)
+	  (3-1) 기능별로
+	  (3-2) 테이블별로 (회원, 주소book) (상품, 장바구니) (리뷰, 문의) 
+	  (3-3) 페이지별로
+
+	4) 보완
+	5) 발표준비, aws, ppt 	
+
+4. 주제 관련해서 (운동 + 주제)
+	세부 기능, 하부 기능
+	- 운동(일반 사용자들 끼리 모임 등 커뮤니티 관련) +a(건강)
+	- 운동 + 건강 + 트레이너 + (커뮤니티) + (마이페이지)
+
