@@ -18,11 +18,11 @@ public class UsersDto {
 	private Date created_at;
 	private Date last_login;
 	private int login_count;
-	private int login_attemps;   // login_attemps -> login_attempt  수정완료
+	private int login_attempt;   // login_attemps -> login_attempt  수정완료
 	private int disable;
 	private String user_reg_method;
 	private String user_nickname;
-	private String user_profile; // 수정해야될 부분?
+	private String user_message; // user_profile -> user_message 수정완료
 	private String profile_photo;
 	private int birth_year;
 	private int birth_month;
