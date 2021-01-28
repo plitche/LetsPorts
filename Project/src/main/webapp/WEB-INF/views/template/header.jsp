@@ -49,12 +49,7 @@
 			<ul class="menu-bar">
 				<li><a href="javascript:void(0)" >ABOUT US</a></li>
 				<li>
-					<a href="javascript:void(0)" >게시판</a>
-					<ul class="depth1">
-						<li><a href="javascript:void(0)" >관리자 게시판</a></li>
-						<li><a href="javascript:void(0)" >트레이너 게시판</a></li>
-						<li><a href="javascript:void(0)" >사용자 블로그</a></li>
-					</ul>
+					<a href="javascript:void(0)" >노하우 게시판</a>
 				</li>
 				<li><a href="javascript:void(0)" >커뮤니티</a></li>
 				<li><a href="javascript:void(0)" >트레이너</a></li>
