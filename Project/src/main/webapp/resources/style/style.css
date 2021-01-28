@@ -61,7 +61,7 @@ nav {
 	margin: 0 auto;
 }
 
-.menu-bar>li>a, .depth1>li>a {
+.menu-bar>li>a {
 	display: inline-block;
 	width: 160px;
 	height: 60px;
@@ -77,20 +77,8 @@ nav {
 	color: white;
 }
 
-.menu-bar>li>a:nth-of-type(1), .depth1>li>a:nth-of-type(1) {
+.menu-bar>li>a:nth-of-type(1) {
 	backgournd: #
-}
-.depth1{
-	position: absolute;
-	z-index: 2;
-	padding: 0;
-}
-.depth1>li {
-	display: none;
-}
-
-.menu-bar>li:hover>.depth1>li {
-	display: block;
 }
 
 
