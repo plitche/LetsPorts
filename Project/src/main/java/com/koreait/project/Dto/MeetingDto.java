@@ -25,7 +25,7 @@ public class MeetingDto {
 	private int location2_no;
 	private String meeting_title;
 	private String meeting_content;
-	private int is_progress;
+	private int is_progress;	// 모임 진행 여부 ??
 	private String cancel_reason;
 	private int on_hide;
 	private String detail_location;
