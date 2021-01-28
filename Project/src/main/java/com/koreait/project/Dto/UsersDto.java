@@ -15,10 +15,10 @@ public class UsersDto {
 	private String email;
 	private String password;
 	private int user_separator;
-	private Date create_at;
+	private Date created_at;
 	private Date last_login;
 	private int login_count;
-	private int login_attempt;   // login_attemps -> login_attempt  수정완료
+	private int login_attemps;   // login_attemps -> login_attempt  수정완료
 	private int disable;
 	private String user_reg_method;
 	private String user_nickname;

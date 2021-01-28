@@ -19,7 +19,7 @@ public class Trainer_qnaDto {
 	private Date created_at;
 	private int is_published;
 	private int is_answered;
-	private String trainer_qna_answer;
+	private String trainer_qna_answered;
 	private Date answered_date;
 	private int on_hide;
 }

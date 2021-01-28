@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Trainer_info {
+public class Trainer_infoDto {
 	
 	private int	trainer_no;
 	private int user_no;
