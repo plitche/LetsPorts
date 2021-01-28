@@ -81,8 +81,35 @@ nav {
 	backgournd: #
 }
 
+.depth2 > li > a {
+	text-decoration: none;
+	color: silver;
+	font-size: 20px;
+	font-weight: 700;
+	height: 60px;
+	line-height: 60px;
+}
 
+.depth2 > li {
+	text-align: center;
+}
 
+.depth2 {
+	z-index: 2;
+	padding:0px;
+}
+
+.depth2 > li {
+	visibility: hidden;
+}
+
+.menu-bar>li:hover>.depth2>li {
+	visibility: visible
+}
+
+.depth2 > li > a:hover {
+	color: black;
+}
 
 .body-wrap {
 	width: 1080px;
