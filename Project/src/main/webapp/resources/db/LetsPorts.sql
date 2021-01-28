@@ -1,21 +1,6 @@
 -- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
 -- SEQUENCE들
-CREATE SEQUENCE location1_seq
-START WITH 1
-INCREMENT BY 1
-NOCACHE;
-
-CREATE SEQUENCE location2_seq
-START WITH 1
-INCREMENT BY 1
-NOCACHE;
-
 CREATE SEQUENCE users_seq
-START WITH 1
-INCREMENT BY 1
-NOCACHE;
-
-CREATE SEQUENCE exercise_seq
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
@@ -31,11 +16,6 @@ INCREMENT BY 1
 NOCACHE;
 
 CREATE SEQUENCE board_knowhow_seq
-START WITH 1
-INCREMENT BY 1
-NOCACHE;
-
-CREATE SEQUENCE tags_seq
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
@@ -102,166 +82,166 @@ NOCACHE;
 
 -- location1 Table Create SQL
 CREATE TABLE location1 (
-    location1_no      INT             PRIMARY KEY, 
+    location1_no      NUMBER          PRIMARY KEY, 
     location1_name    VARCHAR2(30)    NOT NULL
 );
 
 -- location2 Table Create SQL
 CREATE TABLE location2 (
-    location2_no      INT             PRIMARY KEY, 
+    location2_no      NUMBER          PRIMARY KEY, 
     location2_name    VARCHAR2(30)    NOT NULL
 );
 
 -- users Table Create SQL
 CREATE TABLE users (
-    user_no            INT              PRIMARY KEY, 
+    user_no            NUMBER           PRIMARY KEY, 
     email              VARCHAR2(50)     UNIQUE NOT NULL, 
     password           VARCHAR2(50)     NOT NULL, 
-    user_separator     INT              NOT NULL, 
+    user_separator     NUMBER           NOT NULL, 
     created_at         DATE             NOT NULL, 
     last_login         DATE             NOT NULL, 
-    login_count        INT              NOT NULL, 
-    login_attempt      INT              NOT NULL, 
-    disable            INT              NOT NULL, 
+    login_count        NUMBER           NOT NULL, 
+    login_attempt      NUMBER           NOT NULL, 
+    disable            NUMBER           NOT NULL, 
     user_reg_method    VARCHAR2(30)     NOT NULL, 
     user_nickname      VARCHAR2(30)     UNIQUE NOT NULL, 
     user_message       VARCHAR2(40)     NULL, 
     profile_photo      VARCHAR2(100)    NULL, 
-    birth_year         INT              NULL, 
-    birth_month        INT              NULL, 
-    birth_day          INT              NULL, 
-    location1_no       INT              REFERENCES location1(location1_no) NOT NULL, 
-    location2_no       INT              REFERENCES location2(location2_no) NOT NULL
+    birth_year         NUMBER           NULL, 
+    birth_month        NUMBER           NULL, 
+    birth_day          NUMBER           NULL, 
+    location1_no       NUMBER           REFERENCES location1(location1_no) NOT NULL, 
+    location2_no       NUMBER           REFERENCES location2(location2_no) NOT NULL
 );
 
 -- exercise Table Create SQL
 CREATE TABLE exercise (
-    exercise_no      INT             PRIMARY KEY, 
+    exercise_no      NUMBER          PRIMARY KEY, 
     exercise_name    VARCHAR2(30)    UNIQUE NOT NULL
 );
 
 -- meeting Table Create SQL
 CREATE TABLE meeting (
-    meeting_no           INT               PRIMARY KEY, 
-    user_no              INT               REFERENCES users(user_no) NOT NULL, 
-    meeting_max          INT               NOT NULL, 
-    meeting_min          INT               NOT NULL, 
-    exercise_no          INT               REFERENCES exercise(exercise_no) NOT NULL, 
+    meeting_no           NUMBER            PRIMARY KEY, 
+    user_no              NUMBER            REFERENCES users(user_no) NOT NULL, 
+    meeting_max          NUMBER            NOT NULL, 
+    meeting_min          NUMBER            NOT NULL, 
+    exercise_no          NUMBER            REFERENCES exercise(exercise_no) NOT NULL, 
     created_at           DATE              NOT NULL, 
     start_gather_date    DATE              NOT NULL, 
     end_gather_date      DATE              NOT NULL, 
     meeting_date         DATE              NOT NULL, 
-    location1_no         INT               REFERENCES location1(location1_no) NOT NULL, 
-    location2_no         INT               REFERENCES location2(location2_no) NOT NULL, 
+    location1_no         NUMBER            REFERENCES location1(location1_no) NOT NULL, 
+    location2_no         NUMBER            REFERENCES location2(location2_no) NOT NULL, 
     meeting_title        VARCHAR2(100)     NOT NULL, 
     meeting_content      VARCHAR2(4000)    NOT NULL, 
-    is_progress          INT               NOT NULL, 
+    is_progress          NUMBER            NOT NULL, 
     cancel_reason        VARCHAR2(100)     NULL, 
-    on_hide              INT               NOT NULL, 
+    on_hide              NUMBER            NOT NULL, 
     detail_location      VARCHAR2(100)     NULL, 
-    meeting_hit          INT               NOT NULL
+    meeting_hit          NUMBER            NOT NULL
 );
 
 -- meeting_participants Table Create SQL
 CREATE TABLE meeting_participants (
-    participants_no    INT              PRIMARY KEY, 
-    meeting_no         INT              REFERENCES meeting(meeting_no) NOT NULL, 
-    user_no            INT              REFERENCES users(user_no) NOT NULL, 
+    participants_no    NUMBER           PRIMARY KEY, 
+    meeting_no         NUMBER           REFERENCES meeting(meeting_no) NOT NULL, 
+    user_no            NUMBER           REFERENCES users(user_no) NOT NULL, 
     created_at         DATE             NOT NULL, 
-    status             INT              NOT NULL, 
+    status             NUMBER           NOT NULL, 
     reject_reason      VARCHAR2(100)    NULL
 );
 
 -- board_knowhow Table Create SQL
 CREATE TABLE board_knowhow (
-    knowhow_no         INT               PRIMARY KEY, 
+    knowhow_no         NUMBER            PRIMARY KEY, 
     knowhow_title      VARCHAR2(100)     NOT NULL, 
     knowhow_content    VARCHAR2(4000)    NOT NULL, 
     created_at         DATE              NOT NULL, 
-    user_no            INT               REFERENCES users(user_no) NOT NULL, 
-    user_separator     INT               NOT NULL, 
-    on_hide            INT               NOT NULL, 
-    knowhow_hit        INT               NOT NULL
+    user_no            NUMBER            REFERENCES users(user_no) NOT NULL, 
+    user_separator     NUMBER            NOT NULL, 
+    on_hide            NUMBER            NOT NULL, 
+    knowhow_hit        NUMBER            NOT NULL
 );
 
 -- tags Table Create SQL
 CREATE TABLE tags (
-    tag_no      INT             PRIMARY KEY, 
+    tag_no      NUMBER          PRIMARY KEY, 
     tag_name    VARCHAR2(30)    UNIQUE NOT NULL
 );
 
 -- scrap Table Create SQL
 CREATE TABLE scrap (
-    scrap_no            INT     PRIMARY KEY, 
-    user_no             INT     REFERENCES users(user_no) NOT NULL, 
-    scrap_separator     INT     NOT NULL, 
-    scrap_referer_no    INT     NOT NULL, 
+    scrap_no            NUMBER  PRIMARY KEY, 
+    user_no             NUMBER  REFERENCES users(user_no) NOT NULL, 
+    scrap_separator     NUMBER  NOT NULL, 
+    scrap_referer_no    NUMBER  NOT NULL, 
     end_gather_date     DATE    NULL, 
     created_at          DATE    NOT NULL
 );
 
 -- trainer_qna Table Create SQL
 CREATE TABLE trainer_qna (
-    trainer_qna_no          INT               PRIMARY KEY, 
-    question_user_no        INT               REFERENCES users(user_no) NOT NULL, 
-    trainer_user_no         INT               REFERENCES users(user_no) NOT NULL, 
+    trainer_qna_no          NUMBER            PRIMARY KEY, 
+    question_user_no        NUMBER            REFERENCES users(user_no) NOT NULL, 
+    trainer_user_no         NUMBER            REFERENCES users(user_no) NOT NULL, 
     trainer_qna_title       VARCHAR2(100)     NOT NULL, 
     trainer_qna_content     VARCHAR2(2000)    NOT NULL, 
     created_at              DATE              NOT NULL, 
-    is_published            INT               NOT NULL, 
-    is_answered             INT               NOT NULL, 
+    is_published            NUMBER            NOT NULL, 
+    is_answered             NUMBER            NOT NULL, 
     trainer_qna_answered    varchar2(2000)    NOT NULL, 
     answered_date           DATE              NOT NULL, 
-    on_hide                 INT               NOT NULL
+    on_hide                 NUMBER            NOT NULL
 );
 
 -- comment Table Create SQL
 CREATE TABLE comments (
-    comment_no             INT               PRIMARY KEY, 
-    comment_referer_sep    INT               NOT NULL, 
-    comment_referer_no     INT               NOT NULL, 
-    user_no                INT               REFERENCES users(user_no) NOT NULL, 
+    comment_no             NUMBER            PRIMARY KEY, 
+    comment_referer_sep    NUMBER            NOT NULL, 
+    comment_referer_no     NUMBER            NOT NULL, 
+    user_no                NUMBER            REFERENCES users(user_no) NOT NULL, 
     comment_content        varchar2(1000)    NOT NULL, 
     created_at             DATE              NOT NULL, 
-    on_hide                int               NOT NULL
+    on_hide                NUMBER            NOT NULL
 );
 
 -- board_knowhow_tag Table Create SQL
 CREATE TABLE board_knowhow_tag (
-    knowhow_tag_no    INT    PRIMARY KEY, 
-    knowhow_no        INT    REFERENCES board_knowhow(knowhow_no) NOT NULL, 
-    tag_no            INT    REFERENCES tags(tag_no) NOT NULL
+    knowhow_tag_no    NUMBER    PRIMARY KEY, 
+    knowhow_no        NUMBER    REFERENCES board_knowhow(knowhow_no) NOT NULL, 
+    tag_no            NUMBER    REFERENCES tags(tag_no) NOT NULL
 );
 
 -- board_qna Table Create SQL
 CREATE TABLE board_qna (
-    board_qna_no         INT               PRIMARY KEY, 
+    board_qna_no         NUMBER            PRIMARY KEY, 
     board_qna_title      VARCHAR2(100)     NOT NULL, 
     board_qna_content    VARCHAR2(4000)    NOT NULL, 
-    user_no              INT               REFERENCES users(user_no) NOT NULL, 
+    user_no              NUMBER            REFERENCES users(user_no) NOT NULL, 
     created_at           DATE              NOT NULL, 
-    is_resolved          INT               NOT NULL, 
+    is_resolved          NUMBER            NOT NULL, 
     resolve_date         DATE              NOT NULL, 
-    on_hide              INT               NOT NULL
+    on_hide              NUMBER            NOT NULL
 );
 
 -- review Table Create SQL
 CREATE TABLE review (
-    review_no         INT               PRIMARY KEY, 
-    target_user_no    INT               REFERENCES users(user_no) NOT NULL, 
-    score             INT               NOT NULL, 
-    meeting_no        INT               REFERENCES meeting(meeting_no) NOT NULL, 
+    review_no         NUMBER            PRIMARY KEY, 
+    target_user_no    NUMBER            REFERENCES users(user_no) NOT NULL, 
+    score             NUMBER            NOT NULL, 
+    meeting_no        NUMBER            REFERENCES meeting(meeting_no) NOT NULL, 
     content           VARCHAR2(1000)    NOT NULL, 
     created_at        DATE              NOT NULL, 
-    on_hide           INT               NOT NULL, 
-    writer_user_no    INT               REFERENCES users(user_no) NOT NULL
+    on_hide           NUMBER            NOT NULL, 
+    writer_user_no    NUMBER            REFERENCES users(user_no) NOT NULL
 );
 
 -- trainer_info Table Create SQL
 CREATE TABLE trainer_info (
-    trainer_no              INT               PRIMARY KEY, 
-    user_no                 INT               REFERENCES users(user_no) NOT NULL, 
-    career                  INT               NOT NULL, 
+    trainer_no              NUMBER            PRIMARY KEY, 
+    user_no                 NUMBER            REFERENCES users(user_no) NOT NULL, 
+    career                  NUMBER            NOT NULL, 
     trainer_name            VARCHAR2(30)      NOT NULL, 
     certificate_filename    VARCHAR2(50)      NOT NULL, 
     employment              VARCHAR2(100)     NOT NULL, 
@@ -271,44 +251,44 @@ CREATE TABLE trainer_info (
 
 -- photo Table Create SQL
 CREATE TABLE photo (
-    photo_no             INT              PRIMARY KEY, 
-    photo_referer_sep    INT              NOT NULL, 
-    photo_referer_no     INT              NOT NULL, 
+    photo_no             NUMBER           PRIMARY KEY, 
+    photo_referer_sep    NUMBER           NOT NULL, 
+    photo_referer_no     NUMBER           NOT NULL, 
     photo_filename       VARCHAR2(100)    NOT NULL, 
     created_at           DATE             NOT NULL, 
-    on_hide              int              NOT NULL
+    on_hide              NUMBER           NOT NULL
 );
 
 -- alarm Table Create SQL
 CREATE TABLE alarm (
-    alarm_no            INT              PRIMARY KEY, 
-    alarm_separator     INT              NOT NULL, 
-    alarm_referer_no    INT              NOT NULL, 
+    alarm_no            NUMBER           PRIMARY KEY, 
+    alarm_separator     NUMBER           NOT NULL, 
+    alarm_referer_no    NUMBER           NOT NULL, 
     alarm_content       VARCHAR2(500)    NOT NULL, 
-    status              INT              NOT NULL, 
+    status              NUMBER           NOT NULL, 
     created_at          DATE             NOT NULL
 );
 
 -- user_interest Table Create SQL
 CREATE TABLE user_interest (
-    user_interest_no    INT    PRIMARY KEY, 
-    user_no             INT    REFERENCES users(user_no) NOT NULL, 
-    exercise_no         INT    REFERENCES exercise(exercise_no) NOT NULL
+    user_interest_no    NUMBER    PRIMARY KEY, 
+    user_no             NUMBER    REFERENCES users(user_no) NOT NULL, 
+    exercise_no         NUMBER    REFERENCES exercise(exercise_no) NOT NULL
 );
 
 -- materials Table Create SQL
 CREATE TABLE materials (
-    materials_no      INT             PRIMARY KEY, 
-    meeting_no        INT             REFERENCES meeting(meeting_no) NOT NULL, 
+    materials_no      NUMBER          PRIMARY KEY, 
+    meeting_no        NUMBER          REFERENCES meeting(meeting_no) NOT NULL, 
     materials_name    VARCHAR2(30)    NOT NULL, 
     created_at        DATE            NOT NULL
 );
 
 -- is_reviewed Table Create SQL
 CREATE TABLE is_reviewed (
-    is_reviewed_no    INT    PRIMARY KEY, 
-    meeting_no        INT    NOT NULL, 
-    target_user_no    INT    NOT NULL, 
-    writer_user_no    INT    NOT NULL, 
-    status            INT    NOT NULL
+    is_reviewed_no    NUMBER    PRIMARY KEY, 
+    meeting_no        NUMBER    NOT NULL, 
+    target_user_no    NUMBER    NOT NULL, 
+    writer_user_no    NUMBER    NOT NULL, 
+    status            NUMBER    NOT NULL
 );
