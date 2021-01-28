@@ -15,6 +15,6 @@ public class ScrapDto {
 	private int user_no;
 	private int scrap_separator;
 	private int scrap_referer_no;
-	private Date end_recruitment;
+	private Date end_gather_date;
 	private Date created_at;
 }
