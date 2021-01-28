@@ -56,7 +56,13 @@
 						<li><a href="javascript:void(0)" >사용자 블로그</a></li>
 					</ul>
 				</li>
-				<li><a href="javascript:void(0)" >커뮤니티</a></li>
+				<li>
+					<a href="javascript:void(0)" >커뮤니티</a>
+					<ul>
+						<li><a href="javascript:void(0)" >트레이너 클래스</a></li>					
+						<li><a href="javascript:void(0)" >운동 메이트</a></li>					
+					</ul>
+				</li>
 				<li><a href="javascript:void(0)" >트레이너</a></li>
 				<li><a href="javascript:void(0)" >질의응답</a></li>
 			</ul>
