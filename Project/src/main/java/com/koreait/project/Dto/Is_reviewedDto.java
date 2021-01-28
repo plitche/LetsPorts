@@ -13,6 +13,6 @@ public class Is_reviewedDto {
 	private int meeting_no;
 	private int target_user_no;
 	private int writer_user_no;
-	private int status;
+	private int status;	// 작성가능:0, 작성거부:1, 작성완료2
 	
 }
