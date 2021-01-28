@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AlertDto {
+public class AlarmDto {
 	
-	private int alert_no;
-	private int alert_separator;
-	private int alert_referer_no;
-	private String alert_content;
+	private int alarm_no;
+	private int alarm_separator;
+	private int alarm_referer_no;
+	private String alarm_content;
 	private int status;
 	private Date created_at;
 	
