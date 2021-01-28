@@ -5,4 +5,6 @@
 <br/><br/><br/><br/><br/><br/><br/>
 <h1>가장 메인페이지가 될 부분입니다.</h1>
 
+<input type="button" value="버튼" onclick="location.href='jungPages/page.jsp'"/>
+
 <%@ include file="template/footer.jsp" %>
