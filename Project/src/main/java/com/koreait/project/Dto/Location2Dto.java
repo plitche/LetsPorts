@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 public class Location2Dto {
 
 	private int location2_no;
-	private String location_name;
+	private String location2_name;
 	
 }
