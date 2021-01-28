@@ -58,7 +58,7 @@
 				</li>
 				<li>
 					<a href="javascript:void(0)" >커뮤니티</a>
-					<ul>
+					<ul class="depth2">
 						<li><a href="javascript:void(0)" >트레이너 클래스</a></li>					
 						<li><a href="javascript:void(0)" >운동 메이트</a></li>					
 					</ul>
