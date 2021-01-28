@@ -19,14 +19,11 @@ DROP TABLE users;
 DROP TABLE location2;
 DROP TABLE location1;
 
-DROP SEQUENCE location1_seq;
-DROP SEQUENCE location2_seq;
+
 DROP SEQUENCE users_seq;
-DROP SEQUENCE exercise_seq;
 DROP SEQUENCE meeting_seq;
 DROP SEQUENCE meeting_participants_seq;
 DROP SEQUENCE board_knowhow_seq;
-DROP SEQUENCE tags_seq;
 DROP SEQUENCE scrap_seq;
 DROP SEQUENCE trainer_qna_seq;
 DROP SEQUENCE comments_seq;
