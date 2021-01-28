@@ -2,6 +2,9 @@
 .classpath
 .project
 
+# Properties file  (생성된 .gitignore에 추가해 준 내용)
+config.properties
+
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,java,eclipse,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,java,eclipse,maven
 
@@ -137,6 +140,9 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
+<<<<<<< HEAD
+/.metadata/
+=======
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -165,3 +171,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,java,eclipse,maven
+>>>>>>> cbced9d78b97bd0da12dcbd52c4e9fc642717cb2
