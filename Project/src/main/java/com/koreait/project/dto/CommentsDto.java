@@ -1,4 +1,4 @@
-package com.koreait.project.Dto;
+package com.koreait.project.dto;
 
 import lombok.Data;
 

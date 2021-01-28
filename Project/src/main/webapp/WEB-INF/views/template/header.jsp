@@ -2,6 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<%
+	request.setCharacterEncoding("UTF-8");
+	String title = request.getParameter("title");
+	if (title == null || title.isEmpty()) {
+		title = "환영합니다";
+	}
+	pageContext.setAttribute("title", title);
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +67,7 @@
 						<li><a href="javascript:void(0)" >운동 메이트</a></li>					
 					</ul>
 				</li>
-				<li><a href="javascript:void(0)" >트레이너</a></li>
+				<li><a href="goTrainerList.do" >트레이너</a></li>
 				<li><a href="javascript:void(0)" >질의응답</a></li>
 			</ul>
 		</nav>
