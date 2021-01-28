@@ -14,7 +14,7 @@ public class UsersDto {
 	private int user_no;
 	private String email;
 	private String password;
-	private int user_separator;
+	private int user_separator; // 관리자:0, 트레이너:1, 일반회원:2
 	private Date created_at;
 	private Date last_login;
 	private int login_count;

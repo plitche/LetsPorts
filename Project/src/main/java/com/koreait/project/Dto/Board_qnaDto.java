@@ -16,7 +16,7 @@ public class Board_qnaDto {
 	private String board_qna_content;
 	private int user_no;
 	private Date created_at;
-	private int is_resolved;
+	private int is_resolved;	// 완료:1, 계속받겠다:0
 	private Date resolve_date;
 	private int on_hide;
 }
