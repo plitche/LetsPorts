@@ -15,3 +15,24 @@
 	color: black;
 }
 
+.maketrainerClass {
+	background: lightgray;
+	width: 200px;
+	height:200px;
+}
+
+.MeetingClass_all {
+	display:flex;
+}
+
+.MeetingClass {
+	background: lightgray;
+	width: 200px;
+	height:200px;
+	margin-left: 30px;
+}
+
+.MeetingClass_all > a {
+	text-decoration: none;
+}
+

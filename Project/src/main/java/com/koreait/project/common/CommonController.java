@@ -11,4 +11,6 @@ public class CommonController {
 	public String goIndex() {
 		return "index";
 	}
+	
+	
 }

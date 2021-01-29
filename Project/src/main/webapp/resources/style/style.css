@@ -113,8 +113,9 @@ nav {
 
 .body-wrap {
 	width: 1080px;
-	height: 500px;
+	height: 800px;
 	margin: 0 auto;
+	margin-bottom: 200px;
 }
 
 .footer {
