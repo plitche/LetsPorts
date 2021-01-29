@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>로그인 페이지</title>
+<!-- 로그인 및 비밀번호 찾기 모달창 -->
+
 <style type="text/css">
 	#modal_Tofind_pw {
 		display:none; 
@@ -53,7 +55,7 @@
 </head>
 <body>
 
-	<form>
+	<form method="post">
 		<h3>로그인</h3>
 		<div>
 			<input type="text" class="login_text" placeholder="E-MAIL" /><br/>

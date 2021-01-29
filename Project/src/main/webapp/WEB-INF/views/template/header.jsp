@@ -33,7 +33,7 @@
 			<ul class="top">
 				<%-- 로그인 하지 않은 상태 --%>
 				<c:if test="${loginDto eq null}">
-					<li><a href="javascript:void(0)" >LOGIN</a></li>
+					<li><a href="loginPage.hey" >LOGIN</a></li>
 					<li><a href="javascript:void(0)" >마이페이지</a></li>
 					<li>
 						<a href="javascript:void(0)" >
