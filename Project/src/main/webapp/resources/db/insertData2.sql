@@ -16,6 +16,7 @@ INSERT INTO TRAINER_INFO values (5, 12, 5, '박진희', '트레이너자격증',
 
 
 
+
 -- 트레이너 클래스 정보 5개
 -- 임시 모임(meeting) 3개 
 INSERT INTO MEETING values (5, 10, 10, 6, 0, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '족구합시다.', '족구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
@@ -25,3 +26,24 @@ INSERT INTO MEETING values (1, 10, 4, 2, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 
 INSERT INTO MATERIALS values (1, 1, '운동복', SYSDATE);
 
 SELECT * FROM MEETING
+
+-- 임시 모임(meeting) 3개 
+INSERT INTO MEETING values (5, 10, 10, 6, 0, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '족구합시다.', '족구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
+INSERT INTO MEETING values (6, 10, 8, 4, 3, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '볼링합시다.', '볼링하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
+INSERT INTO MEETING values (7, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
+
+-- 임시 모임 참가자 테이블 테스트케이스 
+INSERT INTO MEETING_PARTICIPANTS VALUES (1, 5, 11, SYSDATE, 1, null);
+INSERT INTO MEETING_PARTICIPANTS VALUES (2, 5, 12, SYSDATE, 1, null);
+
+-- 리뷰 테이블 평가 관련 테스트케이스
+INSERT INTO REVIEW values (5, 10, 4.0, 5, '꾀 괜찮았어요', SYSDATE, 0, 11);
+INSERT INTO REVIEW values (6, 10, 5.0, 5, '너무 좋았어요', SYSDATE, 0, 12);
+
+-- 트레이너에게 질문하는 테스트케이스
+INSERT INTO TRAINER_QNA values (20, 11, 10, '질문있어요1', '이거 좋아요?', SYSDATE, 1, 0, null, null, 0);
+INSERT INTO TRAINER_QNA values (21, 12, 10, '질문있어요2', '이거 별로져?', SYSDATE, 1, 0, null, null, 0);
+
+
+
+
