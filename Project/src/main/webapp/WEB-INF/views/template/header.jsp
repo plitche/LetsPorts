@@ -63,11 +63,15 @@
 				<li>
 					<a href="javascript:void(0)" >커뮤니티</a>
 					<ul class="depth2">
-						<li><a href="TrainerClassMain.trainer" >트레이너 클래스</a></li>					
+						<li><a href="TrainerClassListPage.leo" >트레이너 클래스</a></li>					
 						<li><a href="javascript:void(0)" >운동 메이트</a></li>					
 					</ul>
 				</li>
+
+				<li><a href="goTrainerList.do" >트레이너</a></li>
+
 				<li><a href="goTrainerList.plitche" >트레이너</a></li>
+
 				<li><a href="javascript:void(0)" >질의응답</a></li>
 			</ul>
 		</nav>

@@ -19,6 +19,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE U.USER_NO = #{user_no}
 	</select>
 	
+
+
 	<select id="findMeetings" parameterType="int" resultType="com.koreait.project.dto.MeetingDto">
 		SELECT *
 		  FROM MEETING
@@ -54,6 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO MATERIALS
 		VALUES (MATERIALS_SEQ.VAL, #{param1}, #{param2}, SYSDATE)
 	</insert>
+
 	
 	
 </mapper>

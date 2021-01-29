@@ -18,10 +18,11 @@ public class GoTrainerDetailCommand implements CommonVoidCommand {
 		
 		TrainerDao trainerDao = sqlSession.getMapper(TrainerDao.class);
 		model.addAttribute("trainerTemDto", trainerDao.trainerDetail(user_no));
+
 		model.addAttribute("meetingDto", trainerDao.findMeetings(user_no));
 		model.addAttribute("reviewDto", trainerDao.findReview(user_no));
 		model.addAttribute("trainer_qnaDto", trainerDao.findQuestion(user_no));
-		
+
 		
 	}
 

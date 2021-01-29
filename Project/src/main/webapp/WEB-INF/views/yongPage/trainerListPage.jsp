@@ -45,7 +45,11 @@
 			<tr>
 				<c:forEach var="trainerTemDto" items="${trainerList}">
 						<td>
+
+							<a href="goTrainerDetail.do?user_no=${trainerTemDto.user_no}" style="background: lightblue">
+
 							<a href="goTrainerDetail.plitche?user_no=${trainerTemDto.user_no}" style="background: lightblue">
+
 								<ul>
 									<li>사진 : ${trainerTemDto.profile_photo}</li>
 									<li>닉네임 : ${trainerTemDto.user_nickname}</li>
