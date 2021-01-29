@@ -190,8 +190,8 @@ CREATE TABLE trainer_qna (
     created_at              DATE              NOT NULL, 
     is_published            NUMBER            NOT NULL, 
     is_answered             NUMBER            NOT NULL, 
-    trainer_qna_answered    varchar2(2000)    NOT NULL, 
-    answered_date           DATE              NOT NULL, 
+    trainer_qna_answered    varchar2(2000)    NULL, 
+    answered_date           DATE              NULL, 
     on_hide                 NUMBER            NOT NULL
 );
 
