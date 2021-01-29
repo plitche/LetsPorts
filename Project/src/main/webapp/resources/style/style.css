@@ -61,7 +61,7 @@ nav {
 	margin: 0 auto;
 }
 
-.menu-bar>li>a, .depth1>li>a {
+.menu-bar>li>a {
 	display: inline-block;
 	width: 160px;
 	height: 60px;
@@ -77,23 +77,39 @@ nav {
 	color: white;
 }
 
-.menu-bar>li>a:nth-of-type(1), .depth1>li>a:nth-of-type(1) {
+.menu-bar>li>a:nth-of-type(1) {
 	backgournd: #
 }
-.depth1{
-	position: absolute;
+
+.depth2 > li > a {
+	text-decoration: none;
+	color: silver;
+	font-size: 20px;
+	font-weight: 700;
+	height: 60px;
+	line-height: 60px;
+}
+
+.depth2 > li {
+	text-align: center;
+}
+
+.depth2 {
 	z-index: 2;
-	padding: 0;
-}
-.depth1>li {
-	display: none;
+	padding:0px;
 }
 
-.menu-bar>li:hover>.depth1>li {
-	display: block;
+.depth2 > li {
+	visibility: hidden;
 }
 
+.menu-bar>li:hover>.depth2>li {
+	visibility: visible
+}
 
+.depth2 > li > a:hover {
+	color: black;
+}
 
 .body-wrap {
 	width: 1080px;
