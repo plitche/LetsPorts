@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.koreait.project.yongsoo.command.GoTrainerDetailCommand;
 import com.koreait.project.yongsoo.command.GoTrainerListCommand;
+import com.koreait.project.yongsoo.command.InsertMeetingCommand;
 
 @Configurable
 public class SooAppContext {
@@ -19,4 +20,8 @@ public class SooAppContext {
 		return new GoTrainerDetailCommand();
 	}
 	
+	@Bean
+	public InsertMeetingCommand insertMeetingCommand() {
+		return new InsertMeetingCommand();
+	}
 }

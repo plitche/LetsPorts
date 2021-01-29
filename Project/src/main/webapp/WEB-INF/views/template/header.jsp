@@ -67,7 +67,7 @@
 						<li><a href="javascript:void(0)" >운동 메이트</a></li>					
 					</ul>
 				</li>
-				<li><a href="goTrainerList.do" >트레이너</a></li>
+				<li><a href="goTrainerList.plitche" >트레이너</a></li>
 				<li><a href="javascript:void(0)" >질의응답</a></li>
 			</ul>
 		</nav>
