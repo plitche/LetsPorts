@@ -42,19 +42,19 @@ public class Paging {
 		if(beginPage <= pagePerBlock) {
 			sb.append("<i class=\"far fa-caret-square-left\"></i>&nbsp;");
 		} else {
-			sb.append("<a href='javascript:void(0);' onclick=\"memberList('" + path + "', " + (beginPage - 1) + ");\"><i class=\"far fa-caret-square-left\"></i>&nbsp;</a>");
+			sb.append("<a href='javascript:void(0);' onclick=\"" + path + "(" + (beginPage - 1) + ");\"><i class=\"far fa-caret-square-left\"></i>&nbsp;</a>");
 		}
 		for(int p = beginPage; p <= endPage; p++) {
 			if(p == page) {
 				sb.append("<span class=\"disable\">" + p + "&nbsp;</span>");
 			} else {
-				sb.append("<a href='javascript:void(0);' onclick=\"memberList('" + path + "', " + p + ");\">" + p + "&nbsp;</a>");
+				sb.append("<a href='javascript:void(0);' onclick=\"" + path + "(" + p + ");\">" + p + "&nbsp;</a>");
 			}
 		}
 		if(endPage >= totalPage) {
 			sb.append("<i class=\"far fa-caret-square-right\"></i>");
 		} else {
-			sb.append("<a href='javascript:void(0);' onclick=\"memberList('" + path + "', " + (endPage + 1) + ");\"><i class=\"far fa-caret-square-right\"></i>&nbsp;</a>");
+			sb.append("<a href='javascript:void(0);' onclick=\"" + path + "(" + (endPage + 1) + ");\"><i class=\"far fa-caret-square-right\"></i>&nbsp;</a>");
 		}
 		
 		return sb.toString();

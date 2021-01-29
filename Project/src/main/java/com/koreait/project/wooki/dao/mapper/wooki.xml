@@ -6,5 +6,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- Spring에서 새로 배우는 스타일 -->
 <mapper namespace="com.koreait.project.wooki.dao.WookiDao">
 	
+	<select id="adminLogin" parameterType="com.koreait.project.wooki.dto.UsersDto" resultType="com.koreait.project.wooki.dto.UsersDto">
+		select
+			*
+		from
+			users
+		where
+			email = #{email}
+			and password = #{password}
+	</select>
+	
+	<select id="totalRecord" resultType="int">
+		select
+			count(*)
+		from
+			users
+	</select>
+	
+	<select id="memberList" resultType="com.koreait.project.wooki.dto.UsersDto">
+		select
+			*
+		from
+			(select
+				rownum as rn, a.*
+			from
+				(select
+					*
+				from
+					users
+				where
+					user_separator = 2
+				order by
+					user_no desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
 	
 </mapper>

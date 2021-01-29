@@ -13,6 +13,7 @@ https://docs.google.com/spreadsheets/d/1USFXAv2A4UYUR_3R4XLEb9tTKBDNe6Fsp6DEAESR
 -------------------------index관련 내용------------------------------
 user 
 - 회원구분 (관리자 : 0, 트레이너 : 1, 일반회원 : 2)
+- 활성화여부 (활성화 : 0, 비활성화 : 1)
 
 scrap 
 - 스크랩대상 구분자 (노하우 : 0, 트레이너 : 1, 모임 : 2)
