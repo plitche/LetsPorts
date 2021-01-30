@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class TrainerClassDto {
 	
+	private int meeting_no;
 	private int user_no;
 	private String meeting_title;
 	private Date meeting_date;
@@ -22,7 +23,7 @@ public class TrainerClassDto {
 	private int location1_no;
 	private int location2_no;
 	private String detail_location;
-	private String materials_name; // join 대상자
+	private String[] materialList; // join 대상자
 	private String meeting_content;
 	
 

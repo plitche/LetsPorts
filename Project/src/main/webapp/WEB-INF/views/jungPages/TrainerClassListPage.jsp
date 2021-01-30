@@ -3,7 +3,7 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="../template/header.jsp" />
-<link type="text/css" rel="stylesheet" href="resources/style/TrainerClassPages/TrainerClassMain.css" >
+<link type="text/css" rel="stylesheet" href="resources/style/jung/TrainerClassMain.css" >
 
 <script>
 	
@@ -56,7 +56,7 @@
 		<!-- 트레이너 클래스 리스트 -->
 		<c:forEach var="MeetingDto" items="${MeetingDto}">
 			<div class="MeetingClass">
-				<a href="">${MeetingDto.meeting_title}</a><br/><br/>
+				<a href="TrainerClassViewPage.leo?meeting_no=${MeetingDto.meeting_no}">${MeetingDto.meeting_title}</a><br/><br/>
 				모임일 : ${MeetingDto.meeting_date}<br/>
 				운동 종목 : ${MeetingDto.exercise_no}<br/>
 			</div>
