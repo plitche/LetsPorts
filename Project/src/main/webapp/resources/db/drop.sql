@@ -19,7 +19,6 @@ DROP TABLE users;
 DROP TABLE location2;
 DROP TABLE location1;
 
-
 DROP SEQUENCE users_seq;
 DROP SEQUENCE meeting_seq;
 DROP SEQUENCE meeting_participants_seq;

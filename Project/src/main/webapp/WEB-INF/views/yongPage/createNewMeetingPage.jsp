@@ -29,7 +29,7 @@
 			<option value="6">댄스</option>
 			<option value="7">요가</option>
 			<option value="8">명상</option>
-		  </select>
+		  </select><br/>
 		
 	모임장소(숫자)	<br/><input type="text" name="location1_no"/><br/> 
 				<input type="text" name="location2_no"/><br/>

@@ -8,15 +8,6 @@ INSERT INTO TRAINER_INFO values (3, 10, 3, '김철수', '트레이너자격증',
 INSERT INTO TRAINER_INFO values (4, 11, 4, '곽영희', '트레이너자격증', '홍대센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
 INSERT INTO TRAINER_INFO values (5, 12, 5, '박진희', '트레이너자격증', '합정센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
 
-
-
-
-
-
-
-
-
-
 -- 트레이너 클래스 정보 5개
 -- 임시 모임(meeting) 3개 
 INSERT INTO MEETING values (5, 10, 10, 6, 0, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '족구합시다.', '족구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
@@ -24,8 +15,6 @@ INSERT INTO MEETING values (6, 10, 8, 4, 3, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 
 INSERT INTO MEETING values (7, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
 INSERT INTO MEETING values (1, 10, 4, 2, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 3,'축구교실', '운동은 다같이', 1, '', 1, '903동 1101호', 1);
 INSERT INTO MATERIALS values (1, 1, '운동복', SYSDATE);
-
-SELECT * FROM MEETING
 
 -- 임시 모임(meeting) 3개 
 INSERT INTO MEETING values (5, 10, 10, 6, 0, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '족구합시다.', '족구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
