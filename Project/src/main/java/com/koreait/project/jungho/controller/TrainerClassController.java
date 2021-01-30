@@ -9,9 +9,12 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.koreait.project.jungho.command.TrainerClassInsertCommand;
 import com.koreait.project.jungho.command.TrainerClassListCommand;
+import com.koreait.project.jungho.command.TrainerClassViewCommand;
 import com.koreait.project.jungho.config.JungAppContext;
 import com.koreait.project.jungho.dto.TrainerClassDto;
 
@@ -40,13 +43,30 @@ public class TrainerClassController {
 	}
 	
 	@RequestMapping(value="TrainerClassInsert.leo")
-	public String TrainerClassInsert(TrainerClassDto trainerClassDto, Model model) {
+	public String TrainerClassInsert(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("trainerClassDto", trainerClassDto);
+		model.addAttribute("request", request);
 		TrainerClassInsertCommand trainerClassInsertCommand = ctx.getBean("trainerClassInsertCommand", TrainerClassInsertCommand.class);
 		trainerClassInsertCommand.execute(sqlSession, model);
 		
 		return "redirect:TrainerClassListPage.leo";
+	}
+	
+	@RequestMapping(value="TrainerClassViewPage.leo")
+	public String TrainerClassViewPage(@RequestParam("meeting_no") int meeting_no, Model model) {
+		
+		model.addAttribute("meeting_no", meeting_no);
+		TrainerClassViewCommand trainerClassViewCommand = ctx.getBean("trainerClassViewCommand", TrainerClassViewCommand.class);
+		trainerClassViewCommand.execute(sqlSession, model);
+		
+		return "jungPages/TrainerClassViewPage";
+	}
+	
+	@RequestMapping(value="TrainerClassViewDelete.leo", method=RequestMethod.POST)
+	public String TrainerClassViewDelete() {
+		
+		return "";
+		
 	}
 	
 }

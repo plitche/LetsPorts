@@ -10,4 +10,6 @@ public interface TrainerClassDao {
 
 	public int trainerClassInsert(TrainerClassDto trainerClassDto);
 	
+	public TrainerClassDto trainerClassView(int meeting_no);
+	
 }
