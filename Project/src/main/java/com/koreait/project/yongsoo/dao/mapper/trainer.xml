@@ -19,8 +19,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE U.USER_NO = #{user_no}
 	</select>
 	
-
-
 	<select id="findMeetings" parameterType="int" resultType="com.koreait.project.dto.MeetingDto">
 		SELECT *
 		  FROM MEETING
@@ -50,13 +48,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findMeetingNo" resultType="int">
 		SELECT MAX(MEETING_NO)
 		  FROM MEETING
+		 WHERE USER_NO = #{user_no}
 	</select>
 	
 	<insert id="insertMaterialList">
 		INSERT INTO MATERIALS
 		VALUES (MATERIALS_SEQ.VAL, #{param1}, #{param2}, SYSDATE)
 	</insert>
-
+	
+	<insert id="insertQnAToTrainer" parameterType="com.koreait.project.dto.Trainer_qnaDto">
+		INSERT INTO TRAINER_QNA
+		VALUES (TRAINER_QNA_SEQ.NEXTVAL, #{question_user_no}, #{trainer_user_no}, #{trainer_qna_title},
+				#{trainer_qna_content}, SYSDATE, #{is_published}, 0, NULL, NULL, 0)
+	</insert>
+	
+	
+	
+	
+	
+	
 	
 	
 </mapper>

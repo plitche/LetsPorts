@@ -1,7 +1,6 @@
 package com.koreait.project.yongsoo.dto;
 
 import java.sql.Date;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +22,7 @@ public class CreateNewMeetingDto {
 	private int location1_no;
 	private int location2_no;
 	private String detail_location;
-	private List<String> materialList;
+	private String[] materialList;
 	private String meeting_content;
 	
 }
