@@ -4,7 +4,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <!-- Spring에서 새로 배우는 스타일 -->
-<mapper namespace="com.koreait.rest.dao.MemberDao">
+<mapper namespace="com.koreait.project.yewon.dao.KnowHowDao">
+	
+	<select id="knowHowList" parameterType="com.koreait.project.dto.Board_knowhowDto">
+		SELECT *
+		  FROM BOARD_KNOWHOW
+	</select>
+	
 	
 	
 </mapper>
