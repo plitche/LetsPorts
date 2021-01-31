@@ -18,14 +18,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(MEETING_SEQ.NEXTVAL, #{user_no}, #{meeting_max}, #{meeting_min}, #{exercise_no}, SYSDATE, #{start_gather_date}, #{end_gather_date}, #{meeting_date}, #{location1_no}, #{location2_no}, #{meeting_title}, #{meeting_content}, 0, null, 0, #{detail_location}, 0)	
 	</insert>
 	
-	<select id="">
+	<select id="findNewMeetingNo" resultType="int" parameterType="int">
 		SELECT MAX(MEETING_NO)
-		  FROM MEETING WHERE USER_NO = #{user_no}
+		  FROM MEETING WHERE USER_NO = #{param1}
 	</select>
+	
+	<insert id="materialsInsert">
+		INSERT INTO MATERIALS VALUES (MATERIALS_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE)
+	</insert>
 	
 	<select id="trainerClassView" parameterType="int" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
 		SELECT * FROM MEETING WHERE MEETING_NO = #{param1}
 	</select>
+	
+	<select id="materialsView" resultType="com.koreait.project.dto.MaterialsDto" parameterType="int">
+		SELECT * FROM MATERIALS WHERE MEETING_NO = #{param1}
+	</select>
+	
+	<delete id="materialsDelete" parameterType="int">
+		DELETE FROM MATERIALS WHERE MEETING_NO = #{param1}
+	</delete>
+	
+	<delete id="trainerClassDelete" parameterType="int" >
+		DELETE FROM MEETING WHERE MEETING_NO = #{param1}
+	</delete>
+	
+	<update id="trainerClassUpdate" parameterType="com.koreait.project.jungho.dto.TrainerClassDto">
+		UPDATE MEETING SET MEETING_TITLE = #{meeting_title}, MEETING_DATE = #{meeting_date}, START_GATHER_DATE = #{start_gather_date}, END_GATHER_DATE = #{end_gather_date}, MEETING_MIN = #{meeting_min}, MEETING_MAX = #{meeting_max}, EXERCISE_NO = #{exercise_no}, LOCATION1_NO = #{location1_no}, LOCATION2_NO = #{location2_no}, DETAIL_LOCATION = #{detail_location}, MEETING_CONTENT = #{meeting_content}
+		WHERE MEETING_NO = #{meeting_no}
+	</update>
+	
+	<update id="materialsViewUpdate">
+		UPDATE MATERIALS SET MATERIALS_NAME = #{param1} WHERE MEETING_NO = #{param2}
+	</update>
 	
 	
 	

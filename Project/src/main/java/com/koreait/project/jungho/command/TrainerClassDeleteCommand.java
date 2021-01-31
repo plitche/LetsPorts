@@ -1,17 +1,14 @@
 package com.koreait.project.jungho.command;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonVoidCommand;
-import com.koreait.project.dto.MaterialsDto;
 import com.koreait.project.jungho.dao.TrainerClassDao;
-import com.koreait.project.jungho.dto.TrainerClassDto;
 
-public class TrainerClassViewCommand implements CommonVoidCommand {
+public class TrainerClassDeleteCommand implements CommonVoidCommand {
 
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
@@ -21,13 +18,8 @@ public class TrainerClassViewCommand implements CommonVoidCommand {
 		
 		TrainerClassDao trainerClassDao = sqlSession.getMapper(TrainerClassDao.class);
 		
-		TrainerClassDto trainerClassDto = trainerClassDao.trainerClassView(meeting_no);
-		
-		List<MaterialsDto> list = trainerClassDao.materialsView(meeting_no);
-		
-		model.addAttribute("trainerClassDto", trainerClassDto);
-		model.addAttribute("list", list);
-		
+		trainerClassDao.materialsDelete(meeting_no);
+		trainerClassDao.trainerClassDelete(meeting_no);
 		
 		
 	}
