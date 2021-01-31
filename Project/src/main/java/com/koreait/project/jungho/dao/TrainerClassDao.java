@@ -17,6 +17,7 @@ public interface TrainerClassDao {
 	
 	public TrainerClassDto trainerClassView(int meeting_no);
 	
+	// 여러가지를 받아오기 때문에 list로 받아서 처리해야한다.
 	public List<MaterialsDto> materialsView(int meeting_no);
 	
 	public int materialsDelete(int meeting_no);
