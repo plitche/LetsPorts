@@ -1,4 +1,4 @@
-package com.koreait.project.yongsoo.command;
+package com.koreait.project.yongsoo.command.trainerQnA;
 
 import java.util.HashMap;
 import java.util.Map;

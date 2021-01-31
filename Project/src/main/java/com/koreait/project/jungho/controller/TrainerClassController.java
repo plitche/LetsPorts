@@ -1,7 +1,5 @@
 package com.koreait.project.jungho.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -12,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.koreait.project.jungho.command.TrainerClassDeleteCommand;
 import com.koreait.project.jungho.command.TrainerClassInsertCommand;
 import com.koreait.project.jungho.command.TrainerClassListCommand;
+import com.koreait.project.jungho.command.TrainerClassUpdateCommand;
 import com.koreait.project.jungho.command.TrainerClassViewCommand;
 import com.koreait.project.jungho.config.JungAppContext;
 import com.koreait.project.jungho.dto.TrainerClassDto;
@@ -43,9 +43,9 @@ public class TrainerClassController {
 	}
 	
 	@RequestMapping(value="TrainerClassInsert.leo")
-	public String TrainerClassInsert(HttpServletRequest request, Model model) {
+	public String TrainerClassInsert(TrainerClassDto trainerClassDto, Model model) {
 		
-		model.addAttribute("request", request);
+		model.addAttribute("trainerClassDto", trainerClassDto);
 		TrainerClassInsertCommand trainerClassInsertCommand = ctx.getBean("trainerClassInsertCommand", TrainerClassInsertCommand.class);
 		trainerClassInsertCommand.execute(sqlSession, model);
 		
@@ -63,10 +63,30 @@ public class TrainerClassController {
 	}
 	
 	@RequestMapping(value="TrainerClassViewDelete.leo", method=RequestMethod.POST)
-	public String TrainerClassViewDelete() {
+	public String TrainerClassViewDelete(@RequestParam("meeting_no") int meeting_no, Model model) {
 		
-		return "";
+		model.addAttribute("meeting_no", meeting_no);
+		TrainerClassDeleteCommand trainerClassDeletCommand = ctx.getBean("trainerClassDeleteCommand", TrainerClassDeleteCommand.class);
+		trainerClassDeletCommand.execute(sqlSession, model);
 		
+		return "redirect:TrainerClassListPage.leo";
+		
+	}
+	
+	@RequestMapping(value="TrainerClassViewUpdatePage.leo", method=RequestMethod.POST)
+	public String TrainerClassViewUpdatePage(TrainerClassDto trainerClassDto, Model model) {
+		model.addAttribute("trainerClassDto", trainerClassDto);
+		return "jungPages/TrainerClassViewUpdatePage";
+	}
+	
+	@RequestMapping(value="TrainerClassViewUpdate.leo", method=RequestMethod.POST)
+	public String TrainerClassViewUpdate(TrainerClassDto trainerClassDto, Model model) {
+		
+		model.addAttribute("trainerClassDto", trainerClassDto);
+		TrainerClassUpdateCommand trainerClassUpdateCommand = ctx.getBean("trainerClassUpdateCommand", TrainerClassUpdateCommand.class);
+		trainerClassUpdateCommand.execute(sqlSession, model);
+		
+		return "redirect:TrainerClassViewPage.leo?meeting_no=" + trainerClassDto.getMeeting_no();
 	}
 	
 }

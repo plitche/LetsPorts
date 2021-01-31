@@ -23,7 +23,7 @@ public class TrainerClassDto {
 	private int location1_no;
 	private int location2_no;
 	private String detail_location;
-	private String[] materialList; // join 대상자
+	private String[] materials_name; // join 대상자
 	private String meeting_content;
 	
 

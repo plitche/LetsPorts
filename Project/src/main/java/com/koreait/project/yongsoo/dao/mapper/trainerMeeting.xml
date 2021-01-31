@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.koreait.project.yongsoo.dao.TrainerMeetingDao">
+	
+	<select id="findMeetings" parameterType="int" resultType="com.koreait.project.dto.MeetingDto">
+		SELECT *
+		  FROM MEETING
+		 WHERE USER_NO = #{user_no}
+	</select>
+
+	<select id="findMeetingInfo" parameterType="int" resultType="com.koreait.project.dto.MeetingDto">
+		SELECT *
+		  FROM MEETING
+		 WHERE MEETING_NO = #{meeting_no}
+	</select>
+	<select id="findMaterialsInfo" parameterType="int" resultType="com.koreait.project.dto.MaterialsDto">
+		SELECT *
+		  FROM MATERIALS
+		 WHERE MEETING_NO = #{meeting_no}
+	</select>
+	<select id="findUserInfo" parameterType="int" resultType="com.koreait.project.dto.UsersDto">
+		SELECT *
+		  FROM USERS
+		 WHERE USER_NO = #{user_no}
+	</select>
+	<select id="findTrainerInfo" parameterType="int" resultType="com.koreait.project.dto.Trainer_infoDto">
+		SELECT *
+		  FROM TRAINER_INFO
+		 WHERE USER_NO = #{user_no}
+	</select>
+	<!-- 
+	<select id="findOtherMeeting2" parameterType="int" resultType="com.koreait.project.dto.MeetingDto">
+		SELECT *
+		  FROM MEETING
+		 WHERE USER_NO != #{param1}
+		   AND EXERCISE_NO = ${param2}
+	</select>
+ 	-->
+ 	
+	<insert id="createMeeting" parameterType="com.koreait.project.yongsoo.dto.CreateNewMeetingDto">
+		INSERT INTO MEETING
+		VALUES (MEETING_SEQ.NEXTVAL, #{user_no}, #{meeting_max}, #{meeting_min}, #{exercise_no},
+		    	SYSDATE, #{start_gather_date}, #{end_gather_date}, #{meeting_date}, #{location1_no},
+		    	#{location2_no}, #{meeting_title}, #{meeting_content}, 0, null, 0, #{detail_location}, 0)
+	</insert>
+	<select id="findMeetingNo" resultType="int">
+		SELECT MAX(MEETING_NO)
+		  FROM MEETING
+		 WHERE USER_NO = #{user_no}
+	</select>
+	<insert id="insertMaterialList">
+		INSERT INTO MATERIALS
+		VALUES (MATERIALS_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE)
+	</insert>
+ 	
+	<select id="getOtherMeeting" resultType="com.koreait.project.dto.MeetingDto">
+		SELECT *
+		  FROM MEETING
+		 WHERE USER_NO = #{param1}
+		   AND MEETING_NO != ${param2} 
+	</select>
+ 	
+ 		
+</mapper>
