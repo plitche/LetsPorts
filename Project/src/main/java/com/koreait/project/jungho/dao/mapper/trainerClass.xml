@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.koreait.project.jungho.dao.TrainerClassDao">
 	
 	<select id="trainerClassList" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
-		SELECT M1.meeting_title, M1.meeting_date, M1.start_gather_date, M1.end_gather_date, M1.meeting_min,
+		SELECT M1.meeting_no, M1.meeting_title, M1.meeting_date, M1.start_gather_date, M1.end_gather_date, M1.meeting_min,
 		meeting_max, M1.exercise_no, M1.location1_no, M1.location2_no, M1.detail_location, M2.materials_name, M1.meeting_content
 		FROM MEETING M1 FULL OUTER JOIN MATERIALS M2
 		ON M1.MEETING_NO = M2.MEETING_NO
@@ -15,12 +15,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="trainerClassInsert" parameterType="com.koreait.project.jungho.dto.TrainerClassDto">
 		INSERT INTO MEETING VALUES
-		(MEETING_SEQ.NEXTVAL, #{user_no}, #{meeting_max}, #{meeting_min}, #{exercise_no}, SYSDATE, #{start_gather_date}, #{end_gather_date}, #{meeting_date}, #{location1_no}, #{location2_no}, #{meeting_title}, #{meeting_content}, null, null, null, #{detail_location}, null)	
+		(MEETING_SEQ.NEXTVAL, #{user_no}, #{meeting_max}, #{meeting_min}, #{exercise_no}, SYSDATE, #{start_gather_date}, #{end_gather_date}, #{meeting_date}, #{location1_no}, #{location2_no}, #{meeting_title}, #{meeting_content}, 0, null, 0, #{detail_location}, 0)	
 	</insert>
 	
 	<select id="">
 		SELECT MAX(MEETING_NO)
-		  FROM MEETING
+		  FROM MEETING WHERE USER_NO = #{user_no}
+	</select>
+	
+	<select id="trainerClassView" parameterType="int" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
+		SELECT * FROM MEETING WHERE MEETING_NO = #{param1}
 	</select>
 	
 	
