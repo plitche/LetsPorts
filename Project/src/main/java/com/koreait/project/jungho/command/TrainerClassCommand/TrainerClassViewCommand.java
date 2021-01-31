@@ -1,4 +1,4 @@
-package com.koreait.project.jungho.command;
+package com.koreait.project.jungho.command.TrainerClassCommand;
 
 import java.util.List;
 import java.util.Map;
@@ -21,11 +21,15 @@ public class TrainerClassViewCommand implements CommonVoidCommand {
 		
 		TrainerClassDao trainerClassDao = sqlSession.getMapper(TrainerClassDao.class);
 		
+		// 모임에 관련된 값들을 받아오고 trainerClassDto에 저장
 		TrainerClassDto trainerClassDto = trainerClassDao.trainerClassView(meeting_no);
 		
+		// 준비물에 관련된 값들을 받아오고 list에 저장
 		List<MaterialsDto> list = trainerClassDao.materialsView(meeting_no);
 		
+		// 모임에 관련된 값들을 보내주는 값
 		model.addAttribute("trainerClassDto", trainerClassDto);
+		// 준비물에 대한 값들을 보내주는 값
 		model.addAttribute("list", list);
 		
 		

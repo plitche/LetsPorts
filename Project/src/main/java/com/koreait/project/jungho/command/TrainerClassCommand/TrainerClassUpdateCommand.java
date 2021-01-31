@@ -1,4 +1,4 @@
-package com.koreait.project.jungho.command;
+package com.koreait.project.jungho.command.TrainerClassCommand;
 
 import java.sql.Date;
 import java.util.Map;
