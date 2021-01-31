@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.koreait.project.yewon.command.GoknowHowListCommand;
 import com.koreait.project.yewon.config.WonAppContext;
 
+import sun.rmi.transport.proxy.HttpReceiveSocket;
+
 @Controller
 public class WonController {
 
@@ -37,7 +39,10 @@ public class WonController {
 	
 	
 	@RequestMapping(value="boardknowHowInsertPage.limyeng")
-	public String boardknowHowInsertPage() {
+	public String boardknowHowInsertPage(HttpServletRequest request,
+										 Model model) {
+		
+		
 		return "wonPages/board_knowhow/boardknowHowInsertPage";
 	}
 

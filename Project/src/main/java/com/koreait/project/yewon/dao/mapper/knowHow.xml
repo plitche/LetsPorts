@@ -11,6 +11,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM BOARD_KNOWHOW
 	</select>
 	
+	<insert id="knowHowInsert" parameterType=".Board_knowhowDto">
+		INSERT * 
+	</insert>
 	
 	
 </mapper>
