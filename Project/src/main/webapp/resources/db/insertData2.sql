@@ -36,3 +36,7 @@ INSERT INTO TRAINER_QNA values (21, 12, 10, '질문있어요2', '이거 별로�
 
 
 select * from MEETING;
+select * from MATERIALS;
+
+
+

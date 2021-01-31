@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <jsp:include page="../template/header.jsp" />
 <link type="text/css" rel="stylesheet" href="resources/style/jung/TrainerClassViewPage.css" >
     
@@ -18,7 +20,11 @@
 				   운동 종목 : ${trainerClassDto.exercise_no}<br/><br/>
 				   모임장소 : ${trainerClassDto.location1_no} ${trainerClassDto.location2_no}<br/><br/>
 				   상세 주소 : ${trainerClassDto.detail_location}<br/><br/>
-				   준비물 :<br/><br/>
+				   준비물 :
+				   <c:forEach var="materialsDto" items="${list}">
+					   	${materialsDto.materials_name}
+				   </c:forEach>
+				   <br/><br/>
 				   상세내용 : ${trainerClassDto.meeting_content}<br/><br/>
 	    	   
 	    	   </div>
@@ -46,29 +52,34 @@
 			   <input type="hidden" name="location2_no" value="${trainerClassDto.location2_no}" />
 			   <input type="hidden" name="detail_location" value="${trainerClassDto.detail_location}" />
 			   <input type="hidden" name="meeting_content" value="${trainerClassDto.meeting_content}" />
+			   <!-- 받은 여러개의 materials 값을 보내기 위한 작업 -->
+			   <c:forEach var="materialsList" items="${list}">
+				   <input type="hidden" name="materials_name" value="${materialsList.materials_name}" />
+			   </c:forEach>
 			   
     	   
     	   </div>
 			   
 			   <!-- 버튼들 -->
-			   <input type="button" value="수정" onclick="fn_TrainerClassViewUpdate(this.form)" />
+			   <input type="button" value="수정" onclick="fn_TrainerClassViewUpdatePage(this.form)" />
 			   <input type="button" value="삭제" onclick="fn_TrainerClassViewDelete(this.form)" />
 			   <input type="button" value="등록하기" onclick="" />
 		   
     </form>
-    
+
+
     <script>
 
-			function fn_TrainerClassViewUpdate(f) {
-				f.action = 'TrainerClassDelete.leo';
+			function fn_TrainerClassViewUpdatePage(f) {
+				f.action = 'TrainerClassViewUpdatePage.leo';
 				f.submit();
 			}
 
 			function fn_TrainerClassViewDelete(f) {
-				if(confirm('삭제하시겠습니까?') {
+				if(confirm('삭제하시겠습니까?')) {
 					f.action = 'TrainerClassViewDelete.leo';
+					f.submit();
 				}
-				f.submit();
 			}
 
 	</script>
