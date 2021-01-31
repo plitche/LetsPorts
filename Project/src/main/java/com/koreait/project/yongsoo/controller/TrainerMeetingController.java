@@ -31,8 +31,7 @@ public class TrainerMeetingController {
 	private AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(SooAppContext.class);
 	
 	// 트레이너 디테일 페이지에서 트레이너 모임 리스트를 불러오기 위한 메소드
-	@RequestMapping(value="getTrainerMeetingList.plitche/{user_no}", method=RequestMethod.GET, 
-					produces="application/json; charset=utf-8")
+	@RequestMapping(value="getTrainerMeetingList.plitche/{user_no}", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getTrainerMeetingList(@PathVariable("user_no") int user_no, Model model) {
 		model.addAttribute("user_no", user_no);

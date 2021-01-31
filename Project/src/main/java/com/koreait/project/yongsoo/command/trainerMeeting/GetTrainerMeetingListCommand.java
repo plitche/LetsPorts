@@ -23,15 +23,15 @@ public class GetTrainerMeetingListCommand implements CommonMapCommand {
 		
 		List<MeetingDto> meetingList = trainerMeetingDao.findMeetings(user_no);
 		
-		Map<String, Object> getMeetingListResult = new HashMap<>();
+		Map<String, Object> result = new HashMap<String, Object>();
 		if (meetingList.size()>0) {
-			getMeetingListResult.put("result", true);
-			getMeetingListResult.put("meetingList", meetingList);
+			result.put("result", true);
+			result.put("meetingList", meetingList);
 		} else {
-			getMeetingListResult.put("result", false);
+			result.put("result", false);
 		}
 		
-		return getMeetingListResult;
+		return result;
 	}
 
 }

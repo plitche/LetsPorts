@@ -3,12 +3,12 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.koreait.project.yongsoo.dao.commentDao">
+<mapper namespace="com.koreait.project.yongsoo.dao.CommentDao">
 	
 	<select id="getCommentList" parameterType="int" resultType="com.koreait.project.dto.CommentsDto">
 		SELECT *
 		  FROM COMMENTS
-		 WEHRE COMMENT_REFERER_NO = #{meeting_no} 
+		 WHERE COMMENT_REFERER_NO = #{meeting_no}
 	</select>
 	
 	<insert id="addComment" parameterType="com.koreait.project.dto.CommentsDto">

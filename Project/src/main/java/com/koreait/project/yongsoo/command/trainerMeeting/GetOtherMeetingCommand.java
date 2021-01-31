@@ -23,14 +23,14 @@ public class GetOtherMeetingCommand implements CommonMapCommand {
 		
 		TrainerMeetingDao trainerMeetingDao = sqlSession.getMapper(TrainerMeetingDao.class);
 		List<MeetingDto> meetingList = trainerMeetingDao.getOtherMeeting(user_no, meeting_no);
-		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<String, Object>();
+
 		if (meetingList.size()>0) {
-			map.put("result", true);
-			map.put("meetingList", meetingList);
+			result.put("result", true);
+			result.put("meetingList", meetingList);
 		} else {
-			map.put("result", false);
+			result.put("result", false);
 		}
-			
 		return result;
 	}
 

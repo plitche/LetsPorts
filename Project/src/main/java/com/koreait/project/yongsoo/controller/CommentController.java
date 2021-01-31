@@ -29,7 +29,7 @@ public class CommentController {
 	@RequestMapping(value="getCommentList.plitche/{meeting_no}", method=RequestMethod.GET, 
 					produces="application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> getCommentList(@PathVariable("user_no") int meeting_no, Model model) {
+	public Map<String, Object> getCommentList(@PathVariable("meeting_no") int meeting_no, Model model) {
 		model.addAttribute("meeting_no", meeting_no);
 		GetCommentListCommand getCommentListCommand = ctx.getBean("getCommentListCommand", GetCommentListCommand.class);
 		return getCommentListCommand.execute(sqlSession, model);

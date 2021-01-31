@@ -50,15 +50,9 @@
 			contentType: 'application/json; charset=UTF-8',
 			dataType: 'json',
 			success: function(responseObj) {
-				alert(responseObj);
-				alert(responseObj.getMeetingListResult);
-				alert(responseObj.result);
-				alert(responseObj.meetingList);
-				if (responseObj.result) {
-					alert('true');
+				if (responseObj.result == true) {
 					getOtherMeetingTable(responseObj.meetingList);
 				} else {
-					alert('false');
 					$('<tr>')
 					.append( $('<td colspan="4">').html('다른 모임 게시글이 없습니다.') )
 				}
