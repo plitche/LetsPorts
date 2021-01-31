@@ -1,5 +1,6 @@
 package com.koreait.project.yongsoo.command;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -16,8 +17,7 @@ public class InsertMeetingCommand implements CommonVoidCommand {
 
 		Map<String, Object> map = model.asMap();
 		CreateNewMeetingDto createNewMeetingDto = (CreateNewMeetingDto)map.get("createNewMeetingDto");
-		String[] materialList = createNewMeetingDto.getMaterialList();
-		
+		List<String> materialList = createNewMeetingDto.getMaterialList();
 		// 일단 세션이 없다보니 임시로 10이라고 지정해 둠
 		int user_no = 10;
 		createNewMeetingDto.setUser_no(user_no);
@@ -28,12 +28,13 @@ public class InsertMeetingCommand implements CommonVoidCommand {
 		
 		// 새로 생성된 모임 번호를 가져오기위한 메소드 호출
 		int meeting_no = trainerDao.findMeetingNo(user_no);
-		
+
 		// 새로 생성된 모임번호와 준비물을 저장하기 위한 메소드 호출
-		for (int i=0; i<materialList.length; i++) {
-			String material = materialList[i];
+		for (int i=0; i<materialList.size(); i++) {
+			String material = materialList.get(i);
 			trainerDao.insertMaterialList(meeting_no, material);
 		}
+		
 		
 	}
 

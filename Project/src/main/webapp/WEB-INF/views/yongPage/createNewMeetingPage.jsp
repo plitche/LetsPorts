@@ -36,9 +36,9 @@
 	상세주소
 	<br/><input type="text" name="detail_location"/><br/>
 	준비물	
-	<br/><input type="text" name="materials_name"/><br/>
-	<br/><input type="text" name="materials_name"/><br/>
-	<br/><input type="text" name="materials_name"/><br/>
+	<br/><input type="text" name="materialList"/><br/>
+	<br/><input type="text" name="materialList"/><br/>
+	<br/><input type="text" name="materialList"/><br/>
 	상세내용		
 	<br/><textarea rows="10" cols="50" name="meeting_content"></textarea><br/>
 	

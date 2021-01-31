@@ -8,6 +8,25 @@
 	<jsp:param value="트레이너 상세 페이지" name="title"/>
 </jsp:include>
 
+<!-- 질문 클릭 시 상세 내용이 modal로 나오게 하기 위한 ajax -->
+<script>
+	$(document).ready(function(){
+		showQNA();
+	});
+
+	function showQNA() {
+		$(document).on('click', '.showQNA', function() {
+			alert($('input[name="trainer_qna_no"]').val());
+			alert($('a.showQNA').closest('tr').find('input:hidden[name=trainer_qna_no]').val());
+			alert($('a.showQNA').parents('tr').find('input:hidden[name="trainer_qna_no"]').val());
+		});
+	}
+	
+	function fn_showQNA(no) {
+		alert(no);
+	}
+</script>
+
 <!-- 질문 작성완료 클릭 시 form정보를 보내 줄 ajax -->
 <script>
 	$(document).ready(function(){
@@ -44,10 +63,12 @@
 						$.each(responseObj.qnaList, function(idx, qna){
 							$('<tr>')
 							.append( $('<td>').html(qna.trainer_qna_no) )
-							.append( $('<td>').html(qna.trainer_qna_title) )
+							.append( $('<td>').html('<a href="javascript:void(0)" class="showQNA" >' + qna.trainer_qna_title + '</a>') )
+							.append( $('<input type="hidden" name="trainer_qna_no">').val(qna.trainer_qna_no) )
 							.append( $('<td>').html(qna.trainer_qna_content) )
 							.append( $('<td>').html(qna.question_user_no) )
 							.append( $('<td>').html(qna.created_at) )
+							.append( $('<td>').html('<a href="">답변달기</a>') )
 							.appendTo('#qnaList');
 						});
 					} else {
@@ -65,13 +86,14 @@
 	}
 </script>
 
+<div>
 	트레이너 사진 파일 이름: ${trainerTemDto.profile_photo} <br/>
 	트레이너 닉네임 : ${trainerTemDto.user_nickname} <br/>
 	상태 메세지 : ${trainerTemDto.user_message} <br/>
 	트레이너 경력 : ${trainerTemDto.career}년 <br/>
 	트레이너 활동 센터 : ${trainerTemDto.employment} <br/>
 	트레이너 프로필 : ${trainerTemDto.profile} <br/>
-<br/>
+</div><br/>
 <div>
 	<div>${trainerTemDto.user_nickname} 트레이너의 프로그램</div>
 	총 : ##개  &nbsp;&nbsp;&nbsp;&nbsp; <a href="goCreateMeetingPage.plitche">새 프로그램 등록하기</a> <br/>
@@ -104,8 +126,7 @@
 			</c:if>
 		</tbody>
 	</table>
-</div>
-<br/>
+</div><br/>
 <div>
 	<div>${trainerTemDto.user_nickname} 트레이너가 받은 리뷰</div>
 	총 : ##개  &nbsp;&nbsp;&nbsp;&nbsp; <a href="">새 리뷰 등록하기</a> <br/>	
@@ -138,8 +159,7 @@
 			</c:if>
 		</tbody>
 	</table>
-</div>
-<br/>
+</div><br/>
 <div>
 	<div>${trainerTemDto.user_nickname} 트레이너에게 질문</div>
 	총 : ##개  &nbsp;&nbsp;&nbsp;&nbsp; <button type="button" id="openQNAModal">새 질문 등록하기</button> 
@@ -166,6 +186,7 @@
 				<td>질문내용</td>
 				<td>작성자</td>
 				<td>일시</td>
+				<td>비고</td>
 			</tr>
 		</thead>
 		<tbody id="qnaList">
@@ -178,10 +199,15 @@
 				<c:forEach var="list" items="${trainer_qnaDto}">
 					<tr>
 						<td>${list.trainer_qna_no}</td>
-						<td>${list.trainer_qna_title}</td>
+						<td>
+							<a href="#" class="showQNA" onclick="fn_showQNA(${list.trainer_qna_no}); return false;">
+								${list.trainer_qna_title}
+							</a>
+						</td>
 						<td>${list.trainer_qna_content}</td>
 						<td>${list.question_user_no}</td>
 						<td>${list.created_at}</td>
+						<td><a href="">답변달기</a></td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -205,4 +231,11 @@
 	}   
 	 */
 </script>
+
+
+
 <%@ include file="../template/footer.jsp" %>
+
+
+
+

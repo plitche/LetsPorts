@@ -27,10 +27,10 @@ public interface TrainerDao {
 	
 	// 트레이너 모임 개설 페이지에서 meeting테이블에 insert를 하기위한 메소드
 	public int createNewMeeting(CreateNewMeetingDto createNewMeetingDto);
+
+	public int findMeetingNo(int user_no);
 	
 	// 새로 생성된 모임의 모임번호를 가져오기 위한 메소드
-	public int findMeetingNo(int user_no);
-
 	// 새로 생성된 모임번호와 준비물을 저장하기 위한 메소드
 	public int insertMaterialList(int meeting_no, String material);
 	

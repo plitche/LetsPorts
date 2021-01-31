@@ -53,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="insertMaterialList">
 		INSERT INTO MATERIALS
-		VALUES (MATERIALS_SEQ.VAL, #{param1}, #{param2}, SYSDATE)
+		VALUES (MATERIALS_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE)
 	</insert>
 	
 	<insert id="insertQnAToTrainer" parameterType="com.koreait.project.dto.Trainer_qnaDto">
