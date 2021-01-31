@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="../template/header.jsp" />
-<link type="text/css" rel="stylesheet" href="resources/style/TrainerClassPages/TrainerClassMain.css" >
+<link type="text/css" rel="stylesheet" href="resources/style/TrainerClassPages/.css" >
 
 
-<form action="TrainerClassInsert.leo" enctype="multipart-">
+<form action="TrainerClassInsert.leo" >
 
 
 	모집제목 <input type="text"	 name="meeting_title"/><br/>

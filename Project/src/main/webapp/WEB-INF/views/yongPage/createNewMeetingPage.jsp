@@ -16,9 +16,9 @@
 	<br/><input type="date" name="end_gather_date"/><br/>
 
 	모집최소(숫자)
-	<br/><input type="text" name="meeting_max"/><br/>
-	모집최대(숫자)
 	<br/><input type="text" name="meeting_min"/><br/>
+	모집최대(숫자)
+	<br/><input type="text" name="meeting_max"/><br/>
 	카테고리 <select name="exercise_no">
 			<option value="0">족구</option>
 			<option value="1">축구</option>
