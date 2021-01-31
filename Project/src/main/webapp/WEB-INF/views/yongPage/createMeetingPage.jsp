@@ -5,7 +5,7 @@
 	<jsp:param value="트레이너 모임 개설 페이지" name="title"/>
 </jsp:include>
 
-<form action="createNewMeeting.plitche">
+<form action="createMeeting.plitche">
 	모집 제목
 	<br/><input type="text" name="meeting_title"/><br/>
 	모임일(날짜)

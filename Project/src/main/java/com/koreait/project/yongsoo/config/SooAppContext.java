@@ -3,10 +3,14 @@ package com.koreait.project.yongsoo.config;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 
-import com.koreait.project.yongsoo.command.GoTrainerDetailCommand;
-import com.koreait.project.yongsoo.command.GoTrainerListCommand;
-import com.koreait.project.yongsoo.command.InsertMeetingCommand;
-import com.koreait.project.yongsoo.command.WriteTrainerQnACommand;
+import com.koreait.project.yongsoo.command.comment.AddCommentCommand;
+import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerDetailCommand;
+import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerListCommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.GetTrainerMeetingListCommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.GoMeetingViewCommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.CreateMeetingCommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherMeetingCommand;
+import com.koreait.project.yongsoo.command.trainerQnA.WriteTrainerQnACommand;
 
 @Configurable
 public class SooAppContext {
@@ -22,12 +26,33 @@ public class SooAppContext {
 	}
 	
 	@Bean
-	public InsertMeetingCommand insertMeetingCommand() {
-		return new InsertMeetingCommand();
+	public CreateMeetingCommand createMeetingCommand() {
+		return new CreateMeetingCommand();
+	}
+
+	@Bean
+	public GoMeetingViewCommand goMeetingViewCommand() {
+		return new GoMeetingViewCommand();
 	}
 	
 	@Bean
 	public WriteTrainerQnACommand writeTrainerQnACommand() {
 		return new WriteTrainerQnACommand();
 	}
+
+	@Bean
+	public AddCommentCommand addCommentCommand() {
+		return new AddCommentCommand();
+	}
+	
+	@Bean
+	public GetTrainerMeetingListCommand getTrainerMeetingListCommand() {
+		return new GetTrainerMeetingListCommand();
+	}
+	
+	@Bean
+	public GetOtherMeetingCommand getOtherMeetingCommand() {
+		return new GetOtherMeetingCommand();
+	}
+	
 }

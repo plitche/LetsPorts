@@ -11,57 +11,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM USERS U FULL OUTER JOIN TRAINER_INFO T
 		    ON U.USER_NO = T.USER_NO
 	</select>
-	
 	<select id="trainerDetail" parameterType="int" resultType="com.koreait.project.yongsoo.dto.TrainerTemDto">
 		SELECT T.user_no, U.user_nickname, T.trainer_name, U.user_message, U.profile_photo, T.career, T.employment, T.profile, U.location1_no, U.location2_no
 		  FROM USERS U FULL OUTER JOIN TRAINER_INFO T
 		    ON U.USER_NO = T.USER_NO
 		 WHERE U.USER_NO = #{user_no}
 	</select>
-	
-	<select id="findMeetings" parameterType="int" resultType="com.koreait.project.dto.MeetingDto">
-		SELECT *
-		  FROM MEETING
-		 WHERE USER_NO = #{user_no}
-	</select>
-	
+	<!-- 
 	<select id="findReview" parameterType="int" resultType="com.koreait.project.dto.ReviewDto">
 		SELECT *
 		  FROM REVIEW
 		 WHERE TARGET_USER_NO = #{user_no}
 	</select>
-	
 	<select id="findQuestion" parameterType="int" resultType="com.koreait.project.dto.Trainer_qnaDto">
 		SELECT *
 		  FROM TRAINER_QNA
 		 WHERE TRAINER_USER_NO = #{user_no}
 	</select>
+	 -->
+
 	
-	<insert id="createNewMeeting" parameterType="com.koreait.project.yongsoo.dto.CreateNewMeetingDto">
-		INSERT INTO MEETING
-		VALUES (MEETING_SEQ.NEXTVAL, #{user_no}, #{meeting_max}, #{meeting_min}, #{exercise_no},
-		    	SYSDATE, #{start_gather_date}, #{end_gather_date}, #{meeting_date}, #{location1_no},
-		    	#{location2_no}, #{meeting_title}, #{meeting_content}, 0, null, 0, #{detail_location},
-		    	0)
-	</insert>
-	
-	<select id="findMeetingNo" resultType="int">
-		SELECT MAX(MEETING_NO)
-		  FROM MEETING
-		 WHERE USER_NO = #{user_no}
-	</select>
-	
-	<insert id="insertMaterialList">
-		INSERT INTO MATERIALS
-		VALUES (MATERIALS_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE)
-	</insert>
-	
+	<!-- 
 	<insert id="insertQnAToTrainer" parameterType="com.koreait.project.dto.Trainer_qnaDto">
 		INSERT INTO TRAINER_QNA
 		VALUES (TRAINER_QNA_SEQ.NEXTVAL, #{question_user_no}, #{trainer_user_no}, #{trainer_qna_title},
 				#{trainer_qna_content}, SYSDATE, #{is_published}, 0, NULL, NULL, 0)
 	</insert>
-	
+	 -->
 	
 	
 	

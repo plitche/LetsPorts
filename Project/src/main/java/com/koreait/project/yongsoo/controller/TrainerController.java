@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koreait.project.dto.Trainer_qnaDto;
-import com.koreait.project.yongsoo.command.GoTrainerDetailCommand;
-import com.koreait.project.yongsoo.command.GoTrainerListCommand;
-import com.koreait.project.yongsoo.command.InsertMeetingCommand;
-import com.koreait.project.yongsoo.command.WriteTrainerQnACommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.GoMeetingViewCommand;
+import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerDetailCommand;
+import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerListCommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.CreateMeetingCommand;
+import com.koreait.project.yongsoo.command.trainerQnA.WriteTrainerQnACommand;
 import com.koreait.project.yongsoo.config.SooAppContext;
 import com.koreait.project.yongsoo.dto.CreateNewMeetingDto;
 
 @Controller
-public class SooController {
+public class TrainerController {
 
 	@Autowired
 	private SqlSession sqlSession;
@@ -46,20 +47,6 @@ public class SooController {
 		return "yongPage/trainerDetailPage";
 	}
 	
-	// 트레이너 프로그램 등록 - 미팅(모임) 게시글 작성 페이지로 단순이동을 위한 메소드
-	@RequestMapping(value="goCreateMeetingPage.plitche")
-	public String goCreateMeetingPage() {
-		return "yongPage/createNewMeetingPage";
-	}
-	
-	// 모임 작성 후 작성완료 버튼 클릭시 작동할 메소드
-	@RequestMapping(value="createNewMeeting.plitche")
-	public String createNewMeeting(CreateNewMeetingDto createNewMeetingDto, Model model) {
-		model.addAttribute("createNewMeetingDto", createNewMeetingDto);
-		InsertMeetingCommand insertMeetingCommand = ctx.getBean("insertMeetingCommand", InsertMeetingCommand.class);
-		insertMeetingCommand.execute(sqlSession, model);
-		return "redirect:goTrainerDetail.plitche?user_no="+10;
-	}
 	
 	// 질문 작성 후 작성완료 버튼 클릭시 ajax처리를 위한 메소드
 	@RequestMapping(value="writeQnA.plitche", method=RequestMethod.POST, 
@@ -70,5 +57,12 @@ public class SooController {
 		WriteTrainerQnACommand writeTrainerQnACommand = ctx.getBean("writeTrainerQnACommand", WriteTrainerQnACommand.class);
 		return writeTrainerQnACommand.execute(sqlSession, model);
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 }

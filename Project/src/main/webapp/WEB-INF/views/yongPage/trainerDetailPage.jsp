@@ -8,32 +8,69 @@
 	<jsp:param value="트레이너 상세 페이지" name="title"/>
 </jsp:include>
 
-<!-- 질문 클릭 시 상세 내용이 modal로 나오게 하기 위한 ajax -->
+
+<!-- 트레이너 모임 리스트를 불러오기 위한 ajax -->
 <script>
-	$(document).ready(function(){
-		showQNA();
+	/* 페이지 로드 */
+	$(document).ready(function() {
+		trainerMeetingListTable();
+		getTrainerMeetingList();
+		
 	});
 
-	function showQNA() {
-		$(document).on('click', '.showQNA', function() {
-			alert($('input[name="trainer_qna_no"]').val());
-			alert($('a.showQNA').closest('tr').find('input:hidden[name=trainer_qna_no]').val());
-			alert($('a.showQNA').parents('tr').find('input:hidden[name="trainer_qna_no"]').val());
+	/* 불러온 모임 list를 토대로 append 해주기 위한 function */
+	function trainerMeetingListTable(list) {
+		$('#trainerMeetingList').empty();
+		$.each(list, function(idx, meeting){
+			$('<tr>')
+			.append( $('<td>').html(meeting.meeting_no) )
+			.append( $('<td>').html('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">' + meeting.meeting_title + '</a>') )
+			.append( $('<td>').html('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">' + meeting.meeting_content + '</a>') )
+			.append( $('<td>').html(meeting.meeting_content) )
+			.append( $('<td>').html(meeting.meeting_min) )
+			.append( $('<td>').html(meeting.meeting_max) )
+			.append( $('<td>').html(meeting.meeting_date) )
+			.appendTo('#trainerMeetingList');
 		});
 	}
 	
-	function fn_showQNA(no) {
-		alert(no);
+	/* 트레이너 리스트페이지에서 트레이너 디테일 페이지로 이동시 자동으로 실행 될 함수(모임 리스트 불러오기용) */
+	function getTrainerMeetingList() {
+		var user_no = ${trainerTemDto.user_no};
+		$.ajax ({
+			url: 'getTrainerMeetingList.plitche/' + user_no,
+			type: 'get',
+			dataType: 'json',
+			success: function(responseObj) {
+				if (responseObj.result) {
+					trainerMeetingListTable(responseObj.meetingList);
+				} else {
+					$('<tr>')
+					.append( $('<td>').html('등록된 모임 정보가 없습니다.') )
+					.appendTo('#trainerMeetingList');
+				}
+			},
+			error: function(){alert('실패');}
+		});
+	}
+	
+	/* 트레이너 모임 리스트의 제목이나 내용을 클릭하면 모임 View페이지로 이동할 함수 */
+	function fn_showMeeting(meeting_no) {
+		location.href = 'meetingViewPage.plitche?meeting_no='+meeting_no;
 	}
 </script>
 
+
+
 <!-- 질문 작성완료 클릭 시 form정보를 보내 줄 ajax -->
 <script>
+	// 페이지 로드
 	$(document).ready(function(){
 		writeQuestion();
 		closeModal();
 	});
 	
+	// 작성된 내용을 처리하는 ajax 함수
 	function writeQuestion() {
 		$('#writeQuestion').click(function() {
 			var question_user_no = 11; /* 일단 임시로 작성자 번호는 11로 둠 */
@@ -42,7 +79,6 @@
 			var trainer_qna_content = $('input[name="trainer_qna_content"]').val();
 			var is_published = $('input[name="is_published"]').val();
 			// ${trainer_user_no} 이렇게도 될까 ?
-
 			var sendObj = {
 				"question_user_no" : question_user_no,	
 				"trainer_user_no" : trainer_user_no,
@@ -50,6 +86,7 @@
 				"trainer_qna_content" : trainer_qna_content,
 				"is_published" : is_published
 			};
+			
 			$.ajax({
 				url: 'writeQnA.plitche',
 				type: 'post',
@@ -63,7 +100,7 @@
 						$.each(responseObj.qnaList, function(idx, qna){
 							$('<tr>')
 							.append( $('<td>').html(qna.trainer_qna_no) )
-							.append( $('<td>').html('<a href="javascript:void(0)" class="showQNA" >' + qna.trainer_qna_title + '</a>') )
+							.append( $('<td>').html('<a href="#" onclick="fn_showQNA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
 							.append( $('<input type="hidden" name="trainer_qna_no">').val(qna.trainer_qna_no) )
 							.append( $('<td>').html(qna.trainer_qna_content) )
 							.append( $('<td>').html(qna.question_user_no) )
@@ -79,10 +116,17 @@
 			});
 		});
 	}
+	// ajax처리 후 modal창 닫아주는 함수
 	function closeModal() {
 		$('#writeQuestion').click(function() {
 			$('#modal').attr("style", "display:none");
 		});
+	}
+</script>
+<!-- 질문 클릭 시 상세 내용이 modal로 나오게 하기 위한 ajax -->
+<script>
+	function fn_showQNA(no) {
+		alert(no);
 	}
 </script>
 
@@ -100,31 +144,15 @@
 	<table border="1">
 		<thead>
 			<tr>
-				<td>코스번호</td>
-				<td>제목</td>
-				<td>내용</td>
-				<td>최대 참가 인원</td>
-				<td>일시</td>
+				<td>코스번호 </td>
+				<td>제목 </td>
+				<td>내용 </td>
+				<td>최소참가인원 </td>
+				<td>최대참가인원 </td>
+				<td>일시 </td>
 			</tr>
 		</thead>
-		<tbody>
-			<c:if test="${empty meetingDto}">
-				<tr>
-					<td colspan="5">개설된 프로그램이 없습니다.</td>
-				</tr>
-			</c:if>
-			<c:if test="${not empty meetingDto}">
-				<c:forEach var="list" items="${meetingDto}">
-					<tr>
-						<td>${list.meeting_no}</td>
-						<td>${list.meeting_title}</td>
-						<td>${list.meeting_content}</td>
-						<td>${list.meeting_max}</td>
-						<td>${list.meeting_date}</td>
-					</tr>
-				</c:forEach>
-			</c:if>
-		</tbody>
+		<tbody id="trainerMeetingList"></tbody>
 	</table>
 </div><br/>
 <div>
@@ -200,7 +228,7 @@
 					<tr>
 						<td>${list.trainer_qna_no}</td>
 						<td>
-							<a href="#" class="showQNA" onclick="fn_showQNA(${list.trainer_qna_no}); return false;">
+							<a href="#" onclick="fn_showQNA(${list.trainer_qna_no}); return false;">
 								${list.trainer_qna_title}
 							</a>
 						</td>
