@@ -1,4 +1,4 @@
-package com.koreait.project.yongsoo.command;
+package com.koreait.project.yongsoo.command.commonTrainer;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
