@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.common.CommonVoidCommand;
-import com.koreait.project.wooki.dao.WookiDao;
-import com.koreait.project.wooki.dto.UsersDto;
+import com.koreait.project.hyejoon.dao.UsersDao;
+import com.koreait.project.hyejoon.dto.UsersDto;
 
 public class UsersLoginCommand implements CommonVoidCommand {
 	
@@ -23,8 +23,8 @@ public class UsersLoginCommand implements CommonVoidCommand {
 		HttpSession session = request.getSession();
 		RedirectAttributes redirect = (RedirectAttributes) map.get("redirect");
 		
-		WookiDao wookiDao = sqlSession.getMapper(WookiDao.class);
-		UsersDto loginUser = wookiDao.adminLogin(usersDto);
+		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
+		UsersDto loginUser = usersDao.usersLogin(usersDto);
 		if(loginUser == null) {
 			redirect.addFlashAttribute("loginResult", 1);
 		} else {

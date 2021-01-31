@@ -1,6 +1,6 @@
 package com.koreait.project.hyejoon.dao;
 
-import com.koreait.project.wooki.dto.UsersDto;
+import com.koreait.project.hyejoon.dto.UsersDto;
 
 public interface UsersDao {
 	

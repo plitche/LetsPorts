@@ -8,48 +8,115 @@
 <!-- 로그인 및 비밀번호 찾기 모달창 -->
 
 <style type="text/css">
-	#modal_Tofind_pw {
-		display:none; 
-		position:relative;
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+	
+	html, body {
+	  width: 100%;
+	  height: 100%;
+	  margin: 0;
 	}
-	#modal_Tofind_pw .modalContent {
-		width:440px; 
-		height:200px; 
-		padding:20px; 
-		border:1px solid #ccc; 
-		position:fixed; 
-		left:50%; 
-		top:50%; 
-		z-index:11; 
-		background:#fff;
+	
+	.page-wrapper {
+	  width: 100%;
+	  height: 100%;
+	  background: url(https://goo.gl/OeVhun) center no-repeat;
+	  background-size: cover;
 	}
-	#modal_Tofind_pw .modalContent button {
-		position:absolute; 
-		right:0; 
-		top:0; 
-		cursor:pointer;
+	
+	.blur-it {
+	  filter: blur(4px);
+	}
+	
+	a.btn {
+	  width: 200px;
+	  padding: 18px 0;
+	  position: absolute;
+	  top: 50%; 
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	  font-weight: 700;
+	  text-align: center;
+	  text-decoration: none;
+	  text-transform: uppercase;
+	  color: #fff;
+	  border-radius: 0;
+	  background: #e2525c;
+	}
+	
+	.modal-wrapper {
+	  width: 100%;
+	  height: 100%;
+	  position: fixed;
+	  top: 0; 
+	  left: 0;
+	  background: rgba(41, 171, 164, 0.8);
+	  visibility: hidden;
+	  opacity: 0;
+	  transition: all 0.25s ease-in-out;
+	}
+	
+	.modal-wrapper.open {
+	  opacity: 1;
+	  visibility: visible;
+	}
+	
+	.modal {
+	  width: 600px;
+	  height: 400px;
+	  display: block;
+	  margin: 50% 0 0 -300px;
+	  position: relative;
+	  top: 50%; 
+	  left: 50%;
+	  background: #fff;
+	  opacity: 0;
+	  transition: all 0.5s ease-in-out;
+	}
+	
+	.modal-wrapper.open .modal {
+	  margin-top: -200px;
+	  opacity: 1;
+	}
+	
+	.head { 
+	  width: 90%;
+	  height: 32px;
+	  padding: 12px 30px;
+	  overflow: hidden;
+	  background: #e2525c;
+	}
+	
+	.btn-close {
+	  font-size: 28px;
+	  display: block;
+	  float: right;
+	  color: #fff;
+	}
+	
+	.content {
+	  padding: 10%;
+	}
+	
+	.good-job {
+	  text-align: center;
+	  font-family: 'Montserrat', Arial,       Helvetica, sans-serif;
+	  color: #e2525c;
+	}
+	.good-job .fa-thumbs-o-up {
+	  font-size: 60px;
+	}
+	.good-job h1 {
+	  font-size: 45px;
 	}
 </style>
 <script type="text/javascript">
-	$(document).ready(function(){
-	  var modal_Tofind_pw = $("#modal_Tofind_pw");
-	  var modalLink = $(".modalLink");
-	  var modalCont = $(".modalContent");
-	  var marginLeft = modalCont.outerWidth()/2;
-	  var marginTop = modalCont.outerHeight()/2; 
-
-	  modalLink.click(function(){
-	    modal_Tofind_pw.fadeIn("slow");
-	    modalCont.css({"margin-top" : -marginTop, "margin-left" : -marginLeft});
-	    $(this).blur();
-	    $(".modalContent > a").focus(); 
-	    return false;
+$( document ).ready(function() {
+	  $('.trigger').on('click', function() {
+	     $('.modal-wrapper').toggleClass('open');
+	    $('.page-wrapper').toggleClass('blur-it');
+	     return false;
 	  });
-
-	  $(".modalContent > button").click(function(){
-	    modal_Tofind_pw.fadeOut("fast");
-	    modalLink.focus();
-	  });		
 	});
 </script>
 </head>
@@ -61,13 +128,37 @@
 			<input type="text" class="login_text" placeholder="E-MAIL" /><br/>
 			<input type="text" class="login_text" placeholder="PW" /><br/>
 			
-			<a href="#modal_Tofind_pw" class="modalLink">비밀번호 찾기</a>
-				<div id="modal_Tofind_pw">
-				  <div class="modalContent">
-				    <a href="#">모달창 테스트</a> 
-				    <button type="button">닫기</button>	
-				  </div>
-				</div>
+				
+				
+				
+				<!-- 모달 창 테스트 -->
+				
+				<!-- Button -->
+		<div class="page-wrapper">
+		  <a class="btn trigger" href="#">click me</a>
+		</div>
+		
+		<!-- Modal -->
+		<div class="modal-wrapper">
+		  <div class="modal">
+		    <div class="head">
+		      <a class="btn-close trigger" href="#">
+		        <i class="fa fa-times" aria-hidden="true"></i>
+		      </a>
+		    </div>
+		    <div class="content">
+		        <div class="good-job">
+		          <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+		          <h1>Good Job!</h1>
+		        </div>
+		    </div>
+		  </div>
+		</div>
+				
+				
+				
+				
+				
 				
 			<input type="button" class="login_btns" value="로그인"><br/>
 		</div>
