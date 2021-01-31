@@ -25,6 +25,6 @@ INSERT INTO REVIEW values (6, 10, 5.0, 5, '너무 좋았어요', SYSDATE, 0, 12)
 INSERT INTO TRAINER_QNA values (20, 11, 10, '질문있어요1', '이거 좋아요?', SYSDATE, 1, 0, null, null, 0);
 INSERT INTO TRAINER_QNA values (21, 12, 10, '질문있어요2', '이거 별로져?', SYSDATE, 1, 0, null, null, 0);
 
-
+select * from meeting
 select * from MATERIALS
 select * from TRAINER_QNA
