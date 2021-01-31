@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     
 <jsp:include page="../template/header.jsp" />
 <link type="text/css" rel="stylesheet" href="resources/style/jung/TrainerClassViewPage.css" >
@@ -82,6 +82,18 @@
 
 	</script>
 	
+	
+	<br/><br/><br/><br/><br/>
+	
+	<div>댓글 ~~ 개</div><br/>
+	<div class="createComment_all">
+		<div id="myPhoto"><img alt="내 프로필" src="" /></div>
+		<div id="createComment"><input type="text" name="createComment" placeholder="댓글 추가..."/></div>
+		<div class="btns">
+			<input type="button" value="취소" />
+			<input type="button" value="댓글달기" />
+		</div>
+	</div>
 	
 	
 	
