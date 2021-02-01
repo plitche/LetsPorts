@@ -1,5 +1,93 @@
 @charset "UTF-8";
 
+* {
+	box-sizing: border-box;	
+}
+
+/* 상단 트레이너 프로필 css */
+#trainerInfo {
+	display: flex;
+	margin-top: 50px;
+}
+#trainerSimple {
+	width: 30%;
+	margin-right: 30px;
+}
+#trainerDetail {
+	width: 70%;
+}
+#trainerImage {
+	width: 250px;
+	height: 250px;
+	background: silver;
+}
+#trainerDetail pre {
+	word-break: break-all;
+}
+
+/* 하단 탭형식 css */
+#tab {
+	width: 810px;
+	height: auto;
+	overflow: hidden;
+	margin: 0 auto;
+}
+#tab ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	width: 100%;
+	height: auto;
+}
+#tab ul li{
+	display: inline-block;
+	width: 250px;
+	margin-top: 50px;
+	margin-bottom: 30px;
+	margin: 50px 10px 30px 10px;
+	line-height: 50px;
+	float: left;
+	text-align: center;
+	cursor: pointer;
+}
+#tab ul li:hover, #tab ul li.on {
+	background: #ccc;
+}
+#tab .conBox {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	min-height: 200px;
+	background: #ccc;
+	display: none;
+}
+#tab .conBox.on {
+	display: block;
+	margin-bottom: 30px;
+}
+
+/* tap에서 모임 탭의 css */
+#trainerMeetingList a {
+	text-decoration: none;
+	color: inherit;	
+	float: left;
+}
+#trainerMeetingList .trainerMeeting {
+	border: dashed red;
+	border-radius: 10%;
+	width: 250px;
+	height: auto;
+	margin: 10px 10px;
+}
+.trainerMeeting div {
+	height: 100px;
+	text-align: center;
+	line-height: 100px;
+	border: 1px solid black;
+	border-radius: 15%;
+}
+
+/* modal창을 위한 css */
 #modal {
 	display: none;
 	position:fixed; 
@@ -9,12 +97,10 @@
 	left: 0; 
 	z-index: 1;
 }
-
 #modal button {
 	width: 30px;
 	height: 30px;
 }
-
 #modal .modal_content {
 	position: fixed;
 	top:50%; left:50%;
@@ -26,7 +112,6 @@
 	margin: 0 auto;
 	padding: 40px;
 }
-
 #modal .modal_layer {
 	position: fixed;
 	top: 0;
@@ -36,11 +121,9 @@
 	background:rgba(0, 0, 0, 0.5);
 	z-index: -1;
 }
-
 #content, #title {
 	width: 400px;
 }
-
 #content {
 	height: 300px;
 }

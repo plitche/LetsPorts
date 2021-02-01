@@ -5,20 +5,17 @@
 	display: flex;
 	width: 100%;
 }
-
 #ManageTrainer div {
 	display: flex;
 	flex-direction: column;
 	width: 33%;
 	margin-right: 20px;
 }
-
 #ManageTrainer p:nth-child(1) {
 	font-weight: 800;
 	font-size: 1.5rem;
 	width: 100%;
 }
-
 #ManageTrainer p:nth-child(2) {
 	font-size: 1rem;
 	width: 100%;
@@ -29,7 +26,6 @@
 	display: flex;
 	flex-wrap: wrap;
 }
-
 #trainer-list a {
 	width: 33%;
 	color: inherit;

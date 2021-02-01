@@ -44,16 +44,7 @@ public class TrainerController {
 		return "yongPage/trainerDetailPage";
 	}
 	
-	
-	// 질문 작성 후 작성완료 버튼 클릭시 ajax처리를 위한 메소드
-	@RequestMapping(value="writeQnA.plitche", method=RequestMethod.POST, 
-					produces="application/json; charset=utf-8")
-	@ResponseBody
-	public Map<String, Object> writeQnA(@RequestBody Trainer_qnaDto trainer_qnaDto, Model model) {
-		model.addAttribute("trainer_qnaDto", trainer_qnaDto);
-		WriteTrainerQnACommand writeTrainerQnACommand = ctx.getBean("writeTrainerQnACommand", WriteTrainerQnACommand.class);
-		return writeTrainerQnACommand.execute(sqlSession, model);
-	}
+
 	
 	
 	
