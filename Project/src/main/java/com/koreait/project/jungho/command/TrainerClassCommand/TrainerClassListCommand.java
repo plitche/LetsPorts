@@ -12,8 +12,8 @@ public class TrainerClassListCommand implements CommonVoidCommand {
 	public void execute(SqlSession sqlSession, Model model) {
 		
 		// 모든 클래스목록들을 뿌려주기 위한 작업
-		TrainerClassDao trainerClassdao = sqlSession.getMapper(TrainerClassDao.class);
-		model.addAttribute("MeetingDto", trainerClassdao.trainerClassList());
+		TrainerClassDao trainerClassDao = sqlSession.getMapper(TrainerClassDao.class);
+		model.addAttribute("MeetingList", trainerClassDao.trainerClassList());
 		
 	}
 
