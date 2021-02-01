@@ -13,6 +13,9 @@
 	<link rel="stylesheet" href="resources/wooki/css/common.css">
 	<script src="resources/wooki/js/common.js"></script>
 	<script>
+		if('${loginUser}' != '' && fn_adminCheck(${loginUser.user_separator})) {
+			location.href = 'adminIndex.wooki';
+		}
 		fn_loginCehck(${loginResult});
 	</script>
 	
