@@ -1,5 +1,7 @@
 package com.koreait.project.yewon.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,7 +11,9 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.koreait.project.yewon.command.GoknowHowInsertCommand;
 import com.koreait.project.yewon.command.GoknowHowListCommand;
 import com.koreait.project.yewon.config.WonAppContext;
 
@@ -33,27 +37,33 @@ public class WonController {
 	*/
 	
 	@RequestMapping(value = "goboard_knowhowList.limyeng")
-	public String listPage() {
-		return "wonPages/board_knowhow/board_knowhowListPage";
+	public String listPage(Model model) {
+		GoknowHowListCommand goknowHowListCommand = ctx.getBean("goknowhowListCommand", GoknowHowListCommand.class);
+		goknowHowListCommand.execute(sqlSession, model);
+		return "wonPages/board_knowhow/board_knowHowListPage";
+		
 	}
-	
+
 	
 	@RequestMapping(value="boardknowHowInsertPage.limyeng")
 	public String boardknowHowInsertPage(HttpServletRequest request,
 										 Model model) {
-		
 		
 		return "wonPages/board_knowhow/boardknowHowInsertPage";
 	}
 
 	
 	
-	@RequestMapping(value = "boardknowhowViewPage.limyeng")
-	public String boardknowHowViewPage(HttpServletRequest request, 
-									   Model model) {
-		
-		return "wonPages/board_knowhow/boardknowhoViewPage";
+	@RequestMapping(value = "board_knowhowViewPage.limyeng", method=RequestMethod.GET)
+	public String boardknowHowViewPage(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		GoknowHowInsertCommand goknowHowInsertCommand = ctx.getBean("goknowHowInsertCommand", GoknowHowInsertCommand.class);
+		goknowHowInsertCommand.execute(sqlSession, model);
+		return "redirect:goboard_knowHowList.limyeng";
 	}
+	
+	
+	
 	
 	
 	

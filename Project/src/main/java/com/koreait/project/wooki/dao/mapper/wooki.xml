@@ -23,7 +23,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			users
 	</select>
 	
-	<select id="memberList" resultType="com.koreait.project.wooki.dto.UsersDto">
+	<select id="userList" resultType="com.koreait.project.wooki.dto.UsersDto">
+		select
+			*
+		from
+			(select
+				rownum as rn, a.*
+			from
+				(select
+					*
+				from
+					users
+				order by
+					user_no desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
+	
+	<select id="filterTotalRecord" resultType="int">
+		select
+			count(*)
+		from
+			users
+		where
+			<if test='param1 == "user_no"'>
+				${param1} = #{param2}
+			</if>
+			<if test='param1 != "user_no"'>
+				${param1} like '%' ||  #{param2} || '%'
+			</if>
+			<if test='param3 != ""'>
+				and user_separator = #{param3}
+			</if>
+	</select>
+	
+	<select id="filterUserList" resultType="com.koreait.project.wooki.dto.UsersDto">
 		select
 			*
 		from
@@ -35,11 +69,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				from
 					users
 				where
-					user_separator = 2
+					<if test='param3 == "user_no"'>
+						${param3} = #{param4}
+					</if>
+					<if test='param3 != "user_no"'>
+						${param3} like '%' ||  #{param4} || '%'
+					</if>
+					<if test='param5 != ""'>
+						and user_separator = #{param5}
+					</if>
 				order by
 					user_no desc) a) b
 		where
 			b.rn between #{param1} and #{param2}
 	</select>
+	
+	<select id="changeEmailIsPossible" parameterType="String" resultType="int">
+		select
+			count(*)
+		from
+			users
+		where
+			email = #{email}
+	</select>
+	
+	<update id="changeEmail" parameterType="com.koreait.project.wooki.dto.UsersDto">
+		update
+			users
+		set
+			email = #{email}
+		where
+			user_no = #{user_no}
+	</update>
+	
+	<update id="updateTempPass" parameterType="com.koreait.project.wooki.dto.UsersDto">
+		update
+			users
+		set
+			password = #{password}
+		where
+			user_no = #{user_no}
+	</update>
 	
 </mapper>

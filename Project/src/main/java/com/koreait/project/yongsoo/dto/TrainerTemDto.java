@@ -19,5 +19,7 @@ public class TrainerTemDto {
 	private String profile;
 	private int location1_no;
 	private int location2_no;
+	private int score;
+	private int reviews;
 	
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- Spring에서 새로 배우는 스타일 -->
+<mapper namespace="com.koreait.project.jungho.dao.TrainerClassCommentDao">
+	
+	<select id="commentList" resultType="com.koreait.project.dto.CommentsDto">
+		SELECT * FROM COMMENTS WHERE MEETING_NO = #{meeting_no}
+	</select>
+	
+	<insert id="commentInsert" parameterType="com.koreait.project.dto.CommentsDto">
+		INSERT INTO COMMENTS VALUES
+		(COMMENTS_SEQ.NEXTVAL, 1, #{meeting_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
+	</insert>
+
+</mapper>

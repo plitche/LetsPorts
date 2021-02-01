@@ -50,17 +50,12 @@
 			contentType: 'application/json; charset=UTF-8',
 			dataType: 'json',
 			success: function(responseObj) {
-				alert(responseObj);
-				alert(responseObj.getMeetingListResult);
-				alert(responseObj.result);
-				alert(responseObj.meetingList);
-				if (responseObj.result) {
-					alert('true');
+				if (responseObj.result == true) {
 					getOtherMeetingTable(responseObj.meetingList);
 				} else {
-					alert('false');
 					$('<tr>')
 					.append( $('<td colspan="4">').html('다른 모임 게시글이 없습니다.') )
+					.appendTo('#otherMeeting');
 				}
 			},
 			error: function(){alert('실패');}
@@ -74,6 +69,61 @@
 	}
 </script>
 
+<!-- 다른 호스트의 같은 운동 모임 list ajax -->
+<script>
+	/* 페이지로드 */
+	$(document).ready(function() {
+		getOtherHostMeetingList();
+	});
+	
+	/* 다른 호스트의 같은 운동종목 모임을 만들어주는, 서브 함수 */
+	function otherHostMeetingTable(list) {
+		$('#otherHostMeeting').empty();
+		$.each(list, function(idx, meeting){
+			$('<tr>')
+			.append( $('<td>').html(meeting.meeting_no) )
+			.append( $('<td>').html('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">' + meeting.meeting_title + '</a>') )
+			.append( $('<td>').html(meeting.meeting_date ) )
+			.append( $('<td>').html(meeting.user_nickname ) )
+			.append( $('<td>').html(meeting.created_at ) )			
+			.appendTo('#otherHostMeeting');
+		});
+	}
+	
+	/* 트레이너 View페이지에서 모임View페이지로 넘어올 때 자동으로 실행될 ajax 함수 */
+	function getOtherHostMeetingList() {
+		var user_no = ${meetingDto.user_no};
+		var exercise_no = ${meetingDto.exercise_no};
+		var sendObj = {
+			"user_no": user_no,
+			"exercise_no": exercise_no
+		};
+	
+		$.ajax ({
+			url: 'getOtherHostMeeting.plitche',
+			type: 'post',
+			data: JSON.stringify(sendObj),
+			contentType: 'application/json; charset=UTF-8',
+			dataType: 'json',
+			success: function(responseObj) {
+				if (responseObj.result) {
+					otherHostMeetingTable(responseObj.meetingList);
+				} else {
+					$('<tr>')
+					.append( $('<td colspan="5">').html('같은 운동종목의 다른 모임이 없습니다.') )
+					.appendTo('#otherHostMeeting');
+				}
+			},
+			error: function(){alert('실패3');}
+		});
+	}
+	
+	/* 트레이너의 다른 모임 제목을 클릭하면 해당모임 View페이지로 이동할 함수 */
+	function fn_showMeeting(meeting_no) {
+		location.href = 'meetingViewPage.plitche?meeting_no='+meeting_no;
+	}
+</script>
+
 <!-- 댓글을 위한 ajax  -->
 <script>
 	$(document).ready(function() {
@@ -81,6 +131,7 @@
 		addComment();
 	});	
 	
+	// 가져온 뎃글 목록을 직접 append처리 해주기 위한 서브 함수
 	function commentListTable(list) {
 		$('#commentContent').empty();
 		$.each(list, function(idx, comment){
@@ -88,43 +139,47 @@
 			.append( $('<td>').html(comment.comment_no) )
 			.append( $('<td>').html(comment.user_no) )
 			.append( $('<td>').html(comment.comment_content) )
-			.append( $('<td>').html(comment.create_at) )
+			.append( $('<td>').html(comment.created_at) )
 			.append( $('<input type="hidden" name="comment_no"/>').val(comment.comment_no) )
-			.append( $('<td>').html('<input type="button" value="수정" id="" />') )
-			.append( $('<td>').html('<input type="button" value="삭제" id="" />') )
+			.append( $('<td>').html('<input type="button" value="수정" onclick="fn_updateComment" />') )
+			.append( $('<td>').html('<input type="button" value="삭제" onclick="fn_deleteComment(' + comment.comment_no + ')" />') )
 			.appendTo('#commentContent');
 		});
 	}
 	
+	// 모임 View페이지로 이동시 자동으로 뎃글 목록을 가져올 ajax함수
 	function getCommentList() {
 		var meeting_no = ${meetingDto.meeting_no};
+		
 		$.ajax ({
 			url: 'getCommentList.plitche/'+ meeting_no,
 			type: 'get',
 			dataType :'json',
 			success: function(responseObj) {
-				if(resopnseObj.result) {
+				if(responseObj.result) {
 					commentListTable(responseObj.commentList);	
 				} else {
+					$('#commentContent').empty();
 					$('<tr>')
 					.append( $('<td colspan="6">').html('작성된 comment가 없습니다. 첫번째 뎃글을 작성해주세요.') )
+					.appendTo('#commentContent');
 				}
 			},
 			error: function(){alert('실패');}
 		});
 	};
 	
+	// 뎃글 작성 완료 버튼 클릭시 작동할 ajax함수
 	function addComment() {
 		$('#addComment').click(function(){
 			var meeting_no = ${meetingDto.meeting_no};
 			var user_no = 11;
-			var comment_referer_no = $('textarea[name="comment_content"]').val();
+			var comment_content = $('textarea[name="comment_content"]').val();
 			var sendObj = {
 				"comment_referer_no": meeting_no,
 				"user_no": user_no,
 				"comment_content": comment_content
 			};
-			
 			$.ajax({
 				url: 'addComment.plitche',
 				type: 'post',
@@ -143,9 +198,29 @@
 			});
 		});
 	}
+	
+	
+	
+	// 뎃글 삭제 버튼을 눌렸을때 작동할 ajax함수
+	function fn_deleteComment(comment_no) {
+		if (confirm('뎃글을 삭제하시겠습니까?')) {
+			$.ajax({
+				url: 'deleteComment.plitche/'+ comment_no,
+				type: 'get',
+				dataType: 'json',
+				success: function(responseObj) {
+					if (responseObj.result) {
+						alert('뎃글이 삭제되었습니다.');
+						getCommentList();
+					} else {
+						alert('뎃글이 삭제되지 않았습니다.');
+					}
+				},
+				error: function(){alert('실패');}
+			});
+		}
+	}
 </script>
-
-
 
 <br/>
 <br/> 제목 : ${meetingDto.meeting_title}

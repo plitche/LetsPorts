@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- Spring에서 새로 배우는 스타일 -->
 <mapper namespace="com.koreait.project.jungho.dao.TrainerClassDao">
 	
+	<!-- 전체 목록을 뿌려주는 list 쿼리문 -->
 	<select id="trainerClassList" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
 		SELECT M1.meeting_no, M1.meeting_title, M1.meeting_date, M1.start_gather_date, M1.end_gather_date, M1.meeting_min,
 		meeting_max, M1.exercise_no, M1.location1_no, M1.location2_no, M1.detail_location, M2.materials_name, M1.meeting_content
@@ -13,20 +14,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON M1.MEETING_NO = M2.MEETING_NO
 	</select>
 	
+	<!-- 클래스의 meeting 테이블에 내용들을 삽입하는 쿼리문 -->
 	<insert id="trainerClassInsert" parameterType="com.koreait.project.jungho.dto.TrainerClassDto">
 		INSERT INTO MEETING VALUES
 		(MEETING_SEQ.NEXTVAL, #{user_no}, #{meeting_max}, #{meeting_min}, #{exercise_no}, SYSDATE, #{start_gather_date}, #{end_gather_date}, #{meeting_date}, #{location1_no}, #{location2_no}, #{meeting_title}, #{meeting_content}, 0, null, 0, #{detail_location}, 0)	
 	</insert>
-	
-	<select id="">
+	<!-- meeting 테이블 삽입 후 새롭게 생긴 meeting_no 값을 최신화시켜 가져오는 쿼리문 -->
+	<select id="findNewMeetingNo" resultType="int" parameterType="int">
 		SELECT MAX(MEETING_NO)
-		  FROM MEETING WHERE USER_NO = #{user_no}
+		  FROM MEETING WHERE USER_NO = #{param1}
 	</select>
+	<!-- 새롭게 생긴 meeting_no을 가져와 material을 추가시키는 쿼리문 -->
+	<insert id="materialsInsert">
+		INSERT INTO MATERIALS VALUES (MATERIALS_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE)
+	</insert>
 	
+	<!-- 보여주기 페이지를 위해 값 가져가는 쿼리문 -->
 	<select id="trainerClassView" parameterType="int" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
 		SELECT * FROM MEETING WHERE MEETING_NO = #{param1}
 	</select>
+	<!-- materials 테이블에 저장된 내용을 가져가는 쿼리문 -->
+	<select id="materialsView" resultType="com.koreait.project.dto.MaterialsDto" parameterType="int">
+		SELECT * FROM MATERIALS WHERE MEETING_NO = #{param1}
+	</select>
 	
+	<!-- materials에 있는 데이터(자식데이터) 먼저 삭제하는 쿼리문 -->
+	<delete id="materialsDelete" parameterType="int">
+		DELETE FROM MATERIALS WHERE MEETING_NO = #{param1}
+	</delete>
+	<!-- 자식데이터 삭제후 -> meeting테이블의 데이터 삭제하는 쿼리문 -->
+	<delete id="trainerClassDelete" parameterType="int" >
+		DELETE FROM MEETING WHERE MEETING_NO = #{param1}
+	</delete>
+	
+	<!-- 트레이너 클래스의 meeting테이블의 내용들을 수정하는 쿼리문 -->
+	<update id="trainerClassUpdate" parameterType="com.koreait.project.jungho.dto.TrainerClassDto">
+		UPDATE MEETING SET MEETING_TITLE = #{meeting_title}, MEETING_DATE = #{meeting_date}, START_GATHER_DATE = #{start_gather_date}, END_GATHER_DATE = #{end_gather_date}, MEETING_MIN = #{meeting_min}, MEETING_MAX = #{meeting_max}, EXERCISE_NO = #{exercise_no}, LOCATION1_NO = #{location1_no}, LOCATION2_NO = #{location2_no}, DETAIL_LOCATION = #{detail_location}, MEETING_CONTENT = #{meeting_content}
+		WHERE MEETING_NO = #{meeting_no}
+	</update>
+	<!-- 트레이너 클래스의 materials테이블의 내용들을 수정하는 쿼리문 -->
+	<update id="materialsViewUpdate">
+		UPDATE MATERIALS SET MATERIALS_NAME = #{param1} WHERE MEETING_NO = #{param2}
+	</update>
 	
 	
 </mapper>

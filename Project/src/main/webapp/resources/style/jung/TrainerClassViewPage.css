@@ -23,6 +23,45 @@
 	margin-
 }
 
-.12 {
+.WishList_all {
 	display: block;
+}
+
+#myPhoto {
+	width: 70px;
+	height: 70px;
+	border-radius: 100px;
+	background: lightgray;
+}
+
+.createComment_all {
+	display: flex;
+}
+
+.createComment_all > #createComment > input {
+	width: 700px;
+	margin-left: 20px;
+	border-width: 0 0 2px; 
+	border-color: lightgray;
+}
+
+#writerPhoto {
+	width: 70px;
+	height: 70px;
+	border-radius: 100px;
+	background: lightgray;
+}
+
+#listComment_all {
+	display: flex;
+}
+.listCommentContent {
+	margin-left: 20px;
+}
+
+#listCommentWriter {
+}
+
+#listComment {
+	
 }

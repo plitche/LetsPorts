@@ -1,30 +1,29 @@
 package com.koreait.project.yewon.command;
 
-import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.jdbc.core.metadata.SqlServerCallMetaDataProvider;
 import org.springframework.ui.Model;
 
-import com.koreait.project.dto.Board_knowhowDto;
+import com.koreait.project.common.CommonVoidCommand;
 import com.koreait.project.yewon.dao.KnowHowDao;
-import com.sun.javafx.collections.MappingChange.Map;
 
-public class GoknowHowInsertCommand {
+public class GoknowHowInsertCommand implements CommonVoidCommand {
 
 	@Override
-	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
+	public void execute(SqlSession sqlSession, Model model) {
+
+		Map<String, Object> map = model.asMap();
 		
-		Board_knowhowDto Board_knowhowDto = (Board_knowhowDto)map.get("Board_knowhowDto");
-		KnowHowDao KnowHowDao = sqlSession.getMapper(KnowHowDao.class);
-		KnowHowDao knowHowDao = KnowHowDao.knowHowList();
-		
-		
-		Map<String, Object> result = new HashMap();
-		
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		String knowhow_title = request.getParameter("knowhow_title");
+		String knowhow_content = request.getParameter("knowhow_content");
 		
 		
+		KnowHowDao knowHowDao = sqlSession.getMapper(KnowHowDao.class);
+		knowHowDao.knowhowInsert(knowhow_title, knowhow_content);
+
 	}
-	
-	
 }

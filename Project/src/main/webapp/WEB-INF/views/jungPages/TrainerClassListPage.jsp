@@ -54,7 +54,7 @@
 		</div>
 	
 		<!-- 트레이너 클래스 리스트 -->
-		<c:forEach var="MeetingDto" items="${MeetingDto}">
+		<c:forEach var="MeetingDto" items="${MeetingList}">
 			<div class="MeetingClass">
 				<a href="TrainerClassViewPage.leo?meeting_no=${MeetingDto.meeting_no}">${MeetingDto.meeting_title}</a><br/><br/>
 				모임일 : ${MeetingDto.meeting_date}<br/>

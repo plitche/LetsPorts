@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 
 import com.koreait.project.yongsoo.command.comment.AddCommentCommand;
+import com.koreait.project.yongsoo.command.comment.DeleteCommentCommand;
+import com.koreait.project.yongsoo.command.comment.GetCommentListCommand;
 import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerDetailCommand;
 import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerListCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GetTrainerMeetingListCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GoMeetingViewCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.CreateMeetingCommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherHostMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerQnA.WriteTrainerQnACommand;
 
@@ -55,4 +58,18 @@ public class SooAppContext {
 		return new GetOtherMeetingCommand();
 	}
 	
+	@Bean
+	public GetCommentListCommand getCommentListCommand() {
+		return new GetCommentListCommand();
+	}
+	
+	@Bean
+	public GetOtherHostMeetingCommand getOtherHostMeetingCommand() {
+		return new GetOtherHostMeetingCommand();
+	}
+	
+	@Bean
+	public DeleteCommentCommand deleteCommentCommand() {
+		return new DeleteCommentCommand();
+	}
 }

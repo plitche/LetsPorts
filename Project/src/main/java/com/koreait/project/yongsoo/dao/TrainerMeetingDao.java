@@ -7,6 +7,7 @@ import com.koreait.project.dto.MeetingDto;
 import com.koreait.project.dto.Trainer_infoDto;
 import com.koreait.project.dto.UsersDto;
 import com.koreait.project.yongsoo.dto.CreateNewMeetingDto;
+import com.koreait.project.yongsoo.dto.MeetingTemDto;
 
 public interface TrainerMeetingDao {
 
@@ -24,9 +25,6 @@ public interface TrainerMeetingDao {
 	// 4. 모임 개설자(게시글 작성자)가 트레이너의 경우 트레이너 테이블에서 data 가져오기
 	public Trainer_infoDto findTrainerInfo(int user_no);
 	
-	// 6. 현재 클릭한 모임과 같은 카테고리 모임들의 data 가져오기 
-	// public List<MeetingDto> findOtherMeeting2(int user_no, int exercise_no);
-	
 	
 	// 트레이너 모임 개설 페이지에서 meeting테이블에 insert를 하기위한 메소드
 	public int createMeeting(CreateNewMeetingDto createNewMeetingDto);
@@ -37,6 +35,8 @@ public interface TrainerMeetingDao {
 	
 	// 모임 개설자가 개설한 다른 모임들 data 가져오기 
 	public List<MeetingDto> getOtherMeeting(int user_no, int meeting_no);
-	
+
+	// 현재 보고있는 모임과 같은 카테고리 모임들 중 현재 호스트가 아닌 다른 호스트의 모임 data 가져오기 
+	public List<MeetingTemDto> getOtherHostMeeting(int user_no, int exercise_no);
 	
 }

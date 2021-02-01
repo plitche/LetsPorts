@@ -22,14 +22,13 @@ public class GetCommentListCommand implements CommonMapCommand {
 		CommentDao commentDao = sqlSession.getMapper(CommentDao.class);
 		List<CommentsDto> commentList = commentDao.getCommentList(meeting_no);
 		
-		Map<String, Object> result = new HashMap<>(); 
+		Map<String, Object> result = new HashMap<String, Object>(); 
 		result.put("commentList", commentList);
 		if (commentList.size()>0) {
 			result.put("result", true);
 		} else {
 			result.put("result", false);
 		}
-		System.out.println(commentList.size());
 		return result;
 	}
 

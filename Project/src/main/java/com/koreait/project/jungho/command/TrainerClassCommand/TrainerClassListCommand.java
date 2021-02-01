@@ -1,4 +1,4 @@
-package com.koreait.project.jungho.command;
+package com.koreait.project.jungho.command.TrainerClassCommand;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
@@ -11,8 +11,9 @@ public class TrainerClassListCommand implements CommonVoidCommand {
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
 		
-		TrainerClassDao trainerClassdao = sqlSession.getMapper(TrainerClassDao.class);
-		model.addAttribute("MeetingDto", trainerClassdao.trainerClassList());
+		// 모든 클래스목록들을 뿌려주기 위한 작업
+		TrainerClassDao trainerClassDao = sqlSession.getMapper(TrainerClassDao.class);
+		model.addAttribute("MeetingList", trainerClassDao.trainerClassList());
 		
 	}
 
