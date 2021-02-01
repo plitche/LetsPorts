@@ -19,8 +19,18 @@ public class GoTrainerListCommand implements CommonVoidCommand {
 		
 		for (int i=0; i<trainerList.size(); i++) {
 			int user_no = trainerList.get(i).getUser_no();
-			trainerList.get(i).setScore(trainerDao.trainerScore(user_no));
-			trainerList.get(i).setReviews(trainerDao.reviewCount(user_no));
+			
+			if (trainerDao.trainerScore(user_no)==null) {
+				trainerList.get(i).setScore(0);
+			} else {
+				trainerList.get(i).setScore(trainerDao.trainerScore(user_no));
+			}
+			
+			if (trainerDao.reviewCount(user_no)==null) {
+				trainerList.get(i).setReviews(0);
+			} else {
+				trainerList.get(i).setReviews(trainerDao.reviewCount(user_no));
+			}
 		}
 		
 		model.addAttribute("trainerList", trainerDao.trainerList());

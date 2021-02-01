@@ -16,22 +16,21 @@
 	$(document).ready(function() {
 		trainerMeetingListTable();
 		getTrainerMeetingList();
-		
 	});
 
 	/* 불러온 모임 list를 토대로 append 해주기 위한 function */
 	function trainerMeetingListTable(list) {
 		$('#trainerMeetingList').empty();
 		$.each(list, function(idx, meeting){
-			$('<tr>')
-			.append( $('<td>').html(meeting.meeting_no) )
-			.append( $('<td>').html('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">' + meeting.meeting_title + '</a>') )
-			.append( $('<td>').html('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">' + meeting.meeting_content + '</a>') )
-			.append( $('<td>').html(meeting.meeting_content) )
-			.append( $('<td>').html(meeting.meeting_min) )
-			.append( $('<td>').html(meeting.meeting_max) )
-			.append( $('<td>').html(meeting.meeting_date) )
-			.appendTo('#trainerMeetingList');
+			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
+			.append( $('<div>').addClass('trainerMeeting') 
+			.append( $('<div>').html('이미지') )
+			.append( $('<p>').html(meeting.meeting_title) )
+			.append( $('<p>').html('최소: ' + meeting.meeting_min + '명 / 최대: ' + meeting.meeting_max + '명')  )
+			.append( $('<p>').html('일시: ' + meeting.meeting_date) )
+			.append( $('<p>').html('작성자: ' + meeting.user_no) )
+			)
+			.appendTo("#trainerMeetingList");
 		});
 	}
 	
@@ -46,8 +45,8 @@
 				if (responseObj.result) {
 					trainerMeetingListTable(responseObj.meetingList);
 				} else {
-					$('<tr>')
-					.append( $('<td>').html('등록된 모임 정보가 없습니다.') )
+					$('<div>')
+					.append( $('<p>').html('등록된 모임 정보가 없습니다.') )
 					.appendTo('#trainerMeetingList');
 				}
 			},
@@ -65,11 +64,48 @@
 <script>
 	// 페이지 로드
 	$(document).ready(function(){
+		getTrainerQnAList();
 		writeQuestion();
 		closeModal();
 	});
 	
-	// 작성된 내용을 처리하는 ajax 함수
+	// 해당 트레이너에게 달린 질문 data를 append하는 서브함수
+	function trainerQnAListTable(list) {
+		$('#qnaList').empty();
+		$.each(list, function(idx, qna){
+			$('<tr>')
+			.append( $('<td>').html(qna.trainer_qna_no) )
+			.append( $('<td>').html('<a href="#" onclick="fn_showQNA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
+			.append( $('<input type="hidden" name="trainer_qna_no">').val(qna.trainer_qna_no) )
+			.append( $('<td>').html(qna.trainer_qna_content) )
+			.append( $('<td>').html(qna.question_user_no) )
+			.append( $('<td>').html(qna.created_at) )
+			.append( $('<td>').html('<a href="">답변달기</a>') )
+			.appendTo('#qnaList');
+		});
+	}
+	
+	// 현재 패이지로 이동시 자동으로 뎃글 리스트를 불러올 ajax함수
+	function getTrainerQnAList() {
+		var user_no = ${trainerTemDto.user_no}
+		$.ajax ({
+			url: 'getTrainerQnAList.plitche/' + user_no,
+			type: 'get',
+			dataType: 'json',
+			success: function(responseObj) {
+				if (trainerQnA.result) {
+					trainerQnAListTable(responseObj.qnaList);
+				} else {
+					alert('등록을 등록하지 못했습니다.');
+					$('<p>').html('등록된 질문이 없습니다.')
+					.appendTo('#qnaList');
+				}
+			},
+			error: function(){alert('뎃글 가져오기 실패');}
+		});
+	}
+	
+	// 작성된 질문내용을 처리하는 ajax 함수
 	function writeQuestion() {
 		$('#writeQuestion').click(function() {
 			var question_user_no = 11; /* 일단 임시로 작성자 번호는 11로 둠 */
@@ -95,20 +131,11 @@
 				success: function(responseObj) {
 					if (responseObj.result) {
 						alert('질문이 등록되었습니다.');
-						$('#qnaList').empty();
-						$.each(responseObj.qnaList, function(idx, qna){
-							$('<tr>')
-							.append( $('<td>').html(qna.trainer_qna_no) )
-							.append( $('<td>').html('<a href="#" onclick="fn_showQNA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
-							.append( $('<input type="hidden" name="trainer_qna_no">').val(qna.trainer_qna_no) )
-							.append( $('<td>').html(qna.trainer_qna_content) )
-							.append( $('<td>').html(qna.question_user_no) )
-							.append( $('<td>').html(qna.created_at) )
-							.append( $('<td>').html('<a href="">답변달기</a>') )
-							.appendTo('#qnaList');
-						});
+						trainerQnAListTable(responseObj.qnaList);
 					} else {
-						alert('질문이 등록되지 않았습니다.');
+						alert('등록을 등록하지 못했습니다.');
+						$('<p>').html('등록된 질문이 없습니다.')
+						.appendTo('#qnaList');
 					}
 				},
 				error: function(){alert('실패');}
@@ -129,31 +156,62 @@
 	}
 </script>
 
-<div>
-	트레이너 사진 파일 이름: ${trainerTemDto.profile_photo} <br/>
-	트레이너 닉네임 : ${trainerTemDto.user_nickname} <br/>
-	상태 메세지 : ${trainerTemDto.user_message} <br/>
-	트레이너 경력 : ${trainerTemDto.career}년 <br/>
-	트레이너 활동 센터 : ${trainerTemDto.employment} <br/>
-	트레이너 프로필 : ${trainerTemDto.profile} <br/>
-</div><br/>
-<div>
-	<div>${trainerTemDto.user_nickname} 트레이너의 프로그램</div>
+<div id="trainerInfo">
+	<div id="trainerSimple">
+		<div id="trainerImage">
+			트레이너 사진 파일 이름: ${trainerTemDto.profile_photo} <br/>
+		</div>
+		<p style="color: red;"> &lt; 트레이너 정보 &gt; </p>
+		<p style="font-size: 1.5rem; font-weight: 800;">닉네임 : ${trainerTemDto.user_nickname}</p>
+		<p style="font-size: 1rem; font-weight: 600">이름 : ${trainerTemDto.trainer_name} </p>
+		<p>활동 센터 : ${trainerTemDto.employment} </p>		
+		<p>상태 메세지 : ${trainerTemDto.user_message} </p>
+	</div>
+	<div id="trainerDetail">
+		<p>* 트레이너 경력 : ${trainerTemDto.career}년</p>
+		<pre>* 트레이너 프로필 : ${trainerTemDto.profile}
+		 
+		 저는 예전엔 120kg이 나가는 운동의 운자도 모르던
+		 친구였었습니다..! 지금의 모습이 되기까지 미친듯한 다이어트가 도움됐다기보단 운동을 
+		 즐기고 꾸준한 생활습관에서의 노력이 제모습들을 만들었다고 생각이 듭니다:)
+		 
+		 여러분 또한 버핏서울과 함께하며 운동이란 게 힘들고 어려운 게 아니라 충분히 즐겁고 내
+		 삶의 일부가 될 수가 있다는 것을 느껴보셨으면 좋겠습니다. 우리가 함께 땀 흘리고 
+		 즐기다 보면 어느새 내가 꿈꾸던 모습들에 한 발자국 더 다가갈 수 있지 않을까 라는 
+		 생각이 듭니다!
+		 
+		 저 또한 옆에서 여러분들이 다치지 않고 재밌게 즐기실 수 있도록 최선을 다해 도와드리도록
+		 하겠습니다!
+	 	 버핏서울 화이팅.!!
+	 	 </pre>
+	</div>
+</div>
+
+<div id="tab">
+	<ul>
+		<li data-id="trainerMeetingList" class="on">${trainerTemDto.user_nickname}의 모임들</li>
+		<li data-id="trainerReviewList2">${trainerTemDto.user_nickname}에게 달린리뷰</li>
+		<li data-id="trainerQnAList2">${trainerTemDto.user_nickname}에게 달린질문</li>
+	</ul>
 	총 : ##개  &nbsp;&nbsp;&nbsp;&nbsp; <a href="goCreateMeetingPage.plitche">새 프로그램 등록하기</a> <br/>
-	<table border="1">
-		<thead>
-			<tr>
-				<td>코스번호 </td>
-				<td>제목 </td>
-				<td>내용 </td>
-				<td>최소참가인원 </td>
-				<td>최대참가인원 </td>
-				<td>일시 </td>
-			</tr>
-		</thead>
-		<tbody id="trainerMeetingList"></tbody>
-	</table>
-</div><br/>
+	<div id=trainerMeetingList class="conBox on"></div>
+	<div id=trainerReviewList2 class="conBox">1241242</div>
+	<div id=trainerQnAList2 class="conBox">13512343</div>
+</div>
+
+<!-- tab형식 구현을 위한 script -->
+<script>
+	$(function() {
+		$('#tab ul li').click(function(){
+			$('#tab ul li').removeClass('on');
+			$('#tab .conBox').removeClass('on');
+			$(this).addClass('on');
+			$('#'+$(this).data('id')).addClass('on');
+		});
+	});
+	
+</script>
+
 <div>
 	<div>${trainerTemDto.user_nickname} 트레이너가 받은 리뷰</div>
 	총 : ##개  &nbsp;&nbsp;&nbsp;&nbsp; <a href="">새 리뷰 등록하기</a> <br/>	
@@ -216,31 +274,11 @@
 				<td>비고</td>
 			</tr>
 		</thead>
-		<tbody id="qnaList">
-			<c:if test="${empty trainer_qnaDto}">
-				<tr>
-					<td colspan="4">작성된 질문이 없습니다.</td>
-				</tr>
-			</c:if>
-			<c:if test="${not empty trainer_qnaDto}">
-				<c:forEach var="list" items="${trainer_qnaDto}">
-					<tr>
-						<td>${list.trainer_qna_no}</td>
-						<td>
-							<a href="#" onclick="fn_showQNA(${list.trainer_qna_no}); return false;">
-								${list.trainer_qna_title}
-							</a>
-						</td>
-						<td>${list.trainer_qna_content}</td>
-						<td>${list.question_user_no}</td>
-						<td>${list.created_at}</td>
-						<td><a href="">답변달기</a></td>
-					</tr>
-				</c:forEach>
-			</c:if>
-		</tbody>
+		<tbody id="qnaList"></tbody>
 	</table>
 </div>
+
+<!-- 모달창 구현을 위한 script -->
 <script>
 	$('#openQNAModal').click(function() {
 		$('#modal').attr("style", "display:block");
