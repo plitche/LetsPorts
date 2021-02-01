@@ -1,6 +1,8 @@
 package com.koreait.project.jungho.dto;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +25,7 @@ public class TrainerClassDto {
 	private int location1_no;
 	private int location2_no;
 	private String detail_location;
-	private String[] materials_name; // join 대상자
+	private List<String> materials_name; // join 대상자
 	private String meeting_content;
 	
 

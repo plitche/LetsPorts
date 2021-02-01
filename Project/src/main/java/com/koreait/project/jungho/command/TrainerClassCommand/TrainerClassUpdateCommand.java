@@ -1,6 +1,7 @@
 package com.koreait.project.jungho.command.TrainerClassCommand;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -30,7 +31,7 @@ public class TrainerClassUpdateCommand implements CommonVoidCommand {
 		int location2_no = trainerClassDto.getLocation2_no();
 		String detail_location = trainerClassDto.getDetail_location();
 		String meeting_content = trainerClassDto.getMeeting_content();
-		String [] materialList = trainerClassDto.getMaterials_name();
+		List<String> materialList = trainerClassDto.getMaterials_name();
 		trainerClassDto.setMeeting_no(meeting_no);
 		trainerClassDto.setMeeting_title(meeting_title);
 		trainerClassDto.setMeeting_date(meeting_date);
@@ -51,8 +52,8 @@ public class TrainerClassUpdateCommand implements CommonVoidCommand {
 		trainerClassDao.trainerClassUpdate(trainerClassDto);
 		
 		// materials 부분을 수정
-		for (int i = 0; i < materialList.length; i++) {
-			String material = materialList[i];
+		for (int i = 0; i < materialList.size(); i++) {
+			String material = materialList.get(i);
 			trainerClassDao.materialsViewUpdate(material, meeting_no);
 		}
 		

@@ -49,6 +49,7 @@ public class TrainerClassController {
 		trainerClassInsertCommand.execute(sqlSession, model);
 		
 		return "redirect:TrainerClassListPage.leo";
+		
 	}
 	
 	// 목록 리스트 중 하나를 클릭하면 리스트 정보를 보여주는 페이지
