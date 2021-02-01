@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 
 import com.koreait.project.yongsoo.command.comment.AddCommentCommand;
+import com.koreait.project.yongsoo.command.comment.GetCommentListCommand;
 import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerDetailCommand;
 import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerListCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GetTrainerMeetingListCommand;
@@ -53,6 +54,11 @@ public class SooAppContext {
 	@Bean
 	public GetOtherMeetingCommand getOtherMeetingCommand() {
 		return new GetOtherMeetingCommand();
+	}
+	
+	@Bean
+	public GetCommentListCommand getCommentListCommand() {
+		return new GetCommentListCommand();
 	}
 	
 }

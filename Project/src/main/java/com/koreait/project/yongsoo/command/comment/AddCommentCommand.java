@@ -20,7 +20,7 @@ public class AddCommentCommand implements CommonMapCommand {
 		CommentDao commentDao = sqlSession.getMapper(CommentDao.class);
 		int addCommentresult = commentDao.addComment(commentsDto);
 		
-		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<String, Object>();
 		
 		if (addCommentresult > 0) {
 			result.put("result", true);
