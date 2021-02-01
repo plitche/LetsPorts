@@ -17,6 +17,8 @@ import com.koreait.project.yewon.command.GoknowHowInsertCommand;
 import com.koreait.project.yewon.command.GoknowHowListCommand;
 import com.koreait.project.yewon.config.WonAppContext;
 
+import sun.rmi.transport.proxy.HttpReceiveSocket;
+
 @Controller
 public class WonController {
 
@@ -43,9 +45,11 @@ public class WonController {
 	}
 
 	
-	@RequestMapping(value="board_knowHowInsertPage.limyeng")
-	public String boardknowHowInsertPage() {
-		return "wonPages/board_knowhow/board_knowHowInsertPage";
+	@RequestMapping(value="boardknowHowInsertPage.limyeng")
+	public String boardknowHowInsertPage(HttpServletRequest request,
+										 Model model) {
+		
+		return "wonPages/board_knowhow/boardknowHowInsertPage";
 	}
 
 	

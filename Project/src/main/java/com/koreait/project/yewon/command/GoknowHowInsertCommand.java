@@ -24,13 +24,6 @@ public class GoknowHowInsertCommand implements CommonVoidCommand {
 		
 		KnowHowDao knowHowDao = sqlSession.getMapper(KnowHowDao.class);
 		knowHowDao.knowhowInsert(knowhow_title, knowhow_content);
-		
-		
-		
-		
 
-		
-		
 	}
-
 }

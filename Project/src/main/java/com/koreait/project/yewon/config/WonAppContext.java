@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import com.koreait.project.yewon.command.GoknowHowDetailCommand;
 import com.koreait.project.yewon.command.GoknowHowInsertCommand;
 import com.koreait.project.yewon.command.GoknowHowListCommand;
+import com.koreait.project.yewon.command.GoknowHowViewCommand;
 
 @Configurable
 public class WonAppContext {
@@ -25,7 +26,11 @@ public class WonAppContext {
 		return new GoknowHowInsertCommand();
 	}
 	
-	
+	@Bean
+	public GoknowHowViewCommand goknowHowViewCommand() {
+		
+		return new GoknowHowViewCommand();
+	}
 	
 	
 }
