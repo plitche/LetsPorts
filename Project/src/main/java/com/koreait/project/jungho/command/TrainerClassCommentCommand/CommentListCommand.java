@@ -19,8 +19,8 @@ public class CommentListCommand implements CommonMapCommand {
 		int meeting_no = (int)map.get("meeting_no");
 		
 		TrainerClassCommentDao trainerClassCommentDao = sqlSession.getMapper(TrainerClassCommentDao.class);
-		List<CommentsDto> list = trainerClassCommentDao.commentList(meeting_no);
 		
+		List<CommentsDto> list = trainerClassCommentDao.commentList(meeting_no);
 		map.put("list", list);
 		
 		if (list.size() > 0) {

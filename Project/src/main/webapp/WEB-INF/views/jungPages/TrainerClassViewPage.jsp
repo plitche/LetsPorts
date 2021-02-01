@@ -84,7 +84,8 @@
 	
 	
 	<script>
-	
+		
+		// 페이지 로드 이벤트
 		$(document).ready(function(){
 			commentList();
 			commentInsert();
@@ -107,11 +108,11 @@
 		function commentListContent(list) {
 			$('#listComment_all').empty();
 			$.each(list, function(idx, comment){
-				$('<div id="writerPhoto">')
+				$('<div>')
 				.append($('<img alt="내 프로필" src=""/>'))
-				.append($('<div class="listCommentContent">'))
-				.append($('<div id="listCommentWriter">'))
-				.append($('<div id="listComment">').html(comment.comment_content))
+				.append($('<div>'))
+				.append($('<div>'))
+				.append( $('<div>').html(comment.comment_content) )
 				.appendTo('#listComment_all');
 			});
 		}
@@ -122,7 +123,7 @@
 		function commentInsert() {
 			$('#commentBtn').click(function(){
 				var comment_content = $('input:text[name="comment_content"]').val();
-				var meeting_no = ${trainerClassDto.meeting_no}
+				var meeting_no = ${trainerClassDto.meeting_no};
 				var user_no = 10;
 				var sendObj = {
 						"meeting_no": meeting_no,
@@ -153,7 +154,6 @@
 	
 	<br/><br/><br/><br/><br/>
 
-	<form >
 	
 		<div>댓글 ~~ 개</div><br/>
 		<!-- 댓글 작성란 -->
@@ -166,38 +166,14 @@
 			</div>
 		</div>
 		
-	</form>
 	
 	<!-- 댓글 리스트란 -->
 	<div id="listComment_all">
-		<!-- 
-		<div id="writerPhoto"><img alt="내 프로필" src="" /></div>
-		<div class="listCommentContent">
-			<div id="listCommentWriter"></div>
-			<div id="listComment"></div>
-		</div>
-		 -->
+		
+		
+		
 	</div>
 
 		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    
     
 <%@ include file="../template/footer.jsp" %>
