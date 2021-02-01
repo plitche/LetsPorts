@@ -1,6 +1,7 @@
 package com.koreait.project.jungho.command.TrainerClassCommand;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class TrainerClassInsertCommand implements CommonVoidCommand {
 		Date end_gather_date = trainerClassDto.getEnd_gather_date();
 		int meeting_min = trainerClassDto.getMeeting_min();
 		int meeting_max = trainerClassDto.getMeeting_max();
-		String[] materialList = trainerClassDto.getMaterials_name();
+		List<String> materialList = trainerClassDto.getMaterials_name();
 		int exercise_no = trainerClassDto.getExercise_no();
 		int location1_no = trainerClassDto.getLocation1_no();
 		int location2_no = trainerClassDto.getLocation2_no();
@@ -59,11 +60,13 @@ public class TrainerClassInsertCommand implements CommonVoidCommand {
 		int meeting_no = trainerClassDao.findNewMeetingNo(user_no);
 		
 		// 여러개 입력된 준비물 리스트를 저장할 수 있도록 for문으로 처리
-		for (int i = 0; i < materialList.length; i++) {
-			String material = materialList[i];
-			// 새로 생성된 meeting_no에 가져온 준비물을 넣기 위한 작업처리
+		
+		// 새로 생성된 meeting_no에 가져온 준비물을 넣기 위한 작업처리
+		for (int i = 0; i < materialList.size(); i++) {
+			String material = materialList.get(i);
 			trainerClassDao.materialsInsert(meeting_no, material);
 		}
+		
 		
 		
 		

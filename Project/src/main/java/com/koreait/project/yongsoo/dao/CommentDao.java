@@ -12,6 +12,7 @@ public interface CommentDao {
 	// 특정 모임 게시글에 댓글을 추가하는 메소드
 	public int addComment(CommentsDto commentsDto);
 	
-	
+	// 댓글 삭제 메소드
+	public int deleteComment(int comment_no);
 	
 }

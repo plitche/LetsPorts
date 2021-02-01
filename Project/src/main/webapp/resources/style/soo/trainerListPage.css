@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+/* 트레이너 관리 및 선발 관련 홍보 파트 */
+#ManageTrainer {
+	display: flex;
+	width: 100%;
+}
+
+#ManageTrainer div {
+	display: flex;
+	flex-direction: column;
+	width: 33%;
+	margin-right: 20px;
+}
+
+#ManageTrainer p:nth-child(1) {
+	font-weight: 800;
+	font-size: 1.5rem;
+	width: 100%;
+}
+
+#ManageTrainer p:nth-child(2) {
+	font-size: 1rem;
+	width: 100%;
+}
+
+/* 트레이너 개개인 list 파트 css */
+#trainer-list {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#trainer-list a {
+	width: 33%;
+	color: inherit;
+	text-decoration: none;
+}
+/* 
+.overlay {
+	transition: .5s eash;
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	height: 100px;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.trainer:hover .overlay {
+	opaciry: 1;
+}
+ */
+.trainer {
+	margin: 0 15px;
+}
+
+.trainer-picture {
+	height: 300px;
+	background-color: silver;
+}
+
