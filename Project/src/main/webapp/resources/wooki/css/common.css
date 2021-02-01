@@ -77,3 +77,41 @@ span.disable {
 	font-weight: 900;
 	color: limegreen;
 }
+
+.black-background {
+	position: fixed;
+	top: 0px;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba( 0, 0, 0, 0.6 );
+}
+
+.white-background {
+	border-radius: 5px;
+	background: white;
+	max-width: 400px;
+	margin: 200px auto;
+}
+
+.padding1020 {
+	padding: 10px 20px;
+}
+
+.hide {
+	transition: all 1s;
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
+.success {
+	color: green;
+	font-weight: bold;
+}
+
+.fail {
+	color: crimson;
+	font-weight: bold;
+}

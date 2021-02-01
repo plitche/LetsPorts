@@ -9,8 +9,6 @@ public class GoknowHowDetailCommand implements CommonVoidCommand {
 
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
-
-		
 		
 	}
 

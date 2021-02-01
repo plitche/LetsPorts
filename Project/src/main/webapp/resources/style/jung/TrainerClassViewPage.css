@@ -45,11 +45,23 @@
 	border-color: lightgray;
 }
 
-
-.btns {
-	visibility: hidden;
+#writerPhoto {
+	width: 70px;
+	height: 70px;
+	border-radius: 100px;
+	background: lightgray;
 }
 
-.createComment_all > #createComment > input:action > .btns {
-	visibility: visible;
+#listComment_all {
+	display: flex;
+}
+.listCommentContent {
+	margin-left: 20px;
+}
+
+#listCommentWriter {
+}
+
+#listComment {
+	
 }

@@ -15,13 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.koreait.project.yongsoo.command.trainerMeeting.GetTrainerMeetingListCommand;
-import com.koreait.project.yongsoo.command.trainerMeeting.GoMeetingViewCommand;
 import com.koreait.project.dto.MeetingDto;
 import com.koreait.project.yongsoo.command.trainerMeeting.CreateMeetingCommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherHostMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherMeetingCommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.GetTrainerMeetingListCommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.GoMeetingViewCommand;
 import com.koreait.project.yongsoo.config.SooAppContext;
 import com.koreait.project.yongsoo.dto.CreateNewMeetingDto;
+import com.koreait.project.yongsoo.dto.MeetingTemDto;
 
 @Controller
 public class TrainerMeetingController {
@@ -41,7 +43,7 @@ public class TrainerMeetingController {
 	}
 
 	// 모임 제목/내용 클릭시 모임 상세 페이지로 이동할 메소드
-	@RequestMapping(value="meetingViewPage.plitche")
+	@RequestMapping(value="meetingViewPage.plitche", method=RequestMethod.GET)
 	public String meetingViewPage(@RequestParam("meeting_no") int meeting_no, Model model) {
 		model.addAttribute("meeting_no", meeting_no);
 		GoMeetingViewCommand goMeetingViewCommand = ctx.getBean("goMeetingViewCommand", GoMeetingViewCommand.class);
@@ -73,6 +75,19 @@ public class TrainerMeetingController {
 		GetOtherMeetingCommand getOtherMeetingCommand = ctx.getBean("getOtherMeetingCommand", GetOtherMeetingCommand.class);
 		return getOtherMeetingCommand.execute(sqlSession, model);
 	}
+	
+	// 트레이너 모임 View페이지로 이동 시 다른 호스트의 같은 운동 모임정보를 불러오기 위한 메소드
+	@RequestMapping(value="getOtherHostMeeting.plitche", method=RequestMethod.POST,
+					produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getOtherHostMeeting(@RequestBody MeetingTemDto meetingTemDto, Model model) {
+		model.addAttribute("meetingTemDto", meetingTemDto);
+		GetOtherHostMeetingCommand getOtherHostMeetingCommand = ctx.getBean("getOtherHostMeetingCommand", GetOtherHostMeetingCommand.class);
+		return getOtherHostMeetingCommand.execute(sqlSession, model);
+	}
+	
+	
+	
 	
 	
 }
