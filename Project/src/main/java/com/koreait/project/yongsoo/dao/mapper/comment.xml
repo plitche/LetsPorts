@@ -16,7 +16,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (COMMENTS_SEQ.NEXTVAL, 2, #{comment_referer_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
 	</insert>
 	
-	
+	<delete id="deleteComment" parameterType="int">
+		DELETE
+		  FROM COMMENTS
+		 WHERE COMMENT_NO = #{comment_no}
+	</delete>
 	
 	
 	

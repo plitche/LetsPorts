@@ -8,6 +8,7 @@
 	<jsp:param value="트레이너 상세 페이지" name="title"/>
 </jsp:include>
 
+<script src="resources/style/soo/trainerDetailPage.js"></script>
 
 <!-- 트레이너 모임 리스트를 불러오기 위한 ajax -->
 <script>
@@ -59,8 +60,6 @@
 		location.href = 'meetingViewPage.plitche?meeting_no='+meeting_no;
 	}
 </script>
-
-
 
 <!-- 질문 작성완료 클릭 시 form정보를 보내 줄 ajax -->
 <script>

@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE USER_NO = #{user_no}
 	</select>
 
+
 	<select id="findMeetingInfo" parameterType="int" resultType="com.koreait.project.dto.MeetingDto">
 		SELECT *
 		  FROM MEETING
@@ -31,14 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM TRAINER_INFO
 		 WHERE USER_NO = #{user_no}
 	</select>
-	<!-- 
-	<select id="findOtherMeeting2" parameterType="int" resultType="com.koreait.project.dto.MeetingDto">
-		SELECT *
-		  FROM MEETING
-		 WHERE USER_NO != #{param1}
-		   AND EXERCISE_NO = ${param2}
-	</select>
- 	-->
+
  	
 	<insert id="createMeeting" parameterType="com.koreait.project.yongsoo.dto.CreateNewMeetingDto">
 		INSERT INTO MEETING
@@ -56,12 +50,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (MATERIALS_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE)
 	</insert>
  	
+ 	
 	<select id="getOtherMeeting" resultType="com.koreait.project.dto.MeetingDto">
 		SELECT *
 		  FROM MEETING
 		 WHERE USER_NO = #{param1}
-		   AND MEETING_NO != ${param2} 
+		   AND MEETING_NO != #{param2} 
 	</select>
  	
+ 	
+	<select id="getOtherHostMeeting" resultType="com.koreait.project.yongsoo.dto.MeetingTemDto">
+		SELECT M.USER_NO, U.USER_NICKNAME, U.USER_MESSAGE, M.MEETING_NO, M.MEETING_TITLE,
+			   M.MEETING_DATE, M.EXERCISE_NO, M.CREATED_AT
+		  FROM USERS U FULL OUTER JOIN MEETING M
+		    ON M.USER_NO = U.USER_NO
+		 WHERE M.USER_NO != #{param1}
+		   AND M.EXERCISE_NO = #{param2}
+	</select>
+
  		
 </mapper>

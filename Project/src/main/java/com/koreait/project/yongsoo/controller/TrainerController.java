@@ -15,13 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koreait.project.dto.Trainer_qnaDto;
-import com.koreait.project.yongsoo.command.trainerMeeting.GoMeetingViewCommand;
 import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerDetailCommand;
 import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerListCommand;
-import com.koreait.project.yongsoo.command.trainerMeeting.CreateMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerQnA.WriteTrainerQnACommand;
 import com.koreait.project.yongsoo.config.SooAppContext;
-import com.koreait.project.yongsoo.dto.CreateNewMeetingDto;
 
 @Controller
 public class TrainerController {
