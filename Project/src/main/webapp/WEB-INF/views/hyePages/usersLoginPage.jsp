@@ -21,6 +21,7 @@
 	} else if('${loginUser}' != '') {
 		alert('이미 로그인');
 		location.href='../project';	// common controller를 이용한다.!
+	}
 	
 	function fn_loginCheck(f) {
 		f.action = 'usersLogin.hey';
