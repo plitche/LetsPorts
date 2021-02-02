@@ -1,23 +1,16 @@
 package com.koreait.project.yongsoo.controller;
 
-import java.util.Map;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.koreait.project.dto.Trainer_qnaDto;
 import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerDetailCommand;
 import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerListCommand;
-import com.koreait.project.yongsoo.command.trainerQnA.WriteTrainerQnACommand;
 import com.koreait.project.yongsoo.config.SooAppContext;
 
 @Controller

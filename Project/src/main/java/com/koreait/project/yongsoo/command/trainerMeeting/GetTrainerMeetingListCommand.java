@@ -20,15 +20,18 @@ public class GetTrainerMeetingListCommand implements CommonMapCommand {
 		int user_no = (int)map.get("user_no");
 		
 		TrainerMeetingDao trainerMeetingDao = sqlSession.getMapper(TrainerMeetingDao.class);
-		
+		int totalMeetingCount = trainerMeetingDao.totalMeetingCount(user_no);
 		List<MeetingDto> meetingList = trainerMeetingDao.findMeetings(user_no);
+		
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		if (meetingList.size()>0) {
 			result.put("result", true);
+			result.put("totalMeetingCount", totalMeetingCount);
 			result.put("meetingList", meetingList);
 		} else {
 			result.put("result", false);
+			result.put("totalMeetingCount", 0);
 		}
 		
 		return result;

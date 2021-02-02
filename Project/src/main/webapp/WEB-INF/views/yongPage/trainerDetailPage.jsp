@@ -43,6 +43,9 @@
 			dataType: 'json',
 			success: function(responseObj) {
 				if (responseObj.result) {
+					$('<div>')
+					.append( $('<p>').html('총 :' + responseObj.totalMeetingCount + '개') )
+					.appendTo('#totalMeeting');
 					trainerMeetingListTable(responseObj.meetingList);
 				} else {
 					$('<div>')
@@ -93,11 +96,15 @@
 			type: 'get',
 			dataType: 'json',
 			success: function(responseObj) {
-				if (trainerQnA.result) {
+				if (responseObj.result) {
+					$('<div>')
+					.append( $('<p>').html('총 :' + responseObj.totalQnACount + '개') )
+					.appendTo('#totalQnA');
 					trainerQnAListTable(responseObj.qnaList);
 				} else {
-					alert('등록을 등록하지 못했습니다.');
-					$('<p>').html('등록된 질문이 없습니다.')
+					alert('등록된 질문이 없습니다.');
+					$('<tr>')
+					.append( $('<td colspan="6">').html('등록된 질문이 없습니다. 첫 번째 질문을 등록해 주세요.') )
 					.appendTo('#qnaList');
 				}
 			},
@@ -148,13 +155,12 @@
 			$('#modal').attr("style", "display:none");
 		});
 	}
+	
+	// 질문 내용 클릭 시 상세 내용이 modal로 나오게 하기 위한 ajax
+	
 </script>
-<!-- 질문 클릭 시 상세 내용이 modal로 나오게 하기 위한 ajax -->
-<script>
-	function fn_showQNA(no) {
-		alert(no);
-	}
-</script>
+
+
 
 <div id="trainerInfo">
 	<div id="trainerSimple">
@@ -189,14 +195,37 @@
 
 <div id="tab">
 	<ul>
-		<li data-id="trainerMeetingList" class="on">${trainerTemDto.user_nickname}의 모임들</li>
-		<li data-id="trainerReviewList2">${trainerTemDto.user_nickname}에게 달린리뷰</li>
-		<li data-id="trainerQnAList2">${trainerTemDto.user_nickname}에게 달린질문</li>
+		<li data-id="MeetingList" class="on">${trainerTemDto.user_nickname}의 모임들</li>
+		<li data-id="ReviewList2">${trainerTemDto.user_nickname}에게 달린리뷰</li>
+		<li data-id="QnAList">${trainerTemDto.user_nickname}에게 달린질문</li>
 	</ul>
-	총 : ##개  &nbsp;&nbsp;&nbsp;&nbsp; <a href="goCreateMeetingPage.plitche">새 프로그램 등록하기</a> <br/>
-	<div id=trainerMeetingList class="conBox on"></div>
-	<div id=trainerReviewList2 class="conBox">1241242</div>
-	<div id=trainerQnAList2 class="conBox">13512343</div>
+	<div id="MeetingList" class="conBox on">
+		<a href="goCreateMeetingPage.plitche">새 프로그램 등록하기</a>
+		<div id="totalMeeting"></div>
+		<div id="trainerMeetingList"></div>
+	</div>
+	
+	<div id="ReviewList2" class="conBox">1241242</div>
+		
+	<div id="QnAList" class="conBox">
+		<button type="button" id="openQnAModal">새 질문 등록하기</button>
+		<div id="totalQnA"></div>
+		<div id="trainerQnAList">
+			<table border="1">
+				<thead>
+					<tr>
+						<td>질문번호</td>
+						<td>질문제목</td>
+						<td>질문내용</td>
+						<td>작성자</td>
+						<td>일시</td>
+						<td>비고</td>
+					</tr>
+				</thead>
+				<tbody id="qnaList"></tbody>
+			</table>
+		</div>
+	</div>
 </div>
 
 <!-- tab형식 구현을 위한 script -->
@@ -247,10 +276,9 @@
 </div><br/>
 <div>
 	<div>${trainerTemDto.user_nickname} 트레이너에게 질문</div>
-	총 : ##개  &nbsp;&nbsp;&nbsp;&nbsp; <button type="button" id="openQNAModal">새 질문 등록하기</button> 
   	<div id="modal">
   		<div class="modal_content">
-		    <button id="closeQNAModal">X</button>
+		    <button id="closeQnAModal">X</button>
 		    <form>
 		    	<input type="text" id="title" name="trainer_qna_title" placeholder="제목을 입력하세요."/><br/>
 		    	<input type="text" id="content" name="trainer_qna_content" placeholder="질문내용을 입력하세요."/><br/>
@@ -261,29 +289,14 @@
 	    </div>
 	    <div class="modal_layer"></div>
   	</div>
-  	
-	<br/>
-	<table border="1">
-		<thead>
-			<tr>
-				<td>질문번호</td>
-				<td>질문제목</td>
-				<td>질문내용</td>
-				<td>작성자</td>
-				<td>일시</td>
-				<td>비고</td>
-			</tr>
-		</thead>
-		<tbody id="qnaList"></tbody>
-	</table>
 </div>
 
 <!-- 모달창 구현을 위한 script -->
 <script>
-	$('#openQNAModal').click(function() {
+	$('#openQnAModal').click(function() {
 		$('#modal').attr("style", "display:block");
 	});
-	$('#closeQNAModal').click(function() {
+	$('#closeQnAModal').click(function() {
 		$('#modal').attr("style", "display:none");
 	});
 	/* 
