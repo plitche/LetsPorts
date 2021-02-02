@@ -7,9 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.koreait.project.hyejoon.dao.usersDao">
 	
 	<select id="usersLogin" parameterType="com.koreait.project.hyejoon.dto.UsersDto" resultType="com.koreait.project.hyejoon.dto.UsersDto">
-		select *
-		  from users
-		 where email = #{email}, password = #{password}
+		SELECT *
+		  FROM USERS
+		 WHERE EMAIL = #{email}, PASSWORD = #{password}
 	</select>
 	
 </mapper>

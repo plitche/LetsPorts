@@ -24,9 +24,13 @@ public class UsersLoginCommand implements CommonVoidCommand {
 		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
 		UsersDto loginUser = usersDao.usersLogin(usersDto);
 		
-		int user_id = Integer.parseInt(request.getParameter("user_id"));
 		
-		session.setAttribute("user_id", usersDto);
+		// user_id를 캐스팅하라 한 부분,,, userid라는 파라미터는 어디서 나온건지 몰라서 헤매는 중이여 용수님 ㅠㅠ
+		int user_no = Integer.parseInt(request.getParameter("user_no"));
+		String password = request.getParameter("password");
+		
+		session.setAttribute("user_no", usersDto);
+		session.setAttribute("password", usersDto);
 		
 	}
 }

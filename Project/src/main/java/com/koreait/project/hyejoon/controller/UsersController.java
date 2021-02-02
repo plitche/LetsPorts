@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.hyejoon.command.UsersLoginCommand;
@@ -26,6 +27,11 @@ public class UsersController {
 	private UsersLoginCommand usersLoginCommand = ctx.getBean("usersLoginCommand", UsersLoginCommand.class);
 	
 	/***** 단순 이동 *****/
+	@RequestMapping(value="index.hey")
+	public String goIndex() {
+		return "index";
+	}
+	
 	// header페이지에서 '로그인' 버튼 클릭시 로그인 페이지로 이동한다.
 	@GetMapping(value="usersLoginPage.hey")
 	public String usersLoginPage() {
@@ -50,7 +56,7 @@ public class UsersController {
 		model.addAttribute("redirect", redirect);
 		model.addAttribute("request", request);
 		model.addAttribute("usersDto", usersDto);
-		
+		usersLoginCommand.execute(sqlSession, model);
 		return "redirect:index";
 	}
 	

@@ -18,15 +18,18 @@
 		$('#modal').attr("style", "display:none");
 	});
 </script>
+<script type="text/javascript">
+	
+</script>
 </head>
 <body>
 
 	<form method="post">
 		<h3>로그인</h3>
 		<form action="" method="post">
-			<input type="text" class="login_text" placeholder="E-MAIL" /><br/>
-			<input type="text" class="login_text" placeholder="PW" /><br/>
-			<input type="button" class="login_btns" value="로그인"><br/>
+			<input type="text" class="login_text" name="email" id="email" placeholder="E-MAIL" /><br/>
+			<input type="text" class="login_text" name="password" id="password" placeholder="PW" /><br/>
+			<input type="button" class="login_btns" value="로그인" id="loginBtn" onclick="fn_login(this.form)"><br/>
 		</form>
 				<!-- Button -->
 		  <a id="openQNAModal"href="#">비밀번호 찾기</a>
