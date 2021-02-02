@@ -31,7 +31,6 @@ public class UsersLoginCommand implements CommonVoidCommand {
 		// false:0, true:1 -> controller에도 연관되는 부분이므로 참고!
 		if(loginUser == null) {
 			model.addAttribute("loginResult", 0);
-			model.addAttribute("loginUser", loginUser);
 			// session에 정보 저장 안함!
 		} else {
 			model.addAttribute("loginResult", 1);
