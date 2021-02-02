@@ -87,7 +87,7 @@ public class SooAppContext {
 	}
 	
 	@Bean
-	public WriteAnswerCommand answerCommand() {
+	public WriteAnswerCommand writeAnswerCommand() {
 		return new WriteAnswerCommand();
 	}
 }

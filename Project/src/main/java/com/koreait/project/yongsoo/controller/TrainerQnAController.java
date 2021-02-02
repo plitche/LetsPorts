@@ -59,11 +59,11 @@ public class TrainerQnAController {
 	}
 	
 	// 질문 답변 완료 시 ajax처리를 위한 메소드
-	@RequestMapping(value="writeAnswer.plitche/{trainer_qna_no}", method=RequestMethod.GET,
+	@RequestMapping(value="writeAnswer.plitche", method=RequestMethod.POST,
 					produces="application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> writeAnswer(@PathVariable("trainer_qna_no") int trainer_qna_no, Model model) {
-		model.addAttribute("trainer_qna_no", trainer_qna_no);
+	public Map<String, Object> writeAnswer(@RequestBody Trainer_qnaDto trainer_qnaDto, Model model) {
+		model.addAttribute("trainer_qnaDto", trainer_qnaDto);
 		WriteAnswerCommand writeAnswerCommand = ctx.getBean("writeAnswerCommand", WriteAnswerCommand.class);
 		return writeAnswerCommand.execute(sqlSession, model);
 	}

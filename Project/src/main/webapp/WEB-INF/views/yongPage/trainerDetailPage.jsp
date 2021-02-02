@@ -2,15 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link type="text/css" rel="stylesheet" href="resources/style/soo/trainerDetailPage.css" >
+<script src="resources/style/soo/trainerDetailPage.js"></script>
 <!DOCTYPE html>
 
 <jsp:include page="../template/header.jsp">
 	<jsp:param value="트레이너 상세 페이지" name="title"/>
 </jsp:include>
 
-<script src="resources/style/soo/trainerDetailPage.js"></script>
 
-<!-- 트레이너 모임 리스트를 불러오기 위한 ajax -->
+<!-- 트레이너 모임 관련 ajax -->
 <script>
 	/* 페이지 로드 */
 	$(document).ready(function() {
@@ -63,7 +63,7 @@
 	}
 </script>
 
-<!-- 질문 작성완료 클릭 시 form정보를 보내 줄 ajax -->
+<!-- 트레이너 질문 관련 ajax -->
 <script>
 	// 페이지 로드
 	$(document).ready(function(){
@@ -78,12 +78,13 @@
 		$('#qnaList').empty();
 		$.each(list, function(idx, qna){
 			$('<tr>')
-			.append( $('<td>').html(qna.trainer_qna_no) )
+			.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
 			.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
 			.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
 			.append( $('<td>').html(qna.question_user_no) )
 			.append( $('<td>').html(qna.created_at) )
-			.append( $('<td>').addClass('isAnswered') )
+			.append( $('<input type="hidden" name="' + qna.trainer_qna_no + '" value="' + idx + '"/>') )
+			.append( $('<td name="isAnswered">').addClass('isAnswered').html('미답변') )
 			.appendTo('#qnaList');
 		});
 	}
@@ -118,7 +119,6 @@
 					.appendTo('#totalQnA');
 					trainerQnAListTable(responseObj.qnaList);
 				} else {
-					alert('등록된 질문이 없습니다.');
 					$('<tr>')
 					.append( $('<td colspan="6">').html('등록된 질문이 없습니다. 첫 번째 질문을 등록해 주세요.') )
 					.appendTo('#qnaList');
@@ -163,12 +163,6 @@
 			});
 		});
 	}
-	// ajax처리 후 modal창 닫아주는 함수
-	function closeModal() {
-		$(document).on("click", "#writeQuestion", function() {
-			$('#modal').attr("style", "display:none");
-		});
-	}
 	
 	// 질문 내용 클릭 시 상세 내용이 modal로 나오게 하기 위한 ajax
 	function fn_showQnA(trainer_qna_no) {
@@ -177,16 +171,30 @@
 			type: 'get',
 			dataType: 'json',
 			success: function (responseObj) {
-				if(responseObj.result) {
-					$('#modal').attr("style", "display:block");
-					$('#qnaDetail').empty();
-					$('<div>')
-					.append( $('<p>').html(responseObj.qna.question_user_no) )
-					.append( $('<p>').html(responseObj.qna.trainer_qna_title) )
-					.append( $('<p>').html(responseObj.qna.trainer_qna_content) )
-					.append( $('<p>').html(responseObj.qna.created_at) )
-					.append( $('<input type="button" value="답변 작성하기" onclick="fn_openAnswer('+ trainer_qna_no +')">') )
-					.appendTo('#qnaDetail');
+				if (responseObj.result) {
+					if (responseObj.answer) {
+						$('#modal').attr("style", "display:block");
+						$('#qnaDetail').empty();
+						$('<div>')
+						.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
+						.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
+						.append( $('<p>').html('질문 내용: ' + responseObj.qna.trainer_qna_content) )
+						.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
+						.append( $('<p>').html('답변 내용: '+ responseObj.qna.trainer_qna_answered) )
+						.append( $('<p>').html('답변 작성일: '+ responseObj.qna.answered_date) )
+						.appendTo('#qnaDetail');
+					} else {
+						$('#modal').attr("style", "display:block");
+						$('#qnaDetail').empty();
+						$('<div>')
+						.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
+						.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
+						.append( $('<p>').html('질문 내용: ' + responseObj.qna.trainer_qna_content) )
+						.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
+						.append( $('<input type="button" value="답변 작성하기" onclick="fn_openAnswer('+ trainer_qna_no +')">') )
+						.appendTo('#qnaDetail');
+					}
+					
 				}
 			},
 			error: function(){alert('선택한 뎃글 가져오기 실패');}
@@ -197,21 +205,45 @@
 	function fn_openAnswer(trainer_qna_no) {
 		$('<div>')
 		.append ( $('<form>')
-			.append ( $('<textarea rows="10" cols="50" id="answerContent" >') )
-			.append ( $('<input type="button" value="답변작성완료" onclick="fn_writeAnswer(' + trainer_qna_no + ')" >') )		)
+			.append ( $('<textarea rows="10" cols="50" name="trainer_qna_answered" id="answerContent" >') )
+			.append ( $('<input type="button" id="answerBtn" value="답변작성완료" onclick="fn_writeAnswer(' + trainer_qna_no + ')" >') )	
+		)
 		.appendTo('#qnaDetail');
 	}
 	
 	// 질문 답변 작성 완료 후 답변작성 완료를 누르면 작동할 ajax함수
 	function fn_writeAnswer(trainer_qna_no) {
+		var trainer_qna_answered = $('textarea[name="trainer_qna_answered"]').val();
+		var sendObj = {
+			"trainer_qna_no": trainer_qna_no,
+			"trainer_qna_answered": trainer_qna_answered
+		};
+		
 		$.ajax({
-			url: 'writeAnswer.plitche/' + trainer_qna_no,
-			type: 'get',
+			url: 'writeAnswer.plitche',
+			type: 'post',
+			data: JSON.stringify(sendObj),
+			contentType: 'application/json; charset=utf-8',
 			dataType: 'json',
 			success: function (responseObj) {
-				
+				if (responseObj.result) {
+					var index = $('input:hidden[name=' + trainer_qna_no + ']').val();
+					$('#qnaList tr:eq(' + index + ') td:eq(5)').text('답변완료');
+				} else {
+					alert('답변이 작성되지 않았습니다.');
+				}
 			},
-			error: function(){alert('선택한 뎃글 가져오기 실패');}
+			error: function(){alert('답변 남기기 실패');}
+		});
+	}
+	
+	// ajax처리 후 modal창 닫아주는 함수
+	function closeModal() {
+		$(document).on("click", "#writeQuestion", function() {
+			$('#modal').attr("style", "display:none");
+		});
+		$(document).on("click", "#answerBtn", function() {
+			$('#modal').attr("style", "display:none");
 		});
 	}
 	

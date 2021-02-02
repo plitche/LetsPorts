@@ -23,8 +23,15 @@ public class ShowQnACommand implements CommonMapCommand {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		if (trainer_qnaDto!=null) {
+			if(trainer_qnaDto.getIs_answered()==1) {	// 답변 아직 0
+				result.put("answer", true);
+			} else {
+				result.put("answer", false);
+			}
 			result.put("result", true);
 			result.put("qna", trainer_qnaDto);
+		} else {
+			result.put("result", false);
 		}
 		
 		return result;
