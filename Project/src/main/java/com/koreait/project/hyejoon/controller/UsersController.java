@@ -52,11 +52,11 @@ public class UsersController {
 		model.addAttribute("request", request);
 		model.addAttribute("redirect", redirect);
 		usersLoginCommand.execute(sqlSession, model);
+		return "redirect:usersLoginPage.hey";	// redirect = 옆에적은 경로의 url로 이동한다.( 그 전에 있던 request 정보만 없다.)
+		// 실행한 다음에 다른 컨트롤러를 추가로 실행해준다.
 		
 		// request에서 map에 저장하기
 		// Map<String, Object> map = model.asMap();
-		return "redirect:usersLoginPage.hey";	// redirect = 옆에적은 경로의 url로 이동한다.( 그 전에 있던 request 정보만 없다.)
-		// 실행한 다음에 다른 컨트롤러를 추가로 실행해준다.
 		
 		// int loginResult = (int)map.get("loginResult");
 		
