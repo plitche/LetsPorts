@@ -10,25 +10,23 @@
 </style>
 <script>
 // 모달창 테스트를 위한 스크립트!
-	$('#openQNAModal').click(function() {
-		$('#modal').attr("style", "display:block");
-	});
-	$('#closeQNAModal').click(function() {
-		$('#modal').attr("style", "display:none");
-	});
 </script>
 <script type="text/javascript">
-	function() {
-		if(${loginUser} == null) {
-			alert('일치하는 회원정보가 없습니다. 회원정보를 다시 입력해주세요.');
-		}
-	}
+	// EL 태그는 if, script 안에서는 '' 안에 꼭 넣어줄것
+	if('${loginResult}' == '0') {	// 숫자에도 ''표 붙여줘라!!
+		alert('로그인 실패~!');
+	} else if('${loginResult}' == '1') {
+		alert('로그인 성공하셨습다.');
+		location.href='../project';
+	} else if('${loginUser}' != '') {
+		alert('이미 로그인');
+		location.href='../project';	// common controller를 이용한다.!
+	
 	function fn_loginCheck(f) {
-		f.action = 'usersLoginPage.hey';
+		f.action = 'usersLogin.hey';
 		f.submit();
 	}
-	
-
+		
 </script>
 </head>
 <body>

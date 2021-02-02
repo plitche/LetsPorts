@@ -1,7 +1,5 @@
 package com.koreait.project.hyejoon.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.hyejoon.command.UsersLoginCommand;
 import com.koreait.project.hyejoon.config.HyeAppContext;
@@ -45,31 +44,37 @@ public class UsersController {
 		return "hyePages/usersSignUpInsert";
 	}
 
+	
+	
 	/***** 정보 전달 *****/
 	@RequestMapping(value="usersLogin.hey", method=RequestMethod.POST)
-	public String usersLogin(HttpServletRequest request, Model model) {
+	public String usersLogin(HttpServletRequest request, Model model, RedirectAttributes redirect) {
 		model.addAttribute("request", request);
+		model.addAttribute("redirect", redirect);
 		usersLoginCommand.execute(sqlSession, model);
 		
 		// request에서 map에 저장하기
-		Map<String, Object> map = model.asMap();
+		// Map<String, Object> map = model.asMap();
+		return "redirect:usersLoginPage.hey";	// redirect = 옆에적은 경로의 url로 이동한다.( 그 전에 있던 request 정보만 없다.)
+		// 실행한 다음에 다른 컨트롤러를 추가로 실행해준다.
 		
-		int loginResult = (int)map.get("loginResult");
+		// int loginResult = (int)map.get("loginResult");
 		
 		// false:0, true:1
+		/*
 		if(loginResult == 0) {
 			return "hyePages/usersLoginPage";
 		} else {
-			return "index";
+			return "redirect:index";
 		}
-		
+		*/
 	}
 	
 	@RequestMapping(value="usersLogout.hey")
 	public String usersLogout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.removeAttribute("loginUser");
-		return "index";
+		return "redirect:/";
 	}
 	
 	
