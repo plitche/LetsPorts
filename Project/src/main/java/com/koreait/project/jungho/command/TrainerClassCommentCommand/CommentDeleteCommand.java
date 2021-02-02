@@ -1,39 +1,34 @@
 package com.koreait.project.jungho.command.TrainerClassCommentCommand;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonMapCommand;
-import com.koreait.project.dto.CommentsDto;
 import com.koreait.project.jungho.dao.TrainerClassCommentDao;
 
-public class CommentListCommand implements CommonMapCommand {
+public class CommentDeleteCommand implements CommonMapCommand {
 
 	@Override
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 
 		Map<String, Object> map = model.asMap();
-		int meeting_no = (int)map.get("meeting_no");
+		int comment_no = (int)map.get("comment_no");
 		
 		TrainerClassCommentDao trainerClassCommentDao = sqlSession.getMapper(TrainerClassCommentDao.class);
 		
-		Map<String, Object> resultMap = new HashMap<>();
+		int deleteResult = trainerClassCommentDao.commentDelete(comment_no);
 		
-		List<CommentsDto> commentList = trainerClassCommentDao.commentList(meeting_no);
-		resultMap.put("commentList", commentList);
-		resultMap.put("totalCount", commentList.size());
+		Map<String, Object> result = new HashMap<String, Object>();
 		
-		if (commentList.size() > 0) {
-			resultMap.put("result", true);
+		if (deleteResult > 0) {
+			result.put("result", true);
 		} else {
-			resultMap.put("result", false);
+			result.put("result", false);
 		}
-		
-		return resultMap;
+		return result;
 	}
 
 }

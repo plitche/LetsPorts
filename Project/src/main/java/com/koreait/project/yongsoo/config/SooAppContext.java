@@ -13,6 +13,9 @@ import com.koreait.project.yongsoo.command.trainerMeeting.GoMeetingViewCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.CreateMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherHostMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherMeetingCommand;
+import com.koreait.project.yongsoo.command.trainerQnA.GetTrainerQnACommand;
+import com.koreait.project.yongsoo.command.trainerQnA.ShowQnACommand;
+import com.koreait.project.yongsoo.command.trainerQnA.WriteAnswerCommand;
 import com.koreait.project.yongsoo.command.trainerQnA.WriteTrainerQnACommand;
 
 @Configurable
@@ -71,5 +74,20 @@ public class SooAppContext {
 	@Bean
 	public DeleteCommentCommand deleteCommentCommand() {
 		return new DeleteCommentCommand();
+	}
+	
+	@Bean
+	public GetTrainerQnACommand getTrainerQnACommand() {
+		return new GetTrainerQnACommand();
+	}
+	
+	@Bean
+	public ShowQnACommand showQnACommand() {
+		return new ShowQnACommand();
+	}
+	
+	@Bean
+	public WriteAnswerCommand answerCommand() {
+		return new WriteAnswerCommand();
 	}
 }

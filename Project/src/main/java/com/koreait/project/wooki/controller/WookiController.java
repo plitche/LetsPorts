@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,11 +21,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.koreait.project.wooki.command.AdminListCommand;
 import com.koreait.project.wooki.command.AdminLoginCommand;
 import com.koreait.project.wooki.command.ChangeEmailCommand;
 import com.koreait.project.wooki.command.ChangeEmailIsPossibleCommand;
+import com.koreait.project.wooki.command.CheckUserCommand;
 import com.koreait.project.wooki.command.FilterUserListCommand;
 import com.koreait.project.wooki.command.SendTempPassCommand;
+import com.koreait.project.wooki.command.UpdateAdminUserCommand;
+import com.koreait.project.wooki.command.UpdateNormalUserCommand;
 import com.koreait.project.wooki.command.UserListCommand;
 import com.koreait.project.wooki.config.WookiAppContext;
 import com.koreait.project.wooki.dto.UsersDto;
@@ -42,6 +47,10 @@ public class WookiController {
 	private ChangeEmailIsPossibleCommand changeEmailIsPossibleCommand = ctx.getBean("changeEmailIsPossibleCommand", ChangeEmailIsPossibleCommand.class);
 	private ChangeEmailCommand changeEmailCommand = ctx.getBean("changeEmailCommand", ChangeEmailCommand.class);
 	private SendTempPassCommand sendTempPassCommand = ctx.getBean("sendTempPassCommand", SendTempPassCommand.class);
+	private AdminListCommand adminListCommand = ctx.getBean("adminListCommand", AdminListCommand.class);
+	private UpdateNormalUserCommand updateNormalUserCommand = ctx.getBean("updateNormalUserCommand", UpdateNormalUserCommand.class);
+	private CheckUserCommand checkUserCommand = ctx.getBean("checkUserCommand", CheckUserCommand.class);
+	private UpdateAdminUserCommand updateAdminUserCommand = ctx.getBean("updateAdminUserCommand", UpdateAdminUserCommand.class);
 	
 	@GetMapping(value="adminPage.wooki")
 	public String adminPage() {
@@ -107,5 +116,32 @@ public class WookiController {
 		model.addAttribute("mailSender", mailSender);
 		model.addAttribute("usersDto", usersDto);
 		return sendTempPassCommand.execute(sqlSession, model);
+	}
+	
+	@GetMapping(value="adminList.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> adminList(Model model) {
+		return adminListCommand.execute(sqlSession, model);
+	}
+	
+	@PutMapping(value="updateNormalUser/{user_no}.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> updateNormalUser(@PathVariable("user_no") int user_no, Model model) {
+		model.addAttribute("user_no", user_no);
+		return updateNormalUserCommand.execute(sqlSession, model);
+	}
+	
+	@GetMapping(value="checkUser.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> checkUser(@RequestParam("user_no") int user_no, Model model) {
+		model.addAttribute("user_no", user_no);
+		return checkUserCommand.execute(sqlSession, model);
+	}
+	
+	@PutMapping(value="updateAdminUser/{user_no}.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> updateAdminUser(@PathVariable("user_no") int user_no, Model model) {
+		model.addAttribute("user_no", user_no);
+		return updateAdminUserCommand.execute(sqlSession, model);
 	}
 }

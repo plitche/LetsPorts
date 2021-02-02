@@ -32,9 +32,9 @@
 			<a href="javascript:void(0)" ><img id="logo" alt="로고" src="resources/images/silhouette.png"></a>
 			<ul class="top">
 				<%-- 로그인 하지 않은 상태 --%>
-				<c:if test="${loginDto eq null}">
-					<li><a href="javascript:void(0)" >LOGIN</a></li>
-					<li><a href="javascript:void(0)" >마이페이지</a></li>
+				<c:if test="${loginUser eq null}">
+					<li><a href="usersLoginPage.hey" >LOGIN</a></li>
+					<li><a href="usersLoginPage.hey" >마이페이지</a></li>
 					<li>
 						<a href="javascript:void(0)" >
 							<img alt="noticebell" src="resources/images/bell2.png" style="width:30px;"/>
@@ -42,9 +42,9 @@
 					</li>
 				</c:if>
 				<%-- 로그인 상태 --%>
-				<c:if test="${loginDto ne null}">
+				<c:if test="${loginUser ne null}">
 					<li style="font-size:12px; font-weight:900;" ><a href="javascript:void(0)"></a>반갑습니다!</li>
-					<li><a href="javascript:void(0)" >LOGOUT</a></li>
+					<li><a href="usersLogout.hey" >LOGOUT</a></li>
 					<li><a href="javascript:void(0)" >마이페이지</a></li>
 					<li>
 						<a href="javascript:void(0)" >

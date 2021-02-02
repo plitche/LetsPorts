@@ -30,11 +30,7 @@
 		}
 	</script>
 	
-	<div class = "search" >
-		<img src = "" />
-		<input type = "text" placeholder = "내용을 입력해주세요." />
-		<button>검색</button>
-	</div>
+	
 	
 	
 	
@@ -75,6 +71,17 @@
 	
 	</table>
 	
+	<table>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		
+	</table>
+	
+	<
+
 	
 	<%@ include file="../../template/footer.jsp" %>
 	

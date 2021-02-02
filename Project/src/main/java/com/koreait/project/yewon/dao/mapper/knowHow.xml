@@ -11,19 +11,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM BOARD_KNOWHOW
 	</select>
 	
-	<insert id="knowhowInsert1">
+	<insert id="knowhowInsert">
 		INSERT INTO board_knowhow
 		VALUES (board_knowhow_seq.NEXTVAL, #{param1}, #{param2}, SYSDATE, 1, 0, 0, 0)
 	</insert>
 	
-	<insert id="knowhowInsert2">
-		INSERT INTO board_knowhow
-		VALUES (board_knowhow_seq.NEXTVAL, #{param1}, #{param2}, 1, 1) 
-	</insert>
+	<select id="findKnowhow_no" resultType="int">
+		SELECT MAX(knowhow_no)
+		  FROM BOARD_KNOWHOW
+		 WHERE USER_NO = #{user_no}
+	</select>
 	
-	<insert id="knowhowInsert3">
-		INSERT INTO board_knowhow
-		VALUES (board_knowhow_seq.NEXTVAL, 0, 0, 0)
+	<insert id="knowhowInsert2">
+		INSERT INTO board_knowhow_tag
+		VALUES (board_knowhow_seq.NEXTVAL, #{param1}, #{param2}) 
 	</insert>
 	
 </mapper>

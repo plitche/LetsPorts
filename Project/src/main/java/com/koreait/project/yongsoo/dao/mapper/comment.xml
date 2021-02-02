@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="addComment" parameterType="com.koreait.project.dto.CommentsDto">
 		INSERT INTO COMMENTS
-		VALUES (COMMENTS_SEQ.NEXTVAL, 2, #{comment_referer_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
+		VALUES (COMMENTS_SEQ.NEXTVAL, 1, #{comment_referer_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
 	</insert>
 	
 	<delete id="deleteComment" parameterType="int">

@@ -1,6 +1,7 @@
 package com.koreait.project.yongsoo.command.trainerQnA;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -10,26 +11,29 @@ import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.dto.Trainer_qnaDto;
 import com.koreait.project.yongsoo.dao.TrainerQnADao;
 
-public class WriteTrainerQnACommand implements CommonMapCommand {
+public class GetTrainerQnACommand implements CommonMapCommand {
 
 	@Override
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 
 		Map<String, Object> map = model.asMap();
-		Trainer_qnaDto trainer_qnaDto = (Trainer_qnaDto)map.get("trainer_qnaDto");
+		int user_no = (int)map.get("user_no");
 		
 		TrainerQnADao trainerQnADao = sqlSession.getMapper(TrainerQnADao.class);
-		int insertQnAToTrainerResult = trainerQnADao.insertQnAToTrainer(trainer_qnaDto);
+		List<Trainer_qnaDto> qnalist = trainerQnADao.getTrainerQnAList(user_no); 
+		int totalQnACount = trainerQnADao.TrainerQnACount(user_no);
 		
-		Map<String, Object> insertQnAResult = new HashMap<String, Object>();
-		
-		if(insertQnAToTrainerResult>0) {
-			insertQnAResult.put("result", true);
+		Map<String, Object> result = new HashMap<String, Object>(); 
+		if (qnalist.size()>0) {
+			result.put("result", true);
+			result.put("qnaList", qnalist);
+			result.put("totalQnACount", totalQnACount);
 		} else {
-			insertQnAResult.put("result", false);
+			result.put("result", false);
+			result.put("totalQnACount", 0);
 		}
 		
-		return insertQnAResult;
+		return result;
 	}
 
 }

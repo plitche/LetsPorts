@@ -27,9 +27,9 @@
 	display: block;
 }
 
-#myPhoto {
-	width: 70px;
-	height: 70px;
+.myPhoto {
+	width: 60px;
+	height: 60px;
 	border-radius: 100px;
 	background: lightgray;
 }
@@ -52,16 +52,41 @@
 	background: lightgray;
 }
 
-#listComment_all {
+.listComment_all {
+	display:flex;
+}
+
+.comment1 {
 	display: flex;
 }
+
+.comment1 > div:nth-of-type(2) {
+	margin-left: 20px;
+}
+
+.comment_all {
+	margin-left: 20px;
+}
+
 .listCommentContent {
 	margin-left: 20px;
 }
 
-#listCommentWriter {
+.commentContent {
+	display: flex;
+	margin-top: 20px;
 }
 
-#listComment {
-	
+.CommentU_DBtn {
+	margin-left: 600px;
+}
+
+.CommentU_DBtn > div > input {
+	border: 0px;
+	background: none;
+	color: lightgray;
+}
+
+.CommentU_DBtn > div > input:hover {
+	color: black;
 }

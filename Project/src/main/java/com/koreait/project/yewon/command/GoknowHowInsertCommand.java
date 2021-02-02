@@ -16,14 +16,18 @@ public class GoknowHowInsertCommand implements CommonVoidCommand {
 	public void execute(SqlSession sqlSession, Model model) {
 
 		Map<String, Object> map = model.asMap();
-		
+
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
-		String knowhow_title = request.getParameter("knowhow_title");
-		String knowhow_content = request.getParameter("knowhow_content");
-		
+		String knowhow_title = request.getParameter("title");
+		String knowhow_content = request.getParameter("content");
+		int tag_no = Integer.parseInt(request.getParameter("tag_no"));
+		int user_no = 1;
 		
 		KnowHowDao knowHowDao = sqlSession.getMapper(KnowHowDao.class);
 		knowHowDao.knowhowInsert(knowhow_title, knowhow_content);
-
+		
+		int knowhow_no = knowHowDao.findKnowhow_no(user_no);
+		knowHowDao.knowhowInsert2(knowhow_no, tag_no);
+		
 	}
 }
