@@ -46,11 +46,11 @@ public class UsersController {
 	}
 
 	/***** 정보 전달 *****/
-	
 	@RequestMapping(value="usersLogin.hey", method=RequestMethod.POST)
 	public String usersLogin(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
 		usersLoginCommand.execute(sqlSession, model);
+		
 		// request에서 map에 저장하기
 		Map<String, Object> map = model.asMap();
 		
@@ -58,9 +58,9 @@ public class UsersController {
 		
 		// false:0, true:1
 		if(loginResult == 0) {
-			return "index";
-		} else {
 			return "hyePages/usersLoginPage";
+		} else {
+			return "index";
 		}
 		
 	}
