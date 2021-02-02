@@ -11,12 +11,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM USERS U FULL OUTER JOIN TRAINER_INFO T
 		    ON U.USER_NO = T.USER_NO
 	</select>
-	<select id="trainerScore" parameterType="int" resultType="int">
+	<select id="trainerScore" parameterType="int" resultType="Integer">
 		SELECT AVG(SCORE)
 		  FROM REVIEW
 		 WHERE TARGET_USER_NO = #{user_no}
 	</select>
-	<select id="reviewCount" parameterType="int" resultType="int">
+	<select id="reviewCount" parameterType="int" resultType="Integer">
 		SELECT COUNT(*)
 		  FROM REVIEW
 		 WHERE TARGET_USER_NO = #{user_no}	
@@ -40,18 +40,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM REVIEW
 		 WHERE TARGET_USER_NO = #{user_no}
 	</select>
-	<select id="findQuestion" parameterType="int" resultType="com.koreait.project.dto.Trainer_qnaDto">
-		SELECT *
-		  FROM TRAINER_QNA
-		 WHERE TRAINER_USER_NO = #{user_no}
-	</select>
-	 -->
-	<!-- 
-	<insert id="insertQnAToTrainer" parameterType="com.koreait.project.dto.Trainer_qnaDto">
-		INSERT INTO TRAINER_QNA
-		VALUES (TRAINER_QNA_SEQ.NEXTVAL, #{question_user_no}, #{trainer_user_no}, #{trainer_qna_title},
-				#{trainer_qna_content}, SYSDATE, #{is_published}, 0, NULL, NULL, 0)
-	</insert>
 	 -->
 	
 	
