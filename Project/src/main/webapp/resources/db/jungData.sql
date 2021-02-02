@@ -3,3 +3,5 @@ insert into COMMENTS values (COMMENTS_SEQ.NEXTVAL, 2, 28, 10, '안녕하세염',
 
 select * from COMMENTS;
 select * from MEETING;
+
+delete from comments where user_no = 10;
