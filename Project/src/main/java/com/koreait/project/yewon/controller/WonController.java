@@ -1,7 +1,5 @@
 package com.koreait.project.yewon.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -17,8 +15,6 @@ import com.koreait.project.yewon.command.GoknowHowInsertCommand;
 import com.koreait.project.yewon.command.GoknowHowListCommand;
 import com.koreait.project.yewon.config.WonAppContext;
 import com.koreait.project.yewon.dao.KnowHowDao;
-
-import sun.rmi.transport.proxy.HttpReceiveSocket;
 
 @Controller
 public class WonController {

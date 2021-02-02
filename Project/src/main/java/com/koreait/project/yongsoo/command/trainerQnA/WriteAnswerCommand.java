@@ -7,29 +7,28 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonMapCommand;
-import com.koreait.project.dto.Trainer_qnaDto;
 import com.koreait.project.yongsoo.dao.TrainerQnADao;
 
-public class WriteTrainerQnACommand implements CommonMapCommand {
+public class WriteAnswerCommand implements CommonMapCommand {
 
 	@Override
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 
 		Map<String, Object> map = model.asMap();
-		Trainer_qnaDto trainer_qnaDto = (Trainer_qnaDto)map.get("trainer_qnaDto");
+		int trainer_qna_no = (int)map.get("trainer_qna_no");
+		int trainer_qna_answered = (int)map.get("trainer_qna_answered");
 		
 		TrainerQnADao trainerQnADao = sqlSession.getMapper(TrainerQnADao.class);
-		int insertQnAToTrainerResult = trainerQnADao.insertQnAToTrainer(trainer_qnaDto);
+		int result = trainerQnADao.writeAnswer(trainer_qna_no, trainer_qna_answered);
+		Map<String, Object> answerResult = new HashMap<String, Object>(); 
 		
-		Map<String, Object> insertQnAResult = new HashMap<String, Object>();
-		
-		if(insertQnAToTrainerResult>0) {
-			insertQnAResult.put("result", true);
+		if (result>0) {
+			answerResult.put("result", true);
 		} else {
-			insertQnAResult.put("result", false);
+			answerResult.put("result", false);
 		}
 		
-		return insertQnAResult;
+		return answerResult;
 	}
 
 }

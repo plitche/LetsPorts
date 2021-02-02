@@ -10,6 +10,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM TRAINER_QNA
 		 WHERE TRAINER_USER_NO = #{user_no}
 	</select>
+	<select id="TrainerQnACount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM TRAINER_QNA
+		 WHERE TRAINER_USER_NO = #{user_no}
+	</select>
+	
 	
 	<insert id="insertQnAToTrainer" parameterType="com.koreait.project.dto.Trainer_qnaDto">
 		INSERT INTO TRAINER_QNA
@@ -17,10 +23,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{trainer_qna_content}, SYSDATE, #{is_published}, 0, NULL, NULL, 0)
 	</insert>	
 	
-	<select id="findQuestion" parameterType="int" resultType="com.koreait.project.dto.Trainer_qnaDto">
+	
+	<select id="showQnA" parameterType="int" resultType="com.koreait.project.dto.Trainer_qnaDto">
 		SELECT *
 		  FROM TRAINER_QNA
-		 WHERE TRAINER_USER_NO = #{user_no}
+		 WHERE TRAINER_QNA_NO = #{trainer_qna_no}
 	</select>
-	
+
+	<update id="writeAnswer" parameterMap="int">
+		UPDATE TRAINER_QNA
+		   SET IS_ANSWERED = 1,
+		   	   TRAINER_QNA_ANSWERED = #{param2}
+		 WHERE TRAINER_QNA_NO = #{param1}
+	</update>
 </mapper>

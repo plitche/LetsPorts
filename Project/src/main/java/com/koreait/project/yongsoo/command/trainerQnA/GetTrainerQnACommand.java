@@ -21,13 +21,16 @@ public class GetTrainerQnACommand implements CommonMapCommand {
 		
 		TrainerQnADao trainerQnADao = sqlSession.getMapper(TrainerQnADao.class);
 		List<Trainer_qnaDto> qnalist = trainerQnADao.getTrainerQnAList(user_no); 
+		int totalQnACount = trainerQnADao.TrainerQnACount(user_no);
 		
 		Map<String, Object> result = new HashMap<String, Object>(); 
 		if (qnalist.size()>0) {
 			result.put("result", true);
 			result.put("qnaList", qnalist);
+			result.put("totalQnACount", totalQnACount);
 		} else {
-			result.put("result", true);
+			result.put("result", false);
+			result.put("totalQnACount", 0);
 		}
 		
 		return result;

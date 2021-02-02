@@ -10,26 +10,24 @@ import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.dto.Trainer_qnaDto;
 import com.koreait.project.yongsoo.dao.TrainerQnADao;
 
-public class WriteTrainerQnACommand implements CommonMapCommand {
+public class ShowQnACommand implements CommonMapCommand {
 
 	@Override
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 
 		Map<String, Object> map = model.asMap();
-		Trainer_qnaDto trainer_qnaDto = (Trainer_qnaDto)map.get("trainer_qnaDto");
+		int trainer_qna_no = (int)map.get("trainer_qna_no");
 		
 		TrainerQnADao trainerQnADao = sqlSession.getMapper(TrainerQnADao.class);
-		int insertQnAToTrainerResult = trainerQnADao.insertQnAToTrainer(trainer_qnaDto);
+		Trainer_qnaDto trainer_qnaDto = trainerQnADao.showQnA(trainer_qna_no);
+		Map<String, Object> result = new HashMap<String, Object>();
 		
-		Map<String, Object> insertQnAResult = new HashMap<String, Object>();
-		
-		if(insertQnAToTrainerResult>0) {
-			insertQnAResult.put("result", true);
-		} else {
-			insertQnAResult.put("result", false);
+		if (trainer_qnaDto!=null) {
+			result.put("result", true);
+			result.put("qna", trainer_qnaDto);
 		}
 		
-		return insertQnAResult;
+		return result;
 	}
 
 }

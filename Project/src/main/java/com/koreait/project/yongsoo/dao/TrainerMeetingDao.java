@@ -13,7 +13,8 @@ public interface TrainerMeetingDao {
 
 	// 트레이너가 개설한 모임 정보를 가져오기 위한 메소드
 	public List<MeetingDto> findMeetings(int user_no);
-	
+	// 트레이너 디테일 페이지에서 해당 트레이너의 총 모임 개수를 가지고 오기 위한 메소드
+	public int totalMeetingCount(int user_no);
 	
 	// 모임 제목,내용 클릭시 모임 번호의 정보를 토대로 필요한 data를 가져오기 위한 메소드
 	// 1. meeting테이블에서 data 가져오기
