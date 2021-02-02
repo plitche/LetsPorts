@@ -6,10 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- Spring에서 새로 배우는 스타일 -->
 <mapper namespace="com.koreait.project.hyejoon.dao.usersDao">
 	
-	<select id="usersLogin" parameterType="com.koreait.project.hyejoon.dto.UsersDto" resultType="com.koreait.project.hyejoon.dto.UsersDto">
+	<select id="usersLogin" resultType="com.koreait.project.hyejoon.dto.UsersDto">
 		SELECT *
 		  FROM USERS
-		 WHERE EMAIL = #{email}, PASSWORD = #{password}
+		 WHERE EMAIL = #{email}
+		   AND PASSWORD = #{password}
 	</select>
 	
 </mapper>
