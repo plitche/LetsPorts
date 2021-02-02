@@ -12,10 +12,23 @@
 
 </script>
 
-오늘의 인기글
+	<div>
+	<h3>오늘의 인기글</h3><br/>
+	</div>	
+	<div id = "nav_menu">
+	<ul>
+		<li>메뉴1</li>
+		<li>메뉴2</li>
+		<li>메뉴3</li>
+	</ul>
+</div>
+
+	<div></div>
+	
 <div class = "search" >
 	<input type = "text" name = "keyworld" id = "keyword" placeholder = "검색어를 입력하세요." />
 </div>	
+
 
 <button type = "submit">검색</button>
 <br/><br/>
@@ -27,9 +40,7 @@
 			<td>제목 </td>
 			<td>내용 </td>
 			<td>작성일 </td>
-			<td>유저번호 </td>
-			<td>구분자 </td>
-			<td>숨김여부 </td>
+		
 			<td>조회수 </td>
 		</tr>
 	</thead>
@@ -46,9 +57,6 @@
 					<td>${Board_knowhowDto.knowhow_title}</td>
 					<td>${Board_knowhowDto.knowhow_content}</td>
 					<td>${Board_knowhowDto.created_at}</td>
-					<td>${Board_knowhowDto.user_no}</td>
-					<td>${Board_knowhowDto.user_separator}</td>
-					<td>${Board_knowhowDto.on_hide}</td>
 					<td>${Board_knowhowDto.knowhow_hit}</td>
 				</tr>
 			</c:forEach>
@@ -61,7 +69,9 @@
 			<input type = "button" value = "글쓰기" onclick = "location.href='board_knowHowInsertPage.limyeng'" />
 		</td>
 	</tr>
-</table>	
+</table>
+
+		
 	
 <%@ include file="../../template/footer.jsp" %>
 

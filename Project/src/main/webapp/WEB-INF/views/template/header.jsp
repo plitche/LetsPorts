@@ -34,7 +34,7 @@
 				<%-- 로그인 하지 않은 상태 --%>
 				<c:if test="${loginUser eq null}">
 					<li><a href="usersLoginPage.hey" >LOGIN</a></li>
-					<li><a href="javascript:void(0)" >마이페이지</a></li>
+					<li><a href="usersLoginPage.hey" >마이페이지</a></li>
 					<li>
 						<a href="javascript:void(0)" >
 							<img alt="noticebell" src="resources/images/bell2.png" style="width:30px;"/>
