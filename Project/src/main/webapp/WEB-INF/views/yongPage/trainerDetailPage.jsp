@@ -70,6 +70,7 @@
 		getTrainerQnAList();
 		writeQuestion();
 		closeModal();
+		openQnAPopUp();
 	});
 	
 	// 해당 트레이너에게 달린 질문 data를 append하는 서브함수
@@ -78,13 +79,27 @@
 		$.each(list, function(idx, qna){
 			$('<tr>')
 			.append( $('<td>').html(qna.trainer_qna_no) )
-			.append( $('<td>').html('<a href="#" onclick="fn_showQNA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
-			.append( $('<input type="hidden" name="trainer_qna_no">').val(qna.trainer_qna_no) )
-			.append( $('<td>').html(qna.trainer_qna_content) )
+			.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
+			.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
 			.append( $('<td>').html(qna.question_user_no) )
 			.append( $('<td>').html(qna.created_at) )
-			.append( $('<td>').html('<a href="">답변달기</a>') )
+			.append( $('<td>').addClass('isAnswered') )
 			.appendTo('#qnaList');
+		});
+	}
+	
+	// 트레이너 디테일 페이지에서 새 질문 작성하기 작성 때마다 알맞은 폼을 생성해줄 함수
+	function openQnAPopUp() {
+		$('#openQnAModal').click(function() {
+			$('#qnaDetail').empty();
+			$('<form>')
+			.append( $('<input type="text" id="title" name="trainer_qna_title" placeholder="제목을 입력하세요."/>') )
+			.append( $('<input type="text" id="content" name="trainer_qna_content" placeholder="질문내용을 입력하세요."/>')  )
+			.append( $('<br/>') )
+			.append( $('<input type="checkbox" name="is_published" id="is_published" value="1"/>') )
+			.append( $('<label for="is_published">').html('비밀글 처리하기') )		
+			.append( $('<input type="button" value="작성완료" id="writeQuestion"/>') )
+			.appendTo('#qnaDetail');
 		});
 	}
 	
@@ -97,6 +112,7 @@
 			dataType: 'json',
 			success: function(responseObj) {
 				if (responseObj.result) {
+					$('#totalQnA').empty();
 					$('<div>')
 					.append( $('<p>').html('총 :' + responseObj.totalQnACount + '개') )
 					.appendTo('#totalQnA');
@@ -112,15 +128,15 @@
 		});
 	}
 	
+	
 	// 작성된 질문내용을 처리하는 ajax 함수
 	function writeQuestion() {
-		$('#writeQuestion').click(function() {
+		$(document).on("click", "#writeQuestion", function() {
 			var question_user_no = 11; /* 일단 임시로 작성자 번호는 11로 둠 */
-			var trainer_user_no = $('input[name="trainer_user_no"]').val();
+			var trainer_user_no = ${trainerTemDto.user_no};
 			var trainer_qna_title = $('input[name="trainer_qna_title"]').val();
 			var trainer_qna_content = $('input[name="trainer_qna_content"]').val();
 			var is_published = $('input[name="is_published"]').val();
-			// ${trainer_user_no} 이렇게도 될까 ?
 			var sendObj = {
 				"question_user_no" : question_user_no,	
 				"trainer_user_no" : trainer_user_no,
@@ -138,25 +154,66 @@
 				success: function(responseObj) {
 					if (responseObj.result) {
 						alert('질문이 등록되었습니다.');
-						trainerQnAListTable(responseObj.qnaList);
 					} else {
 						alert('등록을 등록하지 못했습니다.');
-						$('<p>').html('등록된 질문이 없습니다.')
-						.appendTo('#qnaList');
 					}
+					getTrainerQnAList();
 				},
-				error: function(){alert('실패');}
+				error: function(){alert('뎃글 작성하기 실패');}
 			});
 		});
 	}
 	// ajax처리 후 modal창 닫아주는 함수
 	function closeModal() {
-		$('#writeQuestion').click(function() {
+		$(document).on("click", "#writeQuestion", function() {
 			$('#modal').attr("style", "display:none");
 		});
 	}
 	
 	// 질문 내용 클릭 시 상세 내용이 modal로 나오게 하기 위한 ajax
+	function fn_showQnA(trainer_qna_no) {
+		$.ajax ({
+			url: 'showQnA.plitche/' + trainer_qna_no,
+			type: 'get',
+			dataType: 'json',
+			success: function (responseObj) {
+				if(responseObj.result) {
+					$('#modal').attr("style", "display:block");
+					$('#qnaDetail').empty();
+					$('<div>')
+					.append( $('<p>').html(responseObj.qna.question_user_no) )
+					.append( $('<p>').html(responseObj.qna.trainer_qna_title) )
+					.append( $('<p>').html(responseObj.qna.trainer_qna_content) )
+					.append( $('<p>').html(responseObj.qna.created_at) )
+					.append( $('<input type="button" value="답변 작성하기" onclick="fn_openAnswer('+ trainer_qna_no +')">') )
+					.appendTo('#qnaDetail');
+				}
+			},
+			error: function(){alert('선택한 뎃글 가져오기 실패');}
+		});
+	}
+	
+	// 질문 내용 클릭 후 modal창에서 답변 작성하기를 눌렀을 때 추가로 밑에 작성 란이 보이도록 하기위한 처리
+	function fn_openAnswer(trainer_qna_no) {
+		$('<div>')
+		.append ( $('<form>')
+			.append ( $('<textarea rows="10" cols="50" id="answerContent" >') )
+			.append ( $('<input type="button" value="답변작성완료" onclick="fn_writeAnswer(' + trainer_qna_no + ')" >') )		)
+		.appendTo('#qnaDetail');
+	}
+	
+	// 질문 답변 작성 완료 후 답변작성 완료를 누르면 작동할 ajax함수
+	function fn_writeAnswer(trainer_qna_no) {
+		$.ajax({
+			url: 'writeAnswer.plitche/' + trainer_qna_no,
+			type: 'get',
+			dataType: 'json',
+			success: function (responseObj) {
+				
+			},
+			error: function(){alert('선택한 뎃글 가져오기 실패');}
+		});
+	}
 	
 </script>
 
@@ -193,6 +250,7 @@
 	</div>
 </div>
 
+
 <div id="tab">
 	<ul>
 		<li data-id="MeetingList" class="on">${trainerTemDto.user_nickname}의 모임들</li>
@@ -211,15 +269,15 @@
 		<button type="button" id="openQnAModal">새 질문 등록하기</button>
 		<div id="totalQnA"></div>
 		<div id="trainerQnAList">
-			<table border="1">
+			<table id="questionList">
 				<thead>
 					<tr>
-						<td>질문번호</td>
-						<td>질문제목</td>
-						<td>질문내용</td>
-						<td>작성자</td>
-						<td>일시</td>
-						<td>비고</td>
+						<td class="questionNo">질문번호</td>
+						<td class="questionTitle">질문제목</td>
+						<td class="questionContent">질문내용</td>
+						<td class="questionWriter">작성자</td>
+						<td class="create_at">일시</td>
+						<td class="answered">답변여부</td>
 					</tr>
 				</thead>
 				<tbody id="qnaList"></tbody>
@@ -274,18 +332,13 @@
 		</tbody>
 	</table>
 </div><br/>
+
+
 <div>
-	<div>${trainerTemDto.user_nickname} 트레이너에게 질문</div>
   	<div id="modal">
   		<div class="modal_content">
 		    <button id="closeQnAModal">X</button>
-		    <form>
-		    	<input type="text" id="title" name="trainer_qna_title" placeholder="제목을 입력하세요."/><br/>
-		    	<input type="text" id="content" name="trainer_qna_content" placeholder="질문내용을 입력하세요."/><br/>
-		    	<input type="checkbox" name="is_published" value="1"/>비밀글로 작성하기 <br/>
-		    	<input type="hidden" name="trainer_user_no" value="${trainer_user_no}"/>
-		    	<input type="button" value="작성완료" id="writeQuestion"/>
-		    </form>
+		    <div id="qnaDetail"></div>
 	    </div>
 	    <div class="modal_layer"></div>
   	</div>
@@ -298,6 +351,7 @@
 	});
 	$('#closeQnAModal').click(function() {
 		$('#modal').attr("style", "display:none");
+		$('#showModal').attr("style", "display:none");
 	});
 	/* 
 	document.getElementById("openQNAModal").onclick = function() {
