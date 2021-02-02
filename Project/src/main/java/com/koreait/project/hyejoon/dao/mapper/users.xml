@@ -12,4 +12,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE EMAIL = #{email}, PASSWORD = #{password}
 	</select>
 	
+	<select id="usersLogin2" resultType="com.koreait.project.hyejoon.dto.UsersDto">
+		SELECT *
+		  FROM USERS
+		 WHERE EMAIL = #{email}
+		   AND PASSWORD = #{password}
+	</select>
 </mapper>

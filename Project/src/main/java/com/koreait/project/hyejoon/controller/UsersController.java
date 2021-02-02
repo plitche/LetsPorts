@@ -1,5 +1,7 @@
 package com.koreait.project.hyejoon.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.hyejoon.command.UsersLoginCommand;
@@ -59,6 +62,20 @@ public class UsersController {
 		model.addAttribute("usersDto", usersDto);
 		usersLoginCommand.execute(sqlSession, model);
 		return "index";
+	}
+	
+	@RequestMapping(value="usersLoginPage.hey", method=RequestMethod.POST)
+	public String usersLogin2(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		usersLoginCommand.execute(sqlSession, model);
+		Map<String, Object> map = model.asMap();
+		int loginResult = (int)map.get("loginResult");
+		
+		if (loginResult==0) {
+			return "index";
+		} else {
+			return "hyePages/usersLoginPage";
+		}
 	}
 	
 	@GetMapping(value="usersLogout.hey")

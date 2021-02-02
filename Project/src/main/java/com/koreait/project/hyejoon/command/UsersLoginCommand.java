@@ -18,13 +18,29 @@ public class UsersLoginCommand implements CommonVoidCommand {
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
 		Map<String, Object> map = model.asMap();
-		UsersDto usersDto = (UsersDto) map.get("usersDto");
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+
+		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
+		UsersDto loginUser2 = usersDao.usersLogin2(email, password);
+		
+		if (loginUser2 != null) {
+			// 세션 올리게따
+			model.addAttribute("loginResult", 0);
+			model.addAttribute("loginUser2", loginUser2);
+		} else {
+			// 세션 안올리게따
+			model.addAttribute("loginResult", 1);
+		}
+		
+		
+		UsersDto usersDto = (UsersDto) map.get("usersDto");
 		RedirectAttributes redirect = (RedirectAttributes) map.get("redirect");
 		HttpSession session = request.getSession();
-		
-		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
+
 		UsersDto loginUser = usersDao.usersLogin(usersDto);
+		
 		
 		// login정보를 체크한다.
 		if(loginUser == null) {
