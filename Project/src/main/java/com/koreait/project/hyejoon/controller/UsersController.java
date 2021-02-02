@@ -51,20 +51,21 @@ public class UsersController {
 	}
 
 	/***** 정보 전달 *****/
+	
 	@PostMapping(value="usersLogin.hey")
 	public String usersLogin(UsersDto usersDto, HttpServletRequest request, RedirectAttributes redirect, Model model) {
 		model.addAttribute("redirect", redirect);
 		model.addAttribute("request", request);
 		model.addAttribute("usersDto", usersDto);
 		usersLoginCommand.execute(sqlSession, model);
-		return "redirect:index";
+		return "index";
 	}
 	
 	@GetMapping(value="usersLogout.hey")
 	public String usersLogout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.removeAttribute("loginUser");
-		return "redirect:index";
+		return "index";
 	}
 	
 	

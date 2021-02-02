@@ -19,7 +19,18 @@
 	});
 </script>
 <script type="text/javascript">
-	
+	function fn_loginCheck(f) {
+		if(${loginUser} == null)) {
+			alert('일치하는 회원정보가 없습니다. 회원정보를 다시 입력해주세요.');
+			location.href = 'usersLoginPage.hey';
+		} else if(loginUser.getUser_separator() = 0) {
+			alert('관리자님, 어서오세요.');
+		}
+		
+	}
+
+
+	fn_loginCheck(${loginResult});
 </script>
 </head>
 <body>
@@ -28,8 +39,8 @@
 		<h3>로그인</h3>
 		<form action="" method="post">
 			<input type="text" class="login_text" name="email" id="email" placeholder="E-MAIL" /><br/>
-			<input type="text" class="login_text" name="password" id="password" placeholder="PW" /><br/>
-			<input type="button" class="login_btns" value="로그인" id="loginBtn" onclick="fn_login(this.form)"><br/>
+			<input type="password" class="login_text" name="password" id="password" placeholder="PASSWORD" /><br/>
+			<input type="button" class="login_btns" value="로그인" id="loginBtn" onclick="fn_loginCheck(this.form)"><br/>
 		</form>
 				<!-- Button -->
 		  <a id="openQNAModal"href="#">비밀번호 찾기</a>
