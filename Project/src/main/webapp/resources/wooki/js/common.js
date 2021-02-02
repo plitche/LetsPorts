@@ -1,3 +1,9 @@
+// ajax 진행중 확인 스테이터스
+let is_progress = false;
+
+// 이메일 사용가능여부 확인 스테이터스
+let is_possible = false;
+
 // 어드민 로그인 메소드
 function fn_login(f) {
     if($('#email').val() == '') {
@@ -12,7 +18,7 @@ function fn_login(f) {
 
 // 로그인 성공여부 체크 메소드
 function fn_loginCehck(result) {
-	if(result == 0) {
+	if(result == '0') {
 		alert('로그인 되었습니다.');
 		location.href = 'adminIndex.wooki';
 	} else if(result == 1) {
@@ -53,8 +59,9 @@ function fn_main() {
 	.append('<p>환영합니다</p>');
 }
 
-// 일반회원관리 선택 메소드
+// 일반회원 메뉴 실행 메소드
 function fn_user(p) {
+	is_progress = true;
 	$.ajax({
 		url: 'userList.wooki',
 		type: 'get',
@@ -147,7 +154,6 @@ function userList(list, paging, totalRecord, recordPerPage, page) {
 	.append($('<th>').html('로그인횟수'))
 	.append($('<th>').html('로그인 시도 횟수'))
 	.append($('<th>').html('가입방식'))
-	.append($('<th>').html('계정 활성화 여부'))
 	.append($('<th colspan="3">').html('비고'))
 	.appendTo('#title');
 	
@@ -158,7 +164,9 @@ function userList(list, paging, totalRecord, recordPerPage, page) {
 			let d = new Date(date[i]);
 			result[i] = `${d.getFullYear()}-`;
 			if(d.getMonth() < 10) {result[i] += 0;}
-			result[i] += `${(d.getMonth() + 1)}-${d.getDate()} ${d.getHours()}:`;
+			result[i] += `${(d.getMonth() + 1)}-`;
+			if(d.getDate() < 10) {result[i] += 0;}
+			result[i] += `${d.getDate()} ${d.getHours()}:`;
 			if(d.getMinutes() < 10) {result[i] += 0;}
 			result[i] += `${d.getMinutes()}:`;
 			if(d.getSeconds() < 10) {result[i] += 0;}
@@ -179,7 +187,6 @@ function userList(list, paging, totalRecord, recordPerPage, page) {
 		.append($('<td>').html(user.login_count))
 		.append($('<td>').html(user.login_attempt))
 		.append($('<td>').html(user.user_reg_method))
-		.append($('<td>').html(user.disable))
 		.append($('<input type="hidden" name="user_no" id="user_no" />').val(user.user_no))
 		.append($('<input type="hidden" name="email" id="email" />').val(user.email))
 		.append($('<td>').html('<input type="button" value="아이디변경" id="changeEmail" />'))
@@ -189,7 +196,7 @@ function userList(list, paging, totalRecord, recordPerPage, page) {
 	});
 	
 	$('<tr>')
-	.append($('<td colspan="16">').html(paging))
+	.append($('<td colspan="15">').html(paging))
 	.append($('<input type="hidden" id="now_page" />').val(page))
 	.appendTo('.paging');
 }
@@ -205,7 +212,6 @@ function fn_openChangeEmailModal() {
 	});
 }
 
-let is_possible = false;
 // 이메일 변경 가능 아이디 체크
 function fn_changeEmailIsPossible() {
 	$('#change_email').blur(function() {
@@ -239,6 +245,10 @@ function fn_changeEmailIsPossible() {
 //이메일변경 이벤트
 function fn_changeEmail() {
 	$('#change_email_submit').click(function() {
+		if(is_progress == true) {
+			return;
+		}
+		is_progress = true;
 		let email = $('#change_email').val();
 		let user_no = $('#change_user_no').val();
 		if(email == '') {
@@ -266,10 +276,11 @@ function fn_changeEmail() {
 				$('#change_mail_is_possible').attr('class', '');
 				is_possible = false;
 				fn_filterUserList($('#now_page').val());
-				return;
+				setTimeout(function() {is_progress = false;}, 1000);
 			},
 			error: function() {
 				alert('실패');
+				setTimeout(function() {is_progress = false;}, 1000);
 			}
 		});
 	});
@@ -293,6 +304,10 @@ function fn_closeChangeEmailModal() {
 // 임시비밀번호 발송
 function fn_sendTempPass() {
 	$('body').on('click', '#changePwd', function() {
+		if(is_progress == true) {
+			return;
+		}
+		is_progress = true;
 		let user_no = $(this).parents('tr').find('#user_no').val();
 		let email = $(this).parents('tr').find('#email').val();
 		let sendObj = {"user_no": user_no, "email": email};
@@ -308,9 +323,167 @@ function fn_sendTempPass() {
 				} else {
 					alert('임시 비밀번호를 발송에 실패하였습니다.');
 				}
+				setTimeout(function() {is_progress = false;}, 1000);
 			},
 			error: function() {
 				alert('실패');
+				setTimeout(function() {is_progress = false;}, 1000);
+			}
+		});
+	});
+}
+
+// 회원 강제 탈퇴 메소드
+
+// 관리자 등록 페이지
+function fn_addAdminPage() {
+	$('.admin').click(function () {
+		$('.content-container').empty
+		let string = `
+		<h1>관리자추가</h1>
+	    <div class="flex">
+	    <div class="scroll">
+	    <table style="width: 400px;">
+	    <thead>
+	    <tr>
+	    <th>유저번호</th>
+	    <th>닉네임</th>
+	    <th>비고</th>
+	    </tr>
+	    </thead>
+	    <tbody id="adminList"></tbody>
+	    </table>
+	    </div>
+	    <div>
+	    <span>유저번호</span><input type="text" name="admin_target_no" id="admin_target_no" /><br/>
+	    <span>유저닉네임</span><span id="admin_target_nickname"></span><br/>
+	    <input type="button" value="어드민추가" id="btn_updateAdminUser" />
+	    </div>
+	    </div>`
+		$('.content-container').html(string);
+		fn_adminList();
+	});
+}
+
+// 관리자 회원 리스트 불러와서 추가하는 메소드
+function fn_adminList() {
+	$.ajax({
+		url: 'adminList.wooki',
+		type: 'get',
+		dataType: 'json',
+		success: function(list) {
+			$('#adminList').empty();
+			$.each(list.list, function(idx, user) {
+				$('<tr>')
+				.append($('<td>').html(user.user_no))
+				.append($('<td>').html(user.user_nickname))
+				.append($('<input type="hidden" name="user_no" id="user_no" />').val(user.user_no))
+				.append($('<td>').html('<input type="button" value="일반유저전환" id="btn_updateNormalUser" />'))
+				.appendTo('#adminList')
+			});
+		},
+		error: function() {
+			alert('실패');
+		}
+	});
+}
+
+// 관리자 회원 일반회원으로 변경하는 메소드
+function fn_updateNormalUser() {
+	$('body').on('click', '#btn_updateNormalUser', function() {
+		if(!confirm('변경하시겠습니까?')) {
+			return;
+		}
+		if(is_progress == true) {
+			return;
+		}
+		is_progress = true;
+		let user_no = $(this).parents('tr').find('#user_no').val();
+		$.ajax({
+			url: `updateNormalUser/${user_no}.wooki`,
+			type: 'put',
+			dataType: 'json',
+			success: function(obj) {
+				if(obj.result) {
+					alert('변경되었습니다.');
+				} else {
+					alert('변경되지 않았습니다.');
+				}
+				fn_adminList();
+				setTimeout(function() {is_progress = false;}, 1000);
+			},
+			error: function() {
+				alert('실패');
+				setTimeout(function() {is_progress = false;}, 1000);
+			}
+		});
+	});
+}
+
+// 입력된 유저번호 기준 일치하는 회원 가져오는 가져오는 메소드
+function fn_checkUser() {
+	$('body').on('blur', '#admin_target_no', function() {
+		let target_no = $('#admin_target_no').val();
+		if(target_no == '') {
+			alert('유저번호를 입력해주세요.');
+			$('#admin_target_no').focus();
+			return;
+		} else if(isNaN(target_no)) {
+			alert('유저번호는 숫자로 구성되어 있습니다.');
+			$('#admin_target_no').val('');
+			$('#admin_target_no').focus();
+			return;
+		}
+		$.ajax({
+			url: 'checkUser.wooki',
+			type: 'get',
+			data: {user_no: target_no},
+			dataType: 'json',
+			success: function(obj) {
+				if(obj.result) {
+					$('#admin_target_nickname').html(obj.user_nickname);
+					is_possible = true;
+				} else {
+					$('#admin_target_nickname').html('일치하는 회원이 없습니다.');
+					is_possible = false;
+				}
+			},
+			error: function() {
+				alert('실패');
+			}
+		});
+	});
+}
+
+// 일반회원 관리자 회원으로 변경하는 메소드
+function fn_updateAdminUser() {
+	$('body').on('click', '#btn_updateAdminUser', function() {
+		if(!is_possible) {
+			alert('유저검색을 먼저 진행해주세요.');
+			return;
+		}
+		if(is_progress == true) {
+			return;
+		}
+		is_progress = true;
+		let user_no = $('#admin_target_no').val();
+		$.ajax({
+			url: `updateAdminUser/${user_no}.wooki`,
+			type: 'put',
+			dataType: 'json',
+			success: function(obj) {
+				if(obj.result) {
+					alert('추가되었습니다.');
+					is_possible = false;
+				} else {
+					alert('추가되지 않았습니다.');
+				}
+				fn_adminList();
+				setTimeout(function() {is_progress = false;}, 1000);
+			},
+			error: function() {
+				alert('실패');
+				setTimeout(function() {is_progress = false;}, 1000);
 			}
 		});
 	});

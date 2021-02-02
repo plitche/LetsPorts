@@ -13,4 +13,8 @@ public interface WookiDao {
 	public int changeEmailIsPossible(String email);
 	public int changeEmail(UsersDto usersDto);
 	public int updateTempPass(UsersDto usersDto);
+	public List<UsersDto> adminList();
+	public int updateNormalUser(int user_no);
+	public UsersDto checkUser(int user_no);
+	public int updateAdminUser(int user_no);
 }
