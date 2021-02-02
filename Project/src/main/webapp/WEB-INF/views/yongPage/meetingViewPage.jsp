@@ -1,17 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link type="text/css" rel="stylesheet" href="resources/style/soo/meetingViewPage.css" >
 <!DOCTYPE html>
 
 <jsp:include page="../template/header.jsp">
 	<jsp:param value="모임 VIEW 페이지" name="title"/>
 </jsp:include>
 
-<style>
-	table, tr, td {
-		border: 1px solid;
-	}
-</style>
 
 <!-- 이 호스트의 다른 모임 list ajax-->
 <script>
@@ -222,29 +218,54 @@
 	}
 </script>
 
-<br/>
-<br/> 제목 : ${meetingDto.meeting_title}
-<br/> 일정 : ${meetingDto.meeting_date}
-<br/> 장소 : ${meetingDto.location1_no}, ${meetingDto.location2_no} 
-<br/> 총 모집 인원 : ${meetingDto.meeting_max}
-<br/> 최소 모집 인원 : ${meetingDto.meeting_min}
-<br/> 현재 신청 인원 : ???
-<br/> 준비물 : 
-	  <c:forEach var="list" items="${materialList}">
-	  	  ${list.materials_name} &nbsp;
-      </c:forEach>
 
-<br/> 상세 내용 : ${meetingDto.meeting_content}
-<br/><br/>
+<div id="meeting">
+	<div id="meetingHeader">
+		<p id="meetingTitle"> ${meetingDto.meeting_title} </p>
+		<a href="#"> 관심 모임으로 등록하기 </a>
+	</div>
+	<div id="meetingInfo">
+		<div id="meetingDetail">
+			<p>모임일 : ${meetingDto.meeting_date}</p>
+			<p>장소 : ${meetingDto.location1_no}, ${meetingDto.location2_no} </p>
+			<p>총 모집 인원 : ${meetingDto.meeting_max}</p>
+			<p>최소 모집 인원 : ${meetingDto.meeting_min}</p>
+			<p>현재 신청 인원 : ???</p>
+			<p>
+				<c:forEach var="list" items="${materialList}">
+			  		${list.materials_name} &nbsp;
+		    	</c:forEach>
+			</p>
+		</div>
+		<div id="mainImg">
+			<img alt="대표사진" src="" id="">
+		</div>
+	</div>
+	<div>
+		<pre>상세 내용 : ${meetingDto.meeting_content}</pre>
+	</div>
+</div>
 
-<br/> 작성자 정보 : 
-<!-- to-do : 작성자가 일반 유져도 생각해야 할까? -->
-<br/> 사진 : ??
-<br/> 닉네임 : ${usersDto.user_nickname}
-<br/> 이름 : ${trainer_infoDto.trainer_name}
-<br/> 한줄메세지 : ${usersDto.user_message} 
-<br/> 활동 센터 : ${trainer_infoDto.employment}
-<br/> 활동 지역 : ${usersDto.location1_no}, ${usersDto.location2_no}<br/> 
+<div id="host">
+	<p>작성자 정보</p>
+	<c:if test="${usersDto.user_separator eq 0}"> <!-- 모임 작성자가 일반 유져일 떄 -->
+		
+	</c:if>
+	<c:if test="${usersDto.user_separator eq 1}"> <!-- 모임 작성자가 트레이너 일 때 -->
+		<div id="">
+			<div>
+				<img alt="작성자사진" src="">
+			</div>
+			<div>
+				<p>닉네임 : ${usersDto.user_nickname}</p>
+				<p>이름 : ${trainer_infoDto.trainer_name}</p>
+				<p>한줄메세지 : ${usersDto.user_message} </p>
+				<p>활동 센터 : ${trainer_infoDto.employment}</p>
+				<p>활동 지역 : ${usersDto.location1_no}, ${usersDto.location2_no}</p>
+			</div>		
+		</div>
+	</c:if>
+</div>
 
 <input type="button" value="수정하기"/>
 <input type="button" value="삭제하기" onclick=""/>
