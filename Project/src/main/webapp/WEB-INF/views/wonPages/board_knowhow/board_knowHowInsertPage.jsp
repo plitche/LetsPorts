@@ -15,18 +15,18 @@
 		<input type = "text" name = "title" id = "title" placeholder = "제목을 입력해주세요." /><br/><br/>
 		
 		카테고리<br/>
-			<input type="checkbox" value="0"/>족구
-			<input type="checkbox" value="1"/>축구
-			<input type="checkbox" value="2"/>농구
-			<input type="checkbox" value="3"/>볼링<br/>
-			<input type="checkbox" value="4"/>크로스핏
-			<input type="checkbox" value="5"/>스피닝
-			<input type="checkbox" value="6"/>댄스
-			<input type="checkbox" value="7"/>요가<br/>
-			<input type="checkbox" value="8"/>명상
-			<input type="checkbox" value="9"/>다이어트정보
-			<input type="checkbox" value="10"/>건강정보
-			<input type="checkbox" value="11"/>식단정보<br/><br/>
+			<label><input type="radio" name="tag_no" value="0">족구</label>
+			<label><input type="radio" name="tag_no" value="1">축구</label>
+			<label><input type="radio" name="tag_no" value="2">농구</label>
+			<label><input type="radio" name="tag_no" value ="3">볼링</label><br/>
+			<label><input type="radio" name="tag_no" value="4">크로스핏</label>
+			<label><input type="radio" name="tag_no" value="5">스피닝</label>
+			<label><input type="radio" name="tag_no" value="6">댄스</label>
+			<label><input type="radio" name="tag_no" value="7">요가</label><br/>
+			<label><input type="radio" name="tag_no" value="8">명상</label>
+			<label><input type="radio" name="tag_no" value="9">다이어트정보</label>
+			<label><input type="radio" name="tag_no" value="10">건강정보</label>
+			<label><input type="radio" name="tag_no" value="11">식단정보</label><br/><br/>
 			
 		<br/><label for = "content">내용</label><br/>
 		<textarea rows="10"  name = "content" id = "content"  placeholder = "내용을 입력해주세요."></textarea><br/>
@@ -39,13 +39,14 @@
 	
 <script>
 	function fn_knowHowInsert(f){
-		f.action='board_knowHowViewPage.limyeng';
+		f.action='board_knowHowInsert.limyeng';
 		f.submit();
 	}
 	
 	function fn_board_knowHowListPage(f) {
 		f.action = 'board_knowHowListPage.limyeng';
 		f.submit();
+		
 	}
 </script>
 
