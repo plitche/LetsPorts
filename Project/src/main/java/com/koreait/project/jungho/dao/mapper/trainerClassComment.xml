@@ -6,13 +6,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- Spring에서 새로 배우는 스타일 -->
 <mapper namespace="com.koreait.project.jungho.dao.TrainerClassCommentDao">
 	
-	<select id="commentList" resultType="com.koreait.project.dto.CommentsDto">
-		SELECT * FROM COMMENTS WHERE MEETING_NO = #{meeting_no}
+	<select id="commentList" parameterType="int" resultType="com.koreait.project.dto.CommentsDto">
+		SELECT * FROM COMMENTS WHERE COMMENT_REFERER_NO = #{meeting_no}
 	</select>
 	
 	<insert id="commentInsert" parameterType="com.koreait.project.dto.CommentsDto">
 		INSERT INTO COMMENTS VALUES
-		(COMMENTS_SEQ.NEXTVAL, 1, #{meeting_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
+		(COMMENTS_SEQ.NEXTVAL, 1, #{comment_referer_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
 	</insert>
+	
+	<delete id="commentDelete" parameterType="int">
+		DELETE FROM COMMENTS WHERE COMMENT_NO = #{comment_no}
+	</delete>
+	
+	<update id="commentUpdate" parameterType="com.koreait.project.dto.CommentsDto">
+		UPDATE COMMENTS SET COMMENT_CONTENT = #{comment_content}
+		WHERE COMMENT_NO = #{comment_no}
+	</update>
 
 </mapper>

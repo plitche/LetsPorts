@@ -10,4 +10,9 @@ public interface TrainerClassCommentDao {
 	
 	public int commentInsert(CommentsDto commentsDto);
 	
+	public int commentDelete(int comment_no);
+	
+	public int commentUpdate(CommentsDto commentsDto);
+	
+	
 }
