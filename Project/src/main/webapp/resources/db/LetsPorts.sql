@@ -99,7 +99,7 @@ CREATE TABLE users (
     password           VARCHAR2(50)     NOT NULL, 
     user_separator     NUMBER           NOT NULL, 
     created_at         DATE             NOT NULL, 
-    last_login         DATE             NOT NULL, 
+    last_login         DATE             NULL, 
     login_count        NUMBER           NOT NULL, 
     login_attempt      NUMBER           NOT NULL, 
     disable            NUMBER           NOT NULL, 

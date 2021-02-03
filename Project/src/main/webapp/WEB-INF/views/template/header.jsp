@@ -26,6 +26,9 @@
 <title>${title}</title>
 
 </head>
+<script type="text/javascript">
+	
+</script>
 <body>
 	<div class="header">
 		<div class="top-wrap" >
@@ -45,7 +48,7 @@
 				<c:if test="${loginUser ne null}">
 					<li style="font-size:12px; font-weight:900;" ><a href="javascript:void(0)"></a>반갑습니다!</li>
 					<li><a href="usersLogout.hey" >LOGOUT</a></li>
-					<li><a href="javascript:void(0)" >마이페이지</a></li>
+					<li><a href="myPage_meeting.hey" >마이페이지</a></li>
 					<li>
 						<a href="javascript:void(0)" >
 							<img alt="noticebell" src="../images/bell2.png"/>

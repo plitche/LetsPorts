@@ -18,7 +18,7 @@ public interface TrainerQnADao {
 	public Trainer_qnaDto showQnA(int trainer_qna_no);
 	
 	// 답변 완료 작성 시 update해주기 위한 메소드
-	public int writeAnswer(int trainer_qna_no, int trainer_qna_answered);
+	public int writeAnswer(int trainer_qna_no, String trainer_qna_answered);
 	
 	
 	

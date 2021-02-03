@@ -5,7 +5,8 @@
     
 <jsp:include page="../template/header.jsp" />
 <link type="text/css" rel="stylesheet" href="resources/style/jung/TrainerClassViewPage.css" >
-    
+
+
     <form method="post">
     
     		<br/><br/><br/>
@@ -89,17 +90,26 @@
 		$(document).ready(function(){
 			commentList();
 			commentInsert();
+			commentDelete();
 		});
 	
 		function commentList() {
-			var meeting_no = ${trainerClassDto.meeting_no};
-			$ajax({
-				url: 'comment/' + meeting_no,
+			var meeting_no = '${trainerClassDto.meeting_no}';
+			$.ajax({
+				url: 'comment.leo',
 				type: 'get',
+				data: 'meeting_no=' + meeting_no,
 				dataType: 'json',
-				success: function (responseList) {
-					if (responseList.result) {
-						commentListContent(responseList.list);
+				success: function (responseObj) {
+					if (responseObj.result) {
+						commentListContent(responseObj.commentList);
+						$('#totalCount').empty();
+						$('<span>').html(responseObj.totalCount)
+						.appendTo('#totalCount');
+					} else {
+						$('#listComment_all').empty();
+						 $('<div>').html('댓글을 작성해주세요')
+						.appendTo('#listComment_all');
 					}
 				},
 				error: function() {alert('실패');}
@@ -108,37 +118,52 @@
 		function commentListContent(list) {
 			$('#listComment_all').empty();
 			$.each(list, function(idx, comment){
-				$('<div>')
-				.append($('<img alt="내 프로필" src=""/>'))
-				.append($('<div>'))
-				.append($('<div>'))
-				.append( $('<div>').html(comment.comment_content) )
+					
+				$('<div>').addClass('commentContent')
+				.append( $('<div>').addClass('myPhoto').append( $('<img alt="내프로필" src="">') ))
+				.append( $('<div>').addClass('comment_wrap')
+					.append( $('<div>').addClass('comment_all')
+						.append( $('<div>').addClass('comment1')
+								.append( $('<div>').html(comment.user_no))
+								.append( $('<div>').html(comment.created_at))
+						)
+						.append( $('<div>').addClass('comment2').html(comment.comment_content) )
+					)
+					.append( $('<div>').addClass('CommentU_DBtn')
+						.append( $('<input type="hidden" name="comment_no"/>').val(comment.comment_no))
+						.append( $('<input type="hidden" name="user_no"/>').val(comment.user_no))
+						.append( $('<input type="hidden" name="comment_content"/>').html(comment.comment_content))
+						.append( $('<div>').html('<input type="button" value="수정" id="btnUpdate"/>') )
+						.append( $('<div>').html('<input type="button" value="삭제" id="btnDelete"/>') )
+					)															
+				)
 				.appendTo('#listComment_all');
+				
 			});
 		}
 		
-	
 		
 		/**** 댓글 삽입 ****/
 		function commentInsert() {
 			$('#commentBtn').click(function(){
-				var comment_content = $('input:text[name="comment_content"]').val();
 				var meeting_no = ${trainerClassDto.meeting_no};
 				var user_no = 10;
+				var comment_content = $('input:text[name="comment_content"]').val();
 				var sendObj = {
-						"meeting_no": meeting_no,
+						"comment_referer_no": meeting_no,
 						"user_no": user_no,
 						"comment_content": comment_content
 					};
 				$.ajax({
-					url: 'commentInsert',
+					url: 'commentInsert.leo',
 					type: 'post',
+					dataType:'json',
 					data: JSON.stringify(sendObj),
-					dataType='json',
 					contentType: 'application/json; charset=utf-8',
 					success: function(responseObj) {
-						if (responseObj.result) {
+						if (responseObj.result == true) {
 							alert('댓글이 작성되었습니다.');
+							commentList();
 						} else {
 							alert('댓글이 작성되지 않았습니다.');
 						}
@@ -148,32 +173,91 @@
 			});
 		}
 		
+		// 댓글 삭제
+		function commentDelete() {
+			$('#listComment_all').on('click', '#btnDelete', function(){
+				
+				var comment_no = $(this).parents('div').find('input:hidden[name="comment_no"]').val();
+				var user_no = $(this).parents('div').find('input:hidden[name="user_no"]').val();
+				
+				var check = confirm(user_no + '님의 정보를 삭제할까요?');
+				if (check) {
+					
+					$.ajax({
+						url: 'commentDelete.leo/' + comment_no,
+						type: 'delete',
+						dataType: 'json',
+						success: function(responseObj) {
+							if (responseObj.result == 1) {
+								alert('삭제되었습니다.');
+								commentList();
+							} else {
+								alert('삭제에 실패했습니다.');
+							}
+						},
+						error: function(){alert('실패');}						
+					});
+				}
+			});
+		}
+		
+	
+		
+
+		// 댓글 수정
+		function commentUpdate() {
+			$('#listComment_all').on('click', '#btnUpdate', function() {
+				
+				
+				/*
+				var sendObj = {
+										"comment_no" : comment_no,
+										"comment_content" : comment_content
+									 };
+				$.ajax({
+					url: 'memberUpdate',
+					type: 'put',
+					data: JSON.stringify(sendObj),
+					dataType: 'json',
+					success: function(responseObj) {
+						if (responseObj.result == 1) {
+							alert('댓글이 수정되었습니다.');
+							commentList();
+						} else {
+							alert('댓글 수정에 실패했습니다.');
+						}
+					},
+					error: function(){alert('실패');}
+				});
+				*/
+			});
+		}
+		
+		
+		
 	</script>
 	
 	
 	
 	<br/><br/><br/><br/><br/>
 
-	
-		<div>댓글 ~~ 개</div><br/>
-		<!-- 댓글 작성란 -->
-		<div class="createComment_all">
-			<div id="myPhoto"><img alt="내 프로필" src="" /></div>
-			<div id="createComment"><input type="text" name="comment_content"  id="comment_content" placeholder="댓글 추가..."/></div>
-			<div class="btns">
-				<input type="button" value="취소" />
-				<input type="button" value="댓글달기" id="commentBtn" /> 
+		<form>
+			<div>댓글&nbsp;<span id="totalCount"></span>개</div><br/>
+			<!-- 댓글 작성란 -->
+			<div class="createComment_all">
+				<div class="myPhoto"><img alt="내 프로필" src="" /></div>
+				<div id="createComment"><input type="text" name="comment_content" id="comment_content" placeholder="댓글작성.."></textarea></div>
+				<div class="btns">
+					<input type="button" value="취소" />
+					<input type="button" value="댓글달기" id="commentBtn" /> 
+				</div>
 			</div>
-		</div>
-		
+		</form>
 	
 	<!-- 댓글 리스트란 -->
 	<div id="listComment_all">
-		
-		
-		
+	
 	</div>
-
-		
+	
     
 <%@ include file="../template/footer.jsp" %>
