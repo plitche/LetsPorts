@@ -12,6 +12,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,13 +22,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.koreait.project.wooki.command.AddTrainerSendEmailCommand;
 import com.koreait.project.wooki.command.AdminListCommand;
 import com.koreait.project.wooki.command.AdminLoginCommand;
 import com.koreait.project.wooki.command.ChangeEmailCommand;
 import com.koreait.project.wooki.command.ChangeEmailIsPossibleCommand;
 import com.koreait.project.wooki.command.CheckUserCommand;
+import com.koreait.project.wooki.command.DeleteUserCommand;
+import com.koreait.project.wooki.command.FilterTrainerUserListCommand;
 import com.koreait.project.wooki.command.FilterUserListCommand;
 import com.koreait.project.wooki.command.SendTempPassCommand;
+import com.koreait.project.wooki.command.TrainerUserListCommand;
 import com.koreait.project.wooki.command.UpdateAdminUserCommand;
 import com.koreait.project.wooki.command.UpdateNormalUserCommand;
 import com.koreait.project.wooki.command.UserListCommand;
@@ -51,6 +56,10 @@ public class WookiController {
 	private UpdateNormalUserCommand updateNormalUserCommand = ctx.getBean("updateNormalUserCommand", UpdateNormalUserCommand.class);
 	private CheckUserCommand checkUserCommand = ctx.getBean("checkUserCommand", CheckUserCommand.class);
 	private UpdateAdminUserCommand updateAdminUserCommand = ctx.getBean("updateAdminUserCommand", UpdateAdminUserCommand.class);
+	private DeleteUserCommand deleteUserCommand = ctx.getBean("deleteUserCommand", DeleteUserCommand.class);
+	private TrainerUserListCommand trainerUserListCommand = ctx.getBean("trainerUserListCommand", TrainerUserListCommand.class);
+	private FilterTrainerUserListCommand filterTrainerUserListCommand = ctx.getBean("filterTrainerUserListCommand", FilterTrainerUserListCommand.class);
+	private AddTrainerSendEmailCommand addTrainerSendEmailCommand = ctx.getBean("addTrainerSendEmailCommand", AddTrainerSendEmailCommand.class);
 	
 	@GetMapping(value="adminPage.wooki")
 	public String adminPage() {
@@ -143,5 +152,42 @@ public class WookiController {
 	public Map<String, Object> updateAdminUser(@PathVariable("user_no") int user_no, Model model) {
 		model.addAttribute("user_no", user_no);
 		return updateAdminUserCommand.execute(sqlSession, model);
+	}
+	
+	@DeleteMapping(value="deleteUser/{user_no}.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> deleteUser(
+			@PathVariable("user_no") int user_no,
+			HttpServletRequest request,
+			Model model) {
+		model.addAttribute("user_no", user_no);
+		model.addAttribute("request", request);
+		return deleteUserCommand.execute(sqlSession, model);
+	}
+	
+	@GetMapping(value="trainerUserList.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> trainerUserList(@RequestParam("page") int page, Model model) {
+		model.addAttribute("page", page);
+		return trainerUserListCommand.execute(sqlSession, model);
+	}
+	
+	@GetMapping(value="filterTrainerUserList.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> filterTrainerUserList(
+			@RequestParam("page") int page,
+			@RequestParam("search") int search,
+			Model model) {
+		model.addAttribute("search", search);
+		model.addAttribute("page", page);
+		return filterTrainerUserListCommand.execute(sqlSession, model);
+	}
+	
+	@GetMapping(value="addTrainerSendEmail.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> addTrainerSendEmail(@RequestParam("user_no") int user_no, Model model) {
+		model.addAttribute("mailSender", mailSender);
+		model.addAttribute("user_no", user_no);
+		return addTrainerSendEmailCommand.execute(sqlSession, model);
 	}
 }
