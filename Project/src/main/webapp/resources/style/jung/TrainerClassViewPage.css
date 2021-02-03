@@ -56,8 +56,20 @@
 	display:flex;
 }
 
+.comment_wrap {
+	display: flex;
+}
+
 .comment1 {
 	display: flex;
+}
+
+.comment2 {
+	width:700px;
+}
+
+.CommentU_DBtn {
+	margin-left: 80px;
 }
 
 .comment1 > div:nth-of-type(2) {
@@ -77,8 +89,11 @@
 	margin-top: 20px;
 }
 
-.CommentU_DBtn {
-	margin-left: 600px;
+#commentUpdate {
+	width: 700px;
+	margin-left: 20px;
+	border-width: 0 0 2px; 
+	border-color: lightgray;
 }
 
 .CommentU_DBtn > div > input {
@@ -90,3 +105,59 @@
 .CommentU_DBtn > div > input:hover {
 	color: black;
 }
+
+/* 모달창 */
+
+.modal_all {
+	display: none;
+	width: 600px;
+	height: 500px;
+	padding: 20px 60px;
+	background-color: #fefefe;
+	border: 1px solid #888;
+	border-radius: 3px;
+	overflow :auto;
+}
+
+.modal_all {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
