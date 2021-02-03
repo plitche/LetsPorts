@@ -77,15 +77,26 @@
 	function trainerQnAListTable(list) {
 		$('#qnaList').empty();
 		$.each(list, function(idx, qna){
-			$('<tr>')
-			.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
-			.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
-			.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
-			.append( $('<td>').html(qna.question_user_no) )
-			.append( $('<td>').html(qna.created_at) )
-			.append( $('<input type="hidden" name="' + qna.trainer_qna_no + '" value="' + idx + '"/>') )
-			.append( $('<td name="isAnswered">').addClass('isAnswered').html('미답변') )
-			.appendTo('#qnaList');
+			if (qna.is_answered==0) {
+				$('<tr>')
+				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
+				.append( $('<td>').html(qna.question_user_no) )
+				.append( $('<td>').html(qna.created_at) )
+				.append( $('<input type="hidden" name="' + qna.trainer_qna_no + '" value="' + idx + '"/>') )
+				.append( $('<td name="isAnswered">').addClass('isAnswered').html('미답변') )
+				.appendTo('#qnaList');
+			} else {
+				$('<tr>')
+				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
+				.append( $('<td>').html(qna.question_user_no) )
+				.append( $('<td>').html(qna.created_at) )
+				.append( $('<td name="isAnswered">').addClass('isAnswered').html('답변완료') )
+				.appendTo('#qnaList');
+			}
 		});
 	}
 	
