@@ -111,4 +111,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			user_no = #{user_no}
 	</update>
 	
+	<select id="adminList" resultType="com.koreait.project.wooki.dto.UsersDto">
+		select
+			*
+		from
+			users
+		where
+			user_separator = 0
+	</select>
+	
+	<update id="updateNormalUser" parameterType="int">
+		update
+			users
+		set
+			user_separator = 2
+		where
+			user_no = #{user_no}
+	</update>
+	
+	<select id="checkUser" resultType="com.koreait.project.wooki.dto.UsersDto">
+		select
+			*
+		from
+			users
+		where
+			user_no = #{user_no}
+	</select>
+	
+	<update id="updateAdminUser" parameterType="int">
+		update
+			users
+		set
+			user_separator = 0
+		where
+			user_no = #{user_no}
+	</update>
+	
 </mapper>

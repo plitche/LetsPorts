@@ -23,6 +23,10 @@
 			fn_changeEmail();
 			fn_closeChangeEmailModal();
 			fn_sendTempPass();
+			fn_addAdminPage();
+			fn_updateNormalUser();
+			fn_checkUser();
+			fn_updateAdminUser();
 			$('.user').click(function() {
 				fn_user(1);
 			});
@@ -51,7 +55,7 @@
 			<div class="nav-btn comment">댓글관리</div>
 			<div class="nav-btn review">리뷰관리</div>
 		</div>
-		<div class="content-container vw scroll">내용</div>
+		<div class="content-container vw scroll"></div>
 	</div>
 	
 	<div class="black-background hide" id="change-email-modal">

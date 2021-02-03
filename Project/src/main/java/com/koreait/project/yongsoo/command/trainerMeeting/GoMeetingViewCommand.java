@@ -25,23 +25,16 @@ public class GoMeetingViewCommand implements CommonVoidCommand {
 		
 		MeetingDto meetingDto = trainerMeetingDao.findMeetingInfo(meeting_no); // 1번
 		int user_no = meetingDto.getUser_no();
-		int exercise_no = meetingDto.getExercise_no();
 
 		List<MaterialsDto> materialList = trainerMeetingDao.findMaterialsInfo(meeting_no); // 2번
 		
 		UsersDto usersDto = trainerMeetingDao.findUserInfo(user_no); // 3번
 		Trainer_infoDto trainer_infoDto = trainerMeetingDao.findTrainerInfo(user_no); // 4번
-		// List<MeetingDto> meetingList1 = trainerMeetingDao.findOtherMeeting1(user_no); // 5번
-		// List<MeetingDto> meetingList2 = trainerMeetingDao.findOtherMeeting2(user_no, exercise_no); // 6번
-		// List<CommentsDto> commentList = trainerDao.findComment(meeting_no); // 7번
 		
 		model.addAttribute("meetingDto", meetingDto);
 		model.addAttribute("materialList", materialList);
 		model.addAttribute("usersDto", usersDto);
 		model.addAttribute("trainer_infoDto", trainer_infoDto);
-		// model.addAttribute("meetingList1", meetingList1);
-		// model.addAttribute("meetingList2", meetingList2);
-		// model.addAttribute("commentList", commentList);
 		
 	}
 

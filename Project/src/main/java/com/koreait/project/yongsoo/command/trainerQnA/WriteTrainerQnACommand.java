@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.dto.Trainer_qnaDto;
-import com.koreait.project.yongsoo.dao.TrainerDao;
 import com.koreait.project.yongsoo.dao.TrainerQnADao;
 
 public class WriteTrainerQnACommand implements CommonMapCommand {
@@ -18,21 +17,20 @@ public class WriteTrainerQnACommand implements CommonMapCommand {
 
 		Map<String, Object> map = model.asMap();
 		Trainer_qnaDto trainer_qnaDto = (Trainer_qnaDto)map.get("trainer_qnaDto");
-		int user_no = trainer_qnaDto.getTrainer_user_no();
 		
 		TrainerQnADao trainerQnADao = sqlSession.getMapper(TrainerQnADao.class);
 		int insertQnAToTrainerResult = trainerQnADao.insertQnAToTrainer(trainer_qnaDto);
+		int is_published = trainer_qnaDto.getIs_published();
 		
-		Map<String, Object> map2 = new HashMap<String, Object>();
+		Map<String, Object> insertQnAResult = new HashMap<String, Object>();
 		
 		if(insertQnAToTrainerResult>0) {
-			map2.put("result", true);
-			map2.put("qnaList", trainerQnADao.findQuestion(user_no));
+			insertQnAResult.put("result", true);
 		} else {
-			map2.put("result", false);
+			insertQnAResult.put("result", false);
 		}
 		
-		return map2;
+		return insertQnAResult;
 	}
 
 }

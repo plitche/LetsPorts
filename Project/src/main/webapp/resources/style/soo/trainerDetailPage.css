@@ -127,3 +127,41 @@
 #content {
 	height: 300px;
 }
+
+/* 트레이너에게 질문한 list 파트 css */
+table > thead > tr > td {
+	width: 10%;
+}
+.questionTitle, .create_at {
+	width: 15%;
+}
+.questionContent {
+	width: 35%;
+}
+#questionList {
+	margin: 0 auto;
+	border: solid;
+}
+#questionList > thead > tr, 
+#questionList > tbody td:nth-child(1),
+#questionList > tbody td:nth-child(3),
+#questionList > tbody td:nth-child(4),
+#questionList > tbody td:nth-child(5) {
+	text-align: center;
+}
+#questionList td {
+	padding: 4px 7px;
+	border-bottom: 1px solid #f2f2f2;
+	height: 28px;
+}
+#questionList a:hover {
+	color: red;
+}
+#questionList a {
+	text-decoration: none;
+	color: inherit;
+}
+
+
+
+

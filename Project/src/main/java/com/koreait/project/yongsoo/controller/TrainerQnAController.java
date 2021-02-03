@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koreait.project.dto.Trainer_qnaDto;
 import com.koreait.project.yongsoo.command.trainerQnA.GetTrainerQnACommand;
+import com.koreait.project.yongsoo.command.trainerQnA.ShowQnACommand;
+import com.koreait.project.yongsoo.command.trainerQnA.WriteAnswerCommand;
 import com.koreait.project.yongsoo.command.trainerQnA.WriteTrainerQnACommand;
 import com.koreait.project.yongsoo.config.SooAppContext;
 
@@ -45,5 +47,26 @@ public class TrainerQnAController {
 		WriteTrainerQnACommand writeTrainerQnACommand = ctx.getBean("writeTrainerQnACommand", WriteTrainerQnACommand.class);
 		return writeTrainerQnACommand.execute(sqlSession, model);
 	}
+	
+	// 질문의 제목이나 내용 클릭시 ajax처리를 위한 메소드
+	@RequestMapping(value="showQnA.plitche/{trainer_qna_no}", method=RequestMethod.GET,
+					produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> showQnA(@PathVariable("trainer_qna_no") int trainer_qna_no, Model model) {
+		model.addAttribute("trainer_qna_no", trainer_qna_no);
+		ShowQnACommand showQnACommand = ctx.getBean("showQnACommand", ShowQnACommand.class);
+		return showQnACommand.execute(sqlSession, model);
+	}
+	
+	// 질문 답변 완료 시 ajax처리를 위한 메소드
+	@RequestMapping(value="writeAnswer.plitche", method=RequestMethod.POST,
+					produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> writeAnswer(@RequestBody Trainer_qnaDto trainer_qnaDto, Model model) {
+		model.addAttribute("trainer_qnaDto", trainer_qnaDto);
+		WriteAnswerCommand writeAnswerCommand = ctx.getBean("writeAnswerCommand", WriteAnswerCommand.class);
+		return writeAnswerCommand.execute(sqlSession, model);
+	}
+	
 	
 }

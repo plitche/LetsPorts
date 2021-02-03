@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.common.CommonVoidCommand;
 import com.koreait.project.hyejoon.dao.UsersDao;
@@ -17,20 +18,32 @@ public class UsersLoginCommand implements CommonVoidCommand {
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
 		Map<String, Object> map = model.asMap();
-		UsersDto usersDto = (UsersDto) map.get("usersDto");
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession();
+		RedirectAttributes redirect = (RedirectAttributes) map.get("redirect");
 		
-		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
-		UsersDto loginUser = usersDao.usersLogin(usersDto);
-		
-		
-		// user_id를 캐스팅하라 한 부분,,, userid라는 파라미터는 어디서 나온건지 몰라서 헤매는 중이여 용수님 ㅠㅠ
-		int user_no = Integer.parseInt(request.getParameter("user_no"));
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		session.setAttribute("user_no", usersDto);
-		session.setAttribute("password", usersDto);
+		// System.out.println(email + password);
+		
+		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
+		UsersDto loginUser = usersDao.usersLogin(email, password);
+		
+		
+		// login정보를 체크한다.
+		// false:0, true:1 -> controller에도 연관되는 부분이므로 참고!
+		if(loginUser == null) {
+			// model.addAttribute("loginResult", 0); -> request 기반이니까 지워짐
+			redirect.addFlashAttribute("loginResult", 0);
+			// session에 정보 저장 안함!
+		} else {
+			// model.addAttribute("loginResult", 1);
+			// true면 session에 저장!!
+			redirect.addFlashAttribute("loginResult", 1);
+			session.setAttribute("loginUser", loginUser);
+		}
 		
 	}
+	
 }

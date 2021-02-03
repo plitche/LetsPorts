@@ -10,6 +10,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM MEETING
 		 WHERE USER_NO = #{user_no}
 	</select>
+	<select id="totalMeetingCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM MEETING
+		 WHERE USER_NO = #{user_no}
+	</select>
+
 
 
 	<select id="findMeetingInfo" parameterType="int" resultType="com.koreait.project.dto.MeetingDto">
