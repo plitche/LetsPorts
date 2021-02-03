@@ -114,15 +114,18 @@
 	height: 500px;
 	padding: 20px 60px;
 	background-color: #fefefe;
-	border: 1px solid #888;
-	border-radius: 3px;
+	box-shadow: 2px 2px 2px silver;
+	border-radius: 5px;
 	overflow :auto;
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	top:50%; 
+	left:50%;
+ 	transform: translate(-50%,-50%);
 }
 
-.modal_all {
-	position: absolute;
-	top: 10px;
-	right: 10px;
+textarea[name="question_content"] {
+	overflow :auto;
 }
 
 

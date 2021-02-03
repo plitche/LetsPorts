@@ -66,7 +66,7 @@
 			   
 			   
 			   <!-- 모달창 띄우는 버튼 -->
-			   <input type="button" value="질문하기" id="modal-open-btn" />
+			   <input type="button" value="클래스에 대해 질문하기" id="modal-open-btn" />
 			   
 			   <!-- 모달창 버튼 누를 시 열리는 내용들 -->
 			   <div class="modal_all">
@@ -77,7 +77,7 @@
 					        <div class="modal-close-box">
 					        <form>
 					         	 <input type="text" name="question_title" placeholder="질문 제목" />
-					         	 <textarea rows="10" cols="50" name="question_content" placeholder="질문 내용"></textarea>
+					         	 <textarea rows="10" cols="65" name="question_content" placeholder="질문 내용"></textarea>
 					         	 <br/>
 					         	 <input type="button" value="질문등록하기"  id="questionBtn"/>
 					        </form>
@@ -106,7 +106,7 @@
 	<script>
 	
 	//모달창 만들어주는 함수
-	$(document).ready(function () {
+	$(document).on('click', '#modal-open-btn', function() {
 		$(".modal_all").show();
 	});
 
