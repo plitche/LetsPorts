@@ -22,12 +22,19 @@ public interface KnowHowDao {
 	
 	List<Board_knowhowDto> list = new ArrayList<Board_knowhowDto>();
 	
-	
-	
-	
-	
-	// public Board_knowhowDto boardknowHowView(int no);
+	public Board_knowhowDto boardknowHowView(int knowhow_no);
 		
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
 	
 
 
