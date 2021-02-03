@@ -28,4 +28,7 @@ public interface TrainerClassDao {
 	
 	public int materialsViewUpdate(String material, int meeting_no);
 	
+	// 관련 트레이너 클래스 리스트 추출
+	public List<TrainerClassDto> relatedClass(TrainerClassDto trainerClassDto);
+	
 }
