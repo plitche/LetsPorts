@@ -147,4 +147,204 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			user_no = #{user_no}
 	</update>
 	
+	<delete id="deleteUserScrap" parameterType="int">
+		delete from
+			scrap
+		where
+			(scrap_separator = 1
+			and scrap_referer_no = #{param1})
+			or (scrap_separator = 2
+				and scrap_referer_no in (select
+											meeting_no
+										from
+											meeting
+										where
+											user_no = #{param1}))
+			or (scrap_separator = 0
+				and scrap_referer_no in (select
+											knowhow_no
+										from
+											board_knowhow
+										where
+											user_no = #{param1}))
+	</delete>
+	
+	<delete id="deleteUserComments" parameterType="int">
+		delete from
+			comments
+		where
+			(comment_referer_sep = 2
+			and comment_referer_no in (select
+										meeting_no
+									from
+										meeting
+									where
+										user_no = #{param1}))
+			or (comment_referer_sep = 0
+				and comment_referer_no in (select
+											knowhow_no
+										from
+											board_knowhow
+										where
+											user_no = #{param1}))
+			or (comment_referer_sep = 1
+				and comment_referer_no in (select
+											board_qna_no
+										from
+											board_qna
+										where
+											user_no = #{param1}))
+	</delete>
+	
+	<select id="deleteUserPhotoList" parameterType="int" resultType="String">
+		select
+			photo_filename
+		from
+			photo
+		where
+			photo_referer_sep = 2
+			and photo_referer_no in (select
+										meeting_no
+									from
+										meeting
+									where
+										user_no = #{param1})
+			or (photo_referer_sep = 0
+				and photo_referer_no in (select
+											knowhow_no
+										from
+											board_knowhow
+										where
+											user_no = #{param1}))
+			or (photo_referer_sep = 1
+				and photo_referer_no in (select
+											board_qna_no
+										from
+											board_qna
+										where
+											user_no = #{param1}))
+	</select>
+	
+	<delete id="deleteUserPhoto" parameterType="int">
+		delete from
+			photo
+		where
+			photo_referer_sep = 2
+			and photo_referer_no in (select
+										meeting_no
+									from
+										meeting
+									where
+										user_no = #{param1})
+			or (photo_referer_sep = 0
+				and photo_referer_no in (select
+											knowhow_no
+										from
+											board_knowhow
+										where
+											user_no = #{param1}))
+			or (photo_referer_sep = 1
+				and photo_referer_no in (select
+											board_qna_no
+										from
+											board_qna
+										where
+											user_no = #{param1}))
+	</delete>
+	
+	<delete id="deleteUserAlaram" parameterType="int">
+		delete from
+			alarm
+		where
+			(alarm_separator = 3
+			and alarm_referer_no in (select
+										trainer_qna_no
+									from
+										trainer_qna
+									where
+										trainer_user_no = #{param1}))
+			or (alarm_separator in (5, 6)
+				and alarm_referer_no in (select
+											participants_no
+										from
+											meeting_participants
+										where
+											user_no = #{param1}))
+			or (alarm_separator = 4
+				and alarm_referer_no in (select
+											meeting_no
+										from
+											meeting
+										where
+											user_no = #{param1}))
+	</delete>
+	
+	<delete id="deleteUser" parameterType="int">
+		delete from
+			users
+		where
+			user_no = #{param1}
+	</delete>
+
+	<select id="trainerUserList" resultType="com.koreait.project.wooki.dto.Trainer_infoDto">
+		select
+			*
+		from
+			(select
+				rownum as rn, a.*
+			from
+				(select
+					*
+				from
+					trainer_info
+				order by
+					trainer_no desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
+	
+	<select id="totalTrainerRecord" resultType="int">
+		select
+			count(*)
+		from
+			trainer_info
+	</select>
+	
+	<select id="filterTotalTrainerRecord" parameterType="int" resultType="int">
+		select
+			count(*)
+		from
+			trainer_info
+		where
+			user_no = #{param1}
+	</select>
+	
+	<select id="filterTrainerUserList" resultType="com.koreait.project.wooki.dto.Trainer_infoDto">
+		select
+			*
+		from
+			(select
+				rownum as rn, a.*
+			from
+				(select
+					*
+				from
+					trainer_info
+				where
+					user_no = #{param3}
+				order by
+					trainer_no desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
+	
+	<select id="getEmail" parameterType="int" resultType="String">
+		select
+			email
+		from
+			users
+		where
+			user_no = #{param1}
+	</select>
+
 </mapper>
