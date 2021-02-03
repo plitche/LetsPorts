@@ -55,7 +55,7 @@ public class TrainerClassCommentController {
 	// delete 하는 역할
 	
 	@RequestMapping(value="commentDelete.leo/{comment_no}",
-								method=RequestMethod.DELETE,
+								method=RequestMethod.GET,
 								produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> commentDelete(@PathVariable("comment_no") int comment_no, Model model) {
@@ -67,7 +67,7 @@ public class TrainerClassCommentController {
 	
 	// update 하는 역할
 	@RequestMapping(value="commentUpdate.leo",
-								method=RequestMethod.PUT,
+								method=RequestMethod.POST,
 								produces="application/json; charset=utf-8")		
 	@ResponseBody
 	public Map<String, Object> commentUpdate(@RequestBody CommentsDto commentsDto, Model model) {

@@ -19,9 +19,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM COMMENTS WHERE COMMENT_NO = #{comment_no}
 	</delete>
 	
-	<update id="commentUpdate" parameterType="com.koreait.project.dto.CommentsDto">
-		UPDATE COMMENTS SET COMMENT_CONTENT = #{comment_content}
-		WHERE COMMENT_NO = #{comment_no}
+	<update id="commentUpdate" >
+		UPDATE COMMENTS SET COMMENT_CONTENT = #{param1}
+		WHERE COMMENT_NO = #{param2}
 	</update>
 
 </mapper>
