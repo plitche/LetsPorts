@@ -19,50 +19,30 @@ public class UsersLoginCommand implements CommonVoidCommand {
 	public void execute(SqlSession sqlSession, Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		HttpSession session = request.getSession();
+		RedirectAttributes redirect = (RedirectAttributes) map.get("redirect");
+		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-
+		
+		// System.out.println(email + password);
+		
 		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
-		UsersDto loginUser2 = usersDao.usersLogin2(email, password);
-		
-		if (loginUser2 != null) {
-			// 세션 올리게따
-			model.addAttribute("loginResult", 0);
-			model.addAttribute("loginUser2", loginUser2);
-		} else {
-			// 세션 안올리게따
-			model.addAttribute("loginResult", 1);
-		}
-		
-		
-		UsersDto usersDto = (UsersDto) map.get("usersDto");
-		RedirectAttributes redirect = (RedirectAttributes) map.get("redirect");
-		HttpSession session = request.getSession();
-
-		UsersDto loginUser = usersDao.usersLogin(usersDto);
+		UsersDto loginUser = usersDao.usersLogin(email, password);
 		
 		
 		// login정보를 체크한다.
+		// false:0, true:1 -> controller에도 연관되는 부분이므로 참고!
 		if(loginUser == null) {
-			model.addAttribute("loginResult", false);
-			redirect.addFlashAttribute("loginResult");
+			// model.addAttribute("loginResult", 0); -> request 기반이니까 지워짐
+			redirect.addFlashAttribute("loginResult", 0);
+			// session에 정보 저장 안함!
 		} else {
-			model.addAttribute("loginResult", true);
-			
-			if(loginUser.getUser_separator() == 0) {
-				// 로그인 상태 유지 위해 session에 저장한다.
-				session.setAttribute("loginUser", loginUser);
-				redirect.addAttribute("loginUser", 0);
-				// 관리자 페이지로 넘겨준다.
-			} else if(loginUser.getUser_separator() == 1) {
-				session.setAttribute("loginUser", loginUser);
-				redirect.addAttribute("loginUser", 1);
-			} else {
-				session.setAttribute("loginUser", loginUser);
-				redirect.addAttribute("loginUser", 2);
-			}
+			// model.addAttribute("loginResult", 1);
+			// true면 session에 저장!!
+			redirect.addFlashAttribute("loginResult", 1);
+			session.setAttribute("loginUser", loginUser);
 		}
-		
 		
 	}
 	
