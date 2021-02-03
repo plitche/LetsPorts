@@ -66,7 +66,7 @@ input, select {
 	margin: 0;
 }
 #gatherDetail div:nth-child(1) {
-	margin-right: 52px;
+	margin-right: 5px;
 }
 #address {
 	margin-bottom: 20px;
@@ -87,25 +87,19 @@ input, select {
 	width: 100%;
 	margin-bottom: 20px;
 }
-#materials {
-	display: flex;
-}
 #materials p {
-	
+	text-align: center;
+}
+#materials div {
+	text-align: center;
 }
 textarea {
 	width: 100%;
 	height: auto;
 }
-#meetingContent {
-	text-align: right;
-	margin-top: 50px;
+#detailContent button {
+	float: right;
 }
-#meetingContent p {
-	text-align: left;
-}
-
-
 
 
 

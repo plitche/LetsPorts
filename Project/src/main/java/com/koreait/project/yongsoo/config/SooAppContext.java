@@ -17,6 +17,7 @@ import com.koreait.project.yongsoo.command.trainerQnA.GetTrainerQnACommand;
 import com.koreait.project.yongsoo.command.trainerQnA.ShowQnACommand;
 import com.koreait.project.yongsoo.command.trainerQnA.WriteAnswerCommand;
 import com.koreait.project.yongsoo.command.trainerQnA.WriteTrainerQnACommand;
+import com.koreait.project.yongsoo.command.trainerReview.GetTrainerReviewListCommand;
 
 @Configurable
 public class SooAppContext {
@@ -90,4 +91,10 @@ public class SooAppContext {
 	public WriteAnswerCommand writeAnswerCommand() {
 		return new WriteAnswerCommand();
 	}
+	
+	@Bean
+	public GetTrainerReviewListCommand getTrainerReviewListCommand() {
+		return new GetTrainerReviewListCommand();
+	}
+	
 }
