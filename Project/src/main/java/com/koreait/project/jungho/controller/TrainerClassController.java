@@ -1,15 +1,20 @@
 package com.koreait.project.jungho.controller;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.koreait.project.jungho.command.TrainerClassCommand.RelatedClassCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassDeleteCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassInsertCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassListCommand;
@@ -93,5 +98,20 @@ public class TrainerClassController {
 		
 		return "redirect:TrainerClassViewPage.leo?meeting_no=" + trainerClassDto.getMeeting_no();
 	}
+	
+	// 관련 클래스 list 뿌려주는 역할
+	@RequestMapping(value="relatedClass.leo",
+							      method=RequestMethod.GET,
+							      produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> relatedClass(@RequestBody TrainerClassDto trainerClassDto, Model model) {
+		
+		model.addAttribute("trainerClassDto", trainerClassDto);
+		RelatedClassCommand relatedClassCommand = ctx.getBean("relatedClassCommand", RelatedClassCommand.class);
+		return relatedClassCommand.execute(sqlSession, model);
+		
+	}
+	
+	
 	
 }

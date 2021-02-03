@@ -57,5 +57,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE MATERIALS SET MATERIALS_NAME = #{param1} WHERE MEETING_NO = #{param2}
 	</update>
 	
+	<select id="relatedClass" parameterType="com.koreait.project.jungho.dto.TrainerClassDto" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
+		SELECT * FROM MEETING
+		WHERE MEETING_NO != #{meeting_no}
+		AND USER_NO != #{user_no}
+		AND EXERCISE_NO = #{exercise_no}
+	</select>
+	
 	
 </mapper>

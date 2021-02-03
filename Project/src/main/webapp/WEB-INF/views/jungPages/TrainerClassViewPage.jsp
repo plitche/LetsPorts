@@ -14,7 +14,7 @@
     	   
 		    	   <div class="TrainerClassInfo">
 		    	   
-					   모임제목 : ${trainerClassDto.meeting_title}<br/><br/>
+					   <h3>${trainerClassDto.meeting_title}</h3><br/><br/>
 					   모임일 : ${trainerClassDto.meeting_date}<br/><br/>
 					   모집 기간 : ${trainerClassDto.start_gather_date} ~ ${trainerClassDto.end_gather_date}<br/><br/>
 					   모집 인원 : 최소 ${trainerClassDto.meeting_min}명 ~ 최대 ${trainerClassDto.meeting_max}<br/><br/>
@@ -60,24 +60,30 @@
     	   </div>
 			   
 			   <!-- 버튼들(수정, 삭제, 등록) -->
-			   <input type="button" value="수정" onclick="fn_TrainerClassViewUpdatePage(this.form)" />
-			   <input type="button" value="삭제" onclick="fn_TrainerClassViewDelete(this.form)" />
-			   <input type="button" value="등록하기" onclick="fn_TrainerClassApply(this.form)" />
+			   <div class="Btns1">
 			   
+				   <input type="button" value="수정" onclick="fn_TrainerClassViewUpdatePage(this.form)" />
+				   <input type="button" value="삭제" onclick="fn_TrainerClassViewDelete(this.form)" />
+				   <input type="button" value="등록하기" onclick="fn_TrainerClassApply(this.form)" />
+				   
+				   
+				   <!-- 모달창 띄우는 버튼 -->
+				   <input type="button" value="클래스 질문하기" id="modal-open-btn" />
 			   
-			   <!-- 모달창 띄우는 버튼 -->
-			   <input type="button" value="클래스에 대해 질문하기" id="modal-open-btn" />
+			   </div>
 			   
 			   <!-- 모달창 버튼 누를 시 열리는 내용들 -->
+			   <div id="modal_background"></div>
 			   <div class="modal_all">
 				      <div class="modal-box">
-				      		<a href="" class="modal_close_btn">닫기</a>
+				      		<div id="modal_close_btn">X</div>
+				      		<br/>
 					        <p class="modal-title">안녕하세요? 게시물 등록자입니다. 저희 모임에 대해 궁금하시다구요!? 무엇이든 질문 주세요.</p>
 					        <br/>
 					        <div class="modal-close-box">
 					        <form>
-					         	 <input type="text" name="question_title" placeholder="질문 제목" />
-					         	 <textarea rows="10" cols="65" name="question_content" placeholder="질문 내용"></textarea>
+					         	 <input type="text" name="question_title" id="question_title" placeholder="질문 제목" /><br/>
+					         	 <textarea rows="10" cols="90" name="question_content" id="question_content" placeholder="질문 내용"></textarea>
 					         	 <br/>
 					         	 <input type="button" value="질문등록하기"  id="questionBtn"/>
 					        </form>
@@ -98,19 +104,114 @@
 				      </div>
 			    </div>
 			   
-			   
-		   
     </form>
+    
+    <br/><br/><br/><br/><br/><br/>
+  
+  	<h3>관련 트레이너 클래스</h3>
+    <br/>
+    <div class="relatedClass_all">
+    
+	    <div class="relatedClass">
+	    	
+	    </div>
+    
+    </div>
+    
+    <script>
+    	
+    	// 관련트레이너 클래스리스트를 뿌려줄 ajax
+    	// 페이지 로드 이벤트
+		$(document).ready(function(){
+			relatedClassList();
+		});
+    	
+    	function relatedClassList() {
+    		var exercise_no = ${trainerClassDto.exercise_no};
+    		var meeting_no = ${trainerClassDto.meeting_no};
+    		var user_no = ${trainerClassDto.user_no};
+    		var sendObj = {
+    								 "exercise_no":exercise_no,
+    								 "meeting_no":meeting_no,
+    								 "user_no":user_no
+    						 	   };
+    		$.ajax({
+    			
+    			url: 'relatedClass.leo',
+    			type: 'get',
+    			data: JSON.stringify(sendObj),
+    			dataType: 'json',
+    			success: function(responseObj) {
+    				if (responseObj.result == true) {
+    					relatedClassListContent(responseObj.relatedClassList);
+    				} else {
+    					$('.relatedClass').empty();
+						 $('<div>').html('댓글을 작성해주세요')
+						.appendTo('.relatedClass');
+    				}
+    			},
+    			error: function(){alert('실패');}
+    		});
+    	}
+    	
+    	function relatedClassListContent(list) {
+    		$('.relatedClass').empty();
+			$.each(list, function(idx, relatedClass) {
+				$('<div>')
+				.append
+				
+			});
+    	}
+    
+    
+    </script>
+    
+    
+    <script>
+    
+    	// 아마 버려질 스크립트 일듯....
+    	//	모달창에서 댓글을 달면 뜨는 리스트
+    	
+    	// 페이지 로드 이벤트
+		$(document).ready(function(){
+			questionList();
+			questionInsert();
+			questionView();
+			questionUpdate();
+		});
+    	
+    </script>
 
 	
 	<script>
 	
-	//모달창 만들어주는 함수
-	$(document).on('click', '#modal-open-btn', function() {
-		$(".modal_all").show();
-	});
-
-	
+			//모달창 만들어주는 함수
+			$(document).on('click', '#modal-open-btn', function() {
+				$('.modal_all').show();
+			});
+			
+			$(document).on('click', '#modal_close_btn', function(){
+				$('.modal_all').hide();
+			});
+			
+			$('#modal_close_btn').hover(function() {
+				  $(this).css("color", "black").css("font-weight", "800");
+			}, function(){
+				  $(this).css("color", "silver").css("font-weight", "300");
+			});
+			
+			
+			$(function(){ 
+		
+				  $("#modal-open-btn").click(function(){
+				    $("#modal_background").fadeIn();
+				  });
+				  
+				  $("#modal_close_btn").click(function(){
+				    $("#modal_background").fadeOut();
+				  });
+				  
+			});
 	
 	</script>
 
@@ -174,7 +275,8 @@
 				},
 				error: function() {alert('실패');}
 			});
-		}
+		}]
+		
 		function commentListContent(list) {
 			$('#listComment_all').empty();
 			$.each(list, function(idx, comment){
