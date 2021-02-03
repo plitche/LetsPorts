@@ -91,8 +91,11 @@
 			commentList();
 			commentInsert();
 			commentDelete();
+			commentUpdate();
 		});
 	
+		
+		/**** 리스트 뿌려주기 ****/
 		function commentList() {
 			var meeting_no = '${trainerClassDto.meeting_no}';
 			$.ajax({
@@ -130,9 +133,9 @@
 						.append( $('<div>').addClass('comment2').html(comment.comment_content) )
 					)
 					.append( $('<div>').addClass('CommentU_DBtn')
-						.append( $('<input type="hidden" name="comment_no"/>').val(comment.comment_no))
+						.append( $('<input type="hidden" name="comment_no"/>').val(comment.comment_no) )
 						.append( $('<input type="hidden" name="user_no"/>').val(comment.user_no))
-						.append( $('<input type="hidden" name="comment_content"/>').html(comment.comment_content))
+						.append( $('<input type="hidden" name="comment_content"/>').val(comment.comment_content))
 						.append( $('<div>').html('<input type="button" value="수정" id="btnUpdate"/>') )
 						.append( $('<div>').html('<input type="button" value="삭제" id="btnDelete"/>') )
 					)															
@@ -154,6 +157,7 @@
 						"user_no": user_no,
 						"comment_content": comment_content
 					};
+				
 				$.ajax({
 					url: 'commentInsert.leo',
 					type: 'post',
@@ -164,6 +168,7 @@
 						if (responseObj.result == true) {
 							alert('댓글이 작성되었습니다.');
 							commentList();
+							$('input:text[name="comment_content"]').val('');
 						} else {
 							alert('댓글이 작성되지 않았습니다.');
 						}
@@ -173,16 +178,12 @@
 			});
 		}
 		
-		// 댓글 삭제
+		/**** 댓글 삭제 ****/
 		function commentDelete() {
-			$('#listComment_all').on('click', '#btnDelete', function(){
-				
+			$('#listComment_all').on('click', '#btnDelete', function() {
 				var comment_no = $(this).parents('div').find('input:hidden[name="comment_no"]').val();
 				var user_no = $(this).parents('div').find('input:hidden[name="user_no"]').val();
 				
-				var check = confirm(user_no + '님의 정보를 삭제할까요?');
-				if (check) {
-					
 					$.ajax({
 						url: 'commentDelete.leo/' + comment_no,
 						type: 'delete',
@@ -197,39 +198,51 @@
 						},
 						error: function(){alert('실패');}						
 					});
-				}
 			});
 		}
 		
-	
-		
-
-		// 댓글 수정
+		/**** 댓글 수정 ****/
 		function commentUpdate() {
 			$('#listComment_all').on('click', '#btnUpdate', function() {
-				
-				
+				var comment_content = $(this).parents('div').find('input:hidden[name="comment_content"]').val();
+				$(this).parents('.comment_wrap').addClass('my');
+				$(this).parents('.comment_wrap').empty();
 				/*
-				var sendObj = {
-										"comment_no" : comment_no,
-										"comment_content" : comment_content
-									 };
-				$.ajax({
-					url: 'memberUpdate',
-					type: 'put',
-					data: JSON.stringify(sendObj),
-					dataType: 'json',
-					success: function(responseObj) {
-						if (responseObj.result == 1) {
-							alert('댓글이 수정되었습니다.');
-							commentList();
-						} else {
-							alert('댓글 수정에 실패했습니다.');
-						}
-					},
-					error: function(){alert('실패');}
-				});
+				var a = $('<div>')
+				.append($('<input type="text" name="commentUpdate"/>'))
+				.append($('<input type="button" value="수정완료"/>'))
+				.append($('<input type="button" value="취소"/>'));
+				
+				$('#listComment_all').find('.my').append(a);
 				*/
+				$('<div>')
+				.append($('<input type="text" name="commentUpdate" id="commentUpdate" value="' + comment_content + '"/>'))
+				.append($('<input type="button" value="수정완료"/>'))
+				.append($('<input type="button" value="취소"/>'))
+				.appendTo('.my');
+				
+				var commentUpdate = $('input:text[name="commentUpdate"]').val();
+				var comment_no = $(this).parents('div').find('input:hidden[name="comment_no"]').val();
+				var sendObj = {
+									"commentUpdate" : commentUpdate,
+									"comment_no" : comment_no
+								   };
+				$.ajax({
+					
+						url: 'commentUpdate',
+						type: 'put',
+						data: JSON.stringify(sendObj),
+						dataType: 'json',
+						success: function(responseObj) {
+							if (responseObj.result = 1) {
+								alert('수정되었습니다.');
+								commentList();
+							} else {
+								alert('수정되지 않았습니다.');
+							}
+						},
+						error:function(){alert('실패');}
+				});
 			});
 		}
 		
