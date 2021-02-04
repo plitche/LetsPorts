@@ -22,12 +22,6 @@
 	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 */	
 
-// 페이지 로드
-$(document).ready(function() {
-	nickCheck();
-});
-
-// 
 
 //닉네임 유효성 검사(1 = 중복 / 0 != 중복)
 	var nickJ = /^[a-zA-Z0-9가-힣]{1,14}$/;
@@ -42,7 +36,7 @@ $(document).ready(function() {
 				console.log("1 = 중복o / 0 = 중복x : "+ data);							
 				
 				if (data.result == 1) {
-						// 1 : 닉네임이 중복되는 문구s
+						// 1 : 닉네임이 중복되는 문구
 						$("#nick_check").text("이미 사용중인 닉네임입니다.");
 						$("#nick_check").css("color", "red");
 						$("#reg_submit").attr("disabled", 1);
@@ -96,11 +90,9 @@ $(document).ready(function() {
 			<div class="form-group">
 				<label for="email">이메일 *</label><br/>
 				<input type="text" class="form-control" id="email" name="email" placeholder="이메일 주소 입력 (예: abcd123@domain.com)" />
-				<input type="button" value="메일 인증" onclick="confirm_email()"/><br/>
+				<input type="button" value="메일 인증" onclick="confirmEmail()"/><br/>
 			</div>
-			<div class="form-group">
-				<label for=""></label><br/>
-			</div>
+			
 		<!-- 비밀번호 -->
 			<div class="form-group">
 				<label for="password">비밀번호 *</label><br/>
