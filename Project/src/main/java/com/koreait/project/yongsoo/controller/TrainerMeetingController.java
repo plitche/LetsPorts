@@ -42,7 +42,7 @@ public class TrainerMeetingController {
 		return getTrainerMeetingListCommand.execute(sqlSession, model);
 	}
 
-	// 모임 제목/내용 클릭시 모임 상세 페이지로 이동할 메소드
+	// 모임 클릭시 모임 상세 페이지로 이동할 메소드
 	@RequestMapping(value="meetingViewPage.plitche", method=RequestMethod.GET)
 	public String meetingViewPage(@RequestParam("meeting_no") int meeting_no, Model model) {
 		model.addAttribute("meeting_no", meeting_no);

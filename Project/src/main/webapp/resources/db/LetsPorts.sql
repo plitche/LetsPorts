@@ -294,4 +294,3 @@ CREATE TABLE is_reviewed (
     status            NUMBER    NOT NULL
 );
 
-select * from users;
