@@ -61,7 +61,6 @@ function fn_main() {
 
 // 일반회원 메뉴 실행 메소드
 function fn_user(p) {
-	is_progress = true;
 	$.ajax({
 		url: 'userList.wooki',
 		type: 'get',
@@ -79,7 +78,7 @@ function fn_user(p) {
 	});
 }
 
-// 필터리스트 만드는 함수
+// 유저 검색 만드는 함수
 function userFilter(text_filter, search, user_separator) {
 	$('.content-container').empty();
 	$('.content-container').append('<h1>회원 관리</h1>');
@@ -103,6 +102,7 @@ function userFilter(text_filter, search, user_separator) {
 	$('#user_separator').val(user_separator);
 }
 
+// 유저탭 - 필터된 유저 리스트
 function fn_filterUserList(p) {
 	let text_filter = $('#text_filter').val();
 	let search = $('#search').val();
@@ -333,36 +333,32 @@ function fn_sendTempPass() {
 	});
 }
 
-// 회원 강제 탈퇴 메소드
-
 // 관리자 등록 페이지
 function fn_addAdminPage() {
-	$('.admin').click(function () {
-		$('.content-container').empty
-		let string = `
-		<h1>관리자추가</h1>
-	    <div class="flex">
-	    <div class="scroll">
-	    <table style="width: 400px;">
-	    <thead>
-	    <tr>
-	    <th>유저번호</th>
-	    <th>닉네임</th>
-	    <th>비고</th>
-	    </tr>
-	    </thead>
-	    <tbody id="adminList"></tbody>
-	    </table>
-	    </div>
-	    <div>
-	    <span>유저번호</span><input type="text" name="admin_target_no" id="admin_target_no" /><br/>
-	    <span>유저닉네임</span><span id="admin_target_nickname"></span><br/>
-	    <input type="button" value="어드민추가" id="btn_updateAdminUser" />
-	    </div>
-	    </div>`
-		$('.content-container').html(string);
-		fn_adminList();
-	});
+	$('.content-container').empty
+	let string = `
+	<h1>관리자추가</h1>
+    <div class="flex">
+    <div class="scroll">
+    <table style="width: 400px;">
+    <thead>
+    <tr>
+    <th>유저번호</th>
+    <th>닉네임</th>
+    <th>비고</th>
+    </tr>
+    </thead>
+    <tbody id="adminList"></tbody>
+    </table>
+    </div>
+    <div>
+    <span>유저번호</span><input type="text" name="admin_target_no" id="admin_target_no" /><br/>
+    <span>유저닉네임</span><span id="admin_target_nickname"></span><br/>
+    <input type="button" value="어드민추가" id="btn_updateAdminUser" />
+    </div>
+    </div>`
+	$('.content-container').html(string);
+	fn_adminList();
 }
 
 // 관리자 회원 리스트 불러와서 추가하는 메소드
@@ -473,12 +469,12 @@ function fn_updateAdminUser() {
 			dataType: 'json',
 			success: function(obj) {
 				if(obj.result) {
-					alert('추가되었습니다.');
 					is_possible = false;
+					alert('추가되었습니다.');
 				} else {
 					alert('추가되지 않았습니다.');
 				}
-				fn_adminList();
+				fn_addAdminPage();
 				setTimeout(function() {is_progress = false;}, 1000);
 			},
 			error: function() {
@@ -486,5 +482,245 @@ function fn_updateAdminUser() {
 				setTimeout(function() {is_progress = false;}, 1000);
 			}
 		});
+	});
+}
+
+// 회원관리 - 회원탈퇴 메소드
+function fn_deleteUser() {
+	$('body').on('click', '#deleteId', function() {
+		if(!confirm('변경하시겠습니까?')) {
+			return;
+		}
+		if(is_progress == true) {
+			return;
+		}
+		is_progress = true;
+		let user_no = $(this).parents('tr').find('#user_no').val();
+		$.ajax({
+			url: `deleteUser/${user_no}.wooki`,
+			type: 'delete',
+			dataType: 'json',
+			success: function(obj) {
+				if(obj.result) {
+					alert('삭제되었습니다.');
+				} else {
+					alert('삭제되지 않았습니다.');
+				}
+				fn_filterUserList($('#now_page').val());
+				setTimeout(function() {is_progress = false;}, 1000);
+			},
+			error: function() {
+				alert('실패');
+				setTimeout(function() {is_progress = false;}, 1000);
+			}
+		});
+	});
+}
+
+//트레이너 메뉴 실행 메소드
+function fn_trainerUser(p) {
+	$.ajax({
+		url: 'trainerUserList.wooki',
+		type: 'get',
+		data: {page: p},
+		dataType: 'json',
+		success: function(list) {
+			trainerUserFilter(list.text_filter, list.search, list.user_separator);
+			trainerUserList(list.list, list.paging, list.totalRecord, list.recordPerPage, list.page);
+		},
+		error: function() {
+			alert('실패');
+		}
+	});
+}
+
+// 트레이너 검색 공간 만드는 함수
+function trainerUserFilter(text_filter, search, user_separator) {
+	$('.content-container').empty();
+	$('.content-container').append('<h1>트레이너 관리</h1>');
+	$('.content-container').append('<div class="space-between" id="trainer-container">');
+	
+	$('<form>')
+	.append($('<tbody id="filterBox">'))
+	.appendTo('#trainer-container');
+	
+	$('<div>').html('<input type="button" value="트레이너추가하기" onclick="fn_openAddTrainerModal()" />')
+	.appendTo('#trainer-container');
+	
+	$('<tr>')
+	.append($('<td>').html('<span>유저번호</span>'))
+	.append($('<td>').html('<input type="text" name="search" id="search" />'))
+	.append($('<td>').html('<input type="button" value="검색" onclick="fn_filterTrainerUserList(1)" />'))
+	.appendTo('#filterBox');
+	$('#search').val(search);
+}
+
+// 트레이너탭 - 필터된 유저 리스트
+function fn_filterTrainerUserList(p) {
+	let search = $('#search').val();
+	if(search == '') {
+		alert('유저번호를 입력하세요.');
+		$('#search').focus();
+		return;
+	}
+	else if(isNaN(search)) {
+		$('#search').val('');
+		alert('유저번호는 숫자로 입력하세요.');
+		$('#search').focus();
+		return;
+	}
+	$.ajax({
+		url: 'filterTrainerUserList.wooki',
+		type: 'get',
+		data: {
+			page: p,
+			search: search
+		},
+		dataType: 'json',
+		success: function(list) {
+			trainerUserFilter(list.text_filter, list.search, list.user_separator);
+			trainerUserList(list.list, list.paging, list.totalRecord, list.recordPerPage, list.page);
+		},
+		error: function() {
+			alert('실패');
+		}
+	});
+}
+
+//유저리스트 테이블 만드는 함수
+function trainerUserList(list, paging, totalRecord, recordPerPage, page) {
+	$('<table style="width: 1000px;">')
+	.append($('<thead id="title">'))
+	.append($('<tbody id="list">'))
+	.append($('<tfoot class="paging">'))
+	.appendTo('.content-container');
+	
+	$('<tr>')
+	.append($('<th>').html('인덱스'))
+	.append($('<th>').html('고유번호'))
+	.append($('<th>').html('유저번호'))
+	.append($('<th>').html('경력'))
+	.append($('<th>').html('본명'))
+	.append($('<th>').html('자격증 파일명'))
+	.append($('<th>').html('근무센터명'))
+	.append($('<th>').html('트레이너 등록일'))
+	.append($('<th>').html('비고'))
+	.appendTo('#title');
+	
+	$.each(list, function(idx, user) {
+		let d = new Date(user.created_at);
+		let result = `${d.getFullYear()}-`;
+		if(d.getMonth() < 10) {result += 0;}
+		result += `${(d.getMonth() + 1)}-`;
+		if(d.getDate() < 10) {result += 0;}
+		result += `${d.getDate()} ${d.getHours()}:`;
+		if(d.getMinutes() < 10) {result += 0;}
+		result += `${d.getMinutes()}:`;
+		if(d.getSeconds() < 10) {result += 0;}
+		result += d.getSeconds();
+		$('<tr>')
+		.append($('<td>').html(totalRecord - (recordPerPage * (page - 1)) - idx))
+		.append($('<td>').html(user.trainer_no))
+		.append($('<td>').html(user.user_no))
+		.append($('<td>').html(user.career + '년'))
+		.append($('<td>').html(user.trainer_name))
+		.append($('<td>').html(user.certificate_filename))
+		.append($('<td>').html(user.employment))
+		.append($('<td>').html(result))
+		.append($('<input type="hidden" name="user_no" id="user_no" />').val(user.user_no))
+		.append($('<td>').html('<input type="button" value="트레이너탈퇴" id="deleteTrainerInfo" />'))
+		.appendTo('#list')
+	});
+	
+	$('<tr>')
+	.append($('<td colspan="9">').html(paging))
+	.append($('<input type="hidden" id="now_page" />').val(page))
+	.appendTo('.paging');
+}
+
+// 트레이너 추가 모달 오픈
+function fn_openAddTrainerModal() {
+	$('#add-trainer-modal').addClass('show');
+}
+
+//입력된 유저번호 기준 일치하는 회원 가져오는 가져오는 메소드2
+function fn_checkUser() {
+	$('#trainer_target_user_no').blur(function() {
+		let target_no = $(this).val();
+		if(target_no == '') {
+			alert('유저번호를 입력해주세요.');
+			return;
+		} else if(isNaN(target_no)) {
+			alert('유저번호는 숫자로 구성되어 있습니다.');
+			$(this).val('');
+			return;
+		}
+		$.ajax({
+			url: 'checkUser.wooki',
+			type: 'get',
+			data: {user_no: target_no},
+			dataType: 'json',
+			success: function(obj) {
+				if(obj.result) {
+					$('#trainer_target_user_nickname').html(obj.user_nickname);
+					is_possible = true;
+				} else {
+					$('#trainer_target_user_nickname').html('일치하는 회원이 없습니다.');
+					is_possible = false;
+				}
+			},
+			error: function() {
+				alert('실패');
+			}
+		});
+	});
+}
+
+// 트레이너 회원가입 메일발송 메소드
+function fn_addTrainerSendEamil() {
+	$('#send-add-trainer-email').click(function() {
+		if(is_progress == true) {
+			return;
+		}
+		is_progress = true;
+		let user_no = $('#trainer_target_user_no').val();
+		if(!is_possible) {
+			alert('정확한 회원번호를 입력해주세요.');
+			return;
+		}
+		$.ajax({
+			url: 'addTrainerSendEmail.wooki',
+			type: 'get',
+			data: {user_no: user_no},
+			dataType: 'json',
+			success: function(obj) {
+				if(obj.result) {
+					alert('메일 발송에 성공하였습니다.');
+					$('#add-trainer-modal').removeClass('show');
+					$('#trainer_target_user_no').val('');
+					$('#trainer_target_user_nickname').html('');
+					is_possible = false;
+				} else {
+					alert('메일 발송에 실패하였습니다.');
+				}
+				setTimeout(function() {is_progress = false;}, 1000);
+			},
+			error: function() {
+				alert('실패');
+				setTimeout(function() {is_progress = false;}, 1000);
+			}
+		});
+	});
+}
+
+// 이메일변경 모달 닫기
+function fn_closeAddTrainerModal() {
+	$('#add-trainer-modal').click(function(e) {
+		if(e.target == e.currentTarget) {
+			$('#add-trainer-modal').removeClass('show');
+			$('#trainer_target_user_no').val('');
+			$('#trainer_target_user_nickname').html('');
+			is_possible = false;
+		}
 	});
 }

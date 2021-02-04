@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+}
+
+form {
+	padding-left: 10%;
+	padding-right: 10%;
+}
+input, select {
+	padding: 10px;
+	height: 45px;
+}
+#meetingHeader {
+	display: flex;
+	margin: 0 auto;
+	margin-bottom: 15px;
+	padding-top: 30px;
+	border-top: 4px solid black;
+}
+#category {
+	width: 17%;
+	margin-right: 20px;
+}
+#meetingTitle {
+	width: 60%;
+}
+#meetingTitle input {
+	width: 135%;
+} 
+
+#meetingDetail {
+	display: flex;
+}
+#detailLeft {
+	width: 50%;
+}
+#detailRight {
+	width: 50%;
+}
+#meetingDate {
+	display: flex;
+	margin-bottom: 20px;
+}
+#meetingDate p {
+	margin-right: 50px;
+	font-size: 1.3rem;
+}
+#gather {
+	margin-bottom: 20px;
+}
+#gather > p {
+	text-align: center;
+	font-size: 1.5rem;
+	font-weight: 500;
+	margin: 0px;
+}
+#gatherDetail {
+	display: flex; 
+}
+#gatherDetail p {
+	width: 100%;
+	text-align: center;
+	font-size: 1.3rem;
+	margin: 0;
+}
+#gatherDetail div:nth-child(1) {
+	margin-right: 5px;
+}
+#address {
+	margin-bottom: 20px;
+	display: flex; 
+}
+#address > input {
+	width: 50%;
+}
+#address > input:nth-child(1) {
+	margin-right: 20px;
+}
+#detailRight {
+	margin-top: 20px;
+	font-size: 1.3rem;
+	font-weight: 600;
+}
+#detailRight > input {
+	width: 100%;
+	margin-bottom: 20px;
+}
+#materials p {
+	text-align: center;
+}
+#materials div {
+	text-align: center;
+}
+textarea {
+	width: 100%;
+	height: auto;
+}
+#detailContent button {
+	float: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+

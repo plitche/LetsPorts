@@ -3,6 +3,7 @@ package com.koreait.project.jungho.config;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 
+import com.koreait.project.jungho.command.TrainerClassCommand.RelatedClassCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassDeleteCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassInsertCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassListCommand;
@@ -36,6 +37,11 @@ public class JungAppContext {
 	@Bean
 	public TrainerClassUpdateCommand trainerClassUpdateCommand() {
 		return new TrainerClassUpdateCommand();
+	}
+	
+	@Bean
+	public RelatedClassCommand relatedClassCommand() {
+		return new RelatedClassCommand();
 	}
 
 }

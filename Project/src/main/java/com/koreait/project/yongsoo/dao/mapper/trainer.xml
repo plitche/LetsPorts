@@ -22,30 +22,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE TARGET_USER_NO = #{user_no}	
 	</select>
 	
-	
-	
-	
 	<select id="trainerDetail" parameterType="int" resultType="com.koreait.project.yongsoo.dto.TrainerTemDto">
 		SELECT T.user_no, U.user_nickname, T.trainer_name, U.user_message, U.profile_photo, T.career, T.employment, T.profile, U.location1_no, U.location2_no
 		  FROM USERS U FULL OUTER JOIN TRAINER_INFO T
 		    ON U.USER_NO = T.USER_NO
 		 WHERE U.USER_NO = #{user_no}
 	</select>
-	
-	
-	
-	<!-- 
-	<select id="findReview" parameterType="int" resultType="com.koreait.project.dto.ReviewDto">
-		SELECT *
-		  FROM REVIEW
-		 WHERE TARGET_USER_NO = #{user_no}
-	</select>
-	 -->
-	
-	
-	
-	
-	
-	
 	
 </mapper>
