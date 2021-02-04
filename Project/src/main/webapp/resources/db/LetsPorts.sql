@@ -293,3 +293,5 @@ CREATE TABLE is_reviewed (
     writer_user_no    NUMBER    REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     status            NUMBER    NOT NULL
 );
+
+select * from users;
