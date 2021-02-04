@@ -1,4 +1,3 @@
-<%@page import="com.koreait.project.hyejoon.dto.UsersDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -20,7 +19,7 @@
 	});
 
 	/* 불러온 모임 list를 토대로 append 해주기 위한 function */
-	function trainerMeetingListTable(list) {
+	function trainerMeetingListTable(list, trainerInfo) {
 		$('#trainerMeetingList').empty();
 		$.each(list, function(idx, meeting){
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
@@ -29,7 +28,7 @@
 			.append( $('<p>').html(meeting.meeting_title) )
 			.append( $('<p>').html('최소: ' + meeting.meeting_min + '명 / 최대: ' + meeting.meeting_max + '명')  )
 			.append( $('<p>').html('일시: ' + meeting.meeting_date) )
-			.append( $('<p>').html('작성자: ' + meeting.user_no) )
+			.append( $('<p>').html('작성자: ' + trainerInfo.user_nickname) )
 			)
 			.appendTo("#trainerMeetingList");
 		});
@@ -47,7 +46,7 @@
 					$('<div>')
 					.append( $('<p>').html('총 :' + responseObj.totalMeetingCount + '개') )
 					.appendTo('#totalMeeting');
-					trainerMeetingListTable(responseObj.meetingList);
+					trainerMeetingListTable(responseObj.meetingList, responseObj.trainerTemDto);
 				} else {
 					$('<div>')
 					.append( $('<p>').html('등록된 모임 정보가 없습니다.') )
@@ -70,13 +69,13 @@
 	$(document).ready(function(){
 		getReviewList();
 		openReviewPopUp();
-		closeReviewModal()
+		closeReviewModal();
 	});
 	
 	function reivewListTable(list) {
 		$('#trainerReviewList').empty();
 		$.each(list, function(idx, review) {
-			$('#ReviewList2')
+			$('#reviewList')
 			.append( $('<div>') 
 				.append( $('<div>').html('닉네임') )
 				.append( $('<div>').html('평점') )
@@ -106,36 +105,39 @@
 					$('<div>')
 					.append( $('<p>').html('총 :' + responseObj.reviewCount + '개') )
 					.appendTo('#totalReview');
-					alert('작성된 리뷰가 없습니다.');
 				}
 			},
 			error: function(){alert('리뷰 ajax 실패');}
 		});	
 	}
 	
-	/* 리뷰 등록하기 버튼 클릭시 리뷰를 작성할 수 있는 모달차을 띄워주기 위한 함수 */
+	/* 리뷰 등록하기 버튼 클릭시 리뷰를 작성할 수 있는 모달창을 띄워주기 위한 함수 */
 	function openReviewPopUp() {
-		$('#openReviewModal').click(function () {
-			$('#qnaDetail').empty();
-			$('#qnaDetail')
-			.append( $('<div>').html('작성자 : ~~') )
-			.append( $('<form>')
-				.append( $('<div>')
-					.append( $('<select>')
-						.append( $('<option value="">').html('함께 했던 모임 리스트1') )		
-						.append( $('<option value="">').html('함께 했던 모임 리스트2') )		
-						.append( $('<option value="">').html('함께 했던 모임 리스트3') )		
+		$('#openReviewModal').click(function() {
+			if( '${loginUser.user_no}' == '' ) {
+				if (confirm('로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?')) {
+					location.href='usersLoginPage.hey';
+				} 
+			} else {
+				$('#qnaDetail').empty();
+				$('#qnaDetail')
+				.append( $('<div>').html('작성자 : ${loginUser.user_nickname}') )
+				.append( $('<form>')
+					.append( $('<div>')
+						.append( $('<select>')
+							.append( $('<option value="">').html('함께 했던 모임 리스트1') )		
+							.append( $('<option value="">').html('함께 했던 모임 리스트2') )		
+							.append( $('<option value="">').html('함께 했던 모임 리스트3') )		
+						)
+						.append( $('<input type="text" placeholder="평점 입력">') )
 					)
-					.append( $('<input type="text" placeholder="평점 입력">') )
+					.append( $('<textarea rows="10" cols="50" placeholder="리뷰 내용을 작성하세요.">') )
+					.append( $('<input type="button" value="작성완료" id="writeReview" onclick="" />'))
 				)
-				.append( $('<textarea rows="10" cols="50" placeholder="리뷰 내용을 작성하세요.">') )
-				.append( $('<input type="button" value="작성완료" id="writeReview" onclick="" />'))
-			)
-			$('#modal').attr("style", "display:block");
+				$('#modal').attr("style", "display:block");
+			}
 		});
 	}
-	
-	
 	
 	/* 작성완료 눌렀을 때 모달창을 닫아주는 함수 */
 	function closeReviewModal() {
@@ -156,7 +158,7 @@
 	});
 	
 	// 해당 트레이너에게 달린 질문 data를 append하는 서브함수
-	function trainerQnAListTable(list) {
+	function trainerQnAListTable(list, trainerInfo) {
 		$('#qnaList').empty();
 		$.each(list, function(idx, qna){
 			if (qna.is_answered==0) {
@@ -164,7 +166,7 @@
 				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
 				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
 				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
-				.append( $('<td>').html(qna.question_user_no) )
+				.append( $('<td>').html(trainerInfo.user_nickname) )
 				.append( $('<td>').html(qna.created_at) )
 				.append( $('<input type="hidden" name="' + qna.trainer_qna_no + '" value="' + idx + '"/>') )
 				.append( $('<td name="isAnswered">').addClass('isAnswered').html('미답변') )
@@ -174,26 +176,11 @@
 				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
 				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
 				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
-				.append( $('<td>').html(qna.question_user_no) )
+				.append( $('<td>').html(trainerInfo.user_nickname) )
 				.append( $('<td>').html(qna.created_at) )
 				.append( $('<td name="isAnswered">').addClass('isAnswered').html('답변완료') )
 				.appendTo('#qnaList');
 			}
-		});
-	}
-	
-	// 트레이너 디테일 페이지에서 새 질문 작성하기 작성 때마다 알맞은 폼을 생성해줄 함수
-	function openQnAPopUp() {
-		$('#openQnAModal').click(function() {
-			$('#qnaDetail').empty();
-			$('<form>')
-			.append( $('<input type="text" id="title" name="trainer_qna_title" placeholder="제목을 입력하세요."/>') )
-			.append( $('<input type="text" id="content" name="trainer_qna_content" placeholder="질문내용을 입력하세요."/>')  )
-			.append( $('<br/>') )
-			.append( $('<input type="checkbox" name="is_published" id="is_published" value="1"/>') )
-			.append( $('<label for="is_published">').html('비밀글 처리하기') )		
-			.append( $('<input type="button" value="작성완료" id="writeQuestion"/>') )
-			.appendTo('#qnaDetail');
 		});
 	}
 	
@@ -210,22 +197,42 @@
 					$('<div>')
 					.append( $('<p>').html('총 :' + responseObj.totalQnACount + '개') )
 					.appendTo('#totalQnA');
-					trainerQnAListTable(responseObj.qnaList);
+					trainerQnAListTable(responseObj.qnaList, responseObj.trainerTemDto);
 				} else {
 					$('<tr>')
 					.append( $('<td colspan="6">').html('등록된 질문이 없습니다. 첫 번째 질문을 등록해 주세요.') )
 					.appendTo('#qnaList');
 				}
 			},
-			error: function(){alert('뎃글 가져오기 실패');}
+			error: function(){alert('답변 가져오기 실패');}
 		});
 	}
-	
+
+	// 트레이너 디테일 페이지에서 새 질문 작성하기 작성 때마다 알맞은 폼을 생성해줄 함수
+	function openQnAPopUp() {
+		$('#openQnAModal').click(function() {
+			if( '${loginUser.user_no}' == '' ) {
+				if (confirm('로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?')) {
+					location.href='usersLoginPage.hey';
+				}
+			} else {
+				$('#qnaDetail').empty();
+				$('<form>')
+				.append( $('<input type="text" id="title" name="trainer_qna_title" placeholder="제목을 입력하세요."/>') )
+				.append( $('<input type="text" id="content" name="trainer_qna_content" placeholder="질문내용을 입력하세요."/>')  )
+				.append( $('<br/>') )
+				.append( $('<input type="checkbox" name="is_published" id="is_published" value="1"/>') )
+				.append( $('<label for="is_published">').html('비밀글 처리하기') )		
+				.append( $('<input type="button" value="작성완료" id="writeQuestion"/>') )
+				.appendTo('#qnaDetail');
+			}
+		});
+	}
 	
 	// 작성된 질문내용을 처리하는 ajax 함수
 	function writeQuestion() {
 		$(document).on("click", "#writeQuestion", function() {
-			var question_user_no = 11; /* 일단 임시로 작성자 번호는 11로 둠 */
+			var question_user_no = '${loginUser.user_no}'
 			var trainer_user_no = ${trainerTemDto.user_no};
 			var trainer_qna_title = $('input[name="trainer_qna_title"]').val();
 			var trainer_qna_content = $('input[name="trainer_qna_content"]').val();
@@ -252,7 +259,7 @@
 					}
 					getTrainerQnAList();
 				},
-				error: function(){alert('뎃글 작성하기 실패');}
+				error: function(){alert('질문 작성하기 실패');}
 			});
 		});
 	}
@@ -277,20 +284,31 @@
 						.append( $('<p>').html('답변 작성일: '+ responseObj.qna.answered_date) )
 						.appendTo('#qnaDetail');
 					} else {
-						$('#modal').attr("style", "display:block");
-						$('#qnaDetail').empty();
-						$('<div>')
-						.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
-						.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
-						.append( $('<p>').html('질문 내용: ' + responseObj.qna.trainer_qna_content) )
-						.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
-						.append( $('<input type="button" value="답변 작성하기" onclick="fn_openAnswer('+ trainer_qna_no +')">') )
-						.appendTo('#qnaDetail');
+						if ('${loginUser.user_no}' == ${trainerTemDto.user_no}) {
+							$('#modal').attr("style", "display:block");
+							$('#qnaDetail').empty();
+							$('<div>')
+							.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
+							.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
+							.append( $('<p>').html('질문 내용: ' + responseObj.qna.trainer_qna_content) )
+							.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
+							.append( $('<input type="button" value="답변 작성하기" onclick="fn_openAnswer('+ trainer_qna_no +')">') )
+							.appendTo('#qnaDetail');
+						} else {
+							$('#modal').attr("style", "display:block");
+							$('#qnaDetail').empty();
+							$('<div>')
+							.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
+							.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
+							.append( $('<p>').html('질문 내용: ' + responseObj.qna.trainer_qna_content) )
+							.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
+							.appendTo('#qnaDetail');
+						}
+						
 					}
-					
 				}
 			},
-			error: function(){alert('선택한 뎃글 가져오기 실패');}
+			error: function(){alert('선택한 질문 가져오기 실패');}
 		});
 	}
 	
@@ -372,24 +390,22 @@
 	 	 </pre>
 	</div>
 </div>
-<% 
-	// UsersDto usersDto = (UsersDto)session.getAttribute("loginUser");
-	// out.print(usersDto.getUser_no());
-%>
 
 <div id="tab">
 	<ul>
-		<li data-id="MeetingList" class="on">${trainerTemDto.user_nickname}의 모임들</li>
-		<li data-id="ReviewList2">${trainerTemDto.user_nickname}에게 달린리뷰</li>
+		<li data-id="meetingList" class="on">${trainerTemDto.user_nickname}의 모임들</li>
+		<li data-id="reviewList">${trainerTemDto.user_nickname}에게 달린리뷰</li>
 		<li data-id="QnAList">${trainerTemDto.user_nickname}에게 달린질문</li>
 	</ul>
-	<div id="MeetingList" class="conBox on">
-		<a href="goCreateMeetingPage.plitche">새 프로그램 등록하기</a>
+	<div id="meetingList" class="conBox on">
+		<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
+			<a href="goCreateMeetingPage.plitche">새 프로그램 등록하기</a>
+		</c:if>
 		<div id="totalMeeting"></div>
 		<div id="trainerMeetingList"></div>
 	</div>
 	
-	<div id="ReviewList2" class="conBox">
+	<div id="reviewList" class="conBox">
 		<button type="button" id="openReviewModal">새 리뷰 등록하기</button>
 		<div id="totalReview"></div>
 		<div id="trainerReviewList"></div>

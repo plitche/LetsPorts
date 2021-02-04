@@ -16,9 +16,7 @@ public class CreateMeetingCommand{
 		Map<String, Object> map = model.asMap();
 		CreateNewMeetingDto createNewMeetingDto = (CreateNewMeetingDto)map.get("createNewMeetingDto");
 		List<String> materialList = createNewMeetingDto.getMaterialList();
-		// 일단 세션이 없다보니 임시로 10이라고 지정해 둠
-		int user_no = 10;
-		createNewMeetingDto.setUser_no(user_no);
+		int user_no = createNewMeetingDto.getUser_no();
 		
 		TrainerMeetingDao trainerMeetingDao = sqlSession.getMapper(TrainerMeetingDao.class);
 		// MEETING테이블에 insert하기위한 메소드 호출

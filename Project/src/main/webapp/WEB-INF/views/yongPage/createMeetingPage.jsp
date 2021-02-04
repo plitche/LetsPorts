@@ -95,7 +95,8 @@
 	</div>
 	<div id="detailContent" style="margin-top: 30px;">
 		<p style="font-size: 1.5rem; font-weight: 800;">상세 내용</p>
-		<textarea name="content" id="summernote" class="summernote"></textarea>
+		<textarea name="meeting_content" id="summernote" class="summernote"></textarea>
+		<input type="hidden" name="user_no" value="${loginUser.user_no}"/>
 		<button>작성 완료</button>
 	</div>
 </form>
@@ -132,7 +133,7 @@ $(document).ready(function () {
 			.append( $('<option value="7">').html('금천구') )
 			.append( $('<option value="8">').html('노원구') )
 			.append( $('<option value="9">').html('도봉구') )
-			.append( $('<option value="10>').html('동대문구') )
+			.append( $('<option value="10">').html('동대문구') )
 			.append( $('<option value="11">').html('동작구') )
 			.append( $('<option value="12">').html('마포구') )
 			.append( $('<option value="13">').html('서대문구') )
