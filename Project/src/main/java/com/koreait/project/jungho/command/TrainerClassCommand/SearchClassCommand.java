@@ -1,4 +1,4 @@
-package searchClass;
+package com.koreait.project.jungho.command.TrainerClassCommand;
 
 import java.util.List;
 import java.util.Map;
