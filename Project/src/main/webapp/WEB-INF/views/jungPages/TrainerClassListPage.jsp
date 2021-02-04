@@ -5,8 +5,6 @@
 <jsp:include page="../template/header.jsp" />
 <link type="text/css" rel="stylesheet" href="resources/style/jung/TrainerClassMain.css" >
 
-
-
 <br/><br/>
 <form action="SearchClass.leo" method="get">
 
@@ -29,15 +27,16 @@
 	
 	
 	<script>
-		
+		/*
 		$(document).on('click', '#soccer', function(){
-			
 			$.ajax ({
+				url: 'soccerTag',
+				data:
 				
 			});
 			
 		});
-		
+		*/
 	
 	</script>
 	
@@ -61,7 +60,7 @@
 			<div class="MeetingClass">
 				<a href="TrainerClassViewPage.leo?meeting_no=${MeetingDto.meeting_no}">${MeetingDto.meeting_title}</a><br/><br/>
 				모임일 : ${MeetingDto.meeting_date}<br/>
-				운동 종목 : ${MeetingDto.exercise_no}<br/>
+				운동 종목 : ${MeetingDto.exercise_name}<br/>
 			</div>
 		</c:forEach>
 	

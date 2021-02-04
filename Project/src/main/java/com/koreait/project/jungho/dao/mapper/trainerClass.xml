@@ -8,7 +8,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 전체 목록을 뿌려주는 list 쿼리문 -->
 	<select id="trainerClassList" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
-		SELECT * FROM MEETING
+		SELECT E.EXERCISE_NAME, M.MEETING_TITLE, M.MEETING_DATE, M.MEETING_NO
+		FROM MEETING M FULL OUTER JOIN EXERCISE E
+		ON M.EXERCISE_NO = E.EXERCISE_NO
 	</select>
 	
 	<!-- 클래스의 meeting 테이블에 내용들을 삽입하는 쿼리문 -->
@@ -28,7 +30,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 보여주기 페이지를 위해 값 가져가는 쿼리문 -->
 	<select id="trainerClassView" parameterType="int" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
-		SELECT * FROM MEETING WHERE MEETING_NO = #{param1}
+		SELECT 
+		FROM MEETING WHERE MEETING_NO = #{param1}
 	</select>
 	<!-- materials 테이블에 저장된 내용을 가져가는 쿼리문 -->
 	<select id="materialsView" resultType="com.koreait.project.dto.MaterialsDto" parameterType="int">

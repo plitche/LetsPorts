@@ -116,6 +116,14 @@
     </div>
     
     <script>
+		
+    	
+    	
+    
+    	// 관련리스트 뿌려졌을때 관련 리스트로 가는 법
+    	function fn_showRelatedMeeting(meeting_no) {
+    		location.href = 'TrainerClassViewPage.leo?meeting_no=' + meeting_no;
+    	}
     	
     	// 관련트레이너 클래스리스트를 뿌려줄 ajax
     	// 페이지 로드 이벤트
@@ -157,7 +165,7 @@
     		$('.relatedClass_all').empty();
 			$.each(list, function(idx, relatedClass) {
 				$('<div>').addClass('relatedClass')
-				.append($('<a href="">' + relatedClass.meeting_title + '</a> '))
+				.append($('<a href="#" onclick="fn_showRelatedMeeting(' + relatedClass.meeting_no + '); return false;">' + relatedClass.meeting_title + '</a> '))
 				.append($('<div>' +  relatedClass.meeting_date + '</div>'))
 				.append($('<div>' +  relatedClass.exercise_no + '</div>'))
 				.appendTo('.relatedClass_all');
