@@ -147,110 +147,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			user_no = #{user_no}
 	</update>
 	
-	<delete id="deleteUserScrap" parameterType="int">
-		delete from
-			scrap
-		where
-			(scrap_separator = 1
-			and scrap_referer_no = #{param1})
-			or (scrap_separator = 2
-				and scrap_referer_no in (select
-											meeting_no
-										from
-											meeting
-										where
-											user_no = #{param1}))
-			or (scrap_separator = 0
-				and scrap_referer_no in (select
-											knowhow_no
-										from
-											board_knowhow
-										where
-											user_no = #{param1}))
-	</delete>
-	
-	<delete id="deleteUserComments" parameterType="int">
-		delete from
-			comments
-		where
-			(comment_referer_sep = 2
-			and comment_referer_no in (select
-										meeting_no
-									from
-										meeting
-									where
-										user_no = #{param1}))
-			or (comment_referer_sep = 0
-				and comment_referer_no in (select
-											knowhow_no
-										from
-											board_knowhow
-										where
-											user_no = #{param1}))
-			or (comment_referer_sep = 1
-				and comment_referer_no in (select
-											board_qna_no
-										from
-											board_qna
-										where
-											user_no = #{param1}))
-	</delete>
-	
 	<select id="deleteUserPhotoList" parameterType="int" resultType="String">
 		select
-			photo_filename
+			photo_filename as filename
 		from
 			photo
 		where
-			photo_referer_sep = 2
-			and photo_referer_no in (select
-										meeting_no
-									from
-										meeting
-									where
-										user_no = #{param1})
-			or (photo_referer_sep = 0
-				and photo_referer_no in (select
-											knowhow_no
-										from
-											board_knowhow
-										where
-											user_no = #{param1}))
-			or (photo_referer_sep = 1
-				and photo_referer_no in (select
-											board_qna_no
-										from
-											board_qna
-										where
-											user_no = #{param1}))
-	</select>
-	
-	<delete id="deleteUserPhoto" parameterType="int">
-		delete from
-			photo
+			user_no = #{param1}
+		union all
+		select
+			nvl(profile_photo, 'n') as filename
+		from
+			users
 		where
-			photo_referer_sep = 2
-			and photo_referer_no in (select
-										meeting_no
-									from
-										meeting
-									where
-										user_no = #{param1})
-			or (photo_referer_sep = 0
-				and photo_referer_no in (select
-											knowhow_no
-										from
-											board_knowhow
-										where
-											user_no = #{param1}))
-			or (photo_referer_sep = 1
-				and photo_referer_no in (select
-											board_qna_no
-										from
-											board_qna
-										where
-											user_no = #{param1}))
-	</delete>
+			user_no = #{param1}
+		union all
+		select
+			nvl(certificate_filename, 'n') as filename
+		from
+			trainer_info
+		where
+			user_no = #{param1}
+	</select>
 	
 	<delete id="deleteUserAlaram" parameterType="int">
 		delete from
@@ -345,6 +263,132 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			users
 		where
 			user_no = #{param1}
+	</select>
+	
+	<select id="deleteTrainerCertificateFilename" parameterType="int" resultType="String">
+		select
+			certificate_filename
+		from
+			trainer_info
+		where
+			user_no = #{param1}
+	</select>
+	
+	<update id="deleteTrainerUserSeparatorUpdate" parameterType="int">
+		update
+			users
+		set
+			user_separator = 2
+		where
+			user_no = #{param1}
+	</update>
+	
+	<delete id="deleteTrainerScrap" parameterType="int">
+		delete from
+			scrap
+		where
+			scrap_user_no = #{param1}
+	</delete>
+	
+	<delete id="deleteTrainerQNAAlarm" parameterType="int">
+		delete from
+			alarm
+		where
+			alarm_separator in (2, 3)
+			and alarm_referer_no in (select
+										trainer_qna_no
+									from
+										trainer_qna
+									where
+										trainer_user_no = #{param1})
+	</delete>
+	
+	<delete id="deleteTrainer" parameterType="int">
+		delete from
+			trainer_info
+		where
+			user_no = #{param1}
+	</delete>
+	
+	<select id="boardsList" resultType="com.koreait.project.wooki.dto.BoardsDto">
+		select
+			*
+		from
+			(select
+				rownum as rn,
+				b.*
+			from
+				(select
+					*
+				from
+					(select
+						knowhow_no as board_no,
+						0 as board_sep,
+						knowhow_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						board_knowhow
+					union all
+					select
+						board_qna_no as board_no,
+						1 as board_sep,
+						board_qna_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						board_qna
+					union all
+					select
+						meeting_no as board_no,
+						2 as board_sep,
+						meeting_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						meeting) a
+				order by
+					a.created_at desc) b) c
+		where
+			c.rn between #{param1} and #{param2}
+	</select>
+
+	<select id="totalBoardsRecord" resultType="int">
+		select
+			count(*)
+		from
+			(select
+				knowhow_no as board_no,
+				0 as board_sep,
+				knowhow_title as board_title,
+				user_no,
+				created_at,
+				on_hide
+			from
+				board_knowhow
+			union all
+			select
+				board_qna_no as board_no,
+				1 as board_sep,
+				board_qna_title as board_title,
+				user_no,
+				created_at,
+				on_hide
+			from
+				board_qna
+			union all
+			select
+				meeting_no as board_no,
+				2 as board_sep,
+				meeting_title as board_title,
+				user_no,
+				created_at,
+				on_hide
+			from
+				meeting) a
 	</select>
 
 </mapper>

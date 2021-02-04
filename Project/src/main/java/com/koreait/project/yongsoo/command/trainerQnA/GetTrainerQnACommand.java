@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.dto.Trainer_qnaDto;
+import com.koreait.project.yongsoo.dao.TrainerDao;
 import com.koreait.project.yongsoo.dao.TrainerQnADao;
+import com.koreait.project.yongsoo.dto.TrainerTemDto;
 
 public class GetTrainerQnACommand implements CommonMapCommand {
 
@@ -23,11 +25,15 @@ public class GetTrainerQnACommand implements CommonMapCommand {
 		List<Trainer_qnaDto> qnalist = trainerQnADao.getTrainerQnAList(user_no); 
 		int totalQnACount = trainerQnADao.TrainerQnACount(user_no);
 		
+		TrainerDao trainerDao = sqlSession.getMapper(TrainerDao.class);
+		TrainerTemDto trainerTemDto = trainerDao.trainerDetail(user_no);
+		
 		Map<String, Object> result = new HashMap<String, Object>(); 
 		if (qnalist.size()>0) {
 			result.put("result", true);
 			result.put("qnaList", qnalist);
 			result.put("totalQnACount", totalQnACount);
+			result.put("trainerTemDto", trainerTemDto);
 		} else {
 			result.put("result", false);
 			result.put("totalQnACount", 0);

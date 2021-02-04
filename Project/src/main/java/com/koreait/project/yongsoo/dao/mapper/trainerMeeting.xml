@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE USER_NO = #{param1}
 		   AND MEETING_NO != #{param2} 
 	</select>
- 	
+
  	
 	<select id="getOtherHostMeeting" resultType="com.koreait.project.yongsoo.dto.MeetingTemDto">
 		SELECT M.USER_NO, U.USER_NICKNAME, U.USER_MESSAGE, M.MEETING_NO, M.MEETING_TITLE,

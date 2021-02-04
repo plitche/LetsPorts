@@ -7,11 +7,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 파라미터가 두개 이상일 땐 꼭 param1, param2 -->
 <mapper namespace="com.koreait.project.hyejoon.dao.UsersDao">
 	
-	<select id="usersLogin" resultType="com.koreait.project.hyejoon.dto.UsersDto">
+	<select id="usersLogin" resultType="com.koreait.project.dto.UsersDto">
 		SELECT *
 		  FROM USERS
 		 WHERE EMAIL = #{param1}
 		   AND PASSWORD = #{param2}
 	</select>
-	
+	<select id="nickCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM USERS
+		 WHERE user_nickname = #{user_nickname}
+	</select>
 </mapper>

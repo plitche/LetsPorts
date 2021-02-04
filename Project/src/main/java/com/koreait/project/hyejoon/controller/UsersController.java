@@ -39,11 +39,10 @@ public class UsersController {
 	}
 	
 	// 회원가입 정보입력 페이지로 이동
-	@RequestMapping(value="usersSignUp.hey")
+	@RequestMapping(value="usersSignUpPage.hey")
 	public String usersSignUpInsert() {
-		return "hyePages/usersSignUp";
+		return "hyePages/usersSignUpPage";
 	}
-
 	
 	
 	/***** 정보 전달 *****/
@@ -65,7 +64,8 @@ public class UsersController {
 	}
 	
 	// 회원가입
-	// 닉네임 체크 ajax 이용
+	
+	// 닉네임 중복 체크 ajax 이용
 	
 	
 	
