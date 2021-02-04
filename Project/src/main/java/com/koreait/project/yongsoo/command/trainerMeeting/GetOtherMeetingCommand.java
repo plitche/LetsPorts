@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.dto.MeetingDto;
+import com.koreait.project.yongsoo.dao.TrainerDao;
 import com.koreait.project.yongsoo.dao.TrainerMeetingDao;
+import com.koreait.project.yongsoo.dto.TrainerTemDto;
 
 public class GetOtherMeetingCommand implements CommonMapCommand {
 
@@ -25,9 +27,13 @@ public class GetOtherMeetingCommand implements CommonMapCommand {
 		List<MeetingDto> meetingList = trainerMeetingDao.getOtherMeeting(user_no, meeting_no);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
+		TrainerDao trainerDao = sqlSession.getMapper(TrainerDao.class);
+		TrainerTemDto trainerTemDto = trainerDao.trainerDetail(user_no);
+		
 		if (meetingList.size()>0) {
 			result.put("result", true);
 			result.put("meetingList", meetingList);
+			result.put("trainerTemDto", trainerTemDto);
 		} else {
 			result.put("result", false);
 		}

@@ -17,7 +17,7 @@
 	});
 	
 	/* 불러온 모임 list를 토대로 append 해주기 위한 function */
-	function getOtherMeetingTable(list) {
+	function getOtherMeetingTable(list, trainerInfo) {
 		$('#otherMeeting').empty();
 		$.each(list, function(idx, meeting){
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
@@ -26,7 +26,7 @@
 			.append( $('<p>').html(meeting.meeting_title) )
 			.append( $('<p>').html('최소: ' + meeting.meeting_min + '명 / 최대: ' + meeting.meeting_max + '명')  )
 			.append( $('<p>').html('일시: ' + meeting.meeting_date) )
-			.append( $('<p>').html('작성자: ' + meeting.user_no) )
+			.append( $('<p>').html('작성자: ' + trainerInfo.user_nickname) )
 			)
 			.appendTo('#otherMeeting');
 		});
@@ -50,7 +50,7 @@
 			dataType: 'json',
 			success: function(responseObj) {
 				if (responseObj.result == true) {
-					getOtherMeetingTable(responseObj.meetingList);
+					getOtherMeetingTable(responseObj.meetingList, responseObj.trainerTemDto);
 				} else {
 					$('<tr>')
 					.append( $('<td colspan="4">').html('다른 모임 게시글이 없습니다.') )
@@ -140,7 +140,7 @@
 			$('<div class="comment-container">')
 			.append( $('<div class="profile">').html('<img alt="프로필" src="">') )
 			.append( $('<div class="comment-content">')
-				.append( $('<p>').html('닉네임: ' + comment.user_no) )
+				.append( $('<p>').html('닉네임: ' + comment.user_nickname) )
 				.append( $('<p>').html('내용: ' + comment.comment_content) )
 				.append( $('<p>').html('작성일: ' + comment.created_at) )
 			)
@@ -150,19 +150,7 @@
 			)
 			.appendTo('#commentContent');
 		});
-	}
-	
-	// 버튼 클릭 시 하위 수정, 삭제 버튼이 나오게 하기위한 function
-	function showBtns() {
-		$(document).on('click', '.btnsBtn', function() {
-			if ( $('.btnClass').css('display') == 'none') {
-				$(this).parent('div').find('a').show();
-			} else {
-				$(this).parent('div').find('a').hide();
-			}
-		});
-	}
-		
+	}	
 	
 	// 모임 View페이지로 이동시 자동으로 뎃글 목록을 가져올 ajax함수
 	function getCommentList() {
@@ -185,35 +173,53 @@
 			error: function(){alert('실패');}
 		});
 	};
-	
+
 	// 뎃글 작성 완료 버튼 클릭시 작동할 ajax함수
 	function addComment() {
 		$('#addComment').click(function(){
-			var meeting_no = ${meetingDto.meeting_no};
-			var user_no = 11;
-			var comment_content = $('textarea[name="comment_content"]').val();
-			var sendObj = {
-				"comment_referer_no": meeting_no,
-				"user_no": user_no,
-				"comment_content": comment_content
-			};
-			$.ajax({
-				url: 'addComment.plitche',
-				type: 'post',
-				dataType: 'json',
-				data: JSON.stringify(sendObj),
-				contentType: 'application/json; charset=utf-8',
-				success: function(responseObj) {
-					if(responseObj.result) {
-						alert('새로운 뎃글이 작성되었습니다.');
-						getCommentList();
-						document.getElementById("comment_content").value='';
-					} else {
-						alert('뎃글이 작성되지 않았습니다.');
-					}
-				},
-				error: function(){alert('실패');}
-			});
+			if ( '${loginUser.user_no}' == '' ) {
+				if (confirm('로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?')) {
+					location.href='usersLoginPage.hey';
+				}
+			} else {
+				var meeting_no = ${meetingDto.meeting_no};
+				var user_no = '${loginUser.user_no}';
+				var comment_content = $('textarea[name="comment_content"]').val();
+				var sendObj = {
+					"comment_referer_no": meeting_no,
+					"user_no": user_no,
+					"comment_content": comment_content
+				};
+				
+				$.ajax({
+					url: 'addComment.plitche',
+					type: 'post',
+					dataType: 'json',
+					data: JSON.stringify(sendObj),
+					contentType: 'application/json; charset=utf-8',
+					success: function(responseObj) {
+						if(responseObj.result) {
+							alert('새로운 뎃글이 작성되었습니다.');
+							getCommentList();
+							document.getElementById("comment_content").value='';
+						} else {
+							alert('뎃글이 작성되지 않았습니다.');
+						}
+					},
+					error: function(){alert('실패');}
+				});
+			}
+		});
+	}
+	
+	// 버튼 클릭 시 하위 수정, 삭제 버튼이 나오게 하기위한 function
+	function showBtns() {
+		$(document).on('click', '.btnsBtn', function() {
+			if ( $('.btnClass').css('display') == 'none') {
+				$(this).parent('div').find('a').show();
+			} else {
+				$(this).parent('div').find('a').hide();
+			}
 		});
 	}
 	
@@ -238,6 +244,93 @@
 	}
 </script>
 
+<!-- 신청하기 버튼 클릭시 작동 -->
+<script>
+	$(document).ready(function() {
+		applyMeeting();
+	});
+	
+	function applyMeeting() {
+		$(document).on('click', '#applyMeeting', function() {
+			if( '${loginUser.user_no}' == '' ) {
+				if (confirm('로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?')) {
+					location.href='usersLoginPage.hey';
+				}
+			} else {
+				location.href='';
+			}
+			
+		});
+	}
+</script>
+
+<!-- 트레이너에게 질문하기 버튼 클릭시 작동-->
+<script>
+	$(document).ready(function() {
+		goQuesionToTrainer();
+		writeQuestion();
+	});
+	
+	function goQuesionToTrainer() {
+		$('#questionToTrainer').click(function () {
+			if( '${loginUser.user_no}' == '' ) {
+				if (confirm('로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?')) {
+					location.href='usersLoginPage.hey';
+				}
+			} else {
+				$('#qnaDetail').empty();
+				$('<form>')
+				.append( $('<input type="text" id="title" name="trainer_qna_title" placeholder="제목을 입력하세요."/>') )
+				.append( $('<input type="text" id="content" name="trainer_qna_content" placeholder="질문내용을 입력하세요."/>')  )
+				.append( $('<br/>') )
+				.append( $('<input type="checkbox" name="is_published" id="is_published" value="1"/>') )
+				.append( $('<label for="is_published">').html('비밀글 처리하기') )		
+				.append( $('<input type="button" value="작성완료" id="writeQuestion"/>') )
+				.appendTo('#qnaDetail');
+				$('#modal').attr("style", "display:block");
+			}
+		});
+	}
+	
+	// 작성된 질문내용을 처리하는 ajax 함수
+	function writeQuestion() {
+		$(document).on("click", "#writeQuestion", function() {
+			var question_user_no = '${loginUser.user_no}'
+			var trainer_user_no = ${trainer_infoDto.user_no};
+			var trainer_qna_title = $('input[name="trainer_qna_title"]').val();
+			var trainer_qna_content = $('input[name="trainer_qna_content"]').val();
+			var is_published = $('input[name="is_published"]').val();
+			var sendObj = {
+				"question_user_no" : question_user_no,	
+				"trainer_user_no" : trainer_user_no,
+				"trainer_qna_title" : trainer_qna_title,
+				"trainer_qna_content" : trainer_qna_content,
+				"is_published" : is_published
+			};
+			
+			$.ajax({
+				url: 'writeQnA.plitche',
+				type: 'post',
+				data: JSON.stringify(sendObj),
+				contentType: 'application/json; charset=UTF-8',
+				dataType: 'json',
+				success: function(responseObj) {
+					if (responseObj.result) {
+						alert('질문이 등록되었습니다.');
+						if (confirm('작성된 질문을 확인하러 이동하시겠습니까?')) {
+							location.href='goTrainerDetail.plitche?user_no='+trainer_user_no;
+						}
+					} else {
+						alert('등록을 등록하지 못했습니다.');
+					}
+					getTrainerQnAList();
+				},
+				error: function(){alert('질문 작성하기 실패');}
+			});
+		});
+	}
+
+</script>
 
 <div id="meeting">
 	<div id="meetingHeader">
@@ -286,14 +379,18 @@
 			<p>활동 센터 : ${trainer_infoDto.employment}</p>
 			<p>활동 지역 : ${usersDto.location1_no}, ${usersDto.location2_no}</p>
 		</div>
-		<div class="btns">
-			<input type="button" value="수정하기"/>
-			<input type="button" value="삭제하기" onclick=""/>
-			<br/><br/>
-			<input type="button" value="신청하기"/>
-			<input type="button" value="트레이너에게 질문하기"/>
-		</div>
 	</c:if>
+	<div class="btns">
+		<c:if test="${loginUser.user_no eq usersDto.user_no}">
+			<input type="button" value="수정하기" />
+			<input type="button" value="삭제하기" />
+		</c:if>
+		<br/><br/>
+		<c:if test="${loginUser.user_no ne usersDto.user_no}">
+			<input type="button" value="신청하기" id="applyMeeting" />
+			<input type="button" value="트레이너에게 질문하기" id="questionToTrainer"/>
+		</c:if>
+	</div>
 </div>
 
 <div class="otherMeeting">
@@ -316,5 +413,20 @@
 	</form>
 </div>
 
+<div>
+  	<div id="modal">
+  		<div class="modal_content">
+		    <button id="closeQnAModal">X</button>
+		    <div id="qnaDetail"></div>
+	    </div>
+	    <div class="modal_layer"></div>
+  	</div>
+</div>
+
+<script>
+	$('#closeQnAModal').click(function() {
+		$('#modal').attr("style", "display:none");
+	});
+</script>
 
 <%@ include file="../template/footer.jsp" %>
