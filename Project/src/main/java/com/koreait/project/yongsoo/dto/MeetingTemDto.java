@@ -19,5 +19,6 @@ public class MeetingTemDto {
 	private Date meeting_date;
 	private int exercise_no;
 	private Date created_at;
-	
+	private int meeting_max;
+	private int meeting_min;
 }

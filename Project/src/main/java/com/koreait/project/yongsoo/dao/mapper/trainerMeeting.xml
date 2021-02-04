@@ -67,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	
 	<select id="getOtherHostMeeting" resultType="com.koreait.project.yongsoo.dto.MeetingTemDto">
 		SELECT M.USER_NO, U.USER_NICKNAME, U.USER_MESSAGE, M.MEETING_NO, M.MEETING_TITLE,
-			   M.MEETING_DATE, M.EXERCISE_NO, M.CREATED_AT
+			   M.MEETING_DATE, M.EXERCISE_NO, M.CREATED_AT, M.meeting_max, M.meeting_min
 		  FROM USERS U FULL OUTER JOIN MEETING M
 		    ON M.USER_NO = U.USER_NO
 		 WHERE M.USER_NO != #{param1}

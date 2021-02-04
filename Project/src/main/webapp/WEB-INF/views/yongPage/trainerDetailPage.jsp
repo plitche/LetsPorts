@@ -1,3 +1,4 @@
+<%@page import="com.koreait.project.hyejoon.dto.UsersDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -63,6 +64,87 @@
 	}
 </script>
 
+<!-- 트레이너 리뷰 관련 ajax -->
+<script>
+	/* 페이지로드 이벤트 */
+	$(document).ready(function(){
+		getReviewList();
+		openReviewPopUp();
+		closeReviewModal()
+	});
+	
+	function reivewListTable(list) {
+		$('#trainerReviewList').empty();
+		$.each(list, function(idx, review) {
+			$('#ReviewList2')
+			.append( $('<div>') 
+				.append( $('<div>').html('닉네임') )
+				.append( $('<div>').html('평점') )
+			)
+			.append( $('<div>').html('모임 제목, 모임 날짜, 종목') )
+			.append( $('<div>').html('리뷰 내용')
+				.append( $('<div>').html('to ~~ 트레이너') )
+				.append( $('<div>').html('날짜') )
+			)
+		});
+	}
+	
+	/* 현재 페이지로 이동시 트레이너에게 달린 리뷰를 자동으로 가져오는 ajax함수 */
+	function getReviewList() {
+		var user_no = ${trainerTemDto.user_no};
+		$.ajax({
+			url: 'getReviewList.plitche/' + user_no,
+			type: 'get',
+			contentType: 'json',
+			success: function(responseObj) {
+				if(responseObj.result) {
+					$('<div>')
+					.append( $('<p>').html('총 :' + responseObj.reviewCount + '개') )
+					.appendTo('#totalReview');
+					reivewListTable(responseObj.reviewList);
+				} else {
+					$('<div>')
+					.append( $('<p>').html('총 :' + responseObj.reviewCount + '개') )
+					.appendTo('#totalReview');
+					alert('작성된 리뷰가 없습니다.');
+				}
+			},
+			error: function(){alert('리뷰 ajax 실패');}
+		});	
+	}
+	
+	/* 리뷰 등록하기 버튼 클릭시 리뷰를 작성할 수 있는 모달차을 띄워주기 위한 함수 */
+	function openReviewPopUp() {
+		$('#openReviewModal').click(function () {
+			$('#qnaDetail').empty();
+			$('#qnaDetail')
+			.append( $('<div>').html('작성자 : ~~') )
+			.append( $('<form>')
+				.append( $('<div>')
+					.append( $('<select>')
+						.append( $('<option value="">').html('함께 했던 모임 리스트1') )		
+						.append( $('<option value="">').html('함께 했던 모임 리스트2') )		
+						.append( $('<option value="">').html('함께 했던 모임 리스트3') )		
+					)
+					.append( $('<input type="text" placeholder="평점 입력">') )
+				)
+				.append( $('<textarea rows="10" cols="50" placeholder="리뷰 내용을 작성하세요.">') )
+				.append( $('<input type="button" value="작성완료" id="writeReview" onclick="" />'))
+			)
+			$('#modal').attr("style", "display:block");
+		});
+	}
+	
+	
+	
+	/* 작성완료 눌렀을 때 모달창을 닫아주는 함수 */
+	function closeReviewModal() {
+		$(document).on('click', '#writeReview', function() {
+			$('#modal').attr("style", "display:none");
+		});
+	}
+
+</script>
 <!-- 트레이너 질문 관련 ajax -->
 <script>
 	// 페이지 로드
@@ -77,15 +159,26 @@
 	function trainerQnAListTable(list) {
 		$('#qnaList').empty();
 		$.each(list, function(idx, qna){
-			$('<tr>')
-			.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
-			.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
-			.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
-			.append( $('<td>').html(qna.question_user_no) )
-			.append( $('<td>').html(qna.created_at) )
-			.append( $('<input type="hidden" name="' + qna.trainer_qna_no + '" value="' + idx + '"/>') )
-			.append( $('<td name="isAnswered">').addClass('isAnswered').html('미답변') )
-			.appendTo('#qnaList');
+			if (qna.is_answered==0) {
+				$('<tr>')
+				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
+				.append( $('<td>').html(qna.question_user_no) )
+				.append( $('<td>').html(qna.created_at) )
+				.append( $('<input type="hidden" name="' + qna.trainer_qna_no + '" value="' + idx + '"/>') )
+				.append( $('<td name="isAnswered">').addClass('isAnswered').html('미답변') )
+				.appendTo('#qnaList');
+			} else {
+				$('<tr>')
+				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
+				.append( $('<td>').html(qna.question_user_no) )
+				.append( $('<td>').html(qna.created_at) )
+				.append( $('<td name="isAnswered">').addClass('isAnswered').html('답변완료') )
+				.appendTo('#qnaList');
+			}
 		});
 	}
 	
@@ -249,8 +342,6 @@
 	
 </script>
 
-
-
 <div id="trainerInfo">
 	<div id="trainerSimple">
 		<div id="trainerImage">
@@ -281,7 +372,10 @@
 	 	 </pre>
 	</div>
 </div>
-
+<% 
+	// UsersDto usersDto = (UsersDto)session.getAttribute("loginUser");
+	// out.print(usersDto.getUser_no());
+%>
 
 <div id="tab">
 	<ul>
@@ -295,7 +389,11 @@
 		<div id="trainerMeetingList"></div>
 	</div>
 	
-	<div id="ReviewList2" class="conBox">1241242</div>
+	<div id="ReviewList2" class="conBox">
+		<button type="button" id="openReviewModal">새 리뷰 등록하기</button>
+		<div id="totalReview"></div>
+		<div id="trainerReviewList"></div>
+	</div>
 		
 	<div id="QnAList" class="conBox">
 		<button type="button" id="openQnAModal">새 질문 등록하기</button>
@@ -318,6 +416,16 @@
 	</div>
 </div>
 
+<div>
+  	<div id="modal">
+  		<div class="modal_content">
+		    <button id="closeQnAModal">X</button>
+		    <div id="qnaDetail"></div>
+	    </div>
+	    <div class="modal_layer"></div>
+  	</div>
+</div>
+
 <!-- tab형식 구현을 위한 script -->
 <script>
 	$(function() {
@@ -331,51 +439,6 @@
 	
 </script>
 
-<div>
-	<div>${trainerTemDto.user_nickname} 트레이너가 받은 리뷰</div>
-	총 : ##개  &nbsp;&nbsp;&nbsp;&nbsp; <a href="">새 리뷰 등록하기</a> <br/>	
-	<table border="1">
-		<thead>
-			<tr>
-				<td>리뷰번호</td>
-				<td>점수</td>
-				<td>작성자</td>
-				<td>내용</td>
-				<td>일시</td>
-			</tr>
-		</thead>
-		<tbody>
-			<c:if test="${empty reviewDto}">
-				<tr>
-					<td colspan="4">작성된 리뷰가 없습니다.</td>
-				</tr>
-			</c:if>
-			<c:if test="${not empty reviewDto}">
-				<c:forEach var="list" items="${reviewDto}">
-					<tr>
-						<td>${list.review_no}</td>
-						<td>${list.score}</td>
-						<td>${list.writer_user_no}</td>
-						<td>${list.content}</td>
-						<td>${list.created_at}</td>
-					</tr>
-				</c:forEach>
-			</c:if>
-		</tbody>
-	</table>
-</div><br/>
-
-
-<div>
-  	<div id="modal">
-  		<div class="modal_content">
-		    <button id="closeQnAModal">X</button>
-		    <div id="qnaDetail"></div>
-	    </div>
-	    <div class="modal_layer"></div>
-  	</div>
-</div>
-
 <!-- 모달창 구현을 위한 script -->
 <script>
 	$('#openQnAModal').click(function() {
@@ -383,7 +446,7 @@
 	});
 	$('#closeQnAModal').click(function() {
 		$('#modal').attr("style", "display:none");
-		$('#showModal').attr("style", "display:none");
+		// $('#showModal').attr("style", "display:none");
 	});
 	/* 
 	document.getElementById("openQNAModal").onclick = function() {

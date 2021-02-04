@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="resources/joon/js/users.js"></script>
+
 <title>회원가입 입력</title>
 </head>
 <body>
@@ -14,15 +16,20 @@
 	<br/><br/>
 	<!-- wrapper는 나중에 css 작업에 용이하게 하기 위함 -->
 	<div id="signUpWrapper">
-		<form action="">
-			닉네임 *<br/>
-			<input type="text" name="nickname" placeholder="닉네임 입력"/>
-			<input type="button" value="닉네임 체크" /><br/>
-			
+		<form method="post" >
+		<!-- 닉네임 -->
+			<div class="form-group">
+				<label for="user_nickname">닉네임 *</label>
+					<input type="text" class="user_nickname" id="user_nickname" name="user_nickname" placeholder="닉네임 입력" required/>
+					<div class="check_font" id="nick_check"></div>
+			</div>
+							
+		<!-- 이메일 -->
 			이메일 *<br/>
 			<input type="text" name="email" placeholder="이메일 주소 입력 (예: abcd123@domain.com)" />
 			<input type="button" value="메일 인증" /><br/>
 			
+		<!-- 비밀번호 -->
 			비밀번호 *<br/>
 			<input type="password" name="password" placeholder="비밀번호 입력(영문 숫자 조합 8~16자)"><br/>
 			비밀번호 확인 *<br/>
@@ -84,7 +91,7 @@
 			</select><br/>
 			
 			<hr/>
-			관심분야 등록<br/>
+			관심분야 <br/>
 			<label><input type="checkbox" name="0" value="족구">족구</label>
 			<label><input type="checkbox" name="1" value="축구">축구</label>
 			<label><input type="checkbox" name="2" value="농구">농구</label>
@@ -99,8 +106,8 @@
 			<label><input type="checkbox" name="11" value="식단정보">식단정보</label><br/>
 			<hr/>
 			
-			<input type="radio" name="이용약관" />(필수)<br/>
-			<input type="radio" name="개인정보처리방침" />(필수)<br/><br/>
+			<input type="radio" id="이용약관" />(필수)<br/>
+			<input type="radio" id="개인정보처리방침" />(필수)<br/><br/>
 			
 			<input type="button" value="회원가입하기" onclick="location.href='마이페이지로 이동'">
 			
