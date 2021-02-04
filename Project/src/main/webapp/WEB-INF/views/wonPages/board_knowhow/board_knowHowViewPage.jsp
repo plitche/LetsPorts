@@ -8,83 +8,64 @@
 <jsp:include page="../../template/header.jsp">
 	<jsp:param value="트레이너 리스트 페이지" name="title"/>
 </jsp:include>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 	
-	<%
-		Board_knowhowDto board_knowhowDto = (Board_knowhowDto)request.getAttribute("Board_knowhowDto");
-		String knowhow_title = URLDecoder.decode(board_knowhowDto.getKnowhow_title(), "utf-8");
-		pageContext.setAttribute("knowhow_title",knowhow_title);
-	%>
+<style>
+	table {
+		border-collapse: collapse;
+	}
 	
-	<script type="text/javascript">
-		function fn_boardDelete(f) {
-			if (confirm('삭제할까요?')) {
-				f.action = 'knowhowDelete.limyeng';
-				f.submit();
-			}
-		}
-	</script>
+	table, th, td {
+		border: 1px solid black;
+	}
 	
 	
+</style>
 	
+	글보기 페이지 입니다.<br/><br/>
 	
+	<form method = "post">
+		<h4>원데이 클래스</h4>
+		<table>
+			<tr>
+			
+				<th>조회수</th>
+				<td align = "center">${board_knowhowDto.knowhow_hit}</td>
+			</tr>
+			<tr>
+				<th>작성자(트레이너)</th>
+				<td align = "center">${board_knowhowDto.user_separator}</td>
+			</tr>
+			
+			<tr>
+				<th>제목</th>
+				<td align = "center">${board_knowhowDto.knowhow_title}</td>
+			</tr>
+			
+			<tr>
+				<th>내용</th>
+				<td align = "center">${board_knowhowDto.knowhow_content}</td>
+			</tr>
+		</table><br/>
+			
+			
+		<div style = "float: left;">
+			<input type = "hidden" name = "knowhow_no" value = "${board_knowhowDto.knowhow_no}" >
+			<input type = "button" value = "수정" id = "btnUpdate" onclick = "location.href='board_knowHowUpdatePage.limyeng?knowhow_no=${board_knowhowDto.knowhow_no}'">
+			<input type = "button" value = "삭제" id = "btnDelete" onclick = "fn_knowHowDelete(this.form)" >
+			<input type = "button" value = "글목록" id = "btnList" onclick = "location.href='board_knowHowListPage.limyeng'">
+		</div><br/><br/>
 	
-	원데이 클래스
-	
-	<table border = "1" width = "700px">
-		<tr>
-			<td align = "center" width = "" >조회수</td>
-			<td align = "center">${dto.knowhow_hit}</td>
-		</tr>
-		<tr>
-			<td align="center">작성자</td>
-		</tr>
-		
-		<tr>
-			<td align="center">본문</td>
-			<td colspan="3">
-				<textarea rows="30" cols="50" name = "content">${dto.knowhow_content}</textarea>
-			</td>
-		</tr>		
-		<tr>
-			<td align = center>첨부파일</td>
-			<td colspan="3">
-				<c:if test = ${dto.filesize > 0}>
-					
-				</c:if>
-			</td>
-		</tr>
-				
-		<tr>
-			<td>
-				<input type = "hidden" name = "num" value = "${dto.knowhow_no}" >
-				<input type = "button" value = "수정" id = "btnUpdate" >
-				<input type = "button" value = "삭제" id = "btnDelete" >
-				<input type = "button" value = "목록" id = "btnList" >
-			</td>
-		</tr>			
-	
-	</table>
-	
-	<table>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		
-	</table>
-	
-	<
+		<h4>댓글 작성</h4>
+		<div id = "btn" style = "text-align:left;">
+			<input type = "text" id  = "comment_content" value = "${CommentsDto.comment_content}" placeholder="댓글입력" ><br/>
+			<input type = "button" id = "btn" value="작성" onclick =  />
+		</div>
+		</form>
 
+			
+			<!-- 밑 하단 부분 페이징 처리 -->
+			
 	
 	<%@ include file="../../template/footer.jsp" %>
 	
 
-</body>
-</html>
