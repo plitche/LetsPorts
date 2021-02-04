@@ -24,10 +24,11 @@ public class UsersSignUpController {
 	private NickCheckCommand nickCheckCommand = ctx.getBean("nickCheckCommand", NickCheckCommand.class);
 	
 	// 회원 가입 닉네임 체크를 위한 ajax용
-	@RequestMapping(value="nickCheck.hey")
+	@RequestMapping(value="nickCheck.hey/{user_nickname}")
 	@ResponseBody
 	public Map<String, Object> nickCheck(@PathVariable("user_nickname") String user_nickname, Model model){
 		model.addAttribute("user_nickname", user_nickname);
+		System.out.println(user_nickname);
 		return nickCheckCommand.execute(sqlSession, model);
 	}
 	

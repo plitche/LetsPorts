@@ -15,7 +15,7 @@ public class NickCheckCommand implements CommonMapCommand {
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 		
 		Map<String, Object> map = model.asMap();
-		String user_nickname = (String)map.get("usersDto");
+		String user_nickname = (String)map.get("user_nickname");
 		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
 		int nickResult = usersDao.nickCheck(user_nickname);
 		
