@@ -112,9 +112,6 @@
     <br/>
     <div class="relatedClass_all">
     
-	    <div class="relatedClass">
-	    	
-	    </div>
     
     </div>
     
@@ -157,7 +154,7 @@
     	function relatedClassListContent(list) {
     		$('.relatedClass').empty();
 			$.each(list, function(idx, relatedClass) {
-				$('<div>')
+				$('<div>').addClass('relatedClass')
 				.append
 				
 			});
