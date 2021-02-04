@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.jungho.command.TrainerClassCommand.RelatedClassCommand;
+import com.koreait.project.jungho.command.TrainerClassCommand.SearchClassCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassDeleteCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassInsertCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassListCommand;
@@ -23,8 +24,6 @@ import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassUpdate
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassViewCommand;
 import com.koreait.project.jungho.config.JungAppContext;
 import com.koreait.project.jungho.dto.TrainerClassDto;
-
-import searchClass.SearchClassCommand;
 
 @Controller
 public class TrainerClassController {
