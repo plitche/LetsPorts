@@ -3,13 +3,14 @@ package com.koreait.project.jungho.dao;
 import java.util.List;
 
 import com.koreait.project.dto.MaterialsDto;
+import com.koreait.project.dto.MeetingDto;
 import com.koreait.project.jungho.dto.TrainerClassDto;
 
 public interface TrainerClassDao {
 
 	public List<TrainerClassDto> trainerClassList();
 
-	public int trainerClassInsert(TrainerClassDto trainerClassDto);
+	public int trainerClassInsert(MeetingDto meetingDto);
 	
 	public int findNewMeetingNo(int user_no);
 	
@@ -29,6 +30,10 @@ public interface TrainerClassDao {
 	public int materialsViewUpdate(String material, int meeting_no);
 	
 	// 관련 트레이너 클래스 리스트 추출
-	public List<TrainerClassDto> relatedClass(TrainerClassDto trainerClassDto);
+	public List<TrainerClassDto> relatedClass(int user_no, int exercise_no);
+	
+	// 검색한 내용과 일치하는 트레이너클래스를 뿌려주는 역할
+	public List<TrainerClassDto> searchClass(String search_content);
+	
 	
 }

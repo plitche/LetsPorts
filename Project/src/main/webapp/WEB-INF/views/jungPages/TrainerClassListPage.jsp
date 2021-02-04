@@ -5,27 +5,15 @@
 <jsp:include page="../template/header.jsp" />
 <link type="text/css" rel="stylesheet" href="resources/style/jung/TrainerClassMain.css" >
 
-<script>
-	
-	var InsertResult = ${InsertResult}
-	if(InsertResult > 0) {
-		alert('삽입되었습니다.');
-	} else {
-		alert('삽입되지 않았습니다.');
-	}
-
-</script>
-
 
 
 <br/><br/>
-<form action="">
+<form action="SearchClass.leo" method="get">
 
-	<input type="text" placeholder="검색어를 입력하세요" />
+	<input type="text" name="search_content" placeholder="검색어를 입력하세요" />
 	<button>검색</button>
-
+	
 </form>
-
 
 	<span class="tags">
 		<span><a href="">축구</a></span>

@@ -79,16 +79,3 @@ public class TrainerClassCommentController {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-

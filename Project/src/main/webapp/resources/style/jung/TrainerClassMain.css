@@ -23,13 +23,15 @@
 
 .MeetingClass_all {
 	display:flex;
+	width: 1080px;	
+	height: auto;
 }
 
 .MeetingClass {
 	background: lightgray;
 	width: 200px;
 	height:200px;
-	margin-left: 30px;
+	margin-left: 20px;
 }
 
 .MeetingClass_all > a {
