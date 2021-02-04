@@ -112,9 +112,6 @@
     <br/>
     <div class="relatedClass_all">
     
-	    <div class="relatedClass">
-	    	
-	    </div>
     
     </div>
     
@@ -130,39 +127,42 @@
     		var exercise_no = ${trainerClassDto.exercise_no};
     		var meeting_no = ${trainerClassDto.meeting_no};
     		var user_no = ${trainerClassDto.user_no};
+    		
     		var sendObj = {
     								 "exercise_no":exercise_no,
     								 "meeting_no":meeting_no,
     								 "user_no":user_no
-    						 	   };
+    						 	      };
     		$.ajax({
     			
     			url: 'relatedClass.leo',
-    			type: 'get',
+    			type: 'post',
     			data: JSON.stringify(sendObj),
+    			contentType: 'application/json; charset=UTF-8',
     			dataType: 'json',
     			success: function(responseObj) {
     				if (responseObj.result == true) {
     					relatedClassListContent(responseObj.relatedClassList);
     				} else {
-    					$('.relatedClass').empty();
-						 $('<div>').html('댓글을 작성해주세요')
-						.appendTo('.relatedClass');
+    					$('.relatedClass_all').empty();
+						$('<div>').html('관련 클래스목록이 없습니다.')
+						.appendTo('.relatedClass_all');
     				}
     			},
-    			error: function(){alert('실패');}
+    			error: function(){alert('실패??!43$#324324?');}
     		});
     	}
-    	
+    		
     	function relatedClassListContent(list) {
-    		$('.relatedClass').empty();
+    		$('.relatedClass_all').empty();
 			$.each(list, function(idx, relatedClass) {
-				$('<div>')
-				.append
-				
+				$('<div>').addClass('relatedClass')
+				.append($('<a href="">' + relatedClass.meeting_title + '</a> '))
+				.append($('<div>' +  relatedClass.meeting_date + '</div>'))
+				.append($('<div>' +  relatedClass.exercise_no + '</div>'))
+				.appendTo('.relatedClass_all');
 			});
     	}
-    
     
     </script>
     
@@ -173,13 +173,14 @@
     	//	모달창에서 댓글을 달면 뜨는 리스트
     	
     	// 페이지 로드 이벤트
+    	/*
 		$(document).ready(function(){
 			questionList();
 			questionInsert();
 			questionView();
 			questionUpdate();
 		});
-    	
+    	*/
     </script>
 
 	
@@ -275,7 +276,7 @@
 				},
 				error: function() {alert('실패');}
 			});
-		}]
+		}
 		
 		function commentListContent(list) {
 			$('#listComment_all').empty();

@@ -10,6 +10,8 @@ import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassListCo
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassUpdateCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassViewCommand;
 
+import searchClass.SearchClassCommand;
+
 @Configurable
 public class JungAppContext {
 	
@@ -42,6 +44,11 @@ public class JungAppContext {
 	@Bean
 	public RelatedClassCommand relatedClassCommand() {
 		return new RelatedClassCommand();
+	}
+	
+	@Bean
+	public SearchClassCommand searchClassCommand() {
+		return new SearchClassCommand();
 	}
 
 }

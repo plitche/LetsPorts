@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="../template/header.jsp" />
-<link type="text/css" rel="stylesheet" href="resources/style/TrainerClassPages/.css" >
+<link type="text/css" rel="stylesheet" href="resources/style/jung/TrainerClassInsertPage.css" >
 
 
 <form action="TrainerClassInsert.leo" >
@@ -102,14 +102,71 @@
 	</select><br/>
 	상세주소<input type="text" name="detail_location"/><br/>
 	준비물
-	<input type="text" name="materials_name"/>
-	<input type="text" name="materials_name"/>
-	<input type="text" name="materials_name"/><br/>
+	<span class="materials">
+	
+		<img alt="추가" src="resources/images/jung/add.png" class="plusBtn">
+		
+	</span>
+	
 	상세내용<br/>
-	<textarea rows="10" cols="100" name="meeting_content" placeholder="상세하게 적어주세요"></textarea><br/>
+	<textarea rows="10" cols="100" name="meeting_content"  id="summernote"></textarea><br/>
 	<button>작성</button>
 		
 </form>
+
+<script>
+	// 섬머 노트를 위한 스크립트
+	$(document).ready(function(){
+		$('#summernote').summernote({
+			height: 400,              
+			minHeight: null,            
+			maxHeight: null,          
+			lang: "ko-KR",	
+			placeholder: '필요한 내용을 적어주세요',
+		});
+	});
+
+</script>
+
+
+
+<script>
+
+	$(document).on('click', '.plusBtn', function(){
+		$('<div>').addClass('material_content')
+		.append($('<input type="text" name="materials_name" id="materials_box" placeholder="어떤게 필요할까요?"/>'))
+		.append($('<input type="button" value="삭제" id="DeleteBtn"/>'))
+		.appendTo('.materials');
+	});
+	
+	
+	$(document).on('click', '#DeleteBtn', function() {
+		$(this).parent('div').find('input:text[name="materials_name"]').hide();
+		$(this).parent('div').find('input:button[value="삭제"]').hide();
+	});
+	
+	
+	
+		
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <%@ include file="../template/footer.jsp" %>
