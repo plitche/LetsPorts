@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.plusBtn {
+	width: 25px;
+	height: 25px;
+}
+
+#DeleteBtn {
+	background: lightgray;
+	border: none;
+	width: 40px;
+	height: 26px;
+}

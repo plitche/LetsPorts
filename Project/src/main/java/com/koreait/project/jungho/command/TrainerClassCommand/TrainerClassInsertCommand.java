@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.w3c.dom.ls.LSInput;
 
 import com.koreait.project.common.CommonVoidCommand;
+import com.koreait.project.dto.MeetingDto;
 import com.koreait.project.jungho.dao.TrainerClassDao;
 import com.koreait.project.jungho.dto.TrainerClassDto;
 
@@ -25,6 +26,7 @@ public class TrainerClassInsertCommand implements CommonVoidCommand {
 		TrainerClassDto trainerClassDto = (TrainerClassDto)map.get("trainerClassDto");
 		
 		int user_no = 10;
+		
 		String meeting_title = trainerClassDto.getMeeting_title();
 		Date meeting_date =  trainerClassDto.getMeeting_date();
 		Date start_gather_date = trainerClassDto.getStart_gather_date();
@@ -37,24 +39,26 @@ public class TrainerClassInsertCommand implements CommonVoidCommand {
 		int location2_no = trainerClassDto.getLocation2_no();
 		String detail_location = trainerClassDto.getDetail_location();
 		String meeting_content = trainerClassDto.getMeeting_content();
-		trainerClassDto.setUser_no(user_no);
-		trainerClassDto.setMeeting_title(meeting_title);
-		trainerClassDto.setMeeting_date(meeting_date);
-		trainerClassDto.setStart_gather_date(start_gather_date);
-		trainerClassDto.setEnd_gather_date(end_gather_date);
-		trainerClassDto.setMeeting_min(meeting_min);
-		trainerClassDto.setMeeting_max(meeting_max);
-		trainerClassDto.setExercise_no(exercise_no);
-		trainerClassDto.setLocation1_no(location1_no);
-		trainerClassDto.setLocation2_no(location2_no);
-		trainerClassDto.setDetail_location(detail_location);
-		trainerClassDto.setMeeting_content(meeting_content);
 		
+		MeetingDto meetingDto = new MeetingDto();
+	
+		meetingDto.setUser_no(user_no);
+		meetingDto.setMeeting_title(meeting_title);
+		meetingDto.setMeeting_date(meeting_date);
+		meetingDto.setStart_gather_date(start_gather_date);
+		meetingDto.setEnd_gather_date(end_gather_date);
+		meetingDto.setMeeting_min(meeting_min);
+		meetingDto.setMeeting_max(meeting_max);
+		meetingDto.setExercise_no(exercise_no);
+		meetingDto.setLocation1_no(location1_no);
+		meetingDto.setLocation2_no(location2_no);
+		meetingDto.setDetail_location(detail_location);
+		meetingDto.setMeeting_content(meeting_content);
 		TrainerClassDao trainerClassDao = sqlSession.getMapper(TrainerClassDao.class);
 		
 		
 		// meeting 테이블에 값 삽입 작업 
-		trainerClassDao.trainerClassInsert(trainerClassDto);
+		trainerClassDao.trainerClassInsert(meetingDto);
 		
 		// 새로 삽입된 meeting_no의 숫자를 구하기 위한 처리 ( max(meeting_no) 로 최근에 생성된 번호 가져온다. )
 		int meeting_no = trainerClassDao.findNewMeetingNo(user_no);
@@ -66,8 +70,6 @@ public class TrainerClassInsertCommand implements CommonVoidCommand {
 			String material = materialList.get(i);
 			trainerClassDao.materialsInsert(meeting_no, material);
 		}
-		
-		
 		
 		
 	}

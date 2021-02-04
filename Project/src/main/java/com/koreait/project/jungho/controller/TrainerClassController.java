@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.jungho.command.TrainerClassCommand.RelatedClassCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassDeleteCommand;
@@ -23,12 +24,13 @@ import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassViewCo
 import com.koreait.project.jungho.config.JungAppContext;
 import com.koreait.project.jungho.dto.TrainerClassDto;
 
+import searchClass.SearchClassCommand;
+
 @Controller
 public class TrainerClassController {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	
 	private AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(JungAppContext.class);
 	
 	// 커뮤니티 -> 트레이너 클래스 선택하면 넘어와서 리스트뿌려주는 command 작업
@@ -99,10 +101,21 @@ public class TrainerClassController {
 		return "redirect:TrainerClassViewPage.leo?meeting_no=" + trainerClassDto.getMeeting_no();
 	}
 	
+	@RequestMapping(value="SearchClass.leo", method=RequestMethod.GET)
+	public String SearchClass(@RequestParam("search_content") String search_content, Model model) {
+		
+		model.addAttribute("search_content", search_content);
+		SearchClassCommand searchClassCommand = ctx.getBean("searchClassCommand", SearchClassCommand.class);
+		searchClassCommand.execute(sqlSession, model);
+		
+		return "jungPages/TrainerClassListPage";
+	}
+	
+	
 	// 관련 클래스 list 뿌려주는 역할
 	@RequestMapping(value="relatedClass.leo",
-							      method=RequestMethod.GET,
-							      produces="application/json; charset=utf-8")
+										method=RequestMethod.POST,
+										produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public Map<String, Object> relatedClass(@RequestBody TrainerClassDto trainerClassDto, Model model) {
 		
