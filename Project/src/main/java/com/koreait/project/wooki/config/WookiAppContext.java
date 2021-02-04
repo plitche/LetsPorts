@@ -6,9 +6,11 @@ import org.springframework.context.annotation.Bean;
 import com.koreait.project.wooki.command.AddTrainerSendEmailCommand;
 import com.koreait.project.wooki.command.AdminListCommand;
 import com.koreait.project.wooki.command.AdminLoginCommand;
+import com.koreait.project.wooki.command.BoardsListCommand;
 import com.koreait.project.wooki.command.ChangeEmailCommand;
 import com.koreait.project.wooki.command.ChangeEmailIsPossibleCommand;
 import com.koreait.project.wooki.command.CheckUserCommand;
+import com.koreait.project.wooki.command.DeleteTrainerInfoCommand;
 import com.koreait.project.wooki.command.DeleteUserCommand;
 import com.koreait.project.wooki.command.FilterTrainerUserListCommand;
 import com.koreait.project.wooki.command.UserListCommand;
@@ -88,5 +90,15 @@ public class WookiAppContext {
 	@Bean
 	public AddTrainerSendEmailCommand addTrainerSendEmailCommand() {
 		return new AddTrainerSendEmailCommand();
+	}
+	
+	@Bean
+	public DeleteTrainerInfoCommand deleteTrainerInfoCommand() {
+		return new DeleteTrainerInfoCommand();
+	}
+	
+	@Bean
+	public BoardsListCommand boardsListCommand() {
+		return new BoardsListCommand();
 	}
 }

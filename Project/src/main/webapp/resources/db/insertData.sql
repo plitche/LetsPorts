@@ -1,103 +1,102 @@
+INSERT ALL
+-- 태그인덱스
+INTO tags (tag_no, tag_name) VALUES (0, '족구')
+INTO tags (tag_no, tag_name) VALUES (1, '축구')
+INTO tags (tag_no, tag_name) VALUES (2, '농구')
+INTO tags (tag_no, tag_name) VALUES (3, '볼링')
+INTO tags (tag_no, tag_name) VALUES (4, '크로스핏')
+INTO tags (tag_no, tag_name) VALUES (5, '스피닝')
+INTO tags (tag_no, tag_name) VALUES (6, '댄스')
+INTO tags (tag_no, tag_name) VALUES (7, '요가')
+INTO tags (tag_no, tag_name) VALUES (8, '명상')
+INTO tags (tag_no, tag_name) VALUES (9, '다이어트정보')
+INTO tags (tag_no, tag_name) VALUES (10, '건강정보')
+INTO tags (tag_no, tag_name) VALUES (11, '식단정보')
+-- 운동인덱스
+INTO exercise (exercise_no, exercise_name) VALUES (0, '족구')
+INTO exercise (exercise_no, exercise_name) VALUES (1, '축구')
+INTO exercise (exercise_no, exercise_name) VALUES (2, '농구')
+INTO exercise (exercise_no, exercise_name) VALUES (3, '볼링')
+INTO exercise (exercise_no, exercise_name) VALUES (4, '크로스핏')
+INTO exercise (exercise_no, exercise_name) VALUES (5, '스피닝')
+INTO exercise (exercise_no, exercise_name) VALUES (6, '댄스')
+INTO exercise (exercise_no, exercise_name) VALUES (7, '요가')
+INTO exercise (exercise_no, exercise_name) VALUES (8, '명상')
+-- 지역(시,도) 인덱스
+INTO location1 (location1_no, location1_name) VALUES (0, '서울특별시')
+INTO location1 (location1_no, location1_name) VALUES (1, '인천광역시')
+INTO location1 (location1_no, location1_name) VALUES (2, '경기도')
+-- 지역(시,군,구) 인덱스
+INTO location2 (location2_no, location2_name) VALUES (0, '강남구')
+INTO location2 (location2_no, location2_name) VALUES (1, '강동구')
+INTO location2 (location2_no, location2_name) VALUES (2, '강북구')
+INTO location2 (location2_no, location2_name) VALUES (3, '강서구')
+INTO location2 (location2_no, location2_name) VALUES (4, '관악구')
+INTO location2 (location2_no, location2_name) VALUES (5, '광진구')
+INTO location2 (location2_no, location2_name) VALUES (6, '구로구')
+INTO location2 (location2_no, location2_name) VALUES (7, '금천구')
+INTO location2 (location2_no, location2_name) VALUES (8, '노원구')
+INTO location2 (location2_no, location2_name) VALUES (9, '도봉구')
+INTO location2 (location2_no, location2_name) VALUES (10, '동대문구')
+INTO location2 (location2_no, location2_name) VALUES (11, '동작구')
+INTO location2 (location2_no, location2_name) VALUES (12, '마포구')
+INTO location2 (location2_no, location2_name) VALUES (13, '서대문구')
+INTO location2 (location2_no, location2_name) VALUES (14, '서초구')
+INTO location2 (location2_no, location2_name) VALUES (15, '성동구')
+INTO location2 (location2_no, location2_name) VALUES (16, '성북구')
+INTO location2 (location2_no, location2_name) VALUES (17, '송파구')
+INTO location2 (location2_no, location2_name) VALUES (18, '양천구')
+INTO location2 (location2_no, location2_name) VALUES (19, '영등포구')
+INTO location2 (location2_no, location2_name) VALUES (20, '용산구')
+INTO location2 (location2_no, location2_name) VALUES (21, '은평구')
+INTO location2 (location2_no, location2_name) VALUES (22, '종로구')
+INTO location2 (location2_no, location2_name) VALUES (23, '중구')
+INTO location2 (location2_no, location2_name) VALUES (24, '중랑구')
+INTO location2 (location2_no, location2_name) VALUES (25, '계양구')
+INTO location2 (location2_no, location2_name) VALUES (26, '남구')
+INTO location2 (location2_no, location2_name) VALUES (27, '남동구')
+INTO location2 (location2_no, location2_name) VALUES (28, '동구')
+INTO location2 (location2_no, location2_name) VALUES (29, '부평구')
+INTO location2 (location2_no, location2_name) VALUES (30, '서구')
+INTO location2 (location2_no, location2_name) VALUES (31, '연수구')
+INTO location2 (location2_no, location2_name) VALUES (32, '중구')
+INTO location2 (location2_no, location2_name) VALUES (33, '강화군')
+INTO location2 (location2_no, location2_name) VALUES (34, '옹진군')
+INTO location2 (location2_no, location2_name) VALUES (35, '고양시')
+INTO location2 (location2_no, location2_name) VALUES (36, '과천시')
+INTO location2 (location2_no, location2_name) VALUES (37, '광명시')
+INTO location2 (location2_no, location2_name) VALUES (38, '광주시')
+INTO location2 (location2_no, location2_name) VALUES (39, '구리시')
+INTO location2 (location2_no, location2_name) VALUES (40, '군포시')
+INTO location2 (location2_no, location2_name) VALUES (41, '김포시')
+INTO location2 (location2_no, location2_name) VALUES (42, '남양주시')
+INTO location2 (location2_no, location2_name) VALUES (43, '동두천시')
+INTO location2 (location2_no, location2_name) VALUES (44, '부천시')
+INTO location2 (location2_no, location2_name) VALUES (45, '성남시')
+INTO location2 (location2_no, location2_name) VALUES (46, '수원시')
+INTO location2 (location2_no, location2_name) VALUES (47, '시흥시')
+INTO location2 (location2_no, location2_name) VALUES (48, '안산시')
+INTO location2 (location2_no, location2_name) VALUES (49, '안성시')
+INTO location2 (location2_no, location2_name) VALUES (50, '안양시')
+INTO location2 (location2_no, location2_name) VALUES (51, '양주시')
+INTO location2 (location2_no, location2_name) VALUES (52, '오산시')
+INTO location2 (location2_no, location2_name) VALUES (53, '용인시')
+INTO location2 (location2_no, location2_name) VALUES (54, '의왕시')
+INTO location2 (location2_no, location2_name) VALUES (55, '의정부시')
+INTO location2 (location2_no, location2_name) VALUES (56, '이천시')
+INTO location2 (location2_no, location2_name) VALUES (57, '파주시')
+INTO location2 (location2_no, location2_name) VALUES (58, '평택시')
+INTO location2 (location2_no, location2_name) VALUES (59, '포천시')
+INTO location2 (location2_no, location2_name) VALUES (60, '하남시')
+INTO location2 (location2_no, location2_name) VALUES (61, '화성시')
+INTO location2 (location2_no, location2_name) VALUES (62, '가평군')
+INTO location2 (location2_no, location2_name) VALUES (63, '양평군')
+INTO location2 (location2_no, location2_name) VALUES (64, '여주군')
+INTO location2 (location2_no, location2_name) VALUES (65, '연천군')
+SELECT * FROM DUAL;
+
 -- 잘 들어갔는지 확인용
 select * from tags;
 select * from exercise;
 select * from location1;
 select * from location2;
-
--- 태그인덱스
-INSERT INTO tags (tag_no, tag_name) VALUES (0, '족구');
-INSERT INTO tags (tag_no, tag_name) VALUES (1, '축구');
-INSERT INTO tags (tag_no, tag_name) VALUES (2, '농구');
-INSERT INTO tags (tag_no, tag_name) VALUES (3, '볼링');
-INSERT INTO tags (tag_no, tag_name) VALUES (4, '크로스핏');
-INSERT INTO tags (tag_no, tag_name) VALUES (5, '스피닝');
-INSERT INTO tags (tag_no, tag_name) VALUES (6, '댄스');
-INSERT INTO tags (tag_no, tag_name) VALUES (7, '요가');
-INSERT INTO tags (tag_no, tag_name) VALUES (8, '명상');
-INSERT INTO tags (tag_no, tag_name) VALUES (9, '다이어트정보');
-INSERT INTO tags (tag_no, tag_name) VALUES (10, '건강정보');
-INSERT INTO tags (tag_no, tag_name) VALUES (11, '식단정보');
-
--- 운동인덱스
-INSERT INTO exercise (exercise_no, exercise_name) VALUES (0, '족구');
-INSERT INTO exercise (exercise_no, exercise_name) VALUES (1, '축구');
-INSERT INTO exercise (exercise_no, exercise_name) VALUES (2, '농구');
-INSERT INTO exercise (exercise_no, exercise_name) VALUES (3, '볼링');
-INSERT INTO exercise (exercise_no, exercise_name) VALUES (4, '크로스핏');
-INSERT INTO exercise (exercise_no, exercise_name) VALUES (5, '스피닝');
-INSERT INTO exercise (exercise_no, exercise_name) VALUES (6, '댄스');
-INSERT INTO exercise (exercise_no, exercise_name) VALUES (7, '요가');
-INSERT INTO exercise (exercise_no, exercise_name) VALUES (8, '명상');
-
--- 지역(시,도) 인덱스
-INSERT INTO location1 (location1_no, location1_name) VALUES (0, '서울특별시');
-INSERT INTO location1 (location1_no, location1_name) VALUES (1, '인천광역시');
-INSERT INTO location1 (location1_no, location1_name) VALUES (2, '경기도');
-
--- 지역(시,군,구) 인덱스
-INSERT INTO location2 (location2_no, location2_name) VALUES (0, '강남구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (1, '강동구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (2, '강북구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (3, '강서구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (4, '관악구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (5, '광진구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (6, '구로구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (7, '금천구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (8, '노원구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (9, '도봉구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (10, '동대문구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (11, '동작구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (12, '마포구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (13, '서대문구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (14, '서초구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (15, '성동구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (16, '성북구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (17, '송파구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (18, '양천구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (19, '영등포구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (20, '용산구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (21, '은평구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (22, '종로구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (23, '중구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (24, '중랑구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (25, '계양구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (26, '남구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (27, '남동구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (28, '동구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (29, '부평구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (30, '서구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (31, '연수구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (32, '중구');
-INSERT INTO location2 (location2_no, location2_name) VALUES (33, '강화군');
-INSERT INTO location2 (location2_no, location2_name) VALUES (34, '옹진군');
-INSERT INTO location2 (location2_no, location2_name) VALUES (35, '고양시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (36, '과천시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (37, '광명시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (38, '광주시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (39, '구리시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (40, '군포시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (41, '김포시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (42, '남양주시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (43, '동두천시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (44, '부천시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (45, '성남시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (46, '수원시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (47, '시흥시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (48, '안산시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (49, '안성시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (50, '안양시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (51, '양주시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (52, '오산시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (53, '용인시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (54, '의왕시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (55, '의정부시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (56, '이천시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (57, '파주시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (58, '평택시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (59, '포천시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (60, '하남시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (61, '화성시');
-INSERT INTO location2 (location2_no, location2_name) VALUES (62, '가평군');
-INSERT INTO location2 (location2_no, location2_name) VALUES (63, '양평군');
-INSERT INTO location2 (location2_no, location2_name) VALUES (64, '여주군');
-INSERT INTO location2 (location2_no, location2_name) VALUES (65, '연천군');

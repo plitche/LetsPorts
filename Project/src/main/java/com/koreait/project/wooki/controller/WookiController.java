@@ -25,9 +25,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.koreait.project.wooki.command.AddTrainerSendEmailCommand;
 import com.koreait.project.wooki.command.AdminListCommand;
 import com.koreait.project.wooki.command.AdminLoginCommand;
+import com.koreait.project.wooki.command.BoardsListCommand;
 import com.koreait.project.wooki.command.ChangeEmailCommand;
 import com.koreait.project.wooki.command.ChangeEmailIsPossibleCommand;
 import com.koreait.project.wooki.command.CheckUserCommand;
+import com.koreait.project.wooki.command.DeleteTrainerInfoCommand;
 import com.koreait.project.wooki.command.DeleteUserCommand;
 import com.koreait.project.wooki.command.FilterTrainerUserListCommand;
 import com.koreait.project.wooki.command.FilterUserListCommand;
@@ -60,6 +62,8 @@ public class WookiController {
 	private TrainerUserListCommand trainerUserListCommand = ctx.getBean("trainerUserListCommand", TrainerUserListCommand.class);
 	private FilterTrainerUserListCommand filterTrainerUserListCommand = ctx.getBean("filterTrainerUserListCommand", FilterTrainerUserListCommand.class);
 	private AddTrainerSendEmailCommand addTrainerSendEmailCommand = ctx.getBean("addTrainerSendEmailCommand", AddTrainerSendEmailCommand.class);
+	private DeleteTrainerInfoCommand deleteTrainerInfoCommand = ctx.getBean("deleteTrainerInfoCommand", DeleteTrainerInfoCommand.class);
+	private BoardsListCommand boardsListCommand = ctx.getBean("boardsListCommand", BoardsListCommand.class);
 	
 	@GetMapping(value="adminPage.wooki")
 	public String adminPage() {
@@ -189,5 +193,23 @@ public class WookiController {
 		model.addAttribute("mailSender", mailSender);
 		model.addAttribute("user_no", user_no);
 		return addTrainerSendEmailCommand.execute(sqlSession, model);
+	}
+	
+	@DeleteMapping(value="deleteTrainerInfo/{user_no}.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> deleteTrainerInfo(
+			@PathVariable("user_no") int user_no,
+			HttpServletRequest request,
+			Model model) {
+		model.addAttribute("user_no", user_no);
+		model.addAttribute("request", request);
+		return deleteTrainerInfoCommand.execute(sqlSession, model);
+	}
+	
+	@GetMapping(value="boardsList.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> boardsList(@RequestParam("page") int page, Model model) {
+		model.addAttribute("page", page);
+		return boardsListCommand.execute(sqlSession, model);
 	}
 }

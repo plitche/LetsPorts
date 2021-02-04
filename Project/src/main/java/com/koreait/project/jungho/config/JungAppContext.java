@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 
 import com.koreait.project.jungho.command.TrainerClassCommand.RelatedClassCommand;
+import com.koreait.project.jungho.command.TrainerClassCommand.SearchClassCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassDeleteCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassInsertCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassListCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassUpdateCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassViewCommand;
-
-import searchClass.SearchClassCommand;
 
 @Configurable
 public class JungAppContext {

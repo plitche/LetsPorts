@@ -176,15 +176,28 @@ CREATE TABLE scrap (
     user_no             NUMBER  REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     scrap_separator     NUMBER  NOT NULL, 
     scrap_referer_no    NUMBER  NOT NULL, 
+    scrap_user_no		NUMBER  REFERENCES users(user_no) ON DELETE CASCADE NOT NULL,
     end_gather_date     DATE    NULL, 
     created_at          DATE    NOT NULL
+);
+
+-- trainer_info Table Create SQL
+CREATE TABLE trainer_info (
+    trainer_no              NUMBER            PRIMARY KEY, 
+    user_no                 NUMBER            REFERENCES users(user_no) ON DELETE CASCADE UNIQUE NOT NULL, 
+    career                  NUMBER            NOT NULL, 
+    trainer_name            VARCHAR2(30)      NOT NULL, 
+    certificate_filename    VARCHAR2(50)      NOT NULL, 
+    employment              VARCHAR2(100)     NOT NULL, 
+    profile                 VARCHAR2(2000)    NOT NULL, 
+    created_at              DATE              NOT NULL
 );
 
 -- trainer_qna Table Create SQL
 CREATE TABLE trainer_qna (
     trainer_qna_no          NUMBER            PRIMARY KEY, 
     question_user_no        NUMBER            REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
-    trainer_user_no         NUMBER            REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
+    trainer_user_no         NUMBER            REFERENCES trainer_info(user_no) ON DELETE CASCADE NOT NULL, 
     trainer_qna_title       VARCHAR2(100)     NOT NULL, 
     trainer_qna_content     VARCHAR2(2000)    NOT NULL, 
     created_at              DATE              NOT NULL, 
@@ -199,7 +212,8 @@ CREATE TABLE trainer_qna (
 CREATE TABLE comments (
     comment_no             NUMBER            PRIMARY KEY, 
     comment_referer_sep    NUMBER            NOT NULL, 
-    comment_referer_no     NUMBER            NOT NULL, 
+    comment_referer_no     NUMBER            NOT NULL,
+    board_user_no		   NUMBER			 REFERENCES users(user_no) ON DELETE CASCADE NOT NULL,
     user_no                NUMBER            REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     comment_content        varchar2(1000)    NOT NULL, 
     created_at             DATE              NOT NULL, 
@@ -221,7 +235,7 @@ CREATE TABLE board_qna (
     user_no              NUMBER            REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     created_at           DATE              NOT NULL, 
     is_resolved          NUMBER            NOT NULL, 
-    resolve_date         DATE              NOT NULL, 
+    resolved_date        DATE              NULL, 
     on_hide              NUMBER            NOT NULL
 );
 
@@ -237,23 +251,12 @@ CREATE TABLE review (
     writer_user_no    NUMBER            REFERENCES users(user_no) ON DELETE CASCADE NOT NULL
 );
 
--- trainer_info Table Create SQL
-CREATE TABLE trainer_info (
-    trainer_no              NUMBER            PRIMARY KEY, 
-    user_no                 NUMBER            REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
-    career                  NUMBER            NOT NULL, 
-    trainer_name            VARCHAR2(30)      NOT NULL, 
-    certificate_filename    VARCHAR2(50)      NOT NULL, 
-    employment              VARCHAR2(100)     NOT NULL, 
-    profile                 VARCHAR2(2000)    NOT NULL, 
-    created_at              DATE              NOT NULL
-);
-
 -- photo Table Create SQL
 CREATE TABLE photo (
     photo_no             NUMBER           PRIMARY KEY, 
     photo_referer_sep    NUMBER           NOT NULL, 
     photo_referer_no     NUMBER           NOT NULL, 
+    user_no				 NUMBER			  REFERENCES users(user_no) ON DELETE CASCADE NOT NULL,
     photo_filename       VARCHAR2(100)    NOT NULL, 
     created_at           DATE             NOT NULL, 
     on_hide              NUMBER           NOT NULL
@@ -293,4 +296,3 @@ CREATE TABLE is_reviewed (
     writer_user_no    NUMBER    REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     status            NUMBER    NOT NULL
 );
-

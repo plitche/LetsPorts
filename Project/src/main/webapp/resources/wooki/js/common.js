@@ -135,7 +135,7 @@ function fn_filterUserList(p) {
 
 // 유저리스트 테이블 만드는 함수
 function userList(list, paging, totalRecord, recordPerPage, page) {
-	$('<table>')
+	$('<table style="width: 1800px;">')
 	.append($('<thead id="title">'))
 	.append($('<tbody id="list">'))
 	.append($('<tfoot class="paging">'))
@@ -488,7 +488,7 @@ function fn_updateAdminUser() {
 // 회원관리 - 회원탈퇴 메소드
 function fn_deleteUser() {
 	$('body').on('click', '#deleteId', function() {
-		if(!confirm('변경하시겠습니까?')) {
+		if(!confirm('탈퇴하시겠습니까?')) {
 			return;
 		}
 		if(is_progress == true) {
@@ -559,8 +559,7 @@ function trainerUserFilter(text_filter, search, user_separator) {
 function fn_filterTrainerUserList(p) {
 	let search = $('#search').val();
 	if(search == '') {
-		alert('유저번호를 입력하세요.');
-		$('#search').focus();
+		fn_trainerUser(1);
 		return;
 	}
 	else if(isNaN(search)) {
@@ -628,7 +627,7 @@ function trainerUserList(list, paging, totalRecord, recordPerPage, page) {
 		.append($('<td>').html(user.employment))
 		.append($('<td>').html(result))
 		.append($('<input type="hidden" name="user_no" id="user_no" />').val(user.user_no))
-		.append($('<td>').html('<input type="button" value="트레이너탈퇴" id="deleteTrainerInfo" />'))
+		.append($('<td>').html('<input type="button" value="일반회원전환" id="deleteTrainerInfo" />'))
 		.appendTo('#list')
 	});
 	
@@ -713,7 +712,7 @@ function fn_addTrainerSendEamil() {
 	});
 }
 
-// 이메일변경 모달 닫기
+// 트레이너추가 모달 닫기
 function fn_closeAddTrainerModal() {
 	$('#add-trainer-modal').click(function(e) {
 		if(e.target == e.currentTarget) {
@@ -723,4 +722,184 @@ function fn_closeAddTrainerModal() {
 			is_possible = false;
 		}
 	});
+}
+
+//트레이너 - 일반회원 전환 메소드
+function fn_deleteUser() {
+	$('body').on('click', '#deleteTrainerInfo', function() {
+		if(!confirm('전환하시겠습니까?')) {
+			return;
+		}
+		if(is_progress == true) {
+			return;
+		}
+		is_progress = true;
+		let user_no = $(this).parents('tr').find('#user_no').val();
+		$.ajax({
+			url: `deleteTrainerInfo/${user_no}.wooki`,
+			type: 'delete',
+			dataType: 'json',
+			success: function(obj) {
+				if(obj.result) {
+					alert('전환되었습니다.');
+				} else {
+					alert('전환되지 않았습니다.');
+				}
+				fn_filterTrainerUserList($('#now_page').val());
+				setTimeout(function() {is_progress = false;}, 1000);
+			},
+			error: function() {
+				alert('실패');
+				setTimeout(function() {is_progress = false;}, 1000);
+			}
+		});
+	});
+}
+
+// 게시글 관리 페이지로딩 이벤트
+function fn_boardsPage() {
+	$('.content-container').empty
+	let string = `
+	<h1>게시글관리</h1>
+	<div>
+		<form id="filterBox">
+			<table>
+				<tbody id="filterQuery">
+					<tr>
+						<td>게시글종류</td>
+						<td>
+							<select name="boardName">
+								<option value="none">선택안함</option>
+								<option value="board_knowhow">노하우</option>
+								<option value="meeting">모임</option>
+								<option value="board_qna">질문과답변</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<table style="width: 1000px;">
+		<thead id="title">
+			<tr>
+				<th>번호</th>
+				<th>게시글번호</th>
+				<th>게시글종류</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th colspan="2">비고</th>
+			</tr>
+		</thead>
+		<tbody id="list"></tbody>
+		<tfoot class="paging"></tfoot>
+	</table>`
+	$('.content-container').html(string);
+	fn_boardsList(1);
+}
+
+// 게시글 관리 - 검색필터 선택시 추가 메소드
+function fn_boardFilterAdd() {
+	$('body').on('change', 'select[name="boardName"]', function() {
+		let target = $('select[name="boardName"]').val();
+		let addTd = [$('<td id="td3">'), $('<td id="td4">'), $('<td id="td5">')];
+		let selectTag = [$('#td3'), $('#td4'), $('#td5')];
+		let boardList = ['board_knowhow', 'meeting', 'board_qna'];
+		let columnList = ['knowhow_no', 'meeting_no', 'board_qna_no'];
+		for(let i = 0; i < selectTag.length; i++) {
+			selectTag[i].remove();
+		}
+		if(target == "none") {
+			return;
+		}
+		addTd[0].appendTo('#filterQuery > tr');
+		addTd[2].appendTo('#filterQuery > tr');
+		for(let i = 0; i < boardList.length; i++) {
+			if(target == boardList[i]) {
+				$('<select name="columnName">')
+				.append($('<option value="all">').html('전체회원검색'))
+				.append($(`<option value="${columnList[i]}">`).html('게시글번호'))
+				.append($('<option value="user_no">').html('작성자번호'))
+				.appendTo('#td3');
+				$('#td5').html('<input type="button" value="검색" id="searchBtn" />');
+			}
+		}
+	});
+	$('body').on('change', 'select[name="columnName"]', function() {
+		$('#td4').remove();
+		if($('select[name="columnName"]').val() == 'all') {
+			return;
+		};
+		$('#td5').before($('<td id="td4">'));
+		$('#td4').html('<input type="text" name="query" id="query" />');
+	});
+}
+
+// 게시글관리 - 게시글 리스트 불러오기 메소드
+function fn_boardsList(p) {
+	$.ajax({
+		url: 'boardsList.wooki',
+		type: 'get',
+		data: {page: p},
+		dataType: 'json',
+		success: function(list) {
+			fn_insertBoardsList(list.list, list.paging, list.totalRecord, list.recordPerPage, list.page);
+		},
+		error: function() {
+			alert('실패');
+		}
+	});
+}
+// timestamp 날짜형식으로 변경 이벤트
+function fn_stampToDate(timestamp) {
+	let d = new Date(timestamp);
+	let result = `${d.getFullYear()}-`;
+	if(d.getMonth() < 10) {result += 0;}
+	result += `${(d.getMonth() + 1)}-`;
+	if(d.getDate() < 10) {result += 0;}
+	result += `${d.getDate()} ${d.getHours()}:`;
+	if(d.getMinutes() < 10) {result += 0;}
+	result += `${d.getMinutes()}:`;
+	if(d.getSeconds() < 10) {result += 0;}
+	result += d.getSeconds();
+	return result;
+}
+
+// 게시글 리스트 tbody, tfoot 삽입이벤트
+function fn_insertBoardsList(list, paging, totalRecord, recordPerPage, page) {
+	$('tbody#list').empty();
+	$('tfoot.paging').empty();
+	$.each(list, function(idx, board) {
+		let is_on_hide = '';
+		let created_at = fn_stampToDate(board.created_at);
+		let boards_name = ['노하우', '질문과답변', '모임'];
+		if(board.on_hide == 0) {
+			is_on_hide = '<input type="button" value="숨기기" id="hideBtn" />';
+		} else {
+			is_on_hide = '<input type="button" value="보이기" id="showBtn" />';
+		}
+		let tbody = `
+		<tr>
+			<td>${totalRecord - (recordPerPage * (page - 1)) - idx}</td>
+			<td>${board.board_no}</td>
+			<td>${boards_name[board.board_sep]}</td>
+			<td>${board.board_title}</td>
+			<td>${board.user_no}</td>
+			<td>${created_at}</td>
+			<td>
+				<input type="hidden" name="board_no" id="board_no" value="${board.board_no}" />
+				<input type="hidden" name="board_sep" id="board_sep" value="${board.board_sep}" />
+				${is_on_hide}
+			</td>
+			<td><input type="button" value="게시글삭제" id="deleteBoard" /></td>
+		</tr>`;
+		$('tbody#list').append(tbody);
+	});
+	let tfoot = `
+		<tr>
+		<td colspan="8">${paging}</td>
+		<input type="hidden" id="now_page" value="${page}"/>
+		</tr>`;
+	$('tfoot.paging').append(tfoot);
 }

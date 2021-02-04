@@ -16,8 +16,8 @@
 </form>
 
 	<span class="tags">
-		<span><a href="">축구</a></span>
-		<span><a href="">족구</a></span>
+		<span><a href="" id="soccer">축구</a></span>
+		<span><a href="" id="">족구</a></span>
 		<span><a href="">농구</a></span>
 		<span><a href="">크로스핏</a></span>
 		<span><a href="">스피닝</a></span>
@@ -26,6 +26,21 @@
 		<span><a href="">요가</a></span>
 		<span><a href="">명상</a></span>
 	</span>
+	
+	
+	<script>
+		
+		$(document).on('click', '#soccer', function(){
+			
+			$.ajax ({
+				
+			});
+			
+		});
+		
+	
+	</script>
+	
 	
 	<div class="MeetingClass_all">
 		
