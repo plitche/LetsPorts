@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.dto.CommentsDto;
 import com.koreait.project.jungho.dao.TrainerClassCommentDao;
-import com.koreait.project.yongsoo.dao.CommentDao;
 
 public class CommentInsertCommand implements CommonMapCommand {
 

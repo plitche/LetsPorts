@@ -1,51 +1,31 @@
-/**
- * 
- */
-
-// 회원가입!
-
-// 닉네임 유효성 검사(1 = 중복 / 0 != 중복)
-/*
-	$("#user_nickname").blur(function() {
-		// id = "id_reg" / name = "userId"
-		var user_nickname = $('#user_nickname').val();
-		$.ajax({
-			url : '${pageContext.request.contextPath}/user/nickCheck?user_nickname='+ user_nickname,
-			type : 'get',
-			success : function(data) {
-				console.log("1 = 중복o / 0 = 중복x : "+ data);							
-				
-				if (data == 1) {
-						// 1 : 아이디가 중복되는 문구
-						$("#id_check").text("사용중인 아이디입니다 :p");
-						$("#id_check").css("color", "red");
-						$("#reg_submit").attr("disabled", true);
-					} else {
-						
-						if(idJ.test(user_id)){
-							// 0 : 아이디 길이 / 문자열 검사
-							$("#id_check").text("");
-							$("#reg_submit").attr("disabled", false);
-				
-						} else if(user_id == ""){
-							
-							$('#id_check').text('아이디를 입력해주세요 :)');
-							$('#id_check').css('color', 'red');
-							$("#reg_submit").attr("disabled", true);				
-							
-						} else {
-							
-							$('#id_check').text("아이디는 소문자와 숫자 4~12자리만 가능합니다 :) :)");
-							$('#id_check').css('color', 'red');
-							$("#reg_submit").attr("disabled", true);
-						}
-						
-					}
-				}, error : function() {
-						console.log("실패");
-				}
-			});
-		});
 
 
-*/
+
+// 생년월일 for문
+$(document).ready(function(){
+       setBirthDate();
+   });    
+
+   // setBirthDate 년, 월, 일 표시
+   function setBirthDate(){
+       var date = new Date();
+       var birth_year;
+       
+       $("#birth_year").append("<option value=''>년</option>");
+       // 1900 ~ 2021년도
+       for(var y = 1900; y <= 2021; y++){
+           $("#birth_year").append("<option value='"+ y +"'>"+ y +"</option>");
+       }
+       // 1 ~ 12월
+       var birth_month;
+       $("#birth_month").append("<option value=''>월</option>");
+       for(var m = 1; m <= 12; m++){
+           $("#birth_month").append("<option value='"+ m +"'>"+ m +"</option>");
+       }
+       var birth_day;
+       $("#birth_day").append("<option value=''>일</option>");
+       for(var d = 1; d <= 31; d++){
+       	$("#birth_day").append("<option value='"+ d +"'>"+ d +"</option>");
+       }
+   }
+
