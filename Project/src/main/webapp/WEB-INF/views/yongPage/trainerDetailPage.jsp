@@ -9,7 +9,25 @@
 	<jsp:param value="트레이너 상세 페이지" name="title"/>
 </jsp:include>
 
-
+<!-- sweetalert -->
+<script>
+	/* 로그인 alert을 위한 function */
+	var loginAlert = function() {
+						swal.fire({
+							title: '로그인이 필요한 기능입니다!', 	text: '로그인 페이지로 이동하시겠습니까?',
+							icon: 'warning',     			showCancelButton: true,
+							confirmButtonColor: 'green',	cancelButtonColor: 'red',
+							confirmButtonText: '이동하기',		cancelButtonText: '머물기'
+						}).then((result)=> {
+							if (result.isConfirmed) {
+								Swal.fire('로그인 페이지로 이동합니다.', '로그인 후 더 많은 정보를 확인하세요!^^', 'success').then((result)=> {
+										location.href='usersLoginPage.hey';	
+									}
+								);
+							}
+						});
+					}
+</script>
 <!-- 트레이너 모임 관련 ajax -->
 <script>
 	/* 페이지 로드 */
@@ -19,16 +37,17 @@
 	});
 
 	/* 불러온 모임 list를 토대로 append 해주기 위한 function */
-	function trainerMeetingListTable(list, trainerInfo) {
+	function trainerMeetingListTable(list) {
 		$('#trainerMeetingList').empty();
 		$.each(list, function(idx, meeting){
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
 			.append( $('<div>').html('이미지') )
 			.append( $('<p>').html(meeting.meeting_title) )
+			.append( $('<p>').html('모임 주제: ' + meeting.exercise_name) )
 			.append( $('<p>').html('최소: ' + meeting.meeting_min + '명 / 최대: ' + meeting.meeting_max + '명')  )
 			.append( $('<p>').html('일시: ' + meeting.meeting_date) )
-			.append( $('<p>').html('작성자: ' + trainerInfo.user_nickname) )
+			.append( $('<p>').html('작성자: ' + meeting.user_nickname) )
 			)
 			.appendTo("#trainerMeetingList");
 		});
@@ -46,7 +65,7 @@
 					$('<div>')
 					.append( $('<p>').html('총 :' + responseObj.totalMeetingCount + '개') )
 					.appendTo('#totalMeeting');
-					trainerMeetingListTable(responseObj.meetingList, responseObj.trainerTemDto);
+					trainerMeetingListTable(responseObj.meetingList);
 				} else {
 					$('<div>')
 					.append( $('<p>').html('등록된 모임 정보가 없습니다.') )
@@ -115,9 +134,7 @@
 	function openReviewPopUp() {
 		$('#openReviewModal').click(function() {
 			if( '${loginUser.user_no}' == '' ) {
-				if (confirm('로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?')) {
-					location.href='usersLoginPage.hey';
-				} 
+				loginAlert();
 			} else {
 				$('#qnaDetail').empty();
 				$('#qnaDetail')
@@ -212,18 +229,18 @@
 	function openQnAPopUp() {
 		$('#openQnAModal').click(function() {
 			if( '${loginUser.user_no}' == '' ) {
-				if (confirm('로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?')) {
-					location.href='usersLoginPage.hey';
-				}
+				loginAlert();
 			} else {
 				$('#qnaDetail').empty();
 				$('<form>')
 				.append( $('<input type="text" id="title" name="trainer_qna_title" placeholder="제목을 입력하세요."/>') )
 				.append( $('<input type="text" id="content" name="trainer_qna_content" placeholder="질문내용을 입력하세요."/>')  )
 				.append( $('<br/>') )
-				.append( $('<input type="checkbox" name="is_published" id="is_published" value="1"/>') )
-				.append( $('<label for="is_published">').html('비밀글 처리하기') )		
-				.append( $('<input type="button" value="작성완료" id="writeQuestion"/>') )
+				.append( $('<div>') 
+					.append( $('<input type="checkbox" name="is_published" id="is_published" value="1"/>') )
+					.append( $('<label for="is_published">').html(' 비밀글 처리하기') )		
+					.append( $('<input type="button" value="작성완료" id="writeQuestion"/>') )
+				)
 				.appendTo('#qnaDetail');
 			}
 		});

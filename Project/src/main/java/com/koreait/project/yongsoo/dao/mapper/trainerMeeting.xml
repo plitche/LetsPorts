@@ -5,10 +5,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.koreait.project.yongsoo.dao.TrainerMeetingDao">
 	
-	<select id="findMeetings" parameterType="int" resultType="com.koreait.project.dto.MeetingDto">
-		SELECT *
-		  FROM MEETING
-		 WHERE USER_NO = #{user_no}
+	<select id="findMeetings" parameterType="int" resultType="com.koreait.project.yongsoo.dto.MeetingTemDto">
+		SELECT M.USER_NO, U.USER_NICKNAME, U.USER_MESSAGE, M.MEETING_NO, M.MEETING_TITLE,
+			   M.MEETING_DATE, E.EXERCISE_NAME, M.CREATED_AT, M.meeting_max, M.meeting_min
+		  FROM USERS U FULL OUTER JOIN MEETING M 
+		    ON M.USER_NO = U.USER_NO
+		       FULL OUTER JOIN EXERCISE E
+		    ON M.EXERCISE_NO = E.EXERCISE_NO
+		 WHERE M.USER_NO = #{user_no} 
 	</select>
 	<select id="totalMeetingCount" parameterType="int" resultType="int">
 		SELECT COUNT(*)
@@ -18,20 +22,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-	<select id="findMeetingInfo" parameterType="int" resultType="com.koreait.project.dto.MeetingDto">
+	<select id="findMeetingInfo" parameterType="int" resultType="com.koreait.project.yongsoo.dto.CreateNewMeetingDto">
 		SELECT *
-		  FROM MEETING
-		 WHERE MEETING_NO = #{meeting_no}
+		  FROM MEETING M FULL OUTER JOIN LOCATION1 L1
+		    ON M.LOCATION1_NO = L1.LOCATION1_NO
+		       FULL OUTER JOIN LOCATION2 L2
+		       ON M.LOCATION2_NO = L2.LOCATION2_NO
+		 WHERE M.MEETING_NO = #{meeting_no}
 	</select>
 	<select id="findMaterialsInfo" parameterType="int" resultType="com.koreait.project.dto.MaterialsDto">
 		SELECT *
 		  FROM MATERIALS
 		 WHERE MEETING_NO = #{meeting_no}
 	</select>
-	<select id="findUserInfo" parameterType="int" resultType="com.koreait.project.dto.UsersDto">
+	<select id="findUserInfo" parameterType="int" resultType="com.koreait.project.yongsoo.dto.TrainerTemDto">
 		SELECT *
-		  FROM USERS
-		 WHERE USER_NO = #{user_no}
+		  FROM USERS U FULL OUTER JOIN TRAINER_INFO T
+		    ON U.USER_NO = T.USER_NO
+		       FULL OUTER JOIN LOCATION1 L1
+		       ON U.LOCATION1_NO = L1.LOCATION1_NO
+		         FULL OUTER JOIN LOCATION2 L2
+		         ON U.LOCATION2_NO = L2.LOCATION2_NO
+		 WHERE U.USER_NO = #{user_no}
 	</select>
 	<select id="findTrainerInfo" parameterType="int" resultType="com.koreait.project.dto.Trainer_infoDto">
 		SELECT *
@@ -57,19 +69,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
  	
  	
-	<select id="getOtherMeeting" resultType="com.koreait.project.dto.MeetingDto">
-		SELECT *
-		  FROM MEETING
-		 WHERE USER_NO = #{param1}
-		   AND MEETING_NO != #{param2} 
+	<select id="getOtherMeeting" resultType="com.koreait.project.yongsoo.dto.MeetingTemDto">
+   		SELECT M.USER_NO, U.USER_NICKNAME, U.USER_MESSAGE, M.MEETING_NO, M.MEETING_TITLE,
+			   M.MEETING_DATE, E.EXERCISE_NAME, M.CREATED_AT, M.meeting_max, M.meeting_min
+		  FROM USERS U FULL OUTER JOIN MEETING M 
+		    ON M.USER_NO = U.USER_NO
+		       FULL OUTER JOIN EXERCISE E
+		    ON M.EXERCISE_NO = E.EXERCISE_NO
+ 		 WHERE M.USER_NO = #{param1}
+		   AND M.MEETING_NO != #{param2} 
 	</select>
 
  	
 	<select id="getOtherHostMeeting" resultType="com.koreait.project.yongsoo.dto.MeetingTemDto">
-		SELECT M.USER_NO, U.USER_NICKNAME, U.USER_MESSAGE, M.MEETING_NO, M.MEETING_TITLE,
-			   M.MEETING_DATE, M.EXERCISE_NO, M.CREATED_AT, M.meeting_max, M.meeting_min
-		  FROM USERS U FULL OUTER JOIN MEETING M
+   		SELECT M.USER_NO, U.USER_NICKNAME, U.USER_MESSAGE, M.MEETING_NO, M.MEETING_TITLE,
+			   M.MEETING_DATE, E.EXERCISE_NAME, M.CREATED_AT, M.meeting_max, M.meeting_min
+		  FROM USERS U FULL OUTER JOIN MEETING M 
 		    ON M.USER_NO = U.USER_NO
+		       FULL OUTER JOIN EXERCISE E
+		    ON M.EXERCISE_NO = E.EXERCISE_NO
 		 WHERE M.USER_NO != #{param1}
 		   AND M.EXERCISE_NO = #{param2}
 	</select>

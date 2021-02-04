@@ -8,10 +8,9 @@ import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonVoidCommand;
 import com.koreait.project.dto.MaterialsDto;
-import com.koreait.project.dto.MeetingDto;
-import com.koreait.project.dto.Trainer_infoDto;
-import com.koreait.project.dto.UsersDto;
 import com.koreait.project.yongsoo.dao.TrainerMeetingDao;
+import com.koreait.project.yongsoo.dto.CreateNewMeetingDto;
+import com.koreait.project.yongsoo.dto.TrainerTemDto;
 
 public class GoMeetingViewCommand implements CommonVoidCommand {
 
@@ -23,18 +22,16 @@ public class GoMeetingViewCommand implements CommonVoidCommand {
 		
 		TrainerMeetingDao trainerMeetingDao = sqlSession.getMapper(TrainerMeetingDao.class);
 		
-		MeetingDto meetingDto = trainerMeetingDao.findMeetingInfo(meeting_no); // 1번
-		int user_no = meetingDto.getUser_no();
+		CreateNewMeetingDto createNewMeetingDto = trainerMeetingDao.findMeetingInfo(meeting_no); // 1번
+		int user_no = createNewMeetingDto.getUser_no();
 
 		List<MaterialsDto> materialList = trainerMeetingDao.findMaterialsInfo(meeting_no); // 2번
 		
-		UsersDto usersDto = trainerMeetingDao.findUserInfo(user_no); // 3번
-		Trainer_infoDto trainer_infoDto = trainerMeetingDao.findTrainerInfo(user_no); // 4번
+		TrainerTemDto trainerTemDto = trainerMeetingDao.findUserInfo(user_no);
 		
-		model.addAttribute("meetingDto", meetingDto);
+		model.addAttribute("meetingDto", createNewMeetingDto);
 		model.addAttribute("materialList", materialList);
-		model.addAttribute("usersDto", usersDto);
-		model.addAttribute("trainer_infoDto", trainer_infoDto);
+		model.addAttribute("trainerTemDto", trainerTemDto);
 		
 	}
 

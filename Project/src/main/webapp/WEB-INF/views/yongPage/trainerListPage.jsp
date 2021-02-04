@@ -8,7 +8,7 @@
 </jsp:include>
 
 <link rel="stylesheet" href="resources/style/soo/trainerListPage.css" >
-
+<a href="gotest.plitche" >썸머노트</a>
 <br/><br/>
 <table border="1">
 	<tbody>
