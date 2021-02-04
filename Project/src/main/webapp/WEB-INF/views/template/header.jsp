@@ -22,10 +22,18 @@
 <script defer src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" integrity="sha384-9/D4ECZvKMVEJ9Bhr3ZnUAF+Ahlagp1cyPC7h5yDlZdXs4DQ/vRftzfd+2uFUuqS" crossorigin="anonymous"></script>
 <%-- jQuery --%>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<%-- summbernote --%>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <title>${title}</title>
 
 </head>
+<script type="text/javascript">
+	
+</script>
 <body>
 	<div class="header">
 		<div class="top-wrap" >
@@ -45,7 +53,7 @@
 				<c:if test="${loginUser ne null}">
 					<li style="font-size:12px; font-weight:900;" ><a href="javascript:void(0)"></a>반갑습니다!</li>
 					<li><a href="usersLogout.hey" >LOGOUT</a></li>
-					<li><a href="javascript:void(0)" >마이페이지</a></li>
+					<li><a href="myPage_meeting.hey" >마이페이지</a></li>
 					<li>
 						<a href="javascript:void(0)" >
 							<img alt="noticebell" src="../images/bell2.png"/>

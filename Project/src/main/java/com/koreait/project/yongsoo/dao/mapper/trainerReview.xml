@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.koreait.project.yongsoo.dao.TrainerReviewDao">
+	
+	<select id="getTrainerReviewList" parameterType="int" resultType="com.koreait.project.dto.ReviewDto">
+		SELECT *
+		  FROM REVIEW
+		 WHERE TARGET_USER_NO = #{user_no}
+	</select>
+	<select id="listCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM REVIEW
+		 WHERE TARGET_USER_NO = #{user_no}
+	</select>
+	
+	
+	
+	
+	
+</mapper>

@@ -39,43 +39,33 @@ public class UsersController {
 	}
 	
 	// 회원가입 정보입력 페이지로 이동
-	@RequestMapping(value="usersSignUpInsert.hey")
+	@RequestMapping(value="usersSignUpPage.hey")
 	public String usersSignUpInsert() {
-		return "hyePages/usersSignUpInsert";
+		return "hyePages/usersSignUpPage";
 	}
-
 	
 	
 	/***** 정보 전달 *****/
+	
+	// 로그인
 	@RequestMapping(value="usersLogin.hey", method=RequestMethod.POST)
 	public String usersLogin(HttpServletRequest request, Model model, RedirectAttributes redirect) {
 		model.addAttribute("request", request);
 		model.addAttribute("redirect", redirect);
 		usersLoginCommand.execute(sqlSession, model);
 		return "redirect:usersLoginPage.hey";	// redirect = 옆에적은 경로의 url로 이동한다.( 그 전에 있던 request 정보만 없다.)
-		// 실행한 다음에 다른 컨트롤러를 추가로 실행해준다.
-		
-		// request에서 map에 저장하기
-		// Map<String, Object> map = model.asMap();
-		
-		// int loginResult = (int)map.get("loginResult");
-		
-		// false:0, true:1
-		/*
-		if(loginResult == 0) {
-			return "hyePages/usersLoginPage";
-		} else {
-			return "redirect:index";
-		}
-		*/
 	}
-	
+	// 로그아웃
 	@RequestMapping(value="usersLogout.hey")
 	public String usersLogout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.removeAttribute("loginUser");
 		return "redirect:/";
 	}
+	
+	// 회원가입
+	
+	// 닉네임 중복 체크 ajax 이용
 	
 	
 	

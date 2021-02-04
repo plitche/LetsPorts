@@ -20,6 +20,7 @@ public class WriteTrainerQnACommand implements CommonMapCommand {
 		
 		TrainerQnADao trainerQnADao = sqlSession.getMapper(TrainerQnADao.class);
 		int insertQnAToTrainerResult = trainerQnADao.insertQnAToTrainer(trainer_qnaDto);
+		int is_published = trainer_qnaDto.getIs_published();
 		
 		Map<String, Object> insertQnAResult = new HashMap<String, Object>();
 		

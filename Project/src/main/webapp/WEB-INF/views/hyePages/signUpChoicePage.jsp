@@ -10,7 +10,7 @@
 	
 	<div>
 		<h3>회원가입</h3>
-		<input type="button" value="일반 회원가입" onclick="location.href='usersSignUpInsert.hey'"><br/>
+		<input type="button" value="일반 회원가입" onclick="location.href='usersSignUpPage.hey'"><br/>
 		<input type="button" value="카카오톡으로 가입" onclick="location.href='회원가입 삽입 페이지 이동'"><br/>
 		<input type="button" value="페이스북으로 가입" onclick="location.href='회원가입 삽입 페이지 이동'"><br/>
 		이미 회원이신가요?

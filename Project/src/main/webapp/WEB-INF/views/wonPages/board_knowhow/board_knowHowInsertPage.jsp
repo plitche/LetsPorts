@@ -9,7 +9,7 @@
 	
 <form>
 	<div class = "container" >
-		<h3>게시글 작성하기</h3> 
+		<h3>게시글 작성하기</h3><br/>
 		
 		<label for = "title">제목</label>
 		<input type = "text" name = "title" id = "title" placeholder = "제목을 입력해주세요." /><br/><br/>
@@ -29,10 +29,14 @@
 			<label><input type="radio" name="tag_no" value="11">식단정보</label><br/><br/>
 			
 		<br/><label for = "content">내용</label><br/>
-		<textarea rows="10"  name = "content" id = "content"  placeholder = "내용을 입력해주세요."></textarea><br/>
+		<textarea rows = "10" name = "content" id = "content"  placeholder = "내용을 입력해주세요."></textarea><br/>
 	
 		<input type="button" class="btn" value="작성완료" onclick="fn_knowHowInsert(this.form)" />
-		<input type="button" class="btn" value="목록으로돌아가기" onclick="fn_knowHowListPage(this.form)" />
+		<input type="button" class="btn" value="목록으로돌아가기" onclick="location.href='goboard_knowhowList.limyeng'" />
+		<!--  
+		<a href = "javascript:history.back();">목록으로 돌아가기</a>
+		-->
+			
 		<br/><br/>
 	</div>
 </form>
@@ -41,12 +45,6 @@
 	function fn_knowHowInsert(f){
 		f.action='board_knowHowInsert.limyeng';
 		f.submit();
-	}
-	
-	function fn_board_knowHowListPage(f) {
-		f.action = 'board_knowHowListPage.limyeng';
-		f.submit();
-		
 	}
 </script>
 

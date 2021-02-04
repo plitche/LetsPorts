@@ -8,14 +8,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 전체 목록을 뿌려주는 list 쿼리문 -->
 	<select id="trainerClassList" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
-		SELECT M1.meeting_no, M1.meeting_title, M1.meeting_date, M1.start_gather_date, M1.end_gather_date, M1.meeting_min,
-		meeting_max, M1.exercise_no, M1.location1_no, M1.location2_no, M1.detail_location, M2.materials_name, M1.meeting_content
-		FROM MEETING M1 FULL OUTER JOIN MATERIALS M2
-		ON M1.MEETING_NO = M2.MEETING_NO
+		SELECT * FROM MEETING
 	</select>
 	
 	<!-- 클래스의 meeting 테이블에 내용들을 삽입하는 쿼리문 -->
-	<insert id="trainerClassInsert" parameterType="com.koreait.project.jungho.dto.TrainerClassDto">
+	<insert id="trainerClassInsert" parameterType="com.koreait.project.dto.MeetingDto">
 		INSERT INTO MEETING VALUES
 		(MEETING_SEQ.NEXTVAL, #{user_no}, #{meeting_max}, #{meeting_min}, #{exercise_no}, SYSDATE, #{start_gather_date}, #{end_gather_date}, #{meeting_date}, #{location1_no}, #{location2_no}, #{meeting_title}, #{meeting_content}, 0, null, 0, #{detail_location}, 0)	
 	</insert>
@@ -56,6 +53,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="materialsViewUpdate">
 		UPDATE MATERIALS SET MATERIALS_NAME = #{param1} WHERE MEETING_NO = #{param2}
 	</update>
+	
+	<select id="relatedClass"  resultType="com.koreait.project.jungho.dto.TrainerClassDto">
+		SELECT M.USER_NO, U.USER_NICKNAME, U.USER_MESSAGE, M.MEETING_NO, M.MEETING_TITLE,
+		M.MEETING_DATE, M.EXERCISE_NO, M.CREATED_AT, M.MEETING_MAX, M.MEETING_MIN
+		FROM USERS U FULL OUTER JOIN MEETING M
+		ON M.USER_NO = U.USER_NO
+		WHERE M.USER_NO != #{param1}
+	     AND M.EXERCISE_NO = #{param2}
+	</select>
+	
+	<select id="searchClass" resultType="com.koreait.project.jungho.dto.TrainerClassDto" parameterType="string">
+		SELECT *
+		FROM MEETING
+		WHERE MEETING_TITLE LIKE '%'||#{param1}||'%'
+	</select>
 	
 	
 </mapper>

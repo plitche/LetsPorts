@@ -30,10 +30,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE TRAINER_QNA_NO = #{trainer_qna_no}
 	</select>
 
-	<update id="writeAnswer" parameterMap="int">
+	<update id="writeAnswer">
 		UPDATE TRAINER_QNA
 		   SET IS_ANSWERED = 1,
-		   	   TRAINER_QNA_ANSWERED = #{param2}
+		   	   TRAINER_QNA_ANSWERED = #{param2},
+		   	   ANSWERED_DATE = SYSDATE
 		 WHERE TRAINER_QNA_NO = #{param1}
 	</update>
 </mapper>

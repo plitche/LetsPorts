@@ -39,11 +39,16 @@
 }
 
 .createComment_all > #createComment > input {
-	width: 700px;
+	width: 880px;
 	margin-left: 20px;
 	border-width: 0 0 2px; 
 	border-color: lightgray;
 }
+
+.createComment_all > #createComment > input:hover {
+	border-width: 0 0 3px;
+	border-color: black;
+}	
 
 #writerPhoto {
 	width: 70px;
@@ -56,8 +61,20 @@
 	display:flex;
 }
 
+.comment_wrap {
+	display: flex;
+}
+
 .comment1 {
 	display: flex;
+}
+
+.comment2 {
+	width:700px;
+}
+
+.CommentU_DBtn {
+	margin-left: 80px;
 }
 
 .comment1 > div:nth-of-type(2) {
@@ -66,6 +83,11 @@
 
 .comment_all {
 	margin-left: 20px;
+	width: 880px;
+}
+
+#createComment {
+	width: 904px;
 }
 
 .listCommentContent {
@@ -77,8 +99,16 @@
 	margin-top: 20px;
 }
 
-.CommentU_DBtn {
-	margin-left: 600px;
+#commentUpdate {
+	width: 880px;
+	margin-left: 20px;
+	border-width: 0 0 2px; 
+	border-color: lightgray;
+}
+
+#commentUpdate:hover{
+	border-width: 0 0 3px;
+	border-color: black;
 }
 
 .CommentU_DBtn > div > input {
@@ -90,3 +120,114 @@
 .CommentU_DBtn > div > input:hover {
 	color: black;
 }
+
+/* 모달창 */
+
+.modal_all {
+	display: none;
+	width: 800px;
+	height: 700px;
+	padding: 50px 60px;
+	background-color: #fefefe;
+	border-radius: 5px;
+	overflow :auto;
+	position: fixed; /* Stay in place */
+	top:50%; 
+	left:50%;
+ 	transform: translate(-50%,-50%);
+}
+
+textarea[name="question_content"] {
+	overflow :auto;
+}
+
+#modal_background {
+	 display:none;
+	 position:fixed; 
+	 width:100%;
+	 height:100%;
+	 top:0;
+	 left:0; 
+	 background:rgba(0,0,0,0.5);
+}
+
+#modal_close_btn {
+	font-size: 28px;
+	margin-left: 650px;
+	background: white;
+	border-radius: 50px;
+	color: black;
+	width: 35px;
+	height: 35px;
+	text-align:center;
+	line-height: 30px;
+	box-shadow: 1px 1px 1px 1px gray;
+}
+
+.Btns1 {
+	float: right;
+}
+
+.btns {
+	disply: flex;
+}
+
+#commentUpdateCancel {
+	margin-left:5px;
+}
+
+#commentUpdateEnd {
+	margin-left: 8px;
+}
+
+#question_title, #question_content {
+	border: 1px solid lightgray;
+}
+
+#question_title {
+	width: 677px;
+	height: 30px;
+	margin-bottom: 5px;
+}
+
+#questionBtn {
+	float: right;
+}
+
+
+/* 관련 트레이너 클래스 */
+
+.relatedClass_all {
+	display: flex;
+	overflow: auto;
+}
+
+.relatedClass {
+	margin-right: 30px;
+	width: 250px;
+	height: 250px;
+	background: lightgray;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -123,7 +123,7 @@ CREATE TABLE exercise (
 -- meeting Table Create SQL
 CREATE TABLE meeting (
     meeting_no           NUMBER            PRIMARY KEY, 
-    user_no              NUMBER            REFERENCES users(user_no) NOT NULL, 
+    user_no              NUMBER            REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     meeting_max          NUMBER            NOT NULL, 
     meeting_min          NUMBER            NOT NULL, 
     exercise_no          NUMBER            REFERENCES exercise(exercise_no) NOT NULL, 
@@ -145,8 +145,8 @@ CREATE TABLE meeting (
 -- meeting_participants Table Create SQL
 CREATE TABLE meeting_participants (
     participants_no    NUMBER           PRIMARY KEY, 
-    meeting_no         NUMBER           REFERENCES meeting(meeting_no) NOT NULL, 
-    user_no            NUMBER           REFERENCES users(user_no) NOT NULL, 
+    meeting_no         NUMBER           REFERENCES meeting(meeting_no) ON DELETE CASCADE NOT NULL, 
+    user_no            NUMBER           REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     created_at         DATE             NOT NULL, 
     status             NUMBER           NOT NULL, 
     reject_reason      VARCHAR2(100)    NULL
@@ -158,7 +158,7 @@ CREATE TABLE board_knowhow (
     knowhow_title      VARCHAR2(100)     NOT NULL, 
     knowhow_content    VARCHAR2(4000)    NOT NULL, 
     created_at         DATE              NOT NULL, 
-    user_no            NUMBER            REFERENCES users(user_no) NOT NULL, 
+    user_no            NUMBER            REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     user_separator     NUMBER            NOT NULL, 
     on_hide            NUMBER            NOT NULL, 
     knowhow_hit        NUMBER            NOT NULL
@@ -173,18 +173,31 @@ CREATE TABLE tags (
 -- scrap Table Create SQL
 CREATE TABLE scrap (
     scrap_no            NUMBER  PRIMARY KEY, 
-    user_no             NUMBER  REFERENCES users(user_no) NOT NULL, 
+    user_no             NUMBER  REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     scrap_separator     NUMBER  NOT NULL, 
     scrap_referer_no    NUMBER  NOT NULL, 
+    scrap_user_no		NUMBER  REFERENCES users(user_no) ON DELETE CASCADE NOT NULL,
     end_gather_date     DATE    NULL, 
     created_at          DATE    NOT NULL
+);
+
+-- trainer_info Table Create SQL
+CREATE TABLE trainer_info (
+    trainer_no              NUMBER            PRIMARY KEY, 
+    user_no                 NUMBER            REFERENCES users(user_no) ON DELETE CASCADE UNIQUE NOT NULL, 
+    career                  NUMBER            NOT NULL, 
+    trainer_name            VARCHAR2(30)      NOT NULL, 
+    certificate_filename    VARCHAR2(50)      NOT NULL, 
+    employment              VARCHAR2(100)     NOT NULL, 
+    profile                 VARCHAR2(2000)    NOT NULL, 
+    created_at              DATE              NOT NULL
 );
 
 -- trainer_qna Table Create SQL
 CREATE TABLE trainer_qna (
     trainer_qna_no          NUMBER            PRIMARY KEY, 
-    question_user_no        NUMBER            REFERENCES users(user_no) NOT NULL, 
-    trainer_user_no         NUMBER            REFERENCES users(user_no) NOT NULL, 
+    question_user_no        NUMBER            REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
+    trainer_user_no         NUMBER            REFERENCES trainer_info(user_no) ON DELETE CASCADE NOT NULL, 
     trainer_qna_title       VARCHAR2(100)     NOT NULL, 
     trainer_qna_content     VARCHAR2(2000)    NOT NULL, 
     created_at              DATE              NOT NULL, 
@@ -199,8 +212,9 @@ CREATE TABLE trainer_qna (
 CREATE TABLE comments (
     comment_no             NUMBER            PRIMARY KEY, 
     comment_referer_sep    NUMBER            NOT NULL, 
-    comment_referer_no     NUMBER            NOT NULL, 
-    user_no                NUMBER            REFERENCES users(user_no) NOT NULL, 
+    comment_referer_no     NUMBER            NOT NULL,
+    board_user_no		   NUMBER			 REFERENCES users(user_no) ON DELETE CASCADE NOT NULL,
+    user_no                NUMBER            REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     comment_content        varchar2(1000)    NOT NULL, 
     created_at             DATE              NOT NULL, 
     on_hide                NUMBER            NOT NULL
@@ -209,7 +223,7 @@ CREATE TABLE comments (
 -- board_knowhow_tag Table Create SQL
 CREATE TABLE board_knowhow_tag (
     knowhow_tag_no    NUMBER    PRIMARY KEY, 
-    knowhow_no        NUMBER    REFERENCES board_knowhow(knowhow_no) NOT NULL, 
+    knowhow_no        NUMBER    REFERENCES board_knowhow(knowhow_no) ON DELETE CASCADE NOT NULL, 
     tag_no            NUMBER    REFERENCES tags(tag_no) NOT NULL
 );
 
@@ -218,35 +232,23 @@ CREATE TABLE board_qna (
     board_qna_no         NUMBER            PRIMARY KEY, 
     board_qna_title      VARCHAR2(100)     NOT NULL, 
     board_qna_content    VARCHAR2(4000)    NOT NULL, 
-    user_no              NUMBER            REFERENCES users(user_no) NOT NULL, 
+    user_no              NUMBER            REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     created_at           DATE              NOT NULL, 
     is_resolved          NUMBER            NOT NULL, 
-    resolve_date         DATE              NOT NULL, 
+    resolved_date        DATE              NULL, 
     on_hide              NUMBER            NOT NULL
 );
 
 -- review Table Create SQL
 CREATE TABLE review (
     review_no         NUMBER            PRIMARY KEY, 
-    target_user_no    NUMBER            REFERENCES users(user_no) NOT NULL, 
+    target_user_no    NUMBER            REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     score             NUMBER            NOT NULL, 
-    meeting_no        NUMBER            REFERENCES meeting(meeting_no) NOT NULL, 
+    meeting_no        NUMBER            REFERENCES meeting(meeting_no) ON DELETE CASCADE NOT NULL, 
     content           VARCHAR2(1000)    NOT NULL, 
     created_at        DATE              NOT NULL, 
     on_hide           NUMBER            NOT NULL, 
-    writer_user_no    NUMBER            REFERENCES users(user_no) NOT NULL
-);
-
--- trainer_info Table Create SQL
-CREATE TABLE trainer_info (
-    trainer_no              NUMBER            PRIMARY KEY, 
-    user_no                 NUMBER            REFERENCES users(user_no) NOT NULL, 
-    career                  NUMBER            NOT NULL, 
-    trainer_name            VARCHAR2(30)      NOT NULL, 
-    certificate_filename    VARCHAR2(50)      NOT NULL, 
-    employment              VARCHAR2(100)     NOT NULL, 
-    profile                 VARCHAR2(2000)    NOT NULL, 
-    created_at              DATE              NOT NULL
+    writer_user_no    NUMBER            REFERENCES users(user_no) ON DELETE CASCADE NOT NULL
 );
 
 -- photo Table Create SQL
@@ -254,6 +256,7 @@ CREATE TABLE photo (
     photo_no             NUMBER           PRIMARY KEY, 
     photo_referer_sep    NUMBER           NOT NULL, 
     photo_referer_no     NUMBER           NOT NULL, 
+    user_no				 NUMBER			  REFERENCES users(user_no) ON DELETE CASCADE NOT NULL,
     photo_filename       VARCHAR2(100)    NOT NULL, 
     created_at           DATE             NOT NULL, 
     on_hide              NUMBER           NOT NULL
@@ -266,20 +269,21 @@ CREATE TABLE alarm (
     alarm_referer_no    NUMBER           NOT NULL, 
     alarm_content       VARCHAR2(500)    NOT NULL, 
     status              NUMBER           NOT NULL, 
-    created_at          DATE             NOT NULL
+    created_at          DATE             NOT NULL,
+    user_no				NUMBER			 REFERENCES users(user_no) ON DELETE CASCADE NOT NULL
 );
 
 -- user_interest Table Create SQL
 CREATE TABLE user_interest (
     user_interest_no    NUMBER    PRIMARY KEY, 
-    user_no             NUMBER    REFERENCES users(user_no) NOT NULL, 
+    user_no             NUMBER    REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     exercise_no         NUMBER    REFERENCES exercise(exercise_no) NOT NULL
 );
 
 -- materials Table Create SQL
 CREATE TABLE materials (
     materials_no      NUMBER          PRIMARY KEY, 
-    meeting_no        NUMBER          REFERENCES meeting(meeting_no) NOT NULL, 
+    meeting_no        NUMBER          REFERENCES meeting(meeting_no) ON DELETE CASCADE NOT NULL, 
     materials_name    VARCHAR2(30)    NOT NULL, 
     created_at        DATE            NOT NULL
 );
@@ -287,8 +291,8 @@ CREATE TABLE materials (
 -- is_reviewed Table Create SQL
 CREATE TABLE is_reviewed (
     is_reviewed_no    NUMBER    PRIMARY KEY, 
-    meeting_no        NUMBER    NOT NULL, 
-    target_user_no    NUMBER    NOT NULL, 
-    writer_user_no    NUMBER    NOT NULL, 
+    meeting_no        NUMBER    REFERENCES meeting(meeting_no) ON DELETE CASCADE NOT NULL, 
+    target_user_no    NUMBER    REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
+    writer_user_no    NUMBER    REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     status            NUMBER    NOT NULL
 );

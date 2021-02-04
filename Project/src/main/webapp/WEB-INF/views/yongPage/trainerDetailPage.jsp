@@ -2,15 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link type="text/css" rel="stylesheet" href="resources/style/soo/trainerDetailPage.css" >
+<script src="resources/style/soo/trainerDetailPage.js"></script>
 <!DOCTYPE html>
 
 <jsp:include page="../template/header.jsp">
 	<jsp:param value="트레이너 상세 페이지" name="title"/>
 </jsp:include>
 
-<script src="resources/style/soo/trainerDetailPage.js"></script>
 
-<!-- 트레이너 모임 리스트를 불러오기 위한 ajax -->
+<!-- 트레이너 모임 관련 ajax -->
 <script>
 	/* 페이지 로드 */
 	$(document).ready(function() {
@@ -19,7 +19,7 @@
 	});
 
 	/* 불러온 모임 list를 토대로 append 해주기 위한 function */
-	function trainerMeetingListTable(list) {
+	function trainerMeetingListTable(list, trainerInfo) {
 		$('#trainerMeetingList').empty();
 		$.each(list, function(idx, meeting){
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
@@ -28,7 +28,7 @@
 			.append( $('<p>').html(meeting.meeting_title) )
 			.append( $('<p>').html('최소: ' + meeting.meeting_min + '명 / 최대: ' + meeting.meeting_max + '명')  )
 			.append( $('<p>').html('일시: ' + meeting.meeting_date) )
-			.append( $('<p>').html('작성자: ' + meeting.user_no) )
+			.append( $('<p>').html('작성자: ' + trainerInfo.user_nickname) )
 			)
 			.appendTo("#trainerMeetingList");
 		});
@@ -46,7 +46,7 @@
 					$('<div>')
 					.append( $('<p>').html('총 :' + responseObj.totalMeetingCount + '개') )
 					.appendTo('#totalMeeting');
-					trainerMeetingListTable(responseObj.meetingList);
+					trainerMeetingListTable(responseObj.meetingList, responseObj.trainerTemDto);
 				} else {
 					$('<div>')
 					.append( $('<p>').html('등록된 모임 정보가 없습니다.') )
@@ -63,7 +63,91 @@
 	}
 </script>
 
-<!-- 질문 작성완료 클릭 시 form정보를 보내 줄 ajax -->
+<!-- 트레이너 리뷰 관련 ajax -->
+<script>
+	/* 페이지로드 이벤트 */
+	$(document).ready(function(){
+		getReviewList();
+		openReviewPopUp();
+		closeReviewModal();
+	});
+	
+	function reivewListTable(list) {
+		$('#trainerReviewList').empty();
+		$.each(list, function(idx, review) {
+			$('#reviewList')
+			.append( $('<div>') 
+				.append( $('<div>').html('닉네임') )
+				.append( $('<div>').html('평점') )
+			)
+			.append( $('<div>').html('모임 제목, 모임 날짜, 종목') )
+			.append( $('<div>').html('리뷰 내용')
+				.append( $('<div>').html('to ~~ 트레이너') )
+				.append( $('<div>').html('날짜') )
+			)
+		});
+	}
+	
+	/* 현재 페이지로 이동시 트레이너에게 달린 리뷰를 자동으로 가져오는 ajax함수 */
+	function getReviewList() {
+		var user_no = ${trainerTemDto.user_no};
+		$.ajax({
+			url: 'getReviewList.plitche/' + user_no,
+			type: 'get',
+			contentType: 'json',
+			success: function(responseObj) {
+				if(responseObj.result) {
+					$('<div>')
+					.append( $('<p>').html('총 :' + responseObj.reviewCount + '개') )
+					.appendTo('#totalReview');
+					reivewListTable(responseObj.reviewList);
+				} else {
+					$('<div>')
+					.append( $('<p>').html('총 :' + responseObj.reviewCount + '개') )
+					.appendTo('#totalReview');
+				}
+			},
+			error: function(){alert('리뷰 ajax 실패');}
+		});	
+	}
+	
+	/* 리뷰 등록하기 버튼 클릭시 리뷰를 작성할 수 있는 모달창을 띄워주기 위한 함수 */
+	function openReviewPopUp() {
+		$('#openReviewModal').click(function() {
+			if( '${loginUser.user_no}' == '' ) {
+				if (confirm('로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?')) {
+					location.href='usersLoginPage.hey';
+				} 
+			} else {
+				$('#qnaDetail').empty();
+				$('#qnaDetail')
+				.append( $('<div>').html('작성자 : ${loginUser.user_nickname}') )
+				.append( $('<form>')
+					.append( $('<div>')
+						.append( $('<select>')
+							.append( $('<option value="">').html('함께 했던 모임 리스트1') )		
+							.append( $('<option value="">').html('함께 했던 모임 리스트2') )		
+							.append( $('<option value="">').html('함께 했던 모임 리스트3') )		
+						)
+						.append( $('<input type="text" placeholder="평점 입력">') )
+					)
+					.append( $('<textarea rows="10" cols="50" placeholder="리뷰 내용을 작성하세요.">') )
+					.append( $('<input type="button" value="작성완료" id="writeReview" onclick="" />'))
+				)
+				$('#modal').attr("style", "display:block");
+			}
+		});
+	}
+	
+	/* 작성완료 눌렀을 때 모달창을 닫아주는 함수 */
+	function closeReviewModal() {
+		$(document).on('click', '#writeReview', function() {
+			$('#modal').attr("style", "display:none");
+		});
+	}
+
+</script>
+<!-- 트레이너 질문 관련 ajax -->
 <script>
 	// 페이지 로드
 	$(document).ready(function(){
@@ -74,32 +158,29 @@
 	});
 	
 	// 해당 트레이너에게 달린 질문 data를 append하는 서브함수
-	function trainerQnAListTable(list) {
+	function trainerQnAListTable(list, trainerInfo) {
 		$('#qnaList').empty();
 		$.each(list, function(idx, qna){
-			$('<tr>')
-			.append( $('<td>').html(qna.trainer_qna_no) )
-			.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
-			.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
-			.append( $('<td>').html(qna.question_user_no) )
-			.append( $('<td>').html(qna.created_at) )
-			.append( $('<td>').addClass('isAnswered') )
-			.appendTo('#qnaList');
-		});
-	}
-	
-	// 트레이너 디테일 페이지에서 새 질문 작성하기 작성 때마다 알맞은 폼을 생성해줄 함수
-	function openQnAPopUp() {
-		$('#openQnAModal').click(function() {
-			$('#qnaDetail').empty();
-			$('<form>')
-			.append( $('<input type="text" id="title" name="trainer_qna_title" placeholder="제목을 입력하세요."/>') )
-			.append( $('<input type="text" id="content" name="trainer_qna_content" placeholder="질문내용을 입력하세요."/>')  )
-			.append( $('<br/>') )
-			.append( $('<input type="checkbox" name="is_published" id="is_published" value="1"/>') )
-			.append( $('<label for="is_published">').html('비밀글 처리하기') )		
-			.append( $('<input type="button" value="작성완료" id="writeQuestion"/>') )
-			.appendTo('#qnaDetail');
+			if (qna.is_answered==0) {
+				$('<tr>')
+				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
+				.append( $('<td>').html(trainerInfo.user_nickname) )
+				.append( $('<td>').html(qna.created_at) )
+				.append( $('<input type="hidden" name="' + qna.trainer_qna_no + '" value="' + idx + '"/>') )
+				.append( $('<td name="isAnswered">').addClass('isAnswered').html('미답변') )
+				.appendTo('#qnaList');
+			} else {
+				$('<tr>')
+				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
+				.append( $('<td>').html(trainerInfo.user_nickname) )
+				.append( $('<td>').html(qna.created_at) )
+				.append( $('<td name="isAnswered">').addClass('isAnswered').html('답변완료') )
+				.appendTo('#qnaList');
+			}
 		});
 	}
 	
@@ -116,23 +197,42 @@
 					$('<div>')
 					.append( $('<p>').html('총 :' + responseObj.totalQnACount + '개') )
 					.appendTo('#totalQnA');
-					trainerQnAListTable(responseObj.qnaList);
+					trainerQnAListTable(responseObj.qnaList, responseObj.trainerTemDto);
 				} else {
-					alert('등록된 질문이 없습니다.');
 					$('<tr>')
 					.append( $('<td colspan="6">').html('등록된 질문이 없습니다. 첫 번째 질문을 등록해 주세요.') )
 					.appendTo('#qnaList');
 				}
 			},
-			error: function(){alert('뎃글 가져오기 실패');}
+			error: function(){alert('답변 가져오기 실패');}
 		});
 	}
-	
+
+	// 트레이너 디테일 페이지에서 새 질문 작성하기 작성 때마다 알맞은 폼을 생성해줄 함수
+	function openQnAPopUp() {
+		$('#openQnAModal').click(function() {
+			if( '${loginUser.user_no}' == '' ) {
+				if (confirm('로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?')) {
+					location.href='usersLoginPage.hey';
+				}
+			} else {
+				$('#qnaDetail').empty();
+				$('<form>')
+				.append( $('<input type="text" id="title" name="trainer_qna_title" placeholder="제목을 입력하세요."/>') )
+				.append( $('<input type="text" id="content" name="trainer_qna_content" placeholder="질문내용을 입력하세요."/>')  )
+				.append( $('<br/>') )
+				.append( $('<input type="checkbox" name="is_published" id="is_published" value="1"/>') )
+				.append( $('<label for="is_published">').html('비밀글 처리하기') )		
+				.append( $('<input type="button" value="작성완료" id="writeQuestion"/>') )
+				.appendTo('#qnaDetail');
+			}
+		});
+	}
 	
 	// 작성된 질문내용을 처리하는 ajax 함수
 	function writeQuestion() {
 		$(document).on("click", "#writeQuestion", function() {
-			var question_user_no = 11; /* 일단 임시로 작성자 번호는 11로 둠 */
+			var question_user_no = '${loginUser.user_no}'
 			var trainer_user_no = ${trainerTemDto.user_no};
 			var trainer_qna_title = $('input[name="trainer_qna_title"]').val();
 			var trainer_qna_content = $('input[name="trainer_qna_content"]').val();
@@ -159,14 +259,8 @@
 					}
 					getTrainerQnAList();
 				},
-				error: function(){alert('뎃글 작성하기 실패');}
+				error: function(){alert('질문 작성하기 실패');}
 			});
-		});
-	}
-	// ajax처리 후 modal창 닫아주는 함수
-	function closeModal() {
-		$(document).on("click", "#writeQuestion", function() {
-			$('#modal').attr("style", "display:none");
 		});
 	}
 	
@@ -177,19 +271,44 @@
 			type: 'get',
 			dataType: 'json',
 			success: function (responseObj) {
-				if(responseObj.result) {
-					$('#modal').attr("style", "display:block");
-					$('#qnaDetail').empty();
-					$('<div>')
-					.append( $('<p>').html(responseObj.qna.question_user_no) )
-					.append( $('<p>').html(responseObj.qna.trainer_qna_title) )
-					.append( $('<p>').html(responseObj.qna.trainer_qna_content) )
-					.append( $('<p>').html(responseObj.qna.created_at) )
-					.append( $('<input type="button" value="답변 작성하기" onclick="fn_openAnswer('+ trainer_qna_no +')">') )
-					.appendTo('#qnaDetail');
+				if (responseObj.result) {
+					if (responseObj.answer) {
+						$('#modal').attr("style", "display:block");
+						$('#qnaDetail').empty();
+						$('<div>')
+						.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
+						.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
+						.append( $('<p>').html('질문 내용: ' + responseObj.qna.trainer_qna_content) )
+						.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
+						.append( $('<p>').html('답변 내용: '+ responseObj.qna.trainer_qna_answered) )
+						.append( $('<p>').html('답변 작성일: '+ responseObj.qna.answered_date) )
+						.appendTo('#qnaDetail');
+					} else {
+						if ('${loginUser.user_no}' == ${trainerTemDto.user_no}) {
+							$('#modal').attr("style", "display:block");
+							$('#qnaDetail').empty();
+							$('<div>')
+							.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
+							.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
+							.append( $('<p>').html('질문 내용: ' + responseObj.qna.trainer_qna_content) )
+							.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
+							.append( $('<input type="button" value="답변 작성하기" onclick="fn_openAnswer('+ trainer_qna_no +')">') )
+							.appendTo('#qnaDetail');
+						} else {
+							$('#modal').attr("style", "display:block");
+							$('#qnaDetail').empty();
+							$('<div>')
+							.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
+							.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
+							.append( $('<p>').html('질문 내용: ' + responseObj.qna.trainer_qna_content) )
+							.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
+							.appendTo('#qnaDetail');
+						}
+						
+					}
 				}
 			},
-			error: function(){alert('선택한 뎃글 가져오기 실패');}
+			error: function(){alert('선택한 질문 가져오기 실패');}
 		});
 	}
 	
@@ -197,27 +316,49 @@
 	function fn_openAnswer(trainer_qna_no) {
 		$('<div>')
 		.append ( $('<form>')
-			.append ( $('<textarea rows="10" cols="50" id="answerContent" >') )
-			.append ( $('<input type="button" value="답변작성완료" onclick="fn_writeAnswer(' + trainer_qna_no + ')" >') )		)
+			.append ( $('<textarea rows="10" cols="50" name="trainer_qna_answered" id="answerContent" >') )
+			.append ( $('<input type="button" id="answerBtn" value="답변작성완료" onclick="fn_writeAnswer(' + trainer_qna_no + ')" >') )	
+		)
 		.appendTo('#qnaDetail');
 	}
 	
 	// 질문 답변 작성 완료 후 답변작성 완료를 누르면 작동할 ajax함수
 	function fn_writeAnswer(trainer_qna_no) {
+		var trainer_qna_answered = $('textarea[name="trainer_qna_answered"]').val();
+		var sendObj = {
+			"trainer_qna_no": trainer_qna_no,
+			"trainer_qna_answered": trainer_qna_answered
+		};
+		
 		$.ajax({
-			url: 'writeAnswer.plitche/' + trainer_qna_no,
-			type: 'get',
+			url: 'writeAnswer.plitche',
+			type: 'post',
+			data: JSON.stringify(sendObj),
+			contentType: 'application/json; charset=utf-8',
 			dataType: 'json',
 			success: function (responseObj) {
-				
+				if (responseObj.result) {
+					var index = $('input:hidden[name=' + trainer_qna_no + ']').val();
+					$('#qnaList tr:eq(' + index + ') td:eq(5)').text('답변완료');
+				} else {
+					alert('답변이 작성되지 않았습니다.');
+				}
 			},
-			error: function(){alert('선택한 뎃글 가져오기 실패');}
+			error: function(){alert('답변 남기기 실패');}
+		});
+	}
+	
+	// ajax처리 후 modal창 닫아주는 함수
+	function closeModal() {
+		$(document).on("click", "#writeQuestion", function() {
+			$('#modal').attr("style", "display:none");
+		});
+		$(document).on("click", "#answerBtn", function() {
+			$('#modal').attr("style", "display:none");
 		});
 	}
 	
 </script>
-
-
 
 <div id="trainerInfo">
 	<div id="trainerSimple">
@@ -250,20 +391,25 @@
 	</div>
 </div>
 
-
 <div id="tab">
 	<ul>
-		<li data-id="MeetingList" class="on">${trainerTemDto.user_nickname}의 모임들</li>
-		<li data-id="ReviewList2">${trainerTemDto.user_nickname}에게 달린리뷰</li>
+		<li data-id="meetingList" class="on">${trainerTemDto.user_nickname}의 모임들</li>
+		<li data-id="reviewList">${trainerTemDto.user_nickname}에게 달린리뷰</li>
 		<li data-id="QnAList">${trainerTemDto.user_nickname}에게 달린질문</li>
 	</ul>
-	<div id="MeetingList" class="conBox on">
-		<a href="goCreateMeetingPage.plitche">새 프로그램 등록하기</a>
+	<div id="meetingList" class="conBox on">
+		<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
+			<a href="goCreateMeetingPage.plitche">새 프로그램 등록하기</a>
+		</c:if>
 		<div id="totalMeeting"></div>
 		<div id="trainerMeetingList"></div>
 	</div>
 	
-	<div id="ReviewList2" class="conBox">1241242</div>
+	<div id="reviewList" class="conBox">
+		<button type="button" id="openReviewModal">새 리뷰 등록하기</button>
+		<div id="totalReview"></div>
+		<div id="trainerReviewList"></div>
+	</div>
 		
 	<div id="QnAList" class="conBox">
 		<button type="button" id="openQnAModal">새 질문 등록하기</button>
@@ -286,6 +432,16 @@
 	</div>
 </div>
 
+<div>
+  	<div id="modal">
+  		<div class="modal_content">
+		    <button id="closeQnAModal">X</button>
+		    <div id="qnaDetail"></div>
+	    </div>
+	    <div class="modal_layer"></div>
+  	</div>
+</div>
+
 <!-- tab형식 구현을 위한 script -->
 <script>
 	$(function() {
@@ -299,51 +455,6 @@
 	
 </script>
 
-<div>
-	<div>${trainerTemDto.user_nickname} 트레이너가 받은 리뷰</div>
-	총 : ##개  &nbsp;&nbsp;&nbsp;&nbsp; <a href="">새 리뷰 등록하기</a> <br/>	
-	<table border="1">
-		<thead>
-			<tr>
-				<td>리뷰번호</td>
-				<td>점수</td>
-				<td>작성자</td>
-				<td>내용</td>
-				<td>일시</td>
-			</tr>
-		</thead>
-		<tbody>
-			<c:if test="${empty reviewDto}">
-				<tr>
-					<td colspan="4">작성된 리뷰가 없습니다.</td>
-				</tr>
-			</c:if>
-			<c:if test="${not empty reviewDto}">
-				<c:forEach var="list" items="${reviewDto}">
-					<tr>
-						<td>${list.review_no}</td>
-						<td>${list.score}</td>
-						<td>${list.writer_user_no}</td>
-						<td>${list.content}</td>
-						<td>${list.created_at}</td>
-					</tr>
-				</c:forEach>
-			</c:if>
-		</tbody>
-	</table>
-</div><br/>
-
-
-<div>
-  	<div id="modal">
-  		<div class="modal_content">
-		    <button id="closeQnAModal">X</button>
-		    <div id="qnaDetail"></div>
-	    </div>
-	    <div class="modal_layer"></div>
-  	</div>
-</div>
-
 <!-- 모달창 구현을 위한 script -->
 <script>
 	$('#openQnAModal').click(function() {
@@ -351,7 +462,7 @@
 	});
 	$('#closeQnAModal').click(function() {
 		$('#modal').attr("style", "display:none");
-		$('#showModal').attr("style", "display:none");
+		// $('#showModal').attr("style", "display:none");
 	});
 	/* 
 	document.getElementById("openQNAModal").onclick = function() {

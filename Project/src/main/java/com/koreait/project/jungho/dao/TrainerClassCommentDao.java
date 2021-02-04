@@ -12,7 +12,7 @@ public interface TrainerClassCommentDao {
 	
 	public int commentDelete(int comment_no);
 	
-	public int commentUpdate(CommentsDto commentsDto);
+	public int commentUpdate(String comment_content, int comment_no);
 	
 	
 }
