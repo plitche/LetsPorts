@@ -76,12 +76,12 @@
 				</c:forEach>
 			</c:if>
 			</tbody>
-	</table>
 		<tr>
-			<td colspan = "8">
+			<td colspan = "5">
 				<input type = "button" value = "새글 작성하러 가기" onclick = "location.href='board_knowHowInsertPage.limyeng'" />
 			</td>
 		</tr>
+	</table>
 
 	
 	<%@ include file="../../template/footer.jsp" %>

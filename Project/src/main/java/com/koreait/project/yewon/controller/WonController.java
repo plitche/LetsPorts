@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.koreait.project.yewon.command.GoknowHowInsertCommand;
 import com.koreait.project.yewon.command.GoknowHowListCommand;
+import com.koreait.project.yewon.command.GoknowHowUpdateCommand;
 import com.koreait.project.yewon.command.GoknowHowViewCommand;
 import com.koreait.project.yewon.config.WonAppContext;
-import com.koreait.project.yewon.dao.KnowHowDao;
 
 @Controller
 public class WonController {
@@ -60,7 +61,7 @@ public class WonController {
 	
 	// 목록으로 돌아가기 버튼을 클릭했을때 list 페이지로 이동
 	@RequestMapping(value = "board_knowHowList.limyeng")
-		public String boardknowHowListPage(Model model) {
+	public String boardknowHowListPage(Model model) {
 			return "wonPages/board_knowhow/board_knowHowListPage";
 			
 	}
@@ -77,10 +78,33 @@ public class WonController {
 	
 	// viewPage에서 수정 버튼을 누르면 updatePage로 이동
 	@RequestMapping(value = "board_knowHowUpdatePage.limyeng", method=RequestMethod.GET)
-	public String boardknowHowUpdatePage(HttpServletRequest request, Model model) {
-		
+	public String boardKnowHowUpdatePage(@RequestParam("knowhow_no") int knowhow_no, Model model) {
+		model.addAttribute("knowhow_no", knowhow_no);
+		GoknowHowUpdateCommand goknowHowUpdateCommand = ctx.getBean("goknowHowUpdateCommand", GoknowHowUpdateCommand.class);
+		goknowHowUpdateCommand.execute(sqlSession, model);
 		return "wonPages/board_knowhow/board_knowHowUpdatePage";
 	}
 	
+	// viewPage에서 글목록으로 돌아가기 버튼 클릭시 list페이지로 이동
+	@RequestMapping(value = "board_knowHowListPage.limyeng")
+	public String boardknowHowUpdatePage(Model model) {
+		GoknowHowViewCommand goknowHowViewCommand = ctx.getBean("goknowHowViewCommand", GoknowHowViewCommand.class);
+			return "redirect:goboard_knowhowList.limyeng";
+	}
 	
+	// updatePage에서 수정완료 후 viewPage로 이동
+	@RequestMapping(value = "board_knowHowUpdate.limyeng", method =RequestMethod.GET)
+	public String boardknowHowUpdatePage(HttpRequest httpRequest, Model model) {
+		GoknowHowUpdateCommand goknowHowUpdateCommand= ctx.getBean("goknowHowUpdateCommand", GoknowHowUpdateCommand.class);
+		goknowHowUpdateCommand.execute(sqlSession, model);
+		return "redirect:goboard_knowhowView.limyeng";
+	}
+	
+	
+	// 댓글 작성 기능 구현
+	
+
 }
+	
+	
+

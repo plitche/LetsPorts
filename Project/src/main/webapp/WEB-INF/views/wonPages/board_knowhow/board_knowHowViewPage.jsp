@@ -9,7 +9,17 @@
 	<jsp:param value="트레이너 리스트 페이지" name="title"/>
 </jsp:include>
 	
+<style>
+	table {
+		border-collapse: collapse;
+	}
 	
+	table, th, td {
+		border: 1px solid black;
+	}
+	
+	
+</style>
 	
 	글보기 페이지 입니다.<br/><br/>
 	
@@ -17,56 +27,44 @@
 		<h4>원데이 클래스</h4>
 		<table>
 			<tr>
-				<td align = "center" width = "" >조회수</td>
+			
+				<th>조회수</th>
 				<td align = "center">${board_knowhowDto.knowhow_hit}</td>
 			</tr>
 			<tr>
 				<th>작성자(트레이너)</th>
-				<td>${board_knowhowDto.user_separator}</td>
+				<td align = "center">${board_knowhowDto.user_separator}</td>
 			</tr>
 			
 			<tr>
 				<th>제목</th>
-				<td>${board_knowhowDto.knowhow_title}</td>
+				<td align = "center">${board_knowhowDto.knowhow_title}</td>
 			</tr>
 			
 			<tr>
 				<th>내용</th>
-				<td>${board_knowhowDto.knowhow_content}</td>
+				<td align = "center">${board_knowhowDto.knowhow_content}</td>
 			</tr>
+		</table><br/>
 			
-			<tr>
-				<td colspan="2">
-					<input type = "hidden" name = "knowhow_no" value = "${board_knowhowDto.knowhow_no}" >
-					<input type = "button" value = "수정" id = "btnUpdate" onclick = "location.href='board_knowHowUpdatePage.limyeng'">
-					<input type = "button" value = "삭제" id = "btnDelete" onclick = "fn_knowHowDelete(this.form)" >
-				</td>
-		</table><br/><br/>
+			
+		<div style = "float: left;">
+			<input type = "hidden" name = "knowhow_no" value = "${board_knowhowDto.knowhow_no}" >
+			<input type = "button" value = "수정" id = "btnUpdate" onclick = "location.href='board_knowHowUpdatePage.limyeng?knowhow_no=${board_knowhowDto.knowhow_no}'">
+			<input type = "button" value = "삭제" id = "btnDelete" onclick = "fn_knowHowDelete(this.form)" >
+			<input type = "button" value = "글목록" id = "btnList" onclick = "location.href='board_knowHowListPage.limyeng'">
+		</div><br/><br/>
 	
-			<input type = "hidden" name ="knowhow_no" value = "${board_knowhowDto.knowhow_no}">
-				
-				<h4>댓글 작성</h4>
-				
-				<input type = "text" id  = "comment_content" value = "${CommentsDto.comment_content}" placeholder="댓글입력" ><br/>
-				<input type = "button" id = "btn" value="작성" onclick =  />
-				
-			
-					
-			
-			
-
-
+		<h4>댓글 작성</h4>
+		<div id = "btn" style = "text-align:left;">
+			<input type = "text" id  = "comment_content" value = "${CommentsDto.comment_content}" placeholder="댓글입력" ><br/>
+			<input type = "button" id = "btn" value="작성" onclick =  />
+		</div>
 		</form>
 
-		
-		
-		
 			
 			<!-- 밑 하단 부분 페이징 처리 -->
 			
-	
-	
-
 	
 	<%@ include file="../../template/footer.jsp" %>
 	
