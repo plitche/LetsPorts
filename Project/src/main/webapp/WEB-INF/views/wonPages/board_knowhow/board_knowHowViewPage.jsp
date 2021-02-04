@@ -47,8 +47,13 @@
 				
 				<h4>댓글 작성</h4>
 				
-				<input type = "text" id  = "comment_content" value = "${CommentsDto.comment_content}" placeholder="댓글입력" >
-				<input type = "button" value="작성" >
+				<input type = "text" id  = "comment_content" value = "${CommentsDto.comment_content}" placeholder="댓글입력" ><br/>
+				<input type = "button" id = "btn" value="작성" onclick =  />
+				
+			
+					
+			
+			
 
 
 		</form>

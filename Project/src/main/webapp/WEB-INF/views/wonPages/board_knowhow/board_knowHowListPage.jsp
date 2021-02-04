@@ -35,11 +35,11 @@
 		<h3>오늘의 인기글</h3>
 	</header>
 	
-	<nav>
-		<span>메뉴1</span>
-		<span>메뉴2</span>
-		<span>메뉴3</span><br/><br/>
-	</nav>
+		<div>
+			<span>메뉴1</span>
+			<span>메뉴2</span>
+			<span>메뉴3</span><br/><br/>
+		</div>
 
 	
 	<div class = "search" >
