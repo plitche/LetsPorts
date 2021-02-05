@@ -25,81 +25,17 @@
 		<option value="8">명상</option>
 	</select><br/>
 	모임장소
-	<select name="location1_no">
+	<select name="location1_no" id="location1">
 		<option value="">시도</option>
 		<option value="0">서울특별시</option>
 		<option value="1">인천광역시</option>
 		<option value="2">경기도</option>
 	</select>
-	<select name="location2_no">
-		<option value="">시군구</option>
-		<option value="0">강남구</option>
-		<option value="1">강동구</option>
-		<option value="2">강북구</option>
-		<option value="3">강서구</option>
-		<option value="4">관악구</option>
-		<option value="5">광진구</option>
-		<option value="6">구로구</option>
-		<option value="7">금천구</option>
-		<option value="8">노원구</option>
-		<option value="9">도봉구</option>
-		<option value="10">동대문구</option>
-		<option value="11">동작구</option>
-		<option value="12">마포구</option>
-		<option value="13">서대문구</option>
-		<option value="14">서초구</option>
-		<option value="15">성동구</option>
-		<option value="16">성북구</option>
-		<option value="17">송파구</option>
-		<option value="18">양천구</option>
-		<option value="19">영등포구</option>
-		<option value="20">용산구</option>
-		<option value="21">은평구</option>
-		<option value="22">종로구</option>
-		<option value="23">중구</option>
-		<option value="24">중랑구</option>
-		<option value="25">계양구</option>
-		<option value="26">남구</option>
-		<option value="27">남동구</option>
-		<option value="28">동구</option>
-		<option value="29">부평구</option>
-		<option value="30">서구</option>
-		<option value="31">연수구</option>
-		<option value="32">중구</option>
-		<option value="33">강화군</option>
-		<option value="34">옹진군</option>
-		<option value="35">고양시</option>
-		<option value="36">과천시</option>
-		<option value="37">광명시</option>
-		<option value="38">광주시</option>
-		<option value="39">구리시</option>
-		<option value="40">군포시</option>
-		<option value="41">김포시</option>
-		<option value="42">남양주시</option>
-		<option value="43">동두천시</option>
-		<option value="44">부천시</option>
-		<option value="45">성남시</option>
-		<option value="46">수원시</option>
-		<option value="47">시흥시</option>
-		<option value="48">안산시</option>
-		<option value="49">안성시</option>
-		<option value="50">안양시</option>
-		<option value="51">양주시</option>
-		<option value="52">오산시</option>
-		<option value="53">용인시</option>
-		<option value="54">의왕시</option>
-		<option value="55">의정부시</option>
-		<option value="56">이천시</option>
-		<option value="57">파주시</option>
-		<option value="58">평택시</option>
-		<option value="59">포천시</option>
-		<option value="60">하남시</option>
-		<option value="61">화성시</option>
-		<option value="62">가평군</option>
-		<option value="63">양평군</option>
-		<option value="64">여주군</option>
-		<option value="65">연천군</option>
+	<select name="location2_no" id="location2">
+		
 	</select><br/>
+	
+	
 	상세주소<input type="text" name="detail_location"/><br/>
 	준비물
 	<span class="materials">
@@ -128,7 +64,96 @@
 
 </script>
 
-
+<script>
+$(document).ready(function () {
+	$('#location1').change(function() {
+		var state = $('#location1 option:selected').val();
+		if ( state ==  '0') {
+			$('#location2').empty();
+			$('#location2')
+			.append( $('<option value="">').html('시군구') )
+			.append( $('<option value="0">').html('강남구') )
+			.append( $('<option value="1">').html('강동구') )
+			.append( $('<option value="2">').html('강북구') )
+			.append( $('<option value="3">').html('강서구') )
+			.append( $('<option value="4">').html('관악구') )
+			.append( $('<option value="5">').html('광진구') )
+			.append( $('<option value="6">').html('구로구') )
+			.append( $('<option value="7">').html('금천구') )
+			.append( $('<option value="8">').html('노원구') )
+			.append( $('<option value="9">').html('도봉구') )
+			.append( $('<option value="10">').html('동대문구') )
+			.append( $('<option value="11">').html('동작구') )
+			.append( $('<option value="12">').html('마포구') )
+			.append( $('<option value="13">').html('서대문구') )
+			.append( $('<option value="14">').html('서초구') )
+			.append( $('<option value="15">').html('성동구') )
+			.append( $('<option value="16">').html('성북구') )
+			.append( $('<option value="17">').html('송파구') )
+			.append( $('<option value="18">').html('양천구') )
+			.append( $('<option value="19">').html('영등포구') )
+			.append( $('<option value="20">').html('용산구') )
+			.append( $('<option value="21">').html('은평구') )
+			.append( $('<option value="22">').html('종로구') )
+			.append( $('<option value="23">').html('중구') )
+			.append( $('<option value="24">').html('중랑구') )
+		} else if ( state == '1' ) {
+			$('#location2').empty();
+			$('#location2')
+			.append( $('<option value="">').html('시군구') )
+			.append( $('<option value="25">').html('계양구') )
+			.append( $('<option value="26">').html('남구') )
+			.append( $('<option value="27">').html('남동구') )
+			.append( $('<option value="28">').html('동구') )
+			.append( $('<option value="29">').html('부평구') )
+			.append( $('<option value="30">').html('서구') )
+			.append( $('<option value="31">').html('연수구') )
+			.append( $('<option value="32">').html('중구') )
+			.append( $('<option value="33">').html('강화군') )
+			.append( $('<option value="34">').html('옹진궁') )
+		} else if ( state == '2') {
+			$('#location2').empty();
+			$('#location2')
+			.append( $('<option value="">').html('시군구') )
+			.append( $('<option value="35">').html('고양시') )
+			.append( $('<option value="36">').html('과천시') )
+			.append( $('<option value="37">').html('광명시') )
+			.append( $('<option value="38">').html('광주시') )
+			.append( $('<option value="39">').html('구리시') )
+			.append( $('<option value="40">').html('군포시') )
+			.append( $('<option value="41">').html('김포시') )
+			.append( $('<option value="42">').html('남양주시') )
+			.append( $('<option value="43">').html('동두천시') )
+			.append( $('<option value="44">').html('부천시') )
+			.append( $('<option value="45">').html('성남시') )
+			.append( $('<option value="46">').html('수원시') )
+			.append( $('<option value="47">').html('시흥시') )
+			.append( $('<option value="48">').html('안산시') )
+			.append( $('<option value="49">').html('안성시') )
+			.append( $('<option value="50">').html('안양시') )
+			.append( $('<option value="51">').html('양주시') )
+			.append( $('<option value="52">').html('오산시') )
+			.append( $('<option value="53">').html('용인시') )
+			.append( $('<option value="54">').html('의왕시') )
+			.append( $('<option value="55">').html('의정부시') )
+			.append( $('<option value="56">').html('이천시') )
+			.append( $('<option value="57">').html('파주시') )
+			.append( $('<option value="58">').html('평택시') )
+			.append( $('<option value="59">').html('포천시') )
+			.append( $('<option value="60">').html('하남시') )
+			.append( $('<option value="61">').html('화성시') )
+			.append( $('<option value="62">').html('가평군') )
+			.append( $('<option value="63">').html('양평군') )
+			.append( $('<option value="64">').html('여주군') )
+			.append( $('<option value="65">').html('연천군') )
+		} else {
+			$('#location2').empty();
+			$('#location2')
+			.append( $('<option value="">').html('시군구') )
+		}
+	});
+});
+</script>
 
 <script>
 

@@ -2,6 +2,7 @@ package com.koreait.project.jungho.dao;
 
 import java.util.List;
 
+import com.koreait.project.dto.ExerciseDto;
 import com.koreait.project.dto.MaterialsDto;
 import com.koreait.project.dto.MeetingDto;
 import com.koreait.project.jungho.dto.TrainerClassDto;
@@ -9,7 +10,9 @@ import com.koreait.project.jungho.dto.TrainerClassDto;
 public interface TrainerClassDao {
 
 	public List<TrainerClassDto> trainerClassList();
-
+	
+	public List<ExerciseDto> classTag();
+	
 	public int trainerClassInsert(MeetingDto meetingDto);
 	
 	public int findNewMeetingNo(int user_no);
@@ -20,6 +23,8 @@ public interface TrainerClassDao {
 	
 	// 여러가지를 받아오기 때문에 list로 받아서 처리해야한다. 
 	public List<MaterialsDto> materialsView(int meeting_no);
+	
+	public int addhit(int meeting_no);
 	
 	public int materialsDelete(int meeting_no);
 	
@@ -34,6 +39,28 @@ public interface TrainerClassDao {
 	
 	// 검색한 내용과 일치하는 트레이너클래스를 뿌려주는 역할
 	public List<TrainerClassDto> searchClass(String search_content);
+	
+	// 태그들 ▼▼▼▼▼▼▼▼▼▼
+	public List<TrainerClassDto> Tag0(String 족구);
+	public List<TrainerClassDto> Tag1(String 축구);
+	public List<TrainerClassDto> Tag2(String 농구);
+	public List<TrainerClassDto> Tag3(String 볼링);
+	public List<TrainerClassDto> Tag4(String 크로스핏);
+	public List<TrainerClassDto> Tag5(String 스피닝);
+	public List<TrainerClassDto> Tag6(String 댄스);
+	public List<TrainerClassDto> Tag7(String 요가);
+	public List<TrainerClassDto> Tag8(String 명상);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

@@ -27,6 +27,13 @@ public class TrainerClassDto {
 	private String detail_location;
 	private List<String> materials_name; // join 대상자
 	private String meeting_content;
-	
+	private String exercise_name;
+	private String location1_name;
+	private String location2_name;
+	private String user_nickname;
+	private String user_message;
+	private String profile_photo;
+	private String email;
+	private int meeting_hit;
 
 }

@@ -10,13 +10,8 @@
 	border-radius: 100px;
 }
 
-.tags > span > a {
-	text-decoration: none;
-	color: black;
-}
-
 .maketrainerClass {
-	background: lightgray;
+	background: #f4f4f4;
 	width: 200px;
 	height:200px;
 }
@@ -27,8 +22,13 @@
 	height: auto;
 }
 
+.MeetingClass_all > a {
+	text-decoration: none;
+	color: black;
+}
+
 .MeetingClass {
-	background: lightgray;
+	background: #f4f4f4;
 	width: 200px;
 	height:200px;
 	margin-left: 20px;
@@ -38,3 +38,43 @@
 	text-decoration: none;
 }
 
+.QueryAndTag {
+	display: flex;
+}
+
+#Query > input[type="button"] {
+	border:none;
+	width: 50px;
+	height: 30px;
+	background: black;
+	color: white;	
+}
+
+#Query > a > img {
+	width:25px;
+	height: 25px;
+	margin-bottom:4px;
+	margin-left: 4px;
+}
+
+#Query > input[type="text"] {
+	border:none;
+	width: 250px;
+	height: 30px;
+	background: #f4f4f4;
+}
+
+#Tag {
+	margin-left: 50px;
+}
+
+#Tag > input {
+	margin-left: 3px;
+	border:0.2px solid #c0c0c0;
+	background: white;
+	color: #c0c0c0;
+	width: 70px;
+	height: 30px;
+	border-radius: 5px;
+	font-size: 14px;
+}

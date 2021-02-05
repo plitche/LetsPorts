@@ -10,10 +10,10 @@ INSERT INTO TRAINER_INFO values (5, 12, 5, '박진희', '트레이너자격증',
 
 -- 트레이너 클래스 정보 5개
 -- 임시 모임(meeting) 3개 
-INSERT INTO MEETING values (5, 10, 10, 6, 0, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '족구합시다.', '족구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (6, 10, 8, 4, 3, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '볼링합시다.', '볼링하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (7, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (1, 10, 4, 2, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 3,'축구교실', '운동은 다같이', 1, '', 1, '903동 1101호', 1);
+INSERT INTO MEETING values (5, 11, 10, 6, 0, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '족구합시다.', '족구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
+INSERT INTO MEETING values (6, 12, 8, 4, 3, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '볼링합시다.', '볼링하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
+INSERT INTO MEETING values (7, 13, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
+INSERT INTO MEETING values (1, 14, 4, 2, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 3,'축구교실', '운동은 다같이', 1, '', 1, '903동 1101호', 1);
 INSERT INTO MATERIALS values (1, 1, '운동복', SYSDATE);
 
 -- 임시 모임(meeting) 3개 

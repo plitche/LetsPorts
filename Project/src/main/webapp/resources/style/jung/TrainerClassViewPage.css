@@ -210,6 +210,14 @@ textarea[name="question_content"] {
 }
 
 
+/* 트레이너 정보 */
+
+.trainerHostInfo_all {
+	width: 500px;
+	height: 200px;
+	border-radius: 30px;
+	border: 1px solid gray;
+	}
 
 
 
