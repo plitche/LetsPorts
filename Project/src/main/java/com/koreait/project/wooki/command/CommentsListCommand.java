@@ -12,29 +12,28 @@ import org.springframework.ui.Model;
 import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.wooki.common.Paging;
 import com.koreait.project.wooki.dao.WookiDao;
-import com.koreait.project.wooki.dto.BoardsDto;
+import com.koreait.project.wooki.dto.CommentsDto;
 
-public class BoardsListCommand implements CommonMapCommand {
-
+public class CommentsListCommand implements CommonMapCommand {
 	@Override
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		HttpServletRequest request = (HttpServletRequest) model.asMap().get("request");
-		int boardSep = Integer.parseInt(request.getParameter("boardSep"));
+		int commentSep = Integer.parseInt(request.getParameter("commentSep"));
 		String columnName = request.getParameter("columnName");
 		String query = request.getParameter("query");
 		
 		WookiDao wookiDao = sqlSession.getMapper(WookiDao.class);
 		int totalRecord = 0;
-		if(boardSep == 100) {
-			totalRecord = wookiDao.totalBoardsRecord();
+		if(commentSep == 100) {
+			totalRecord = wookiDao.totalCommentsRecord();
 		} else {
 			if(columnName.equals("all")) {
-				// boardSep 만 넘겨서 리스트 가져옴
-				totalRecord = wookiDao.totalBoardsRecordFilterAll(boardSep);
+				// commentSep 만 넘겨서 리스트 가져옴
+				totalRecord = wookiDao.totalCommentsRecordFilterAll(commentSep);
 			} else {
-				// columnName, query 둘다 넘겨서 리스트 가져
-				totalRecord = wookiDao.totalBoardsRecordFilterQuery(boardSep, columnName, query);
+				// columnName, query 둘다 넘겨서 리스트 가져옴
+				totalRecord = wookiDao.totalCommentsRecordFilterQuery(commentSep, columnName, query);
 			}
 		}
 		int recordPerPage = 5;
@@ -43,19 +42,19 @@ public class BoardsListCommand implements CommonMapCommand {
 		int endRecord = beginRecord + recordPerPage - 1;
 		endRecord = endRecord > totalRecord ? totalRecord : endRecord;
 		
-		List<BoardsDto> list = null;
-		if(boardSep == 100) {
-			list = wookiDao.boardsList(beginRecord, endRecord);
+		List<CommentsDto> list = null;
+		if(commentSep == 100) {
+			list = wookiDao.commentsList(beginRecord, endRecord);
 		} else {
 			if(columnName.equals("all")) {
-				// boardSep 만 넘겨서 리스트 가져옴
-				list = wookiDao.boardsListFilterAll(beginRecord, endRecord, boardSep);
+				// commentSep 만 넘겨서 리스트 가져옴
+				list = wookiDao.commentsListFilterAll(beginRecord, endRecord, commentSep);
 			} else {
-				// columnName, query 둘다 넘겨서 리스트 가져
-				list = wookiDao.boardsListFilterQuery(beginRecord, endRecord, boardSep, columnName, query);
+				// columnName, query 둘다 넘겨서 리스트 가져옴
+				list = wookiDao.commentsListFilterQuery(beginRecord, endRecord, commentSep, columnName, query);
 			}
 		}
-		String paging = Paging.getPaging("fn_boardsList", totalRecord, recordPerPage, page);
+		String paging = Paging.getPaging("fn_commentsList", totalRecord, recordPerPage, page);
 
 		map.put("list", list);
 		map.put("paging", paging);
@@ -64,4 +63,5 @@ public class BoardsListCommand implements CommonMapCommand {
 		map.put("recordPerPage", recordPerPage);
 		return map;
 	}
+
 }

@@ -309,6 +309,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where
 			user_no = #{param1}
 	</delete>
+
+	<select id="totalBoardsRecord" resultType="int">
+		select
+			count(*)
+		from
+			(select
+				knowhow_no as board_no,
+				0 as board_sep,
+				knowhow_title as board_title,
+				user_no,
+				created_at,
+				on_hide
+			from
+				board_knowhow
+			union all
+			select
+				board_qna_no as board_no,
+				1 as board_sep,
+				board_qna_title as board_title,
+				user_no,
+				created_at,
+				on_hide
+			from
+				board_qna
+			union all
+			select
+				meeting_no as board_no,
+				2 as board_sep,
+				meeting_title as board_title,
+				user_no,
+				created_at,
+				on_hide
+			from
+				meeting) a
+	</select>
 	
 	<select id="boardsList" resultType="com.koreait.project.wooki.dto.BoardsDto">
 		select
@@ -356,7 +391,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			c.rn between #{param1} and #{param2}
 	</select>
 
-	<select id="totalBoardsRecord" resultType="int">
+	<select id="totalBoardsRecordFilterAll" parameterType="int" resultType="int">
 		select
 			count(*)
 		from
@@ -389,6 +424,362 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				on_hide
 			from
 				meeting) a
+		where
+			board_sep = #{param1}
+	</select>
+	
+	<select id="boardsListFilterAll" resultType="com.koreait.project.wooki.dto.BoardsDto">
+		select
+			*
+		from
+			(select
+				rownum as rn,
+				b.*
+			from
+				(select
+					*
+				from
+					(select
+						knowhow_no as board_no,
+						0 as board_sep,
+						knowhow_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						board_knowhow
+					union all
+					select
+						board_qna_no as board_no,
+						1 as board_sep,
+						board_qna_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						board_qna
+					union all
+					select
+						meeting_no as board_no,
+						2 as board_sep,
+						meeting_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						meeting) a
+				where
+					board_sep = #{param3}
+				order by
+					a.created_at desc) b) c
+		where
+			c.rn between #{param1} and #{param2}
 	</select>
 
+	<select id="totalBoardsRecordFilterQuery" resultType="int">
+		select
+			count(*)
+		from
+			(select
+				knowhow_no as board_no,
+				0 as board_sep,
+				knowhow_title as board_title,
+				user_no,
+				created_at,
+				on_hide
+			from
+				board_knowhow
+			union all
+			select
+				board_qna_no as board_no,
+				1 as board_sep,
+				board_qna_title as board_title,
+				user_no,
+				created_at,
+				on_hide
+			from
+				board_qna
+			union all
+			select
+				meeting_no as board_no,
+				2 as board_sep,
+				meeting_title as board_title,
+				user_no,
+				created_at,
+				on_hide
+			from
+				meeting) a
+		where
+			board_sep = #{param1}
+			and ${param2} = #{param3}
+	</select>
+	
+	<select id="boardsListFilterQuery" resultType="com.koreait.project.wooki.dto.BoardsDto">
+		select
+			*
+		from
+			(select
+				rownum as rn,
+				b.*
+			from
+				(select
+					*
+				from
+					(select
+						knowhow_no as board_no,
+						0 as board_sep,
+						knowhow_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						board_knowhow
+					union all
+					select
+						board_qna_no as board_no,
+						1 as board_sep,
+						board_qna_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						board_qna
+					union all
+					select
+						meeting_no as board_no,
+						2 as board_sep,
+						meeting_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						meeting) a
+				where
+					board_sep = #{param3}
+					and ${param4} = #{param5}
+				order by
+					a.created_at desc) b) c
+		where
+			c.rn between #{param1} and #{param2}
+	</select>
+	
+	<update id="boardsOnHideToggle">
+		update
+			<choose>
+				<when test="param1 == 0">
+					(select
+						knowhow_no as board_no,
+						0 as board_sep,
+						knowhow_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						board_knowhow) a
+				</when>
+				<when test="param1 == 1">
+					(select
+						board_qna_no as board_no,
+						1 as board_sep,
+						board_qna_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						board_qna) a
+				</when>
+				<when test="param1 == 2">
+					(select
+						meeting_no as board_no,
+						2 as board_sep,
+						meeting_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						meeting) a
+				</when>
+			</choose>
+		set
+			a.on_hide = #{param3}
+		where
+			a.board_no = #{param2}
+	</update>
+	
+	<delete id="boardDeleteBeforeScrap">
+		delete from
+			scrap
+		where
+			scrap_separator = #{param1}
+			and scrap_referer_no = #{param2}
+	</delete>
+	
+	<delete id="boardDeleteBeforeComments">
+		delete from
+			comments
+		where
+			comment_referer_sep = #{param1}
+			and comment_referer_no = #{param2}
+	</delete>
+	
+	<select id="boardDeleteBeforePhotoList" resultType="String" parameterType="int">
+		select
+			photo_filename
+		from
+			photo
+		where
+			photo_referer_sep = #{param1}
+			and photo_referer_no = #{param2}
+	</select>
+	
+	<delete id="boardDeleteBeforePhoto">
+		delete from
+			photo
+		where
+			photo_referer_sep = #{param1}
+			and photo_referer_no = #{param2}
+	</delete>
+	
+	<delete id="boardDeleteBeforeAlarm">
+		delete from
+			alarm
+		where
+			alarm_separator in (4, 5, 6)
+			and alarm_referer_no = #{param1}
+	</delete>
+	
+	<delete id="boardDelete">
+		delete from
+			<choose>
+				<when test="param1 == 0">
+					(select
+						knowhow_no as board_no,
+						0 as board_sep,
+						knowhow_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						board_knowhow) a
+				</when>
+				<when test="param1 == 1">
+					(select
+						board_qna_no as board_no,
+						1 as board_sep,
+						board_qna_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						board_qna) a
+				</when>
+				<when test="param1 == 2">
+					(select
+						meeting_no as board_no,
+						2 as board_sep,
+						meeting_title as board_title,
+						user_no,
+						created_at,
+						on_hide
+					from
+						meeting) a
+				</when>
+			</choose>
+		where
+			a.board_no = #{param2}
+	</delete>
+	
+	<select id="totalCommentsRecord" resultType="int">
+		select
+			count(*)
+		from
+			comments
+	</select>
+	
+	<select id="commentsList" resultType="com.koreait.project.wooki.dto.CommentsDto">
+		select
+			*
+		from
+			(select
+				rownum as rn, a.*
+			from
+				(select
+					*
+				from
+					comments
+				order by
+					created_at desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
+
+	<select id="totalCommentsRecordFilterAll" resultType="int">
+		select
+			count(*)
+		from
+			comments
+		where
+			comment_referer_sep = #{param1}
+	</select>
+	
+	<select id="commentsListFilterAll" resultType="com.koreait.project.wooki.dto.CommentsDto">
+		select
+			*
+		from
+			(select
+				rownum as rn,
+				a.*
+			from
+				(select
+					*
+				from
+					comments
+				where
+					comment_referer_sep = #{param3}
+				order by
+					created_at desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
+	
+	<select id="totalCommentsRecordFilterQuery" resultType="int">
+		select
+			count(*)
+		from
+			comments
+		where
+			comment_referer_sep = #{param1}
+			and ${param2} = #{param3}
+	</select>
+	
+	<select id="commentsListFilterQuery" resultType="com.koreait.project.wooki.dto.CommentsDto">
+		select
+			*
+		from
+			(select
+				rownum as rn,
+				a.*
+			from
+				(select
+					*
+				from
+					comments
+				where
+					comment_referer_sep = #{param3}
+					and ${param4} = #{param5}
+				order by
+					created_at desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
+	
+	<update id="commentsOnHideToggle">
+		update
+			comments
+		set
+			on_hide = #{param2}
+		where
+			comment_no = #{param1}
+	</update>
+	
 </mapper>

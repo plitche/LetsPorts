@@ -30,6 +30,13 @@
 		fn_addTrainerSendEamil();
 		fn_closeAddTrainerModal();
 		fn_boardFilterAdd();
+		fn_boardsOnHideToggle();
+		fn_boardDelete();
+		fn_commentFilterAdd();
+		fn_commentsOnHideToggle();
+		$('.comment').click(function() {
+			fn_commentsPage();
+		});
 		$('.board').click(function() {
 			fn_boardsPage();
 		});

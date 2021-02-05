@@ -768,11 +768,11 @@ function fn_boardsPage() {
 					<tr>
 						<td>게시글종류</td>
 						<td>
-							<select name="boardName">
-								<option value="none">선택안함</option>
-								<option value="board_knowhow">노하우</option>
-								<option value="meeting">모임</option>
-								<option value="board_qna">질문과답변</option>
+							<select name="boardSep">
+								<option value="100">선택안함</option>
+								<option value="0">노하우</option>
+								<option value="1">질문과답변</option>
+								<option value="2">모임</option>
 							</select>
 						</td>
 					</tr>
@@ -801,30 +801,25 @@ function fn_boardsPage() {
 
 // 게시글 관리 - 검색필터 선택시 추가 메소드
 function fn_boardFilterAdd() {
-	$('body').on('change', 'select[name="boardName"]', function() {
-		let target = $('select[name="boardName"]').val();
+	$('body').on('change', 'select[name="boardSep"]', function() {
+		let target = $('select[name="boardSep"]').val();
 		let addTd = [$('<td id="td3">'), $('<td id="td4">'), $('<td id="td5">')];
 		let selectTag = [$('#td3'), $('#td4'), $('#td5')];
-		let boardList = ['board_knowhow', 'meeting', 'board_qna'];
-		let columnList = ['knowhow_no', 'meeting_no', 'board_qna_no'];
 		for(let i = 0; i < selectTag.length; i++) {
 			selectTag[i].remove();
 		}
-		if(target == "none") {
+		if(target == 100) {
+			fn_boardsList(1);
 			return;
 		}
 		addTd[0].appendTo('#filterQuery > tr');
 		addTd[2].appendTo('#filterQuery > tr');
-		for(let i = 0; i < boardList.length; i++) {
-			if(target == boardList[i]) {
-				$('<select name="columnName">')
-				.append($('<option value="all">').html('전체회원검색'))
-				.append($(`<option value="${columnList[i]}">`).html('게시글번호'))
-				.append($('<option value="user_no">').html('작성자번호'))
-				.appendTo('#td3');
-				$('#td5').html('<input type="button" value="검색" id="searchBtn" />');
-			}
-		}
+		$('<select name="columnName">')
+		.append($('<option value="all">').html('전체회원검색'))
+		.append($('<option value="board_no">').html('게시글번호'))
+		.append($('<option value="user_no">').html('작성자번호'))
+		.appendTo('#td3');
+		$('#td5').html('<input type="button" value="검색" id="searchBtn" onclick="fn_boardsList(1)" />');
 	});
 	$('body').on('change', 'select[name="columnName"]', function() {
 		$('#td4').remove();
@@ -838,10 +833,24 @@ function fn_boardFilterAdd() {
 
 // 게시글관리 - 게시글 리스트 불러오기 메소드
 function fn_boardsList(p) {
+	let boardSep = $('select[name="boardSep"]').val();
+	let columnName = $('select[name="columnName"]').val();
+	if(columnName == undefined ) {
+		columnName = '';
+	}
+	let query = $('#query').val();
+	if(query == undefined ) {
+		query = '';
+	}
 	$.ajax({
 		url: 'boardsList.wooki',
 		type: 'get',
-		data: {page: p},
+		data: {
+			page: p,
+			boardSep: boardSep,
+			columnName: columnName,
+			query: query
+		},
 		dataType: 'json',
 		success: function(list) {
 			fn_insertBoardsList(list.list, list.paging, list.totalRecord, list.recordPerPage, list.page);
@@ -851,6 +860,7 @@ function fn_boardsList(p) {
 		}
 	});
 }
+
 // timestamp 날짜형식으로 변경 이벤트
 function fn_stampToDate(timestamp) {
 	let d = new Date(timestamp);
@@ -902,4 +912,259 @@ function fn_insertBoardsList(list, paging, totalRecord, recordPerPage, page) {
 		<input type="hidden" id="now_page" value="${page}"/>
 		</tr>`;
 	$('tfoot.paging').append(tfoot);
+}
+
+// 게시글 숨기기, 보이기 기능개발
+function fn_boardsOnHideToggle() {
+	let btn = ['#showBtn', '#hideBtn'];
+	for(let i = 0; i < btn.length; i++) {
+		$('body').on('click', btn[i], function() {
+			if(is_progress == true) {
+				return;
+			}
+			is_progress = true;
+			let board_no = $(this).parents('tr').find('#board_no').val();
+			let board_sep = $(this).parents('tr').find('#board_sep').val();
+			$.ajax({
+				url: `boardsOnHideToggle/${board_no}/${board_sep}/${i}.wooki`,
+				type: 'put',
+				dataType: 'json',
+				success: function(obj) {
+					if(i == 0) {
+						if(obj.result) {
+							alert('게시글 공개 성공하였습니다.')
+						} else {
+							alert('게시글 공개 실패하였습니다.')
+						}
+					} else {
+						if(obj.result) {
+							alert('게시글 숨기기 성공하였습니다.')
+						} else {
+							alert('게시글 숨기기 실패하였습니다.')
+						}
+					}
+					fn_boardsList($('#now_page').val());
+					setTimeout(function() {is_progress = false;}, 1000);
+				},
+				error: function() {
+					setTimeout(function() {is_progress = false;}, 1000);
+					alert('실패');
+				}
+			});
+		});
+	}
+}
+
+//게시글 삭제 기능개발
+function fn_boardDelete() {
+	$('body').on('click', '#deleteBoard', function() {
+		if(is_progress == true) {
+			return;
+		}
+		is_progress = true;
+		let board_no = $(this).parents('tr').find('#board_no').val();
+		let board_sep = $(this).parents('tr').find('#board_sep').val();
+		$.ajax({
+			url: `boardDelete/${board_no}/${board_sep}.wooki`,
+			type: 'delete',
+			dataType: 'json',
+			success: function(obj) {
+				if(obj.result) {
+					alert('게시글이 삭제 되었습니다.')
+				} else {
+					alert('게시글 삭제에 실패하였습니다.')
+				}
+				fn_boardsList($('#now_page').val());
+				setTimeout(function() {is_progress = false;}, 1000);
+			},
+			error: function() {
+				setTimeout(function() {is_progress = false;}, 1000);
+				alert('실패');
+			}
+		});
+	});
+}
+
+// 댓글 관리 페이지로딩 이벤트
+function fn_commentsPage() {
+	$('.content-container').empty
+	let string = `
+	<h1>댓글관리</h1>
+	<div>
+		<form id="filterBox">
+			<table>
+				<tbody id="filterQuery">
+					<tr>
+						<td>게시글종류</td>
+						<td>
+							<select name="commentSep">
+								<option value="100">선택안함</option>
+								<option value="0">노하우</option>
+								<option value="1">질문과답변</option>
+								<option value="2">모임</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<table style="width: 1000px;">
+		<thead id="title">
+			<tr>
+				<th>번호</th>
+				<th>댓글번호</th>
+				<th>게시글종류</th>
+				<th>게시글번호</th>
+				<th style="width: 250px;">댓글내용</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th colspan="2">비고</th>
+			</tr>
+		</thead>
+		<tbody id="list"></tbody>
+		<tfoot class="paging"></tfoot>
+	</table>`
+	$('.content-container').html(string);
+	fn_commentsList(1);
+}
+
+// 댓글 관리 - 검색필터 선택시 추가 메소드
+function fn_commentFilterAdd() {
+	$('body').on('change', 'select[name="commentSep"]', function() {
+		let target = $('select[name="commentSep"]').val();
+		let addTd = [$('<td id="td3">'), $('<td id="td4">'), $('<td id="td5">')];
+		let selectTag = [$('#td3'), $('#td4'), $('#td5')];
+		for(let i = 0; i < selectTag.length; i++) {
+			selectTag[i].remove();
+		}
+		if(target == 100) {
+			fn_commentsList(1);
+			return;
+		}
+		addTd[0].appendTo('#filterQuery > tr');
+		addTd[2].appendTo('#filterQuery > tr');
+		$('<select name="columnName">')
+		.append($('<option value="all">').html('전체회원검색'))
+		.append($('<option value="comment_referer_no">').html('게시글번호'))
+		.append($('<option value="user_no">').html('작성자번호'))
+		.appendTo('#td3');
+		$('#td5').html('<input type="button" value="검색" id="searchBtn" onclick="fn_commentsList(1)" />');
+	});
+	$('body').on('change', 'select[name="columnName"]', function() {
+		$('#td4').remove();
+		if($('select[name="columnName"]').val() == 'all') {
+			return;
+		};
+		$('#td5').before($('<td id="td4">'));
+		$('#td4').html('<input type="text" name="query" id="query" />');
+	});
+}
+
+//게시글관리 - 게시글 리스트 불러오기 메소드
+function fn_commentsList(p) {
+	let commentSep = $('select[name="commentSep"]').val();
+	let columnName = $('select[name="columnName"]').val();
+	if(columnName == undefined ) {
+		columnName = '';
+	}
+	let query = $('#query').val();
+	if(query == undefined ) {
+		query = '';
+	}
+	$.ajax({
+		url: 'commentsList.wooki',
+		type: 'get',
+		data: {
+			page: p,
+			commentSep: commentSep,
+			columnName: columnName,
+			query: query
+		},
+		dataType: 'json',
+		success: function(list) {
+			fn_insertCommentsList(list.list, list.paging, list.totalRecord, list.recordPerPage, list.page);
+		},
+		error: function() {
+			alert('실패');
+		}
+	});
+}
+
+// 게시글 리스트 tbody, tfoot 삽입이벤트
+function fn_insertCommentsList(list, paging, totalRecord, recordPerPage, page) {
+	$('tbody#list').empty();
+	$('tfoot.paging').empty();
+	$.each(list, function(idx, comment) {
+		let is_on_hide = '';
+		let created_at = fn_stampToDate(comment.created_at);
+		let comments_name = ['노하우', '질문과답변', '모임'];
+		if(comment.on_hide == 0) {
+			is_on_hide = '<input type="button" value="숨기기" id="hideCommentBtn" />';
+		} else {
+			is_on_hide = '<input type="button" value="보이기" id="showCommentBtn" />';
+		}
+		let tbody = `
+		<tr>
+			<td>${totalRecord - (recordPerPage * (page - 1)) - idx}</td>
+			<td>${comment.comment_no}</td>
+			<td>${comments_name[comment.comment_referer_sep]}</td>
+			<td>${comment.comment_referer_no}</td>
+			<td>${comment.comment_content}</td>
+			<td>${comment.user_no}</td>
+			<td>${created_at}</td>
+			<td>
+				<input type="hidden" name="comment_no" id="comment_no" value="${comment.comment_no}" />
+				${is_on_hide}
+			</td>
+			<td><input type="button" value="댓글삭제" id="deleteComment" /></td>
+		</tr>`;
+		$('tbody#list').append(tbody);
+	});
+	let tfoot = `
+	<tr>
+		<td colspan="9">${paging}</td>
+		<input type="hidden" id="now_page" value="${page}"/>
+	</tr>`;
+	$('tfoot.paging').append(tfoot);
+}
+
+//댓글 숨기기, 보이기 기능개발
+function fn_commentsOnHideToggle() {
+	let btn = ['#showCommentBtn', '#hideCommentBtn'];
+	for(let i = 0; i < btn.length; i++) {
+		$('body').on('click', btn[i], function() {
+			if(is_progress == true) {
+				return;
+			}
+			is_progress = true;
+			let comment_no = $(this).parents('tr').find('#comment_no').val();
+			$.ajax({
+				url: `commentsOnHideToggle/${comment_no}/${i}.wooki`,
+				type: 'put',
+				dataType: 'json',
+				success: function(obj) {
+					if(i == 0) {
+						if(obj.result) {
+							alert('댓글 공개 성공하였습니다.')
+						} else {
+							alert('댓글 공개 실패하였습니다.')
+						}
+					} else {
+						if(obj.result) {
+							alert('댓글 숨기기 성공하였습니다.')
+						} else {
+							alert('댓글 숨기기 실패하였습니다.')
+						}
+					}
+					fn_commentsList($('#now_page').val());
+					setTimeout(function() {is_progress = false;}, 1000);
+				},
+				error: function() {
+					setTimeout(function() {is_progress = false;}, 1000);
+					alert('실패');
+				}
+			});
+		});
+	}
 }
