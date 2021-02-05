@@ -8,10 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonMapCommand;
-import com.koreait.project.dto.MeetingDto;
-import com.koreait.project.yongsoo.dao.TrainerDao;
 import com.koreait.project.yongsoo.dao.TrainerMeetingDao;
-import com.koreait.project.yongsoo.dto.TrainerTemDto;
+import com.koreait.project.yongsoo.dto.MeetingTemDto;
 
 public class GetTrainerMeetingListCommand implements CommonMapCommand {
 
@@ -22,18 +20,17 @@ public class GetTrainerMeetingListCommand implements CommonMapCommand {
 		int user_no = (int)map.get("user_no");
 		
 		TrainerMeetingDao trainerMeetingDao = sqlSession.getMapper(TrainerMeetingDao.class);
+		// 총 모임 개수
 		int totalMeetingCount = trainerMeetingDao.totalMeetingCount(user_no);
-		List<MeetingDto> meetingList = trainerMeetingDao.findMeetings(user_no);
 		
-		TrainerDao trainerDao = sqlSession.getMapper(TrainerDao.class);
-		TrainerTemDto trainerTemDto = trainerDao.trainerDetail(user_no);
+		// 모임 리스트
+		List<MeetingTemDto> meetingList = trainerMeetingDao.findMeetings(user_no);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		if (meetingList.size()>0) {
 			result.put("result", true);
 			result.put("totalMeetingCount", totalMeetingCount);
 			result.put("meetingList", meetingList);
-			result.put("trainerTemDto", trainerTemDto);
 		} else {
 			result.put("result", false);
 			result.put("totalMeetingCount", 0);

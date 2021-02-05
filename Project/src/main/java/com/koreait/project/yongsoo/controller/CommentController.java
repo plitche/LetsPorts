@@ -56,5 +56,11 @@ public class CommentController {
 		return deleteCommentCommand.execute(sqlSession, model);
 	}
 	
+	
+	@RequestMapping(value="gotest.plitche")
+	public String gotest() {
+		return "yongPage/test";
+	}
+	
 }
 
