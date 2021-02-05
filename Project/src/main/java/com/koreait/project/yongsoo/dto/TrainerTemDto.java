@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class TrainerTemDto {
 
 	private int user_no;
+	private int user_separator;
 	private String user_nickname;
 	private String trainer_name;
 	private String user_message;
@@ -18,7 +19,9 @@ public class TrainerTemDto {
 	private String employment;
 	private String profile;
 	private int location1_no;
+	private String location1_name;
 	private int location2_no;
+	private String location2_name;
 	private int score;
 	private int reviews;
 	

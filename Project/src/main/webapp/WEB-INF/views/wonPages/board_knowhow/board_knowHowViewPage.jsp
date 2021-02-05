@@ -56,7 +56,7 @@
 		</div><br/><br/>
 	
 		<h4>댓글 작성</h4>
-		<div id = "btn" style = "text-align:left;">
+		<div class = "input-group" role = "group" style = "text-align:left; width: 100%">
 			<input type = "text" id  = "comment_content" value = "${CommentsDto.comment_content}" placeholder="댓글입력" ><br/>
 			<input type = "button" id = "btn" value="작성" onclick =  />
 		</div>

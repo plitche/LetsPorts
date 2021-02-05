@@ -7,6 +7,7 @@ import com.koreait.project.yewon.command.GoknowHowDetailCommand;
 import com.koreait.project.yewon.command.GoknowHowInsertCommand;
 import com.koreait.project.yewon.command.GoknowHowListCommand;
 import com.koreait.project.yewon.command.GoknowHowUpdateCommand;
+import com.koreait.project.yewon.command.GoknowHowUpdatePageCommand;
 import com.koreait.project.yewon.command.GoknowHowViewCommand;
 
 @Configurable
@@ -31,9 +32,15 @@ public class WonAppContext {
 	public GoknowHowViewCommand goknowHowViewCommand() {
 		return new GoknowHowViewCommand();
 	}
-
+	
 	@Bean
 	public GoknowHowUpdateCommand goknowHowUpdateCommand() {
 		return new GoknowHowUpdateCommand();
 	}
+	
+	@Bean
+	public GoknowHowUpdatePageCommand goUpdatePageCommand() {
+		return new GoknowHowUpdatePageCommand();
+	}
+	
 }

@@ -18,7 +18,9 @@ public class MeetingTemDto {
 	private String meeting_title;
 	private Date meeting_date;
 	private int exercise_no;
+	private String exercise_name;
 	private Date created_at;
 	private int meeting_max;
 	private int meeting_min;
+	private String photo_filename;
 }

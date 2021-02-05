@@ -7,6 +7,10 @@
 	<jsp:param value="노하우 리스트 페이지" name="title"/>
 </jsp:include>
 
+<script>
+	
+</script>
+
 <style>
 	header {
 		height: 20px;
@@ -19,35 +23,44 @@
 	}
 	
 	div {
-		height: 40px;
+		height: auto;
 		width: 400px;
 	}
 	
 	input {
 		font-size: 20px;
 		width: 325px;
-		
+	}
+	
+	input > button {
+		font-size: 20px;
+		width: 100px;
 	}
 	
 </style>
 
-	<header>
-		<h3>오늘의 인기글</h3>
-	</header>
-	
-		<div>
-			<span>메뉴1</span>
-			<span>메뉴2</span>
-			<span>메뉴3</span><br/><br/>
-		</div>
 
+		<h3>오늘의 인기글</h3>
+		
+		<header>
+			<div>
+				<span>메뉴1</span>
+				<span>메뉴2</span>
+				<span>메뉴3</span><br/><br/>
+			</div>
+		</header>
+
+	
+	
+		<h3>게시글 목록</h3>
+	
 	
 	<div class = "search" >
 		<input type = "text" name = "keyworld" id = "keyword" placeholder = "검색어를 입력하세요." />
 		<button type = "submit">검색</button>
 	</div><br/><br/>
 	
-	<h3>게시글 목록</h3>
+	
 	<table border="1">
 		<thead>
 			<tr>
@@ -76,12 +89,16 @@
 				</c:forEach>
 			</c:if>
 			</tbody>
+	</table><br/><br/>
+			
+	<table>
 		<tr>
+			
 			<td colspan = "5">
-				<input type = "button" value = "새글 작성하러 가기" onclick = "location.href='board_knowHowInsertPage.limyeng'" />
+				<input type = "button" id = "btn1" value = "새글 작성하러 가기" onclick = "location.href='board_knowHowInsertPage.limyeng'" />
 			</td>
 		</tr>
-	</table>
+	</table><br/><br/>
 
 	
 	<%@ include file="../../template/footer.jsp" %>
