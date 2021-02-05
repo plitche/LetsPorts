@@ -18,8 +18,8 @@
 					   모임일 : ${trainerClassDto.meeting_date}<br/><br/>
 					   모집 기간 : ${trainerClassDto.start_gather_date} ~ ${trainerClassDto.end_gather_date}<br/><br/>
 					   모집 인원 : 최소 ${trainerClassDto.meeting_min}명 ~ 최대 ${trainerClassDto.meeting_max}<br/><br/>
-					   운동 종목 : ${trainerClassDto.exercise_no}<br/><br/>
-					   모임장소 : ${trainerClassDto.location1_no} ${trainerClassDto.location2_no}<br/><br/>
+					   운동 종목 : ${trainerClassDto.exercise_name}<br/><br/>
+					   모임장소 : ${trainerClassDto.location1_name} ${trainerClassDto.location2_name}<br/><br/>
 					   상세 주소 : ${trainerClassDto.detail_location}<br/><br/>
 					   준비물 :
 					   <c:forEach var="materialsDto" items="${list}">
@@ -58,19 +58,50 @@
 				   </c:forEach>
     	   
     	   </div>
+    	   
+    	   <script>
+    	   
+    	   $(document).ready(function(){
+    		   
+    	   		if ('${loginUser.user_no}' == '${trainerClassDto.user_no}') {
+    	   			$('#ClassApplyBtn').hide();
+    	   			$('.ClassQuestionBtn').hide();
+    	   		} else {
+    	   			$('#ClassUpdateBtn').hide();
+    	   			$('#ClassDeleteBtn').hide();
+    	   		}
+    	   		
+    	   });
+    	   $(document).on('click', '#ClassApplyBtn', function() {
+			   if ('${loginUser}' == '') {
+				   alert('회원만 신청가능합니다. 로그인해주세요.');
+				   location.href= 'usersLoginPage.hey';
+			   } else {
+				   location.href = '';  // 클래스 신청했을 때 넘어가는 경로
+			   }
+		   });
+    	   
+    	   function fn_TrainerClassList() {
+	    		location.href = 'TrainerClassListPage.leo';
+    	   }
+    	   
+    	   </script>
 			   
 			   <!-- 버튼들(수정, 삭제, 등록) -->
 			   <div class="Btns1">
 			   
-				   <input type="button" value="수정" onclick="fn_TrainerClassViewUpdatePage(this.form)" />
-				   <input type="button" value="삭제" onclick="fn_TrainerClassViewDelete(this.form)" />
-				   <input type="button" value="등록하기" onclick="fn_TrainerClassApply(this.form)" />
-				   
-				   
-				   <!-- 모달창 띄우는 버튼 -->
-				   <input type="button" value="클래스 질문하기" id="modal-open-btn" />
+					   <input type="button" value="클래스 신청" onclick="fn_TrainerClassApply(this.form)" id="ClassApplyBtn" />
+					   <!-- 모달창 띄우는 버튼 -->
+					   <input type="button" value="클래스 질문하기" id="modal-open-btn" class="ClassQuestionBtn" />
+					   <input type="button" value="클래스 목록"  onclick="fn_TrainerClassList()"/>
+					   <input type="button" value="수정" onclick="fn_TrainerClassViewUpdatePage(this.form)" id="ClassUpdateBtn" />
+					   <input type="button" value="삭제" onclick="fn_TrainerClassViewDelete(this.form)" id="ClassDeleteBtn" />
 			   
 			   </div>
+			   
+			   
+			   
+			   
 			   
 			   <!-- 모달창 버튼 누를 시 열리는 내용들 -->
 			   <div id="modal_background"></div>
@@ -106,7 +137,24 @@
 			   
     </form>
     
-    <br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/>
+    
+	<h3>트레이너 소개</h3>
+    <div class="trainerHostInfo_all">
+		<a href="#" onclick="">
+	    		<div class="trainerHostInfo">
+				    <div>${trainerClassDto.profile_photo}</div>
+	    			<div>${trainerClassDto.user_nickname}</div>
+	    		</div>
+	    		<div>${trainerClassDto.user_message}</div>
+ 		</a>
+  	 </div>
+    
+    
+    
+    
+    
+    <br/><br/><br/><br/><br/>
   
   	<h3>관련 트레이너 클래스</h3>
     <br/>
@@ -167,7 +215,7 @@
 				$('<div>').addClass('relatedClass')
 				.append($('<a href="#" onclick="fn_showRelatedMeeting(' + relatedClass.meeting_no + '); return false;">' + relatedClass.meeting_title + '</a> '))
 				.append($('<div>' +  relatedClass.meeting_date + '</div>'))
-				.append($('<div>' +  relatedClass.exercise_no + '</div>'))
+				.append($('<div>' +  relatedClass.exercise_name + '</div>'))
 				.appendTo('.relatedClass_all');
 			});
     	}

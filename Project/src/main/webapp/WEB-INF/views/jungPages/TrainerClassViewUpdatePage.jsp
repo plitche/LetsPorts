@@ -45,7 +45,7 @@
 				<!-- hidden -->
 				<input type="hidden" name="meeting_no"	value="${trainerClassDto.meeting_no}"/>
 				
-			   <input type="button" value="수정" onclick="fn_TrainerClassViewUpdate(this.form)">
+			   <input type="button" value="수정완료" onclick="fn_TrainerClassViewUpdate(this.form)">
 			   <input type="reset" value="초기화" />
 			   <input type="button" value="트레이너클래스페이지로" onclick="location.href='TrainerClassListPage.leo'" />
 	

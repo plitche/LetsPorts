@@ -23,6 +23,7 @@ public class RelatedClassCommand implements CommonMapCommand {
 		int user_no = trainerClassDto.getUser_no();
 		int meeting_no = trainerClassDto.getMeeting_no();
 		
+		
 		TrainerClassDao trainerClassDao = sqlSession.getMapper(TrainerClassDao.class);
 		List<TrainerClassDto> relatedClassList = trainerClassDao.relatedClass(user_no, exercise_no);
 		

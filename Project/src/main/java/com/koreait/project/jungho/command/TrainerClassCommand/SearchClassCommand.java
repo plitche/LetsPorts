@@ -18,13 +18,18 @@ public class SearchClassCommand implements CommonVoidCommand {
 
 		Map<String, Object> map = model.asMap();
 		String search_content = (String)map.get("search_content");
+		RedirectAttributes rttr = (RedirectAttributes)map.get("rttr");
 		
 		TrainerClassDao trainerClassDao = sqlSession.getMapper(TrainerClassDao.class);
 		
 		List<TrainerClassDto> Searchlist = trainerClassDao.searchClass(search_content);
 		
-		
+		//rttr.addAttribute("MeetingList", Searchlist);
+		//rttr.addAttribute("ClassTags", trainerClassDao.classTag());
+		//rttr.addFlashAttribute("MeetingList", Searchlist);
+		//rttr.addFlashAttribute("ClassTags", trainerClassDao.classTag());
 		model.addAttribute("MeetingList", Searchlist);
+		model.addAttribute("ClassTags", trainerClassDao.classTag());
 		//rttr.addAttribute("MeetingList", Searchlist);
 		
 	}

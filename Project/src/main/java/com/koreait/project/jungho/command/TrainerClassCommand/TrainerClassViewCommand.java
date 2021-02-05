@@ -27,6 +27,9 @@ public class TrainerClassViewCommand implements CommonVoidCommand {
 		// 준비물에 관련된 값들을 받아오고 list에 저장
 		List<MaterialsDto> list = trainerClassDao.materialsView(meeting_no);
 		
+		// 조회수 늘려주는 명령
+		trainerClassDao.addhit(meeting_no);
+		
 		// 모임에 관련된 값들을 보내주는 값
 		model.addAttribute("trainerClassDto", trainerClassDto);
 		// 준비물에 대한 값들을 보내주는 값
