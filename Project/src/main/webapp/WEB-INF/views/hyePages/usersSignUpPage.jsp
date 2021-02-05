@@ -8,13 +8,60 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
 <script src="resources/joon/js/users.js"></script>
+<!-- 이메일... -->
 <script type="text/javascript">
 // 회원가입 이메일 인증(1 = 인증 / 0 != 인증)
 // 페이지 로드 이벤트
 	$(document).ready(function(){
-		
+		emailCheck();
 	});
-
+	
+	function emailCheck() {
+		// 이메일 정규식
+		var regEmail = /^[a-z][a-z0-9-_]+@[a-zA-Z0-9]{3,}(\.[a-zA-Z]{2,6}){1,2}$/;
+		var email = $('#email').val(); 
+		// 이메일 키업 체크
+		$("#email").keyup(function(){
+			$.ajax({
+				url : "",
+				type : "POST",
+				data : {
+					email : $("#email").val()
+				},
+				success : function(data) {
+					console.log("1 = 사용불가 / 0 = 사용가능 : "+ data);
+					
+					if (data.result == 1) {
+						// 1 : 이메일이 중복되는 문구
+						$("#email_check").text("이미 사용중인 이메일입니다.");
+						$("#email_check").css('color', 'red');
+						$("#sendConfirm").attr("disabled", 1);
+						console.log("이메일중복");
+					} else {
+						
+						if(regEmail.test(email)){
+							// 0 : 문자열 검사
+							$("#email_check").text("사용가능한 이메일입니다.");
+							$("#email_check").css('color', 'green');
+							$('#sendConfirm').attr("disabled", 0);
+							console.log("정규식 통과");
+				
+						} else {
+							$('#email_check').text('이메일 정보를 다시 확인하세요.');
+							$('#email_check').css('color', 'red');
+							$('#sendConfirm').attr("disabled", 1);				
+							console.log("이메일 정보 이상");
+							
+						}
+						
+					}
+				}, error : function() {
+						console.log("실패");
+				}
+				
+			})
+		});
+	}
 
 	$(function(){
 		$("#confirmEmail").click(function(){
@@ -22,7 +69,6 @@
 				url : "",
 				type : "POST",
 				data : {
-					id : $("#id").val(),
 					email : $("#email").val()
 				},
 				success : function(result) {
@@ -33,6 +79,7 @@
 	})
 
 </script>
+<!-- 비밀번호... -->
 <script type="text/javascript">
 
 // 비밀번호 영문, 숫자 조합 8-16자
@@ -40,6 +87,7 @@
 //	var pwJ = /^[A-Za-z0-9]{8,16}$/; 
 $(document).ready(function() {
 	pwCheck();
+	rePwCheck();
 });
 
 function pwCheck(){
@@ -49,46 +97,56 @@ function pwCheck(){
 
 	$('#password').keyup(function(){
 		var password = $('#password').val();
-		$.ajax({
-			url : 'pwCheck.hey/' + password,
-			type : 'post',
-			dataType : 'json',
-			success : function(data) {
-				console.log("0 = 사용가능/ 1 = 사용불가한 비밀번호");
-				if(data.result == 1) {
-				if(pwJ.test(password)){
-					$('#pw_check').text("사용가능한 비밀번호입니다.");
-					$('#pw_check').css('color', 'green');
-					$('#signUpSubmit').attr("disabled", 0);
-					console.log("사용가능한 비밀번호");
-					
-				} else if(empJ.test(password)) {
-					$('#pw_check').text("공백은 사용하실 수 없습니다.");
-					$('#pw_check').css('color', 'red');
-					$('#signUpSubmit').attr("disabled", 1);
-					console.log("공백 실패");
-					
-				} else if(checkHangul.test(password)) {
-					$('#pw_check').text("비밀번호에 한글을 사용 할 수 없습니다.");
-					$('#pw_check').css('color', 'red');
-					$('#signUpSubmit').attr("disabled", 1);
-					console.log("한글 실패");
-					
-				} else {
-					$('#pw_check').text("영문, 숫자, 특수문자(!@#%&_) 조합 8~16자 이내에서 사용 가능합니다.");
-					$('#pw_check').css('color', 'red');
-					$('#signUpSubmit').attr("disabled", 1);
-					console.log("영문, 숫자, 특 조합 실패");
-					
-				}
-					
-				}
+		console.log("0 = 사용가능/ 1 = 사용불가한 비밀번호");
+		
+		if(pwJ.test(password)){
+			$('#pw_check').text("사용가능한 비밀번호입니다.");
+			$('#pw_check').css('color', 'green');
+			$('#signUpSubmit').attr("disabled", 0);
+			console.log("사용가능한 비밀번호");
+			
+		} else if(empJ.test(password)) {
+			$('#pw_check').text("공백은 사용하실 수 없습니다.");
+			$('#pw_check').css('color', 'red');
+			$('#signUpSubmit').attr("disabled", 1);
+			console.log("공백 실패");
 				
-			}, error : function() {
-				console.log("실패");
-			}
+		} else if(checkHangul.test(password)) {
+			$('#pw_check').text("비밀번호에 한글을 사용 할 수 없습니다.");
+			$('#pw_check').css('color', 'red');
+			$('#signUpSubmit').attr("disabled", 1);
+			console.log("한글 실패");
+					
+		} else {
+			$('#pw_check').text("영문, 숫자, 특수문자(!@#%&_) 조합 8~16자 이내에서 사용 가능합니다.");
+			$('#pw_check').css('color', 'red');
+			$('#signUpSubmit').attr("disabled", 1);
+			console.log("영문, 숫자, 특 조합 실패");
+			
+		}
 	});
-});
+}
+
+// 비밀번호 재확인 
+function rePwCheck(){
+	var pw = $('#password').val();
+	var re_pw = $('#re_password').val();
+	$('#re_password').keyup(function(){
+		console.log("0 = 사용가능/ 1 = 사용불가");
+		if(pw == re_pw){
+			$('#pw_reCheck').text("비밀번호 일치합니다.");
+			$('#pw_reCheck').css('color', 'green');
+			$('#signUpSubmit').attr("disabled", 0);
+			console.log("사용가능한 비밀번호");
+		} else {
+			$('#pw_reCheck').text("비밀번호를 확인해주세요.");
+			$('#pw_reCheck').css('color', 'red');
+			$('#signUpSubmit').attr("disabled", 1);
+			console.log("사용불가한 비밀번호");
+			
+		}
+	});
+}
 
 </script>
 
@@ -114,7 +172,9 @@ function pwCheck(){
 			<div class="form-group">
 				<label for="email">이메일 *</label><br/>
 				<input type="text" class="form-control" id="email" name="email" placeholder="이메일 주소 입력 (예: abcd123@domain.com)" />
-				<input type="button" value="인증번호 발송" id="confirmEmail" onclick="confirmEmail()"/><br/>
+				<input type="button" value="인증번호 발송" id="sendConfirm" /><br/>
+				<div class="check_font" id="email_check"></div><br/>
+				<div class="check_font" id="email_checkNum"></div><br/>
 				
 			</div>
 			
@@ -124,6 +184,7 @@ function pwCheck(){
 				<input type="password" class="form-control" id='password' name="password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)"><br/>
 				<div class="check_font" id="pw_check"></div>
 			</div>
+			
 		<!-- 비밀번호 확인 -->
 			<div class="form-group">
 				<label for="re_password">비밀번호 확인 *</label><br/>

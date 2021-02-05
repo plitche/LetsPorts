@@ -9,19 +9,18 @@ import org.springframework.ui.Model;
 import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.hyejoon.dao.UsersDao;
 
-public class PwCheckCommand implements CommonMapCommand {
+public class EmailCheckCommand implements CommonMapCommand {
 
 	@Override
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 		Map<String, Object> map = model.asMap();
-		String password = (String)map.get("password");
+		String email = (String)map.get("email");
 		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
-		int pwResult = usersDao.pwCheck(password);
-		
+		int emailResult = usersDao.authEmail(email);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		if(pwResult > 0) {
+		if(emailResult > 0) {
 			result.put("result", 1);
 		} else {
 			result.put("result", 0);

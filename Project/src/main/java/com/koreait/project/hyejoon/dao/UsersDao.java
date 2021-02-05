@@ -8,6 +8,7 @@ public interface UsersDao {
 	
 	public int nickCheck(String user_nickname);	// 닉네임 체크
 	
-	public int pwCheck(String password);	// 비밀번호 유효성 체크
+	public int authEmail(String email);	// 이메일 인증
+	
 	
 }

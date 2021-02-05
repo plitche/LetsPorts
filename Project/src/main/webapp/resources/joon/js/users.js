@@ -20,8 +20,9 @@
 function nickCheck() {
 	//닉네임 정규식
 	var nickJ = /^[a-zA-Z0-9가-힣]{1,14}$/;
+	var user_nickname = $('#user_nickname').val();
+	// 닉네임 키업 체크
 	$("#user_nickname").keyup(function() {
-		var user_nickname = $('#user_nickname').val();
 		$.ajax({
 			url : 'nickCheck.hey/' + user_nickname,
 			type : 'get',
