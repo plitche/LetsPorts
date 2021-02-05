@@ -18,6 +18,10 @@ public class MyPageController {
 	
 	/***** 단순 이동 *****/
 	// header페이지에서 '마이페이지' 버튼 클릭시 마이 페이지로 이동한다.
+	@RequestMapping(value="myPage_commonPart.hey")
+	public String myPage() {
+		return "hyePages/myPage_commonPart";
+	}
 	// 기본은 모임 탭으로 함
 	// 정보수정 페이지로 이동
 	@RequestMapping(value="usersInfoUpdate.hey")

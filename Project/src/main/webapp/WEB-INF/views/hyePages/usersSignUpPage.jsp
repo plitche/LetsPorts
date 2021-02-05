@@ -11,7 +11,6 @@
 <script type="text/javascript">
 // 회원가입 이메일 인증(1 = 인증 / 0 != 인증)
 // 페이지 로드 이벤트
-/*
 	$(document).ready(function(){
 		
 	});
@@ -33,9 +32,65 @@
 		});
 	})
 
-*/
 </script>
+<script type="text/javascript">
 
+// 비밀번호 영문, 숫자 조합 8-16자
+// 비밀번호 정규식
+//	var pwJ = /^[A-Za-z0-9]{8,16}$/; 
+$(document).ready(function() {
+	pwCheck();
+});
+
+function pwCheck(){
+	var empJ = /\s/g;
+	var pwJ = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#%&_])[A-Za-z0-9!@#%&_]{8,16}$/;
+    var checkHangul = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
+	$('#password').keyup(function(){
+		var password = $('#password').val();
+		$.ajax({
+			url : 'pwCheck.hey/' + password,
+			type : 'post',
+			dataType : 'json',
+			success : function(data) {
+				console.log("0 = 사용가능/ 1 = 사용불가한 비밀번호");
+				if(data.result == 1) {
+				if(pwJ.test(password)){
+					$('#pw_check').text("사용가능한 비밀번호입니다.");
+					$('#pw_check').css('color', 'green');
+					$('#signUpSubmit').attr("disabled", 0);
+					console.log("사용가능한 비밀번호");
+					
+				} else if(empJ.test(password)) {
+					$('#pw_check').text("공백은 사용하실 수 없습니다.");
+					$('#pw_check').css('color', 'red');
+					$('#signUpSubmit').attr("disabled", 1);
+					console.log("공백 실패");
+					
+				} else if(checkHangul.test(password)) {
+					$('#pw_check').text("비밀번호에 한글을 사용 할 수 없습니다.");
+					$('#pw_check').css('color', 'red');
+					$('#signUpSubmit').attr("disabled", 1);
+					console.log("한글 실패");
+					
+				} else {
+					$('#pw_check').text("영문, 숫자, 특수문자(!@#%&_) 조합 8~16자 이내에서 사용 가능합니다.");
+					$('#pw_check').css('color', 'red');
+					$('#signUpSubmit').attr("disabled", 1);
+					console.log("영문, 숫자, 특 조합 실패");
+					
+				}
+					
+				}
+				
+			}, error : function() {
+				console.log("실패");
+			}
+	});
+});
+
+</script>
 
 <title>회원가입 입력</title>
 </head>
@@ -66,12 +121,13 @@
 		<!-- 비밀번호 -->
 			<div class="form-group">
 				<label for="password">비밀번호 *</label><br/>
-				<input type="password" class="form-control" id='password' name="password" placeholder="비밀번호 입력(영문, 숫자, 특수문자() 조합 8~16자)"><br/>
+				<input type="password" class="form-control" id='password' name="password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)"><br/>
 				<div class="check_font" id="pw_check"></div>
 			</div>
+		<!-- 비밀번호 확인 -->
 			<div class="form-group">
 				<label for="re_password">비밀번호 확인 *</label><br/>
-				<input type="password" class="form-control" id="re_password" name="re_password" placeholder="비밀번호 입력(영문 숫자 조합 8~16자)"><br/>
+				<input type="password" class="form-control" id="re_password" name="re_password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)"><br/>
 				<div class="check_font" id="pw_reCheck"></div>
 			</div>
 			
@@ -99,6 +155,7 @@
 			</div>
 			
 			<hr/>
+			<!-- 관심분야 -->
 			<div class="form-group">
 				관심분야 <br/>
 				<label><input type="checkbox" name="0" value="족구">족구</label>

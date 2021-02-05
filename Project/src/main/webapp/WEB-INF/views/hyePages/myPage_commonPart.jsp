@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link type="text/css" rel="stylesheet" href="resources/style/joon/css/myPage_commonPart.css" >
+<link type="text/css" rel="stylesheet" href="resources/joon/css/myPage_commonPart.css" >
 <!DOCTYPE html>
 <!-- 헤더 인클루드 -->
 <jsp:include page="../template/header.jsp" />
