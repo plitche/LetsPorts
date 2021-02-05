@@ -35,3 +35,5 @@ select * from meeting
 select * from MATERIALS
 select * from TRAINER_QNA
 select * from COMMENTS
+select * from photo
+

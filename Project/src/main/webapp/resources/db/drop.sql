@@ -35,3 +35,4 @@ DROP SEQUENCE alarm_seq;
 DROP SEQUENCE user_interest_seq;
 DROP SEQUENCE materials_seq;
 DROP SEQUENCE is_reviewed_seq;
+
