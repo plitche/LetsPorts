@@ -1,7 +1,8 @@
 package com.koreait.project.yongsoo.dto;
 
 import java.sql.Date;
-import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,8 @@ public class CreateNewMeetingDto {
 	private int location2_no;
 	private String location2_name;
 	private String detail_location;
-	private List<String> materialList;
+	private String photo_filename;
+	private MultipartFile mainPhoto;
+	private String[] materialList;
 	
 }

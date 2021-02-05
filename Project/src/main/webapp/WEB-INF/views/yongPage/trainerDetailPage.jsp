@@ -42,7 +42,7 @@
 		$.each(list, function(idx, meeting){
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
-			.append( $('<div>').html('이미지') )
+			.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
 			.append( $('<p>').html(meeting.meeting_title) )
 			.append( $('<p>').html('모임 주제: ' + meeting.exercise_name) )
 			.append( $('<p>').html('최소: ' + meeting.meeting_min + '명 / 최대: ' + meeting.meeting_max + '명')  )

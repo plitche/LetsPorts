@@ -10,7 +10,7 @@
 <!-- 준비물 + 버튼 클릭시마다 준비물 입력칸이 생성되도록 -->
 <script>
 	$(document).on('click', '#plusMaterial', function () {
-		$('<input type="text", name="materialList" />')
+		$('<input type="text" name="materialList" />')
 		.appendTo('#materialList');
 	});
 	$(document).on('click', '#minusMaterial', function () {
@@ -19,7 +19,7 @@
 
 </script>
 
-<form action="createMeeting.plitche">
+<form action="createMeeting.plitche" method="post" enctype="multipart/form-data">
 	<p style="margin-top: 100px; font-weight: 900; font-size: 2rem;">모임 개설 하기</p>
 	<div id="meetingHeader">
 		<div id="category">
@@ -47,6 +47,9 @@
 	</p>
 	<div id="meetingDetail">
 		<div id="detailLeft">
+			<div id="imageUpload">
+				대표 이미지 첨부 <input type="file" name="mainPhoto" />
+			</div>
 			<div id="meetingDate">
 				<p>모임일 : </p>
 				<input type="date" name="meeting_date"/>

@@ -41,7 +41,7 @@
 		$.each(list, function(idx, meeting){
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
-			.append( $('<div>').html('이미지') )
+			.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
 			.append( $('<p>').html(meeting.meeting_title) )
 			.append( $('<p>').html('모임 주제: ' + meeting.exercise_name) )
 			.append( $('<p>').html('최소: ' + meeting.meeting_min + '명 / 최대: ' + meeting.meeting_max + '명')  )
@@ -101,7 +101,7 @@
 		$.each(list, function(idx, meeting){
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
-			.append( $('<div>').html('이미지') )
+			.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
 			.append( $('<p>').html(meeting.meeting_title) )
 			.append( $('<p>').html('모임 주제: ' + meeting.exercise_name) )
 			.append( $('<p>').html('최소: ' + meeting.meeting_min + '명 / 최대: ' + meeting.meeting_max + '명')  )
@@ -217,10 +217,12 @@
 				var meeting_no = ${meetingDto.meeting_no};
 				var user_no = '${loginUser.user_no}';
 				var comment_content = $('textarea[name="comment_content"]').val();
+				var board_user_no = ${trainerTemDto.user_no}
 				var sendObj = {
 					"comment_referer_no": meeting_no,
 					"user_no": user_no,
-					"comment_content": comment_content
+					"comment_content": comment_content,
+					"board_user_no": board_user_no
 				};
 				
 				$.ajax({

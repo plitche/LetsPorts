@@ -22,4 +22,5 @@ public class MeetingTemDto {
 	private Date created_at;
 	private int meeting_max;
 	private int meeting_min;
+	private String photo_filename;
 }
