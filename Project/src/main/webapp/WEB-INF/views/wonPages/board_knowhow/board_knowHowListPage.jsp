@@ -19,7 +19,7 @@
 	}
 	
 	div {
-		height: 40px;
+		height: auto;
 		width: 400px;
 	}
 	
