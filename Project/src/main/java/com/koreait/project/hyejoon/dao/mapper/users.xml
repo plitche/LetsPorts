@@ -18,9 +18,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM USERS
 		 WHERE user_nickname = #{user_nickname}
 	</select>
-	<select id="pwCheck" parameterType="String" resultType="int">
+	<select id="emailCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		  FROM USERS
-		 WHERE password = #{password}
+		 WHERE email = #{email}
 	</select>
 </mapper>
