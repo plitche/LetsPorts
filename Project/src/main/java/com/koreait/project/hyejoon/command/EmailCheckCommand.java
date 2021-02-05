@@ -15,11 +15,13 @@ public class EmailCheckCommand implements CommonMapCommand {
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 		Map<String, Object> map = model.asMap();
 		String email = (String)map.get("email");
+		System.out.println(2 + email + 2);
 		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
-		int emailResult = usersDao.authEmail(email);
+		int emailResult = usersDao.emailCheck(email);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
+		System.out.println(emailResult);
 		if(emailResult > 0) {
 			result.put("result", 1);
 		} else {
