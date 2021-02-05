@@ -76,7 +76,9 @@
 				</c:forEach>
 			</c:if>
 			</tbody>
+			
 		<tr>
+			
 			<td colspan = "5">
 				<input type = "button" value = "새글 작성하러 가기" onclick = "location.href='board_knowHowInsertPage.limyeng'" />
 			</td>
