@@ -19,42 +19,38 @@
 
 function nickCheck() {
 	//닉네임 정규식
-	var nickJ = /^[a-zA-Z0-9가-힣]{1,14}$/;
+	var nickJ = /^[a-zA-Z0-9가-힣]{2,15}$/;
+	// 닉네임 키업 체크
 	$("#user_nickname").keyup(function() {
 		var user_nickname = $('#user_nickname').val();
+		var isDisabled = $("#editBox").attr("disabled");
+
 		$.ajax({
 			url : 'nickCheck.hey/' + user_nickname,
 			type : 'get',
 			dataType : 'json',
 			success : function(data) {
-				console.log("1 = 중복o / 0 = 중복x : "+ data);							
+				console.log("true = 사용불가 / false = 사용가능 : "+ data);						
 				
 				if (data.result == 1) {
 						// 1 : 닉네임이 중복되는 문구
 						$("#nick_check").text("이미 사용중인 닉네임입니다.");
 						$("#nick_check").css('color', 'red');
-						$("#signUpSubmit").attr("disabled", 1);
+						$("#signUpSubmit").attr("disabled", true);
 						console.log("닉네임중복");
 					} else {
 						
+						// 0 : 닉네임 길이 / 문자열 검사
 						if(nickJ.test(user_nickname)){
-							// 0 : 닉네임 길이 / 문자열 검사
 							$("#nick_check").text("사용가능한 닉네임입니다.");
 							$("#nick_check").css('color', 'green');
-							$('#signUpSubmit').attr("disabled", 0);
+							$('#signUpSubmit').attr("disabled", false);
 							console.log("정규식 통과");
 				
-						} else if(user_nickname == ""){
-							
-							$('#nick_check').text('닉네임을 입력해주세요');
+						}  else {
+							$('#nick_check').text("닉네임은 한글, 영어, 숫자 이용 2-15자 사용 가능합니다.");
 							$('#nick_check').css('color', 'red');
-							$('#signUpSubmit').attr("disabled", 1);				
-							console.log("닉네임 비었음");
-						} else {
-							
-							$('#nick_check').text("닉네임은 한글, 영어, 숫자만 가능합니다.");
-							$('#nick_check').css('color', 'red');
-							$('#signUpSubmit').attr("disabled", 1);
+							$('#signUpSubmit').attr("disabled", true);
 							console.log("특수문자 안돼");
 						}
 						
@@ -66,6 +62,67 @@ function nickCheck() {
 		});
 	
 }
+
+// 비밀번호
+$(document).ready(function() {
+	pwCheck();
+	rePwCheck();
+});
+
+function pwCheck(){
+	var empJ = /\s/g;
+	var pwJ = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#%&_])[A-Za-z0-9!@#%&_]{8,16}$/;
+    var checkHangul = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
+	$('#password').keyup(function(){
+		var password = $('#password').val();
+		console.log("0 = 사용가능/ 1 = 사용불가한 비밀번호");
+		
+		if(pwJ.test(password)){
+			$('#pw_check').text("사용가능한 비밀번호입니다.");
+			$('#pw_check').css('color', 'green');
+			$('#signUpSubmit').attr("disabled", 0);
+			console.log("사용가능한 비밀번호");
+			
+			
+		} else if(empJ.test(password) || checkHangul.test(password) || !pwJ.test(password)) {
+			$('#pw_check').text("영문, 숫자, 특수문자(!@#%&_) 조합 8~16자 이내에서 사용 가능합니다.");
+			$('#pw_check').css('color', 'red');
+			$('#signUpSubmit').attr("disabled", 1);
+			console.log("영문, 숫자, 특 조합 실패");
+			
+		}
+	});
+}
+
+// 비밀번호 재확인 
+function rePwCheck(){
+	$('#re_password').keyup(function(){
+		var pw = $('#password').val();
+		var re_pw = $('#re_password').val();
+		console.log("0 = 일치/ 1 = 일치X");
+		if(pw == "") {
+			alert('못들어와 ㅠㅠ');
+		}
+		console.log(pw);
+		console.log(re_pw);
+		if(pw == re_pw){
+			$('#pw_reCheck').text("비밀번호 일치합니다.");
+			$('#pw_reCheck').css('color', 'green');
+			$('#signUpSubmit').attr("disabled", 0);
+			console.log("사용가능한 비밀번호");
+		} else {
+			$('#pw_reCheck').text("비밀번호를 확인해주세요.");
+			$('#pw_reCheck').css('color', 'red');
+			$('#signUpSubmit').attr("disabled", 1);
+			console.log("사용불가한 비밀번호");
+			
+		}
+	});
+}
+
+
+
 
 
 // 생년월일 for문

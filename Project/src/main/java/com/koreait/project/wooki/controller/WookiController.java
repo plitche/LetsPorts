@@ -25,10 +25,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.koreait.project.wooki.command.AddTrainerSendEmailCommand;
 import com.koreait.project.wooki.command.AdminListCommand;
 import com.koreait.project.wooki.command.AdminLoginCommand;
+import com.koreait.project.wooki.command.BoardDeleteCommand;
 import com.koreait.project.wooki.command.BoardsListCommand;
+import com.koreait.project.wooki.command.BoardsOnHideToggleCommand;
 import com.koreait.project.wooki.command.ChangeEmailCommand;
 import com.koreait.project.wooki.command.ChangeEmailIsPossibleCommand;
 import com.koreait.project.wooki.command.CheckUserCommand;
+import com.koreait.project.wooki.command.CommentsListCommand;
+import com.koreait.project.wooki.command.CommentsOnHideToggleCommand;
 import com.koreait.project.wooki.command.DeleteTrainerInfoCommand;
 import com.koreait.project.wooki.command.DeleteUserCommand;
 import com.koreait.project.wooki.command.FilterTrainerUserListCommand;
@@ -64,6 +68,10 @@ public class WookiController {
 	private AddTrainerSendEmailCommand addTrainerSendEmailCommand = ctx.getBean("addTrainerSendEmailCommand", AddTrainerSendEmailCommand.class);
 	private DeleteTrainerInfoCommand deleteTrainerInfoCommand = ctx.getBean("deleteTrainerInfoCommand", DeleteTrainerInfoCommand.class);
 	private BoardsListCommand boardsListCommand = ctx.getBean("boardsListCommand", BoardsListCommand.class);
+	private BoardsOnHideToggleCommand boardsOnHideToggleCommand = ctx.getBean("boardsOnHideToggleCommand", BoardsOnHideToggleCommand.class);
+	private BoardDeleteCommand boardDeleteCommand = ctx.getBean("boardDeleteCommand", BoardDeleteCommand.class);
+	private CommentsListCommand commentsListCommand = ctx.getBean("commentsListCommand", CommentsListCommand.class);
+	private CommentsOnHideToggleCommand commentsOnHideToggleCommand = ctx.getBean("commentsOnHideToggleCommand", CommentsOnHideToggleCommand.class);
 	
 	@GetMapping(value="adminPage.wooki")
 	public String adminPage() {
@@ -208,8 +216,52 @@ public class WookiController {
 	
 	@GetMapping(value="boardsList.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> boardsList(@RequestParam("page") int page, Model model) {
-		model.addAttribute("page", page);
+	public Map<String, Object> boardsList(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
 		return boardsListCommand.execute(sqlSession, model);
+	}
+
+	@PutMapping(value="boardsOnHideToggle/{board_no}/{board_sep}/{on_hide}.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> boardsOnHideToggle(
+			@PathVariable("board_no") int board_no,
+			@PathVariable("board_sep") int board_sep,
+			@PathVariable("on_hide") int on_hide,
+			Model model) {
+		model.addAttribute("board_no", board_no);
+		model.addAttribute("board_sep", board_sep);
+		model.addAttribute("on_hide", on_hide);
+		return boardsOnHideToggleCommand.execute(sqlSession, model);
+	}
+	
+	@DeleteMapping(value="boardDelete/{board_no}/{board_sep}.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> boardDelete(
+			@PathVariable("board_no") int board_no,
+			@PathVariable("board_sep") int board_sep,
+			HttpServletRequest request,
+			Model model) {
+		model.addAttribute("request", request);
+		model.addAttribute("board_no", board_no);
+		model.addAttribute("board_sep", board_sep);
+		return boardDeleteCommand.execute(sqlSession, model);
+	}
+	
+	@GetMapping(value="commentsList.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> commentsList(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		return commentsListCommand.execute(sqlSession, model);
+	}
+	
+	@PutMapping(value="commentsOnHideToggle/{comment_no}/{on_hide}.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> commentsOnHideToggle(
+			@PathVariable("comment_no") int comment_no,
+			@PathVariable("on_hide") int on_hide,
+			Model model) {
+		model.addAttribute("comment_no", comment_no);
+		model.addAttribute("on_hide", on_hide);
+		return commentsOnHideToggleCommand.execute(sqlSession, model);
 	}
 }

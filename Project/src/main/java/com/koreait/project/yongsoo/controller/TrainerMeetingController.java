@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.koreait.project.dto.MeetingDto;
 import com.koreait.project.yongsoo.command.trainerMeeting.CreateMeetingCommand;
@@ -22,7 +23,6 @@ import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherMeetingCommand
 import com.koreait.project.yongsoo.command.trainerMeeting.GetTrainerMeetingListCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GoMeetingViewCommand;
 import com.koreait.project.yongsoo.config.SooAppContext;
-import com.koreait.project.yongsoo.dto.CreateNewMeetingDto;
 import com.koreait.project.yongsoo.dto.MeetingTemDto;
 
 @Controller
@@ -42,7 +42,7 @@ public class TrainerMeetingController {
 		return getTrainerMeetingListCommand.execute(sqlSession, model);
 	}
 
-	// 모임 제목/내용 클릭시 모임 상세 페이지로 이동할 메소드
+	// 모임 클릭시 모임 상세 페이지로 이동할 메소드
 	@RequestMapping(value="meetingViewPage.plitche", method=RequestMethod.GET)
 	public String meetingViewPage(@RequestParam("meeting_no") int meeting_no, Model model) {
 		model.addAttribute("meeting_no", meeting_no);
@@ -58,9 +58,9 @@ public class TrainerMeetingController {
 	}
 	
 	// 모임 작성 후 작성완료 버튼 클릭시 작동할 메소드
-	@RequestMapping(value="createMeeting.plitche")
-	public String createNewMeeting(CreateNewMeetingDto createNewMeetingDto, Model model) {
-		model.addAttribute("createNewMeetingDto", createNewMeetingDto);
+	@RequestMapping(value="createMeeting.plitche", method=RequestMethod.POST)
+	public String createNewMeeting(MultipartHttpServletRequest multipartRequest, Model model) {
+		model.addAttribute("multipartRequest", multipartRequest);
 		CreateMeetingCommand createMeetingCommand = ctx.getBean("createMeetingCommand", CreateMeetingCommand.class);
 		int user_no = createMeetingCommand.execute(sqlSession, model);
 		return "redirect:goTrainerDetail.plitche?user_no=" + user_no;

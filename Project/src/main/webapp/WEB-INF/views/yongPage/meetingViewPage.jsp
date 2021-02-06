@@ -8,6 +8,25 @@
 	<jsp:param value="모임 VIEW 페이지" name="title"/>
 </jsp:include>
 
+<!-- sweetalert -->
+<script>
+	/* 로그인 alert을 위한 function */
+	var loginAlert = function() {
+						swal.fire({
+							title: '로그인이 필요한 기능입니다!', 	text: '로그인 페이지로 이동하시겠습니까?',
+							icon: 'warning',     			showCancelButton: true,
+							confirmButtonColor: 'green',	cancelButtonColor: 'red',
+							confirmButtonText: '이동하기',		cancelButtonText: '머물기'
+						}).then((result)=> {
+							if (result.isConfirmed) {
+								Swal.fire('로그인 페이지로 이동합니다.', '로그인 후 더 많은 정보를 확인하세요!^^', 'success').then((result)=> {
+										location.href='usersLoginPage.hey';	
+									}
+								);
+							}
+						});
+					}
+</script>
 
 <!-- 이 호스트의 다른 모임 list ajax-->
 <script>
@@ -17,16 +36,17 @@
 	});
 	
 	/* 불러온 모임 list를 토대로 append 해주기 위한 function */
-	function getOtherMeetingTable(list, trainerInfo) {
+	function getOtherMeetingTable(list) {
 		$('#otherMeeting').empty();
 		$.each(list, function(idx, meeting){
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
-			.append( $('<div>').html('이미지') )
+			.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
 			.append( $('<p>').html(meeting.meeting_title) )
+			.append( $('<p>').html('모임 주제: ' + meeting.exercise_name) )
 			.append( $('<p>').html('최소: ' + meeting.meeting_min + '명 / 최대: ' + meeting.meeting_max + '명')  )
 			.append( $('<p>').html('일시: ' + meeting.meeting_date) )
-			.append( $('<p>').html('작성자: ' + trainerInfo.user_nickname) )
+			.append( $('<p>').html('작성자: ' + meeting.user_nickname) )
 			)
 			.appendTo('#otherMeeting');
 		});
@@ -50,7 +70,7 @@
 			dataType: 'json',
 			success: function(responseObj) {
 				if (responseObj.result == true) {
-					getOtherMeetingTable(responseObj.meetingList, responseObj.trainerTemDto);
+					getOtherMeetingTable(responseObj.meetingList);
 				} else {
 					$('<tr>')
 					.append( $('<td colspan="4">').html('다른 모임 게시글이 없습니다.') )
@@ -81,8 +101,9 @@
 		$.each(list, function(idx, meeting){
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
-			.append( $('<div>').html('이미지') )
+			.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
 			.append( $('<p>').html(meeting.meeting_title) )
+			.append( $('<p>').html('모임 주제: ' + meeting.exercise_name) )
 			.append( $('<p>').html('최소: ' + meeting.meeting_min + '명 / 최대: ' + meeting.meeting_max + '명')  )
 			.append( $('<p>').html('일시: ' + meeting.meeting_date) )
 			.append( $('<p>').html('작성자: ' + meeting.user_nickname) )
@@ -123,6 +144,7 @@
 	function fn_showMeeting(meeting_no) {
 		location.href = 'meetingViewPage.plitche?meeting_no='+meeting_no;
 	}
+	
 </script>
 
 <!-- 댓글을 위한 ajax  -->
@@ -137,18 +159,29 @@
 	function commentListTable(list) {
 		$('#commentContent').empty();
 		$.each(list, function(idx, comment){
-			$('<div class="comment-container">')
-			.append( $('<div class="profile">').html('<img alt="프로필" src="">') )
-			.append( $('<div class="comment-content">')
-				.append( $('<p>').html('닉네임: ' + comment.user_nickname) )
-				.append( $('<p>').html('내용: ' + comment.comment_content) )
-				.append( $('<p>').html('작성일: ' + comment.created_at) )
-			)
-			.append( $('<div class="comment-btn">').html('<input type="button" class="btnsBtn" value="[버튼]" />')
-				.append( $('<a href="#" class="btnClass" onclick="fn_commentUpdate(' + comment.comment_no + '); return false;" >').html('수정') )
-				.append( $('<a href="#" class="btnClass" onclick="fn_commentDelete(' + comment.comment_no + '); return false;" >').html('삭제') )		
-			)
-			.appendTo('#commentContent');
+			if ('${loginUser.user_no}' == comment.user_no) {
+				$('<div class="comment-container">')
+				.append( $('<div class="profile">').html('<img alt="프로필" src="">') )
+				.append( $('<div class="comment-content">')
+					.append( $('<p>').html('닉네임: ' + comment.user_nickname) )
+					.append( $('<p>').html('내용: ' + comment.comment_content) )
+					.append( $('<p>').html('작성일: ' + comment.created_at) )
+				)
+				.append( $('<div class="comment-btn">').html('<input type="button" class="btnsBtn" value="[버튼]" />')
+					.append( $('<a href="#" class="btnClass" onclick="fn_commentUpdate(' + comment.comment_no + '); return false;" >').html('수정') )
+					.append( $('<a href="#" class="btnClass" onclick="fn_commentDelete(' + comment.comment_no + '); return false;" >').html('삭제') )		
+				)
+				.appendTo('#commentContent');
+			} else {
+				$('<div class="comment-container">')
+				.append( $('<div class="profile">').html('<img alt="프로필" src="">') )
+				.append( $('<div class="comment-content">')
+					.append( $('<p>').html('닉네임: ' + comment.user_nickname) )
+					.append( $('<p>').html('내용: ' + comment.comment_content) )
+					.append( $('<p>').html('작성일: ' + comment.created_at) )
+				)
+				.appendTo('#commentContent');
+			}
 		});
 	}	
 	
@@ -174,21 +207,22 @@
 		});
 	};
 
+
 	// 뎃글 작성 완료 버튼 클릭시 작동할 ajax함수
 	function addComment() {
 		$('#addComment').click(function(){
 			if ( '${loginUser.user_no}' == '' ) {
-				if (confirm('로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?')) {
-					location.href='usersLoginPage.hey';
-				}
+				loginAlert();
 			} else {
 				var meeting_no = ${meetingDto.meeting_no};
 				var user_no = '${loginUser.user_no}';
 				var comment_content = $('textarea[name="comment_content"]').val();
+				var board_user_no = ${trainerTemDto.user_no}
 				var sendObj = {
 					"comment_referer_no": meeting_no,
 					"user_no": user_no,
-					"comment_content": comment_content
+					"comment_content": comment_content,
+					"board_user_no": board_user_no
 				};
 				
 				$.ajax({
@@ -253,10 +287,9 @@
 	function applyMeeting() {
 		$(document).on('click', '#applyMeeting', function() {
 			if( '${loginUser.user_no}' == '' ) {
-				if (confirm('로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?')) {
-					location.href='usersLoginPage.hey';
-				}
+				loginAlert();
 			} else {
+				alert('구현해야됨');
 				location.href='';
 			}
 			
@@ -274,18 +307,18 @@
 	function goQuesionToTrainer() {
 		$('#questionToTrainer').click(function () {
 			if( '${loginUser.user_no}' == '' ) {
-				if (confirm('로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?')) {
-					location.href='usersLoginPage.hey';
-				}
+				loginAlert();
 			} else {
 				$('#qnaDetail').empty();
 				$('<form>')
 				.append( $('<input type="text" id="title" name="trainer_qna_title" placeholder="제목을 입력하세요."/>') )
 				.append( $('<input type="text" id="content" name="trainer_qna_content" placeholder="질문내용을 입력하세요."/>')  )
 				.append( $('<br/>') )
-				.append( $('<input type="checkbox" name="is_published" id="is_published" value="1"/>') )
-				.append( $('<label for="is_published">').html('비밀글 처리하기') )		
-				.append( $('<input type="button" value="작성완료" id="writeQuestion"/>') )
+				.append( $('<div>') 
+					.append( $('<input type="checkbox" name="is_published" id="is_published" value="1"/>') )
+					.append( $('<label for="is_published">').html(' 비밀글 처리하기') )		
+					.append( $('<input type="button" value="작성완료" id="writeQuestion"/>') )
+				)
 				.appendTo('#qnaDetail');
 				$('#modal').attr("style", "display:block");
 			}
@@ -296,7 +329,7 @@
 	function writeQuestion() {
 		$(document).on("click", "#writeQuestion", function() {
 			var question_user_no = '${loginUser.user_no}'
-			var trainer_user_no = ${trainer_infoDto.user_no};
+			var trainer_user_no = ${trainerTemDto.user_no};
 			var trainer_qna_title = $('input[name="trainer_qna_title"]').val();
 			var trainer_qna_content = $('input[name="trainer_qna_content"]').val();
 			var is_published = $('input[name="is_published"]').val();
@@ -340,7 +373,7 @@
 	<div id="meetingInfo">
 		<div id="meetingDetail">
 			<p>모임일 : ${meetingDto.meeting_date}</p>
-			<p>장소 : ${meetingDto.location1_no}, ${meetingDto.location2_no} </p>
+			<p>지역 : ${meetingDto.location1_name} ${meetingDto.location2_name} </p>
 			<p>총 모집 인원 : ${meetingDto.meeting_max}</p>
 			<p>최소 모집 인원 : ${meetingDto.meeting_min}</p>
 			<p>현재 신청 인원 : ???</p>
@@ -351,7 +384,7 @@
 			</p>
 		</div>
 		<div id="mainImg">
-			<img alt="대표사진" src="" id="">
+			<img alt="${meetingDto.photo_filename}" src="resources/storage/${meetingDto.photo_filename}">
 		</div>
 	</div>
 	<div id="meetingContent">
@@ -361,32 +394,31 @@
 
 <p style="font-weight: 800; font-size: 1.5rem; margin-top: 20px;">작성자 정보</p>
 <div id="host">
-	<c:if test="${usersDto.user_separator eq 0}"> <!-- 모임 작성자가 일반 유져일 떄 -->
+	<c:if test="${trainerTemDto.user_separator eq 0}"> <!-- 모임 작성자가 일반 유져일 떄 -->
 		
 	</c:if>
-	<c:if test="${usersDto.user_separator eq 1}"> <!-- 모임 작성자가 트레이너 일 때 -->
+	<c:if test="${trainerTemDto.user_separator eq 1}"> <!-- 모임 작성자가 트레이너 일 때 -->
 		<div id="hostHeader">
 			<div id="hostWrap">
 				<div id="hostImage">
 					<img alt="작성자사진" src="">
 				</div>
 				<div id="hostDetail">
-					<p>닉네임 : ${usersDto.user_nickname}</p>
-					<p>이름 : ${trainer_infoDto.trainer_name}</p>
+					<p>닉네임 : ${trainerTemDto.user_nickname}</p>
+					<p>이름 : ${trainerTemDto.trainer_name}</p>
 				</div>
 			</div>
-			<p>한줄메세지 : ${usersDto.user_message} </p>
-			<p>활동 센터 : ${trainer_infoDto.employment}</p>
-			<p>활동 지역 : ${usersDto.location1_no}, ${usersDto.location2_no}</p>
+			<p>한줄메세지 : ${trainerTemDto.user_message} </p>
+			<p>활동 센터 : ${trainerTemDto.employment}</p>
+			<p>활동 지역 : ${trainerTemDto.location1_name} ${trainerTemDto.location2_name}</p>
 		</div>
 	</c:if>
 	<div class="btns">
-		<c:if test="${loginUser.user_no eq usersDto.user_no}">
+		<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
 			<input type="button" value="수정하기" />
 			<input type="button" value="삭제하기" />
 		</c:if>
-		<br/><br/>
-		<c:if test="${loginUser.user_no ne usersDto.user_no}">
+		<c:if test="${loginUser.user_no ne trainerTemDto.user_no}">
 			<input type="button" value="신청하기" id="applyMeeting" />
 			<input type="button" value="트레이너에게 질문하기" id="questionToTrainer"/>
 		</c:if>
@@ -406,7 +438,7 @@
 	<div id="commentContent"></div>
 	<form>
 		<div id="writeComment">
-			<p>${usersDto.user_nickname}</p>
+			<p>${loginUser.user_nickname}</p>
 			<textarea rows="5" cols="100" id="comment_content" name="comment_content" placeholder="내용을 입력하시오"></textarea><br/>
 		</div>
 		<input type="button" value="작성완료" id="addComment"/>
@@ -430,3 +462,8 @@
 </script>
 
 <%@ include file="../template/footer.jsp" %>
+
+
+
+
+

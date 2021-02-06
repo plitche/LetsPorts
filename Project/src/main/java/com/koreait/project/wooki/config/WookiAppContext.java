@@ -6,10 +6,14 @@ import org.springframework.context.annotation.Bean;
 import com.koreait.project.wooki.command.AddTrainerSendEmailCommand;
 import com.koreait.project.wooki.command.AdminListCommand;
 import com.koreait.project.wooki.command.AdminLoginCommand;
+import com.koreait.project.wooki.command.BoardDeleteCommand;
 import com.koreait.project.wooki.command.BoardsListCommand;
+import com.koreait.project.wooki.command.BoardsOnHideToggleCommand;
 import com.koreait.project.wooki.command.ChangeEmailCommand;
 import com.koreait.project.wooki.command.ChangeEmailIsPossibleCommand;
 import com.koreait.project.wooki.command.CheckUserCommand;
+import com.koreait.project.wooki.command.CommentsListCommand;
+import com.koreait.project.wooki.command.CommentsOnHideToggleCommand;
 import com.koreait.project.wooki.command.DeleteTrainerInfoCommand;
 import com.koreait.project.wooki.command.DeleteUserCommand;
 import com.koreait.project.wooki.command.FilterTrainerUserListCommand;
@@ -100,5 +104,25 @@ public class WookiAppContext {
 	@Bean
 	public BoardsListCommand boardsListCommand() {
 		return new BoardsListCommand();
+	}
+	
+	@Bean
+	public BoardsOnHideToggleCommand boardsOnHideToggleCommand() {
+		return new BoardsOnHideToggleCommand();
+	}
+	
+	@Bean
+	public BoardDeleteCommand boardDeleteCommand() {
+		return new BoardDeleteCommand();
+	}
+	
+	@Bean
+	public CommentsListCommand commentsListCommand() {
+		return new CommentsListCommand();
+	}
+	
+	@Bean
+	public CommentsOnHideToggleCommand commentsOnHideToggleCommand() {
+		return new CommentsOnHideToggleCommand();
 	}
 }

@@ -63,10 +63,6 @@ public class UsersController {
 		return "redirect:/";
 	}
 	
-	// 회원가입
-	
-	// 닉네임 중복 체크 ajax 이용
-	
 	
 	
 }
