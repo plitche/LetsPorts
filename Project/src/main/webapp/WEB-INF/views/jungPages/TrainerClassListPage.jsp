@@ -7,6 +7,9 @@
 
 <br/><br/>
 
+	<h3>트레이너 클래스 전체보기</h3>
+	<br/>
+
 <form>
 	
 	<div class="QueryAndTag">
@@ -28,7 +31,7 @@
 		
 	</div>
 	
-	<br/><br/><br/>	
+	<br/><br/>
 </form>
 	
 	
@@ -75,6 +78,7 @@
 		function Tag8(f) {// 명상
 			f.action = 'Tag8.leo';
 			f.submit();
+
 		}
 	
 		
@@ -91,7 +95,6 @@
 		
 		
 	</script>
-	
 	
 	<div class="MeetingClass_all">
 		

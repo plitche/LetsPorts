@@ -219,28 +219,4 @@ public class TrainerClassController {
 		return "jungPages/TrainerClassListPage";
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

@@ -115,6 +115,8 @@ nav {
 	width: 1080px;
 	margin: 0 auto;
 	margin-bottom: 150px;
+	height: auto;
+	display: flow-root;
 }
 
 .footer {
