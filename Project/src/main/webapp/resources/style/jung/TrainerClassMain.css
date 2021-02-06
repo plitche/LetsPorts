@@ -11,13 +11,15 @@
 }
 
 .maketrainerClass {
+	float: left;
 	background: #f4f4f4;
-	width: 200px;
-	height:200px;
+	width: 250px;
+	height:250px;
+	margin-right: 20px;
+	margin-top: 20px;
 }
 
 .MeetingClass_all {
-	display:flex;
 	width: 1080px;	
 	height: auto;
 }
@@ -28,10 +30,12 @@
 }
 
 .MeetingClass {
+	float: left;
 	background: #f4f4f4;
-	width: 200px;
-	height:200px;
-	margin-left: 20px;
+	width: 250px;
+	height:250px;
+	margin-right: 20px;
+	margin-top: 20px;
 }
 
 .MeetingClass_all > a {

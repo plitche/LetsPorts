@@ -100,7 +100,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ON M.USER_NO = U.USER_NO
 			JOIN EXERCISE E
 				ON M.EXERCISE_NO = E.EXERCISE_NO
-		WHERE MEETING_TITLE LIKE '%'||#{param1}||'%'
+		WHERE MEETING_TITLE LIKE '%'||#{param1}||'%' OR
+		EXERCISE_NAME LIKE '%'||#{param1}||'%'
 	</select>
 	
 	
