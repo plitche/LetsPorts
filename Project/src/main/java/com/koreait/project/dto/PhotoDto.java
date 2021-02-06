@@ -17,5 +17,6 @@ public class PhotoDto {
 	private String photo_filename;
 	private Date created_at;
 	private int on_hide;	// 숨김:1, 안숨김:0
+	private int user_no;
 	
 }

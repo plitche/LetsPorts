@@ -17,6 +17,7 @@ import com.koreait.project.yongsoo.command.trainerQnA.GetTrainerQnACommand;
 import com.koreait.project.yongsoo.command.trainerQnA.ShowQnACommand;
 import com.koreait.project.yongsoo.command.trainerQnA.WriteAnswerCommand;
 import com.koreait.project.yongsoo.command.trainerQnA.WriteTrainerQnACommand;
+import com.koreait.project.yongsoo.command.trainerReview.FindJoinMeetingListCommand;
 import com.koreait.project.yongsoo.command.trainerReview.GetTrainerReviewListCommand;
 
 @Configurable
@@ -95,6 +96,11 @@ public class SooAppContext {
 	@Bean
 	public GetTrainerReviewListCommand getTrainerReviewListCommand() {
 		return new GetTrainerReviewListCommand();
+	}
+	
+	@Bean
+	public FindJoinMeetingListCommand findJoinMeetingListCommand() {
+		return new FindJoinMeetingListCommand();
 	}
 	
 }

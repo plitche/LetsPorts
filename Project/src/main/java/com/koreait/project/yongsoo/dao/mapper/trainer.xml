@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT T.user_no, U.user_nickname, T.trainer_name, U.user_message, U.profile_photo, T.career, T.employment, T.profile, U.location1_no, U.location2_no
 		  FROM USERS U FULL OUTER JOIN TRAINER_INFO T
 		    ON U.USER_NO = T.USER_NO
+		 WHERE U.user_separator = 1
 	</select>
 	<select id="trainerScore" parameterType="int" resultType="Integer">
 		SELECT AVG(SCORE)

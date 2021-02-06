@@ -29,6 +29,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    ON M.LOCATION1_NO = L1.LOCATION1_NO
 		       FULL OUTER JOIN LOCATION2 L2
 		       ON M.LOCATION2_NO = L2.LOCATION2_NO
+		         FULL OUTER JOIN PHOTO P
+		         ON M.meeting_no = P.photo_referer_no
 		 WHERE M.MEETING_NO = #{meeting_no}
 	</select>
 	<select id="findMaterialsInfo" parameterType="int" resultType="com.koreait.project.dto.MaterialsDto">
