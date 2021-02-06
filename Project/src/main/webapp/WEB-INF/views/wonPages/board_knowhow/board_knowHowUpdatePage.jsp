@@ -23,6 +23,7 @@
 				제목: <input type="text" name="knowhow_title" value="${board_knowhowDto.knowhow_title}"><br/>
 				내용: <input type="text" name ="knowhow_content" value ="${board_knowhowDto.knowhow_content}"><br/>
 						
+				<input type = "hidden"  name = "knowhow_no" value="${board_knowhowDto.knowhow_no}">
 				<input type = "button" class = "btn" value = "수정완료" onclick = "fn_knowHowUpdate(this.form)">
 				<input type = "button" class = "btn" value = "취소" onclick = "location.href = 'goboard_knowhowView.limyeng'">
 	</form>

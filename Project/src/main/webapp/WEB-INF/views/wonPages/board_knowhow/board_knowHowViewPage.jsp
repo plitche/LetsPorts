@@ -49,7 +49,7 @@
 			
 			
 		<div style = "float: left;">
-			<input type = "hidden" name = "knowhow_no" value = "${board_knowhowDto.knowhow_no}" >
+			<!-- <input type = "hidden" name = "knowhow_no" value = "${board_knowhowDto.knowhow_no}" -->
 			<input type = "button" value = "수정" id = "btnUpdate" onclick = "location.href='board_knowHowUpdatePage.limyeng?knowhow_no=${board_knowhowDto.knowhow_no}'">
 			<input type = "button" value = "삭제" id = "btnDelete" onclick = "fn_knowHowDelete(this.form)" >
 			<input type = "button" value = "글목록" id = "btnList" onclick = "location.href='board_knowHowListPage.limyeng'">
