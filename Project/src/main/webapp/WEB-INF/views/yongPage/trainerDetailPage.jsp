@@ -111,7 +111,7 @@
 	function getReviewList() {
 		var user_no = ${trainerTemDto.user_no};
 		$.ajax({
-			url: 'getReviewList.plitche/' + user_no,
+			url: 'getTrainerReviewList.plitche/' + user_no,
 			type: 'get',
 			contentType: 'json',
 			success: function(responseObj) {
@@ -126,32 +126,58 @@
 					.appendTo('#totalReview');
 				}
 			},
-			error: function(){alert('리뷰 ajax 실패');}
+			error: function(){alert('리뷰 가져오기 ajax 실패');}
 		});	
 	}
 	
 	/* 리뷰 등록하기 버튼 클릭시 리뷰를 작성할 수 있는 모달창을 띄워주기 위한 함수 */
 	function openReviewPopUp() {
 		$('#openReviewModal').click(function() {
+			var trainer_user_no = ${trainerTemDto.user_no};
+			var login_user_no = '${loginUser.user_no}';
+			
 			if( '${loginUser.user_no}' == '' ) {
 				loginAlert();
 			} else {
-				$('#qnaDetail').empty();
-				$('#qnaDetail')
-				.append( $('<div>').html('작성자 : ${loginUser.user_nickname}') )
-				.append( $('<form>')
-					.append( $('<div>')
-						.append( $('<select>')
-							.append( $('<option value="">').html('함께 했던 모임 리스트1') )		
-							.append( $('<option value="">').html('함께 했던 모임 리스트2') )		
-							.append( $('<option value="">').html('함께 했던 모임 리스트3') )		
-						)
-						.append( $('<input type="text" placeholder="평점 입력">') )
-					)
-					.append( $('<textarea rows="10" cols="50" placeholder="리뷰 내용을 작성하세요.">') )
-					.append( $('<input type="button" value="작성완료" id="writeReview" onclick="" />'))
-				)
-				$('#modal').attr("style", "display:block");
+				var sendData = {
+					"target_user_no" : trainer_user_no,
+					"writer_user_no" : login_user_no
+				}
+				$.ajax({
+					url: 'findJoinMeetingList.plitche',
+					type: 'post',
+					data: JSON.stringify(sendData),
+					contentType: 'application/json; charset=utf-8',
+					dataType: 'json',
+					success: function (responseObj) {
+						
+						var reviewSelectHtml = '<select name="meeting_no">';
+						$.each(responseObj.joinMeetingList, function(idx, meeting){
+							reviewSelectHtml += '<option value="' + meeting.meeting_no + '">' + meeting.meeting_title + '</option>';
+						});
+						reviewSelectHtml += '</select>';
+						
+						if(responseObj.result) {
+							$('#modalDetail').empty();
+							$('#modalDetail')
+							.append( $('<div>').html('작성자 : ${loginUser.user_nickname}') )
+							.append( $('<form>')
+								.append( $('<div>')
+									.append(reviewSelectHtml)
+									.append( $('<input type="text" name="score" placeholder="평점 입력">') )
+								)
+								.append( $('<textarea rows="10" cols="50" name="content" placeholder="리뷰 내용을 작성하세요.">') )
+								.append( $('<input type="hidden" name="target_user_no" value="' + trainer_user_no + '" />') )
+								.append( $('<input type="hidden" name="writer_user_no" value="' + login_user_no + '" />') )
+								.append( $('<input type="button" value="작성완료" id="writeReview" onclick="" />'))
+							)
+							$('#modal').attr("style", "display:block");
+						} else {
+							swal.fire('리뷰를 작성할 수 없습니다.', '트레이너와 함께 한 모임이 없습니다. 다양한 활동 후 많은 리뷰를 남겨주세요!^^', 'error')
+						}
+					},
+					error: function(){alert('리뷰 버튼 클릭시 ajax 실패');}	
+				});
 			}
 		});
 	}
@@ -231,7 +257,7 @@
 			if( '${loginUser.user_no}' == '' ) {
 				loginAlert();
 			} else {
-				$('#qnaDetail').empty();
+				$('#modalDetail').empty();
 				$('<form>')
 				.append( $('<input type="text" id="title" name="trainer_qna_title" placeholder="제목을 입력하세요."/>') )
 				.append( $('<input type="text" id="content" name="trainer_qna_content" placeholder="질문내용을 입력하세요."/>')  )
@@ -241,7 +267,7 @@
 					.append( $('<label for="is_published">').html(' 비밀글 처리하기') )		
 					.append( $('<input type="button" value="작성완료" id="writeQuestion"/>') )
 				)
-				.appendTo('#qnaDetail');
+				.appendTo('#modalDetail');
 			}
 		});
 	}
@@ -271,10 +297,10 @@
 				success: function(responseObj) {
 					if (responseObj.result) {
 						alert('질문이 등록되었습니다.');
+						getTrainerQnAList();
 					} else {
 						alert('등록을 등록하지 못했습니다.');
 					}
-					getTrainerQnAList();
 				},
 				error: function(){alert('질문 작성하기 실패');}
 			});
@@ -291,7 +317,7 @@
 				if (responseObj.result) {
 					if (responseObj.answer) {
 						$('#modal').attr("style", "display:block");
-						$('#qnaDetail').empty();
+						$('#modalDetail').empty();
 						$('<div>')
 						.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
 						.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
@@ -299,27 +325,27 @@
 						.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
 						.append( $('<p>').html('답변 내용: '+ responseObj.qna.trainer_qna_answered) )
 						.append( $('<p>').html('답변 작성일: '+ responseObj.qna.answered_date) )
-						.appendTo('#qnaDetail');
+						.appendTo('#modalDetail');
 					} else {
 						if ('${loginUser.user_no}' == ${trainerTemDto.user_no}) {
 							$('#modal').attr("style", "display:block");
-							$('#qnaDetail').empty();
+							$('#modalDetail').empty();
 							$('<div>')
 							.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
 							.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
 							.append( $('<p>').html('질문 내용: ' + responseObj.qna.trainer_qna_content) )
 							.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
 							.append( $('<input type="button" value="답변 작성하기" onclick="fn_openAnswer('+ trainer_qna_no +')">') )
-							.appendTo('#qnaDetail');
+							.appendTo('#modalDetail');
 						} else {
 							$('#modal').attr("style", "display:block");
-							$('#qnaDetail').empty();
+							$('#modalDetail').empty();
 							$('<div>')
 							.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
 							.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
 							.append( $('<p>').html('질문 내용: ' + responseObj.qna.trainer_qna_content) )
 							.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
-							.appendTo('#qnaDetail');
+							.appendTo('#modalDetail');
 						}
 						
 					}
@@ -336,7 +362,7 @@
 			.append ( $('<textarea rows="10" cols="50" name="trainer_qna_answered" id="answerContent" >') )
 			.append ( $('<input type="button" id="answerBtn" value="답변작성완료" onclick="fn_writeAnswer(' + trainer_qna_no + ')" >') )	
 		)
-		.appendTo('#qnaDetail');
+		.appendTo('#modalDetail');
 	}
 	
 	// 질문 답변 작성 완료 후 답변작성 완료를 누르면 작동할 ajax함수
@@ -384,7 +410,7 @@
 		</div>
 		<p style="color: red;"> &lt; 트레이너 정보 &gt; </p>
 		<p style="font-size: 1.5rem; font-weight: 800;">닉네임 : ${trainerTemDto.user_nickname}</p>
-		<p style="font-size: 1rem; font-weight: 600">이름 : ${trainerTemDto.trainer_name} </p>
+		<p style="font-size: 1rem; font-weight: 600;">이름 : ${trainerTemDto.trainer_name} </p>
 		<p>활동 센터 : ${trainerTemDto.employment} </p>		
 		<p>상태 메세지 : ${trainerTemDto.user_message} </p>
 	</div>
@@ -452,8 +478,8 @@
 <div>
   	<div id="modal">
   		<div class="modal_content">
-		    <button id="closeQnAModal">X</button>
-		    <div id="qnaDetail"></div>
+		    <button id="closeModalBtn">X</button>
+		    <div id="modalDetail"></div>
 	    </div>
 	    <div class="modal_layer"></div>
   	</div>
@@ -477,7 +503,7 @@
 	$('#openQnAModal').click(function() {
 		$('#modal').attr("style", "display:block");
 	});
-	$('#closeQnAModal').click(function() {
+	$('#closeModalBtn').click(function() {
 		$('#modal').attr("style", "display:none");
 		// $('#showModal').attr("style", "display:none");
 	});
@@ -486,7 +512,7 @@
 	    document.getElementById("modal").style.display="block";
 	}
 	
-	document.getElementById("closeQNAModal").onclick = function() {
+	document.getElementById("closeModalBtn").onclick = function() {
 	    document.getElementById("modal").style.display="none";
 	}   
 	 */
