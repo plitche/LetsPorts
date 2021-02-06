@@ -42,14 +42,7 @@ public interface TrainerClassDao {
 	
 	// 태그들 ▼▼▼▼▼▼▼▼▼▼
 	public List<TrainerClassDto> Tag0(String 족구);
-	public List<TrainerClassDto> Tag1(String 축구);
-	public List<TrainerClassDto> Tag2(String 농구);
-	public List<TrainerClassDto> Tag3(String 볼링);
-	public List<TrainerClassDto> Tag4(String 크로스핏);
-	public List<TrainerClassDto> Tag5(String 스피닝);
-	public List<TrainerClassDto> Tag6(String 댄스);
-	public List<TrainerClassDto> Tag7(String 요가);
-	public List<TrainerClassDto> Tag8(String 명상);
+	
 	
 	
 	
