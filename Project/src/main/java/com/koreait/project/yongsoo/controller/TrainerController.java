@@ -9,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerDetailCommand;
-import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerListCommand;
+import com.koreait.project.yongsoo.command.trainer.GoTrainerDetailCommand;
+import com.koreait.project.yongsoo.command.trainer.GoTrainerListCommand;
 import com.koreait.project.yongsoo.config.SooAppContext;
 
 @Controller
