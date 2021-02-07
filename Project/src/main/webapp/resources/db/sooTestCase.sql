@@ -15,6 +15,11 @@ INSERT INTO TRAINER_INFO values (1, 10, 3, '김철수', '트레이너자격증',
 INSERT INTO TRAINER_INFO values (2, 11, 4, '곽영희', '트레이너자격증', '홍대센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
 INSERT INTO TRAINER_INFO values (3, 12, 5, '박진희', '트레이너자격증', '합정센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
 
+-- 임시 모임(meeting) 3개 
+INSERT INTO MEETING values (5, 11, 10, 6, 0, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '족구합시다.', '족구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
+INSERT INTO MEETING values (6, 12, 8, 4, 3, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '볼링합시다.', '볼링하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
+INSERT INTO MEETING values (7, 13, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
+
 -- 임시 모임 참가자 테이블 테스트케이스 
 INSERT INTO MEETING_PARTICIPANTS VALUES (1, 1, 30, SYSDATE, 1, null);
 INSERT INTO MEETING_PARTICIPANTS VALUES (2, 1, 31, SYSDATE, 1, null);
@@ -53,5 +58,25 @@ FROM (SELECT ROWNUM RN, trainer_qna_title, trainer_qna_content
       WHERE TRAINER_USER_NO = 10 
       ORDER BY TRAINER_QNA_NO DESC) T1 
 WHERE T1.RN BETWEEN 3 AND 5
+
+
+
+
+SELECT *
+  FROM (SELECT M1.*, ROWNUM RN
+        FROM (SELECT *
+              FROM MEETING
+              WHERE USER_NO = 10
+              ORDER BY MEETING_NO DESC) M1
+        ) M2 
+  	    FULL OUTER JOIN USERS U 
+        ON M2.USER_NO = U.USER_NO
+        FULL OUTER JOIN EXERCISE E
+        ON M2.EXERCISE_NO = E.EXERCISE_NO
+        FULL OUTER JOIN PHOTO P
+        ON M2.meeting_no = P.photo_referer_no
+ WHERE RN = 1
+
+
 
 		 

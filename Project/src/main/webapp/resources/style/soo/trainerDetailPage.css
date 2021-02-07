@@ -67,7 +67,7 @@
 }
 
 /* tap에서 모임 탭의 css */
-#trainerMeetingList a {
+#trainerMeetingList > a {
 	text-decoration: none;
 	color: inherit;	
 	float: left;
