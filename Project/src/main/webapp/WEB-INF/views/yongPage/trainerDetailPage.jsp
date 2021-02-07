@@ -53,19 +53,31 @@
 		});
 	}
 	
+	
 	/* 트레이너 리스트페이지에서 트레이너 디테일 페이지로 이동시 자동으로 실행 될 함수(모임 리스트 불러오기용) */
+	var meetingPageNo = 1;
 	function getTrainerMeetingList() {
 		var user_no = ${trainerTemDto.user_no};
 		$.ajax ({
-			url: 'getTrainerMeetingList.plitche/' + user_no,
+			url: 'getTrainerMeetingList.plitche/' + user_no + '/meetingPageNo/' + meetingPageNo,
 			type: 'get',
 			dataType: 'json',
 			success: function(responseObj) {
 				if (responseObj.result) {
+					$('#totalMeeting').empty();
 					$('<div>')
 					.append( $('<p>').html('총 :' + responseObj.totalMeetingCount + '개') )
 					.appendTo('#totalMeeting');
+					
 					trainerMeetingListTable(responseObj.meetingList);
+					
+					var meetingPagingHtml = '<a href="#" onclick="preMeetingPage(); return false;"> 이전 </a>';
+					for(let i=1; i<=Math.ceil(responseObj.totalMeetingCount/6); i++) {
+						meetingPagingHtml += '<a href="#" onclick="changeMeetingPage(' + i + ') ; return false;">' + i + '</a>'; 
+					}
+					meetingPagingHtml += '<a href="#" onclick="nextMeetingPage('+Math.ceil(responseObj.totalMeetingCount/6)+'); return false;"> 다음 </a>';
+					$('#trainerMeetingFooter').html(meetingPagingHtml);
+					
 				} else {
 					$('<div>')
 					.append( $('<p>').html('등록된 모임 정보가 없습니다.') )
@@ -74,6 +86,28 @@
 			},
 			error: function(){alert('실패');}
 		});
+	}
+	
+	/* 모임 페이징 숫자 클릭시 해당 페이징에 맞게 이동할 function */
+	function changeMeetingPage(goMeetingPage_no) {
+		meetingPageNo = goMeetingPage_no;
+		getTrainerMeetingList();
+	}
+	
+	/* 모임 페이지 이전 클릭시 처리할 function */
+	function preMeetingPage() {
+		if (meetingPageNo != 1) {
+			meetingPageNo -= 1;
+		}
+		getTrainerMeetingList();
+	}
+	
+	/* 모임 페이지 다음 클릭시 처리할 function */
+	function nextMeetingPage(lastMeetingPage) {
+		if (meetingPageNo != lastMeetingPage) {
+			meetingPageNo += 1;
+		}
+		getTrainerMeetingList();
 	}
 	
 	/* 트레이너 모임 리스트의 제목이나 내용을 클릭하면 모임 View페이지로 이동할 함수 */
@@ -313,12 +347,12 @@
 		openQnAPopUp();
 	});
 	
-	var page_no = 1;
+	var qnaPageNo = 1;
 	// 해당 트레이너에게 달린 질문 data를 append하는 서브함수
 	function trainerQnAListTable(list, trainerInfo) {
 		$('#qnaList').empty();
 		$('#currentPage').empty();
-		$('#currentPage').text('현재 ' +  page_no  + ' 페이지');
+		$('#currentPage').text('현재 ' +  qnaPageNo  + ' 페이지');
 		$.each(list, function(idx, qna){
 			if (qna.is_answered==0) {
 				$('<tr>')
@@ -348,7 +382,7 @@
 		var user_no = ${trainerTemDto.user_no}
 
 		$.ajax ({
-			url: 'getTrainerQnAList.plitche/'+user_no+'/page_no/'+page_no,
+			url: 'getTrainerQnAList.plitche/'+user_no+'/qnaPageNo/'+qnaPageNo,
 			type: 'get',
 			dataType: 'json',
 			success: function(responseObj) {
@@ -360,13 +394,13 @@
 					
 					trainerQnAListTable(responseObj.qnaList, responseObj.trainerTemDto);
 					
-					var qnaTfoot = '<a href="#" onclick="preQnAPage(); return false;"> 이전 </a>';
+					var qnaPagingHtml = '<a href="#" onclick="preQnAPage(); return false;"> 이전 </a>';
 					for(let i=1; i<=Math.ceil(responseObj.totalQnACount/10); i++) {
-						qnaTfoot += '<a href="#" onclick="changeQnAPage(' + i + ') ; return false;">' + i + '</a>'; 
+						qnaPagingHtml += '<a href="#" onclick="changeQnAPage(' + i + ') ; return false;">' + i + '</a>'; 
 					}
-					qnaTfoot += '<a href="#" onclick="nextchangeQnAPage('+Math.ceil(responseObj.totalQnACount/10)+'); return false;"> 다음 </a>';
+					qnaPagingHtml += '<a href="#" onclick="nextQnAPage('+Math.ceil(responseObj.totalQnACount/10)+'); return false;"> 다음 </a>';
 					$('#qnaPaging').empty();
-					$('#qnaPaging').html(qnaTfoot);
+					$('#qnaPaging').html(qnaPagingHtml);
 				} else {
 					$('<tr>')
 					.append( $('<td colspan="6">').html('등록된 질문이 없습니다. 첫 번째 질문을 등록해 주세요.') )
@@ -378,23 +412,23 @@
 	}
 
 	/* 질문 페이지 숫자 클릭시 처리할 function */
-	function changeQnAPage(goPage_no) {
-		page_no = goPage_no;
+	function changeQnAPage(goQnaPage_no) {
+		qnaPageNo = goQnaPage_no;
 		getTrainerQnAList();
 	}
 	
 	/* 질문 페이지 이전 클릭시 처리할 function */
 	function preQnAPage() {
-		if (page_no != 1) {
-			page_no -= 1;
+		if (qnaPageNo != 1) {
+			qnaPageNo -= 1;
 		}
 		getTrainerQnAList();
 	}
 	
 	/* 질문 페이지 다음 클릭시 처리할 function */
-	function nextchangeQnAPage(lastPage) {
-		if (page_no != lastPage) {
-			page_no += 1;
+	function nextQnAPage(lastQnaPage) {
+		if (qnaPageNo != lastQnaPage) {
+			qnaPageNo += 1;
 		}
 		getTrainerQnAList();
 	}
@@ -445,7 +479,7 @@
 				success: function(responseObj) {
 					if (responseObj.result) {
 						alert('질문이 등록되었습니다.');
-						page_no=1;
+						qnaPageNo=1;
 						getTrainerQnAList();
 					} else {
 						alert('등록을 등록하지 못했습니다.');
@@ -595,6 +629,7 @@
 		</c:if>
 		<div id="totalMeeting"></div>
 		<div id="trainerMeetingList"></div>
+		<div id="trainerMeetingFooter" style=""></div>
 	</div>
 	
 	<div id="reviewList" class="conBox">

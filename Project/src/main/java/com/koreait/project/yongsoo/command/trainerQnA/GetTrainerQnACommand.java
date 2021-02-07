@@ -20,7 +20,7 @@ public class GetTrainerQnACommand implements CommonMapCommand {
 
 		Map<String, Object> map = model.asMap();
 		int user_no = (int)map.get("user_no");
-		int page_no = (int)map.get("page_no");
+		int page_no = (int)map.get("qnaPageNo");
 		
 		TrainerQnADao trainerQnADao = sqlSession.getMapper(TrainerQnADao.class);
 		List<Trainer_qnaDto> qnalist = trainerQnADao.getTrainerQnAList(page_no, user_no); 
