@@ -1,4 +1,4 @@
-package com.koreait.project.hyejoon.command;
+package com.koreait.project.hyejoon.command.signUp;
 
 import java.util.HashMap;
 import java.util.Map;
