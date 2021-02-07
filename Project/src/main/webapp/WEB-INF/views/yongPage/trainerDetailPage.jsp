@@ -88,24 +88,64 @@
 	$(document).ready(function(){
 		getReviewList();
 		openReviewPopUp();
+		showMoreReviews();
+		foldReviews();
+		fn_writeReview();
 		closeReviewModal();
 	});
 	
+	/* 리뷰 리스트를 만들어주는 function */
 	function reivewListTable(list) {
-		$('#trainerReviewList').empty();
+		$('#reviewListWrap').empty();
 		$.each(list, function(idx, review) {
-			$('#reviewList')
-			.append( $('<div>') 
-				.append( $('<div>').html('닉네임') )
-				.append( $('<div>').html('평점') )
-			)
-			.append( $('<div>').html('모임 제목, 모임 날짜, 종목') )
-			.append( $('<div>').html('리뷰 내용')
-				.append( $('<div>').html('to ~~ 트레이너') )
-				.append( $('<div>').html('날짜') )
+			$('#reviewListWrap')
+			.append( $('<div class="eachReview review' + idx + 'nth" >' )
+				.append( $('<div class="reviewHeader">') 
+					.append( $('<div>').html('작성자: ' + review.user_nickname) )
+					.append( $('<div>').html('평점: ' + review.score) )
+				)
+				.append( $('<div>').html(review.meeting_title + ' / ' + review.exercise_name + ' / ' + review.location1_name + ' ' + review.location2_name) )
+				.append( $('<div class="reviewContent reviewContent' + review.review_no + 'nth">').html('<a href="#" onclick="fn_showAllReviewContent(' + review.review_no + '); return false;">' + review.content + '</a>') )
+				.append( $('<div class="reviewFooter">')
+					.append( $('<div>').text('to ${trainerTemDto.user_nickname}') )
+					.append( $('<div>').html('작성일: ' + review.created_at) )
+				)
 			)
 		});
 	}
+	
+	/* 리뷰 내용 클릭 시 전체 내용이 모두 표시해주기 위한 ajax */
+	function fn_showAllReviewContent(review_no) {
+		$.ajax({
+			url: 'showAllReviewContent.plitche/'+review_no,
+			type: 'get',
+			dataType: 'json',
+			success: function(responseObj) {
+				if (responseObj.result) {
+					$('.reviewContent'+review_no+'nth').empty();
+					$('.reviewContent'+review_no+'nth')
+					.append( $('<a href="#" onclick="fn_shortReviewContent(' + review_no + '); return false;">').html(responseObj.allReviewContent) )
+				}
+			},
+			error: function(){alert('리뷰 내용 전체 가져오기 ajax 실패');}
+		});
+	}
+	
+	/* 전체 표시된 리뷰 내용을 다시 클릭하면 다시 줄어들게 하기위한 ajax */
+	function fn_shortReviewContent(review_no) {
+		$.ajax({
+			url: 'shortReviewContent.plitche/'+review_no,
+			type: 'get',
+			dataType: 'json',
+			success: function(responseObj) {
+				$('.reviewContent'+review_no+'nth').empty();
+				$('.reviewContent'+review_no+'nth')
+				.append( $('<a href="#" onclick="fn_showAllReviewContent(' + review_no + '); return false;">').html(responseObj.shortReviewContent) )	
+			},
+			error: function(){alert('리뷰 내용 다시 줄이기 ajax 실패');}
+		});
+	}
+	
 	
 	/* 현재 페이지로 이동시 트레이너에게 달린 리뷰를 자동으로 가져오는 ajax함수 */
 	function getReviewList() {
@@ -113,21 +153,60 @@
 		$.ajax({
 			url: 'getTrainerReviewList.plitche/' + user_no,
 			type: 'get',
-			contentType: 'json',
+			dataType: 'json',
 			success: function(responseObj) {
 				if(responseObj.result) {
+					$('#totalReview').empty();
 					$('<div>')
-					.append( $('<p>').html('총 :' + responseObj.reviewCount + '개') )
+					.append( $('<p id="totalReviewCount">').text('총 : ' + responseObj.reviewCount + '개') )
 					.appendTo('#totalReview');
+					
 					reivewListTable(responseObj.reviewList);
+					
+					if(responseObj.reviewCount > 5) {
+						$('#reviewShowCutBtn')
+						.append('<input type="button" value="더보기" id="showMoreReviews" />')
+						.append('<div id="foldBtn">');
+					}
 				} else {
+					$('#totalReview').empty();
 					$('<div>')
-					.append( $('<p>').html('총 :' + responseObj.reviewCount + '개') )
+					.append( $('<p id="totalReviewCount">').text('총 : ' + responseObj.reviewCount + '개') )
 					.appendTo('#totalReview');
 				}
 			},
 			error: function(){alert('리뷰 가져오기 ajax 실패');}
 		});	
+	}
+	
+	/* 더 보기 버튼을 클릭할 때 마다 none처리된 리뷰들을 보여주는 함수 */
+	var reviewIndex = 5;
+	function showMoreReviews() {
+		$(document).on('click', '#showMoreReviews', function() {
+			var totalReviewCount = $('#totalReviewCount').text().substring(4, 5);
+			for (let i=0; i<5; i++) {
+				$('.review'+(reviewIndex+i)+'nth').css('display', 'block');
+			}
+			reviewIndex += 5;
+			
+			if (Math.ceil(totalReviewCount/5) == reviewIndex/5) {
+				$('#showMoreReviews').hide();
+			}
+			
+			$('#foldBtn').empty();
+			$('#foldBtn')
+			.append('<input type="button" value="접기" id="foldReviews" />');
+		});
+	}
+	
+	/* 접기 버튼 클릭시 리뷰 5개만 표기해주고 나머지 다 접기 */
+	function foldReviews() {
+		$(document).on('click', '#foldReviews', function() {
+			$('.review4nth').nextAll().css('display', 'none');
+			$('#showMoreReviews').show();
+			$('#foldBtn').empty();
+			reviewIndex = 5;
+		});
 	}
 	
 	/* 리뷰 등록하기 버튼 클릭시 리뷰를 작성할 수 있는 모달창을 띄워주기 위한 함수 */
@@ -167,9 +246,7 @@
 									.append( $('<input type="text" name="score" placeholder="평점 입력">') )
 								)
 								.append( $('<textarea rows="10" cols="50" name="content" placeholder="리뷰 내용을 작성하세요.">') )
-								.append( $('<input type="hidden" name="target_user_no" value="' + trainer_user_no + '" />') )
-								.append( $('<input type="hidden" name="writer_user_no" value="' + login_user_no + '" />') )
-								.append( $('<input type="button" value="작성완료" id="writeReview" onclick="" />'))
+								.append( $('<input type="button" id="writeReview" value="작성완료"/>') )
 							)
 							$('#modal').attr("style", "display:block");
 						} else {
@@ -180,6 +257,43 @@
 				});
 			}
 		});
+	}
+	
+	/* 작성완료를 눌럿을 때 실행 될 함수 */
+	function fn_writeReview() {
+		$(document).on('click', '#writeReview', function() {
+			var meeting_no =  $('select[name="meeting_no"]').val();
+			var score = $('input[name="score"]').val();
+			var content = $('textarea[name="content"]').val();
+			var trainer_user_no = ${trainerTemDto.user_no};
+			var login_user_no = '${loginUser.user_no}';
+			
+			var sendObj = {
+				"meeting_no": meeting_no,
+				"score": score,
+				"content": content,
+				"target_user_no": trainer_user_no,
+				"writer_user_no": login_user_no
+			};
+			
+			$.ajax({
+				url: 'writeReview.plitche',
+				type: 'post',
+				data: JSON.stringify(sendObj),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				success: function(responseObj) {
+					if (responseObj.result) {
+						getReviewList();
+					} else {
+						alert('리뷰작성 insert 실패');
+					}
+				},
+				error: function(){alert('리뷰 작성 ajax 실패');}	
+			});
+			
+		});
+	
 	}
 	
 	/* 작성완료 눌렀을 때 모달창을 닫아주는 함수 */
@@ -451,7 +565,10 @@
 	<div id="reviewList" class="conBox">
 		<button type="button" id="openReviewModal">새 리뷰 등록하기</button>
 		<div id="totalReview"></div>
-		<div id="trainerReviewList"></div>
+		<div id="trainerReviewList">
+			<div id="reviewListWrap"></div>
+			<div id="reviewShowCutBtn"></div>
+		</div>
 	</div>
 		
 	<div id="QnAList" class="conBox">

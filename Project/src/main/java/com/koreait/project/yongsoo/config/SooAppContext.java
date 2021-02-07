@@ -6,19 +6,22 @@ import org.springframework.context.annotation.Bean;
 import com.koreait.project.yongsoo.command.comment.AddCommentCommand;
 import com.koreait.project.yongsoo.command.comment.DeleteCommentCommand;
 import com.koreait.project.yongsoo.command.comment.GetCommentListCommand;
-import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerDetailCommand;
-import com.koreait.project.yongsoo.command.commonTrainer.GoTrainerListCommand;
-import com.koreait.project.yongsoo.command.trainerMeeting.GetTrainerMeetingListCommand;
-import com.koreait.project.yongsoo.command.trainerMeeting.GoMeetingViewCommand;
+import com.koreait.project.yongsoo.command.trainer.GoTrainerDetailCommand;
+import com.koreait.project.yongsoo.command.trainer.GoTrainerListCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.CreateMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherHostMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherMeetingCommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.GetTrainerMeetingListCommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.GoMeetingViewCommand;
 import com.koreait.project.yongsoo.command.trainerQnA.GetTrainerQnACommand;
 import com.koreait.project.yongsoo.command.trainerQnA.ShowQnACommand;
 import com.koreait.project.yongsoo.command.trainerQnA.WriteAnswerCommand;
 import com.koreait.project.yongsoo.command.trainerQnA.WriteTrainerQnACommand;
 import com.koreait.project.yongsoo.command.trainerReview.FindJoinMeetingListCommand;
+import com.koreait.project.yongsoo.command.trainerReview.GetAllReviewContentCommand;
 import com.koreait.project.yongsoo.command.trainerReview.GetTrainerReviewListCommand;
+import com.koreait.project.yongsoo.command.trainerReview.ShortReviewContentCommand;
+import com.koreait.project.yongsoo.command.trainerReview.WriteReviewCommand;
 
 @Configurable
 public class SooAppContext {
@@ -102,5 +105,21 @@ public class SooAppContext {
 	public FindJoinMeetingListCommand findJoinMeetingListCommand() {
 		return new FindJoinMeetingListCommand();
 	}
+	
+	@Bean
+	public WriteReviewCommand writeReviewCommand() {
+		return new WriteReviewCommand();
+	}
+	
+	@Bean
+	public GetAllReviewContentCommand getAllReviewContentCommand() {
+		return new GetAllReviewContentCommand();
+	}
+	
+	@Bean
+	public ShortReviewContentCommand shortReviewContentCommand() {
+		return new ShortReviewContentCommand();
+	}
+	
 	
 }

@@ -5,10 +5,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.koreait.project.yongsoo.dao.TrainerReviewDao">
 	
-	<select id="getTrainerReviewList" parameterType="int" resultType="com.koreait.project.dto.ReviewDto">
+	<select id="getTrainerReviewList" parameterType="int" resultType="com.koreait.project.yongsoo.dto.ReviewTemDto">
 		SELECT *
-		  FROM REVIEW
-		 WHERE TARGET_USER_NO = #{user_no}
+		  FROM REVIEW R FULL OUTER JOIN USERS U
+		    ON R.WRITER_USER_NO = U.USER_NO
+		       FULL OUTER JOIN MEETING M
+		       ON R.MEETING_NO = M.MEETING_NO
+		         FULL OUTER JOIN EXERCISE E
+		         ON M.EXERCISE_NO = E.EXERCISE_NO
+		           FUll OUTER JOIN LOCATION1 L1
+		           ON M.LOCATION1_NO = L1.LOCATION1_NO
+		           	 FUll OUTER JOIN LOCATION2 L2
+		             ON M.LOCATION2_NO = L2.LOCATION2_NO 
+		 WHERE R.TARGET_USER_NO = #{user_no}
 	</select>
 	<select id="listCount" parameterType="int" resultType="int">
 		SELECT COUNT(*)
@@ -31,6 +40,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   					         AND WRITER_USER_NO = #{param2})
 	</select>
 	
+	
+	<insert id="wrtieReview" parameterType="com.koreait.project.dto.ReviewDto">
+		INSERT INTO REVIEW
+		VALUES (REVIEW_SEQ.NEXTVAL, #{target_user_no}, #{score}, #{meeting_no}, #{content}, SYSDATE, 0, #{writer_user_no})
+	</insert>
+	
+	<select id="getAllReviewContent" parameterType="int" resultType="String">
+		SELECT CONTENT
+		  FROM REVIEW
+		 WHERE REVIEW_NO = #{review_no}
+	</select>
 	
 	
 </mapper>
