@@ -81,7 +81,6 @@
 		location.href = 'meetingViewPage.plitche?meeting_no='+meeting_no;
 	}
 </script>
-
 <!-- 트레이너 리뷰 관련 ajax -->
 <script>
 	/* 페이지로드 이벤트 */
@@ -314,9 +313,12 @@
 		openQnAPopUp();
 	});
 	
+	var page_no = 1;
 	// 해당 트레이너에게 달린 질문 data를 append하는 서브함수
 	function trainerQnAListTable(list, trainerInfo) {
 		$('#qnaList').empty();
+		$('#currentPage').empty();
+		$('#currentPage').text('현재 ' +  page_no  + ' 페이지');
 		$.each(list, function(idx, qna){
 			if (qna.is_answered==0) {
 				$('<tr>')
@@ -344,8 +346,9 @@
 	// 현재 패이지로 이동시 자동으로 뎃글 리스트를 불러올 ajax함수
 	function getTrainerQnAList() {
 		var user_no = ${trainerTemDto.user_no}
+
 		$.ajax ({
-			url: 'getTrainerQnAList.plitche/' + user_no,
+			url: 'getTrainerQnAList.plitche/'+user_no+'/page_no/'+page_no,
 			type: 'get',
 			dataType: 'json',
 			success: function(responseObj) {
@@ -354,17 +357,48 @@
 					$('<div>')
 					.append( $('<p>').html('총 :' + responseObj.totalQnACount + '개') )
 					.appendTo('#totalQnA');
+					
 					trainerQnAListTable(responseObj.qnaList, responseObj.trainerTemDto);
+					
+					var qnaTfoot = '<a href="#" onclick="preQnAPage(); return false;"> 이전 </a>';
+					for(let i=1; i<=Math.ceil(responseObj.totalQnACount/10); i++) {
+						qnaTfoot += '<a href="#" onclick="changeQnAPage(' + i + ') ; return false;">' + i + '</a>'; 
+					}
+					qnaTfoot += '<a href="#" onclick="nextchangeQnAPage('+Math.ceil(responseObj.totalQnACount/10)+'); return false;"> 다음 </a>';
+					$('#qnaPaging').empty();
+					$('#qnaPaging').html(qnaTfoot);
 				} else {
 					$('<tr>')
 					.append( $('<td colspan="6">').html('등록된 질문이 없습니다. 첫 번째 질문을 등록해 주세요.') )
 					.appendTo('#qnaList');
 				}
 			},
-			error: function(){alert('답변 가져오기 실패');}
+			error: function(){alert('질문 가져오기 실패');}
 		});
 	}
 
+	/* 질문 페이지 숫자 클릭시 처리할 function */
+	function changeQnAPage(goPage_no) {
+		page_no = goPage_no;
+		getTrainerQnAList();
+	}
+	
+	/* 질문 페이지 이전 클릭시 처리할 function */
+	function preQnAPage() {
+		if (page_no != 1) {
+			page_no -= 1;
+		}
+		getTrainerQnAList();
+	}
+	
+	/* 질문 페이지 다음 클릭시 처리할 function */
+	function nextchangeQnAPage(lastPage) {
+		if (page_no != lastPage) {
+			page_no += 1;
+		}
+		getTrainerQnAList();
+	}
+	
 	// 트레이너 디테일 페이지에서 새 질문 작성하기 작성 때마다 알맞은 폼을 생성해줄 함수
 	function openQnAPopUp() {
 		$('#openQnAModal').click(function() {
@@ -411,6 +445,7 @@
 				success: function(responseObj) {
 					if (responseObj.result) {
 						alert('질문이 등록되었습니다.');
+						page_no=1;
 						getTrainerQnAList();
 					} else {
 						alert('등록을 등록하지 못했습니다.');
@@ -574,6 +609,7 @@
 	<div id="QnAList" class="conBox">
 		<button type="button" id="openQnAModal">새 질문 등록하기</button>
 		<div id="totalQnA"></div>
+		<div id="currentPage" style="text-align: center;"></div>
 		<div id="trainerQnAList">
 			<table id="questionList">
 				<thead>
@@ -587,6 +623,11 @@
 					</tr>
 				</thead>
 				<tbody id="qnaList"></tbody>
+				<tfoot>
+					<tr style="text-align: center;">
+						<td colspan="6" id="qnaPaging"></td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 	</div>
