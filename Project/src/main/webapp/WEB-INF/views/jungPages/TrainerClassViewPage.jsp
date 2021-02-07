@@ -34,7 +34,7 @@
 				   
 					   <div class="WishList"><a href="">관심페이지 등록하기</a></div>
 					   <div class="TrainerClassPhoto">
-					   		사진 
+					   		<img alt="${trainerClassDto.photo_filename}" src="resources/storage/${trainerClassDto.photo_filename}">
 					   </div>
 				   
 				   </div>

@@ -11,3 +11,11 @@
 	width: 40px;
 	height: 26px;
 }
+
+#TrainerClassGatherDate {
+	display: flex;
+}
+
+#gather_MinAndMax {
+	display: flex;
+}

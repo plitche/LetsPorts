@@ -4,50 +4,108 @@
 <link type="text/css" rel="stylesheet" href="resources/style/jung/TrainerClassInsertPage.css" >
 
 
-<form action="TrainerClassInsert.leo" >
+<form action="TrainerClassInsert.leo"  method="post" enctype="multipart/form-data">
 
-
-	모집제목 <input type="text"	 name="meeting_title"/><br/>
-	모임일<input type="date" name="meeting_date"/><br/>
-	모집기간<input type="date" name="start_gather_date"/><input type="date" name="end_gather_date"/><br/>
-	모집최소<input type="text" name="meeting_min"/><br/>
-	모집최대<input type="text" name="meeting_max"/><br/>
-	운동종목
-	<select name="exercise_no">
-		<option value="">운동종목</option>
-		<option value="0">족구</option>
-		<option value="1">축구</option>
-		<option value="2">농구</option>
-		<option value="3">볼링</option>
-		<option value="4">크로스핏</option>
-		<option value="5">스피닝</option>
-		<option value="6">댄스</option>
-		<option value="7">요가</option>
-		<option value="8">명상</option>
-	</select><br/>
-	모임장소
-	<select name="location1_no" id="location1">
-		<option value="">시도</option>
-		<option value="0">서울특별시</option>
-		<option value="1">인천광역시</option>
-		<option value="2">경기도</option>
-	</select>
-	<select name="location2_no" id="location2">
-		
-	</select><br/>
+	<div class="TrainerClassInsert_all">
 	
+			<div>
+			
+				<div>클래스명</div>
+				<div><input type="text" name="meeting_title"/></div>
+				
+			</div>
+			<div>
+			
+				<div>모임일</div>
+				<div><input type="date" name="meeting_date"/></div>
+				
+			</div>
+			<div>
+			
+				<div>모집기간</div>
+				<div id="TrainerClassGatherDate">
+				
+					<div><input type="date" name="start_gather_date"/></div>
+					<div><input type="date" name="end_gather_date"/></div>
+				
+				</div>
+			
+			</div>
+			<div>
+			
+				<div>참여인원</div>
+				<div id="gather_MinAndMax">
+					<div>모집최소<input type="text" name="meeting_min"/></div>
+					<div>모집최대<input type="text" name="meeting_max"/></div>
+				</div>
+			
+			</div>
+			<div>
+			
+				<div>운동종목</div>
+				<div>
+					<select name="exercise_no">
+						<option value="">운동종목</option>
+						<option value="0">족구</option>
+						<option value="1">축구</option>
+						<option value="2">농구</option>
+						<option value="3">볼링</option>
+						<option value="4">크로스핏</option>
+						<option value="5">스피닝</option>
+						<option value="6">댄스</option>
+						<option value="7">요가</option>
+						<option value="8">명상</option>
+					</select>
+				</div>
+			
+			</div>
+			<div>
+				<div>모임장소</div>
+				<select name="location1_no" id="location1">
+					<option value="">시도</option>
+					<option value="0">서울특별시</option>
+					<option value="1">인천광역시</option>
+					<option value="2">경기도</option>
+				</select>
+				<select name="location2_no" id="location2">
+					
+				</select>
+			</div>
+			<div>
+			
+				<div>상세주소</div>
+				<div><input type="text" name="detail_location"/></div>
+			
+			</div>
+			<div>
+			
+				<div>준비물</div>
+				<span class="materials">
+				
+					<img alt="추가" src="resources/images/jung/add.png" class="plusBtn">
+					
+				</span>
+				
+			</div>
+			
+			<div>
+			
+				<div>커버사진</div>
+				<div><input type="file" name="coverphoto" /></div>	
+			
+			</div>
+			
+			<div>
+			
+				<div>상세내용</div>
+				<div><textarea rows="10" cols="100" name="meeting_content"  id="summernote"></textarea></div>
+			
+			</div>
 	
-	상세주소<input type="text" name="detail_location"/><br/>
-	준비물
-	<span class="materials">
+	</div>
 	
-		<img alt="추가" src="resources/images/jung/add.png" class="plusBtn">
-		
-	</span>
-	
-	상세내용<br/>
-	<textarea rows="10" cols="100" name="meeting_content"  id="summernote"></textarea><br/>
-	<button>작성</button>
+	<input type="hidden" name="user_no" value="${loginUser.user_no}"/>
+	<button>작성</button><input type="button" value="취소" onclick="location.href='TrainerClassListPage.leo'"/>
 		
 </form>
 
