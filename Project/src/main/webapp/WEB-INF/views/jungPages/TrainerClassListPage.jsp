@@ -113,6 +113,7 @@
 		<c:forEach var="MeetingDto" items="${MeetingList}">
 			<a href="TrainerClassViewPage.leo?meeting_no=${MeetingDto.meeting_no}">
 				<div class="MeetingClass">
+					<div><img alt="${MeetingDto.photo_filename}" src="resources/storage/${MeetingDto.photo_filename}"></div>
 					${MeetingDto.meeting_title}<br/><br/>
 					모임일 : ${MeetingDto.meeting_date}<br/>
 					운동 종목 : ${MeetingDto.exercise_name}<br/>

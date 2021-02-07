@@ -8,9 +8,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 전체 목록을 뿌려주는 list 쿼리문 -->
 	<select id="trainerClassList" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
-		SELECT M1.EXERCISE_NO, E1.EXERCISE_NAME, M1.MEETING_DATE, M1.MEETING_TITLE, M1.MEETING_NO, M1.MEETING_HIT
-		FROM MEETING M1 INNER JOIN EXERCISE E1
-		ON E1.EXERCISE_NO = M1.EXERCISE_NO
+		SELECT *
+		FROM MEETING M1
+			INNER JOIN EXERCISE E1
+				ON E1.EXERCISE_NO = M1.EXERCISE_NO
+			INNER JOIN USERS U
+				ON M1.USER_NO = U.USER_NO
+			INNER JOIN PHOTO P
+				ON  M1.MEETING_NO = P.PHOTO_REFERER_NO
+		WHERE M.USER_NO = #{user_no}
 	</select>
 	
 	<select id="classTag" resultType="com.koreait.project.dto.ExerciseDto">
@@ -18,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 클래스의 meeting 테이블에 내용들을 삽입하는 쿼리문 -->
-	<insert id="trainerClassInsert" parameterType="com.koreait.project.dto.MeetingDto">
+	<insert id="trainerClassInsert" parameterType="com.koreait.project.jungho.dto.MakeTrainerClassDto">
 		INSERT INTO MEETING VALUES
 		(MEETING_SEQ.NEXTVAL, #{user_no}, #{meeting_max}, #{meeting_min}, #{exercise_no}, SYSDATE, #{start_gather_date}, #{end_gather_date}, #{meeting_date}, #{location1_no}, #{location2_no}, #{meeting_title}, #{meeting_content}, 0, null, 0, #{detail_location}, 0)	
 	</insert>
@@ -30,6 +36,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 새롭게 생긴 meeting_no을 가져와 material을 추가시키는 쿼리문 -->
 	<insert id="materialsInsert">
 		INSERT INTO MATERIALS VALUES (MATERIALS_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE)
+	</insert>
+	
+	<insert id="insertPhoto">
+		INSERT INTO PHOTO VALUES (PHOTO_SEQ.NEXTVAL, 2, #{param1}, #{param2}, #{param3}, SYSDATE, 0)
 	</insert>
 	
 	<!-- 보여주기 페이지를 위해 값 가져가는 쿼리문 -->
