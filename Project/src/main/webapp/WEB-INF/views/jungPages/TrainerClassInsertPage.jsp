@@ -14,8 +14,9 @@
 	모집최대<input type="text" name="meeting_max"/><br/>
 	운동종목
 	<select name="exercise_no">
-		<option value="0">축구</option>
-		<option value="1">족구</option>
+		<option value="">운동종목</option>
+		<option value="0">족구</option>
+		<option value="1">축구</option>
 		<option value="2">농구</option>
 		<option value="3">볼링</option>
 		<option value="4">크로스핏</option>

@@ -384,7 +384,7 @@
 			</p>
 		</div>
 		<div id="mainImg">
-			<img alt="대표사진" src="" id="">
+			<img alt="${meetingDto.photo_filename}" src="resources/storage/${meetingDto.photo_filename}">
 		</div>
 	</div>
 	<div id="meetingContent">
@@ -462,3 +462,8 @@
 </script>
 
 <%@ include file="../template/footer.jsp" %>
+
+
+
+
+

@@ -118,7 +118,7 @@ public class TrainerClassController {
 		SearchClassCommand searchClassCommand = ctx.getBean("searchClassCommand", SearchClassCommand.class);
 		searchClassCommand.execute(sqlSession, model);
 		
-		return "redirect:TrainerClassListPage.leo";
+		return "jungPages/TrainerClassListPage";
 	}
 	
 	
@@ -219,28 +219,4 @@ public class TrainerClassController {
 		return "jungPages/TrainerClassListPage";
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

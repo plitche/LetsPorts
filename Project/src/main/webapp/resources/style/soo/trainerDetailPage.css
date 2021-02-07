@@ -142,7 +142,7 @@
 .modal_content {
 	text-align: right;
 }
-#closeQnAModal {
+#closeModalBtn {
 	margin-bottom: 5px;
 }
 #modal input {
@@ -150,6 +150,13 @@
 	margin-top: 10px;
 	padding: 10px;
 }
+
+/* 트레이너 리뷰 modal파트 css */
+#modalDetail textarea {
+	border: 1px solid;
+}
+
+
 
 /* 트레이너에게 질문한 list 파트 css */
 table > thead > tr > td {

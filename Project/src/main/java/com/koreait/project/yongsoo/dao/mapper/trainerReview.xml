@@ -17,6 +17,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+	<select id="findJoinMeetingList" resultType="com.koreait.project.dto.MeetingDto">
+		SELECT * 
+		  FROM MEETING
+		 WHERE USER_NO = ${param1}
+		   AND MEETING_NO IN (SELECT MEETING_NO
+		 					   FROM MEETING_PARTICIPANTS
+		 					  WHERE USER_NO = #{param2}
+		 					    AND STATUS = 1)
+		   AND MEETING_NO NOT IN (SELECT MEETING_NO
+		   					        FROM REVIEW
+		   					       WHERE TARGET_USER_NO = #{param1}
+		   					         AND WRITER_USER_NO = #{param2})
+	</select>
 	
 	
 	
