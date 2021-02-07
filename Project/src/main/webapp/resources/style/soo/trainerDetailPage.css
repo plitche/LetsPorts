@@ -222,7 +222,8 @@ table > thead > tr > td {
 	text-decoration: none;
 	color: inherit;
 }
-
-
+#qnaPaging a {
+	margin: 0 5px;
+}
 
 

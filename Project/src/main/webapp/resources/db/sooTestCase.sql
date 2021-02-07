@@ -38,5 +38,20 @@ select * from COMMENTS
 select * from photo
 select * from review
 
-		 
+SELECT *
+  FROM (SELECT T1.*, ROWNUM RN
+        FROM (SELECT *
+        	  FROM TRAINER_QNA
+        	  WHERE TRAINER_USER_NO = 10
+              ORDER BY TRAINER_QNA_NO DESC) T1
+       )
+ WHERE RN BETWEEN 11 AND 20
+
+SELECT *
+FROM (SELECT ROWNUM RN, trainer_qna_title, trainer_qna_content
+      FROM TRAINER_QNA 
+      WHERE TRAINER_USER_NO = 10 
+      ORDER BY TRAINER_QNA_NO DESC) T1 
+WHERE T1.RN BETWEEN 3 AND 5
+
 		 
