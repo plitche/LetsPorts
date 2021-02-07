@@ -1,7 +1,6 @@
 package com.koreait.project.yongsoo.command.trainerReview;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,35 +8,25 @@ import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.yongsoo.dao.TrainerReviewDao;
-import com.koreait.project.yongsoo.dto.ReviewTemDto;
 
-public class GetTrainerReviewListCommand implements CommonMapCommand {
+public class GetAllReviewContentCommand implements CommonMapCommand {
 
 	@Override
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 
 		Map<String, Object> map = model.asMap();
-		int user_no = (int)map.get("user_no");
-		
+		int review_no = (int)map.get("review_no");
+
 		TrainerReviewDao trainerReviewDao = sqlSession.getMapper(TrainerReviewDao.class);
-		List<ReviewTemDto> reviewList = trainerReviewDao.getTrainerReviewList(user_no);
-		int reviewCount = trainerReviewDao.listCount(user_no);
-		
-		for(int i=0; i<reviewList.size(); i++) {
-			if (reviewList.get(i).getContent().length()>150) {
-				reviewList.get(i).setContent(reviewList.get(i).getContent().substring(0, 150) + "...");
-			}
-		}
+		String allReviewContent = trainerReviewDao.getAllReviewContent(review_no);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		if (reviewList.size()>0) {
+		if (!allReviewContent.isEmpty() && allReviewContent!=null) {
 			result.put("result", true);
-			result.put("reviewList", reviewList);
-			result.put("reviewCount", reviewCount);
+			result.put("allReviewContent", allReviewContent);
 		} else {
 			result.put("result", false);
-			result.put("reviewCount", 0);
 		}
 		
 		return result;

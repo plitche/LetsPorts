@@ -1,4 +1,4 @@
-package com.koreait.project.yongsoo.command.commonTrainer;
+package com.koreait.project.yongsoo.command.trainer;
 
 import java.util.Map;
 

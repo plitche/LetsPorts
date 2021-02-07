@@ -46,18 +46,23 @@
 	<!-- 등록된 trainerList가 있을 때 -->
 	<div id="content-container">
 		<div id="trainer-list">
-		<c:forEach var="trainerTemDto" items="${trainerList}">
-			<a href="goTrainerDetail.plitche?user_no=${trainerTemDto.user_no}">
+		<c:forEach var="trainer" items="${trainerList}">
+			<a href="goTrainerDetail.plitche?user_no=${trainer.user_no}">
 				<div class="trainer">
 					<div class="trainer-picture">
-						사진 : ${trainerTemDto.profile_photo}
+						사진 : ${trainer.profile_photo}
 					</div>
 					<div class="trainer-info">
-						<div>닉네임 : ${trainerTemDto.user_nickname}</div>
-						<div>이름 : ${trainerTemDto.trainer_name}</div>
+						<div>닉네임 : ${trainer.user_nickname}</div>
+						<div>이름 : ${trainer.trainer_name}</div>
 						<div>
-							<span>평점 : ${trainerTemDto.score}점 /</span> 
-							<span>리뷰 : ${trainerTemDto.reviews}개</span>
+							<c:if test="${trainer.score eq 0.0}">
+								<span>평점 : 0점 /</span>	
+							</c:if>
+							<c:if test="${trainer.score ne 0.0}">
+								<span>평점 : ${trainer.score}점 /</span>	
+							</c:if>
+							<span>리뷰 : ${trainer.reviews}개</span>
 						</div>				
 					</div>
 				</div>

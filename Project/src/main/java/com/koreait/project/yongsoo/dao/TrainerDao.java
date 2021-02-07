@@ -9,7 +9,7 @@ public interface TrainerDao {
 	// 트레이너 정보를 가져오기 위한 메소드
 	public List<TrainerTemDto> trainerList();
 	// 평점을 가져오기 위한 메소드
-	public Integer trainerScore(int user_no);
+	public Double trainerScore(int user_no);
 	// 리뷰 개수를 가져오기 위한 메소드
 	public Integer reviewCount(int user_no);
 	
