@@ -35,8 +35,11 @@ public class TrainerClassCommentController {
 									method=RequestMethod.GET,
 									produces="application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> commentList(@RequestParam("meeting_no") int meeting_no, Model model) {
+	public Map<String, Object> commentList(@RequestParam("meeting_no") int meeting_no,
+														 @RequestParam("commentPage") int commentPage,
+														 Model model) {
 		model.addAttribute("meeting_no", meeting_no);
+		model.addAttribute("commentPage", commentPage);
 		CommentListCommand commentListCommand = ctx.getBean("commentListCommand", CommentListCommand.class);
 		return commentListCommand.execute(sqlSession, model);
 	}
