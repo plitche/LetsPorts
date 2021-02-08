@@ -1,7 +1,5 @@
 package com.koreait.project.yongsoo.controller;
 
-import java.nio.channels.FileChannel.MapMode;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -17,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.yongsoo.command.qna.DeleteQnACommand;
 import com.koreait.project.yongsoo.command.qna.GetQnAListCommand;
-import com.koreait.project.yongsoo.command.qna.GoQnAUpdatePageCommand;
 import com.koreait.project.yongsoo.command.qna.GoQnAViewPageCommand;
 import com.koreait.project.yongsoo.command.qna.UpdateQnACommand;
 import com.koreait.project.yongsoo.command.qna.WriteQnACommand;

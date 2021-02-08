@@ -13,7 +13,7 @@
 			Swal.fire('제목이 없습니다.', '질문 제목을 작성해주세요!', 'error');
 			return;
 		}
-		if($('input[name="board_qna_content"]').val() == '') {
+		if($('textarea[name="board_qna_content"]').val() == '') {
 			Swal.fire('내용이 없습니다.', '질문 내용을 작성해주세요!', 'error');
 			return;
 		}
