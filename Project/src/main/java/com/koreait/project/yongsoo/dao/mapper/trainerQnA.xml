@@ -7,8 +7,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getTrainerQnAList" parameterType="int" resultType="com.koreait.project.dto.Trainer_qnaDto">
 		SELECT *
-		  FROM TRAINER_QNA
-		 WHERE TRAINER_USER_NO = #{user_no}
+		  FROM (SELECT T1.*, ROWNUM RN
+		        FROM (SELECT *
+		        	  FROM TRAINER_QNA
+		        	  WHERE TRAINER_USER_NO = #{param2}
+		              ORDER BY TRAINER_QNA_NO DESC) T1
+		       )
+		 WHERE RN BETWEEN (#{param1}*10-9) AND (#{param1}*10)
 	</select>
 	<select id="TrainerQnACount" parameterType="int" resultType="int">
 		SELECT COUNT(*)

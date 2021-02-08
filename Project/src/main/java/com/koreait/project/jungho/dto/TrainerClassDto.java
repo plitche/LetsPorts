@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +27,7 @@ public class TrainerClassDto {
 	private int location1_no;
 	private int location2_no;
 	private String detail_location;
-	private List<String> materials_name; // join 대상자
+	private String[] materials_name; // join 대상자
 	private String meeting_content;
 	private String exercise_name;
 	private String location1_name;
@@ -35,5 +37,7 @@ public class TrainerClassDto {
 	private String profile_photo;
 	private String email;
 	private int meeting_hit;
+	private MultipartFile mainPhoto;
+	private String photo_filename;
 
 }

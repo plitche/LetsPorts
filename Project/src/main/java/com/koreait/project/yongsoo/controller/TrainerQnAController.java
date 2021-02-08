@@ -29,11 +29,14 @@ public class TrainerQnAController {
 	AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(SooAppContext.class);
 	
 	// 트레이너 View 페이지로 이동 시 자동으로 작동할 ajax처리를 위한 메소드
-	@RequestMapping(value="getTrainerQnAList.plitche/{user_no}", method=RequestMethod.GET,
+	@RequestMapping(value="getTrainerQnAList.plitche/{user_no}/qnaPageNo/{qnaPageNo}", method=RequestMethod.GET,
 					produces="application/json; charset=utf-8")		
 	@ResponseBody
-	public Map<String, Object> getTrainerQnAList(@PathVariable("user_no") int user_no, Model model) {
+	public Map<String, Object> getTrainerQnAList(@PathVariable("user_no") int user_no, 
+												 @PathVariable("qnaPageNo") int qnaPageNo,
+												 Model model) {
 		model.addAttribute("user_no", user_no);
+		model.addAttribute("qnaPageNo", qnaPageNo);
 		GetTrainerQnACommand getTrainerQnACommand = ctx.getBean("getTrainerQnACommand", GetTrainerQnACommand.class);
 		return getTrainerQnACommand.execute(sqlSession, model);
 	}

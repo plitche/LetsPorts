@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.jungho.command.TagCommand.Tag0Command;
@@ -56,10 +57,10 @@ public class TrainerClassController {
 	}
 	
 	// 추가한 내용을 삽입시켜주는 명령역할
-	@RequestMapping(value="TrainerClassInsert.leo")
-	public String TrainerClassInsert(TrainerClassDto trainerClassDto, Model model) {
+	@RequestMapping(value="TrainerClassInsert.leo", method=RequestMethod.POST)
+	public String TrainerClassInsert(MultipartHttpServletRequest multipartRequest, Model model) {
 		
-		model.addAttribute("trainerClassDto", trainerClassDto);
+		model.addAttribute("multipartRequest", multipartRequest);
 		TrainerClassInsertCommand trainerClassInsertCommand = ctx.getBean("trainerClassInsertCommand", TrainerClassInsertCommand.class);
 		trainerClassInsertCommand.execute(sqlSession, model);
 		

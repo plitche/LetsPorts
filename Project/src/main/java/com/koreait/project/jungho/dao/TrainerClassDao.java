@@ -5,6 +5,7 @@ import java.util.List;
 import com.koreait.project.dto.ExerciseDto;
 import com.koreait.project.dto.MaterialsDto;
 import com.koreait.project.dto.MeetingDto;
+import com.koreait.project.jungho.dto.MakeTrainerClassDto;
 import com.koreait.project.jungho.dto.TrainerClassDto;
 
 public interface TrainerClassDao {
@@ -13,11 +14,13 @@ public interface TrainerClassDao {
 	
 	public List<ExerciseDto> classTag();
 	
-	public int trainerClassInsert(MeetingDto meetingDto);
+	public int trainerClassInsert(MakeTrainerClassDto makeTrainerClassDto);
 	
 	public int findNewMeetingNo(int user_no);
 	
-	public int materialsInsert(int meeting_no, String materialS);
+	public int materialsInsert(int meeting_no, String material);
+	
+	public int insertPhoto(int meeting_no, int user_no, String uploadFilename);
 	
 	public TrainerClassDto trainerClassView(int meeting_no);
 	

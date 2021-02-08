@@ -7,12 +7,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- Users, Triner_info 테이블에서 원하는 트레이너의 정보를 꺼내오는 메소드 -->
 	<select id="trainerList" resultType="com.koreait.project.yongsoo.dto.TrainerTemDto">
-		SELECT T.user_no, U.user_nickname, T.trainer_name, U.user_message, U.profile_photo, T.career, T.employment, T.profile, U.location1_no, U.location2_no
+		SELECT *
 		  FROM USERS U FULL OUTER JOIN TRAINER_INFO T
 		    ON U.USER_NO = T.USER_NO
 		 WHERE U.user_separator = 1
 	</select>
-	<select id="trainerScore" parameterType="int" resultType="Integer">
+	<select id="trainerScore" parameterType="int" resultType="Double">
 		SELECT AVG(SCORE)
 		  FROM REVIEW
 		 WHERE TARGET_USER_NO = #{user_no}
