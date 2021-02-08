@@ -7,12 +7,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.koreait.project.jungho.dao.TrainerClassCommentDao">
 	
 	<select id="commentList" parameterType="int" resultType="com.koreait.project.dto.CommentsDto">
-		SELECT * FROM COMMENTS WHERE COMMENT_REFERER_NO = #{meeting_no}
+		SELECT *
+		FROM COMMENTS C
+			INNER JOIN USERS U
+				ON U.USER_NO = C.USER_NO 
+		WHERE COMMENT_REFERER_NO = #{meeting_no}
 	</select>
 	
 	<insert id="commentInsert" parameterType="com.koreait.project.dto.CommentsDto">
 		INSERT INTO COMMENTS VALUES
-		(COMMENTS_SEQ.NEXTVAL, 1, #{comment_referer_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
+		(COMMENTS_SEQ.NEXTVAL, 1, #{comment_referer_no}, #{board_user_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
 	</insert>
 	
 	<delete id="commentDelete" parameterType="int">
