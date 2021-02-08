@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.method.annotation.RedirectAttributesMethodArgumentResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.yewon.command.GoknowHowDeleteCommand;
@@ -90,6 +91,7 @@ public class WonController {
 	}
 	
 	
+	
 	// viewPage에서 글목록으로 돌아가기 버튼 클릭시 list페이지로 이동
 	@RequestMapping(value = "board_knowHowListPage.limyeng",method=RequestMethod.GET)
 		public String boardknowHowlistPage(@RequestParam("knowhow_no")int knowhow_no, Model model) {
@@ -110,6 +112,7 @@ public class WonController {
 		
 	}
 	
+<<<<<<< HEAD
 
 	// viewPage에서 삭제버튼 누르면 버리기
 		@RequestMapping(value = "fn_knowHowDelete.limyeng", method=RequestMethod.POST)
@@ -120,6 +123,19 @@ public class WonController {
 			goknowHowDeleteCommand.execute(sqlSession, model);
 			return "redirect:goboard_knowhowList.limyeng";
 		}
+=======
+	// viewPage에서 삭제버튼 누르면 버리기
+	@RequestMapping(value = "fn_knowHowDelete.limyeng", method=RequestMethod.POST)
+	public String knowhowDelete(@RequestParam int knowhow_no, RedirectAttributes rttr , Model model) {
+		model.addAttribute("knowhow_no",knowhow_no);
+		model.addAttribute("rttr", rttr);
+		GoknowHowDeleteCommand goknowHowDeleteCommand = ctx.getBean("goknowHowDeleteCommand", GoknowHowDeleteCommand.class);
+		goknowHowDeleteCommand.execute(sqlSession, model);
+		return "redirect:goboard_knowhowList.limyeng";
+	}
+	
+	
+>>>>>>> 4ce050066912fe962a1939ec8c8c8e8227b89dbb
 	
 
 }

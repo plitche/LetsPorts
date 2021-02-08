@@ -24,6 +24,7 @@
 <script>
 	// 수정하기 버튼 클릭시 작동
 	
+
 	// 삭제하기 버튼 클릭시 작동
 	function fn_knowHowDelete() {
 		swal.fire({
