@@ -1,17 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%-- jQuery --%>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	crossorigin="anonymous"></script>
 
-<script src="resources/joon/js/users.js"></script>
-<!-- 이메일... -->
+<script src="resources/joon/js/signUp.js"></script>
+
+<style type="text/css">
+	#authEmail {
+		display: none;
+	}
+</style>
+
 <script type="text/javascript">
-// 회원가입 이메일 인증(1 = 인증 / 0 != 인증)
-// 페이지 로드 이벤트
+//이메일 중복확인
+//페이지 로드 이벤트
 	$(document).ready(function(){
 		emailCheck();
 		emailAuth();
@@ -24,35 +32,48 @@
 		// 이메일 키업 체크
 		$("#email").keyup(function(){
 		var email = $('#email').val();
-		var isDisabled = $("#sendConfirm").attr("disabled");
-
+		var status = $('#authEmail').css('display'); // status 변수에 ID가 authEmail인 요소의 display의 속성을 '대입'
+		
 			$.ajax({
 				url : "emailCheck.hey",
 				type : "post",
 				data : email,
-				contentType : "text/plain;",
 				dataType : "json",
+				contentType : "text/plain",
 				success : function(data) {
-					console.log("true = 사용불가 / false = 사용가능 : "+ data);
+					console.log("1 = 사용불가 / 0 = 사용가능 : "+ data);
 					
 					if (data.result == 1) {
 						$("#email_check").text("이미 사용중인 이메일입니다.");
 						$("#email_check").css('color', 'red');
-						$("#sendConfirm").attr("disabled", true);
+						$("#signUpSubmit").attr("disabled", true);
 						console.log("이메일중복");
+						
+						if(status == 'none'){ // status가 none 상태일경우 
+							$('#authEmail').hide(); // ID가 authEmail인 요소를 hide();
+						}
+						
 					} else {
 						
 						if(regEmail.test(email)){
 							$("#email_check").text("사용가능한 이메일입니다.");
 							$("#email_check").css('color', 'green');
-							$('#sendConfirm').attr("disabled", false);
+							$('#signUpSubmit').attr("disabled", false);
 							console.log("정규식 통과");
+							
+							if(status == 'none'){ // status가 none 상태일경우 
+								$('#authEmail').show(); // ID가 authEmail인 요소를 show();
+							}
 				
 						} else {
 							$('#email_check').text('이메일 정보를 다시 확인하세요.');
 							$('#email_check').css('color', 'red');
-							$('#sendConfirm').attr("disabled", true);				
+							$('#signUpSubmit').attr("disabled", true);				
 							console.log("이메일 정보 이상");
+							
+							if(status == 'none'){ // status가 none 상태일경우 
+								$('#authEmail').hide(); // ID가 authEmail인 요소를 hide();
+							}
 							
 						}
 						
@@ -64,89 +85,142 @@
 			})
 		});
 	}
-
-// 이메일 인증 전송
-// 페이지 로드
+	
+	
+//이메일 인증 전송
 function emailAuth(){
-	$("#sendConfirm").click(function(){
+	$(document).on("click", "#sendAuth_btn", function() {
+		// alert('이메일 인증 시작!');
 		var email = $("#email").val();
-		var key; // 인증키
+		
+		var authKey; // 인증키
 		/* 0 = 메일 전송 전, 1=메일 전송 됨*/
 		
 		$.ajax({
 			url : "emailAuth.hey",
 			type : "post",
 			data : email,
-			contentType : "text/plain;",
 			dataType : "json",
+			contentType : "text/plain",
 			success : function(data) {
-				if(data.result == 1) {
-					alert('인증번호 발송! 회원가입을 위해 꼭 인증 해주세요.');
-					authKey = data;
-					var status = $('#moreMenu').css('display'); // status 변수에 ID가 authEmail인 요소의 display의 속성을 '대입'
-					if(state == 'none'){ // status가 none 상태일경우 
-						$('#authEmail').show(); // ID가 authEmail인 요소를 show();
-					}else{ // 그 외에는
-						$('#authEmail').hide(); // ID가 authEmail인 요소를 hide();			
-					}
+				alert('인증번호 발송! 회원가입을 위해 꼭 인증 해주세요.');
+				authKey = data.authKey;
+				console.log(authKey);
 					
-				}
 			}, error : function() {
 					console.log("뭐가 그리 문제야 say something!");
 			}
 			
-		});
-	}
+		}); // ajax
+		
+		$("#successAuth_btn").click(function(){
+			var authNum = $("#authNum").val();
+			
+			if(authNum != authKey) {
+				alert('다시 인증 해주세요.');
+				return;
+				
+			} else {
+				alert('인증이 완료되었습니다.');
+				$('#successAuth').text('인증 완료');
+				$('#successAuth').css('color', 'green');
+			}
+			
+		}); // keyup
+		
+	});
 }
+</script>
+<!-- 생년월일 -->
+<script type="text/javascript">
 	
+</script>
+<!-- 주소 -->
+<script type="text/javascript">
 	
+</script>
+<!-- 관심분야 -->
+<script type="text/javascript">
+$(document).ready(function() {
+    exercise();      
+ });
+
+function exercise(){
+	var exerc_list = [];
+	
+	$("input[name='exercise_no']:checked").each(function(){		//jQuery로 for문 돌면서 check 된값 배열에 담는다.
+		exerc_list.push($(this).val());
+		
+		$.ajax({
+			url : "exerciseCheck.hey/",
+			type : "post",
+			data: {
+				 valueArrTest:exerc_list	
+			},
+			dataType : "json",
+			contentType: "text/plain",
+			success : function(data) {
+				console.log("성공");
+				
+			}, error : function(){
+				console.log("실패");
+			}
+				
+		});
+	});
+
+}
 
 </script>
-
 
 <title>회원가입 입력</title>
 </head>
 <body>
 
 	<h3>회원가입</h3>
-	
-	*은 반드시 기재되어야 하는 항목입니다.
-	<br/><br/>
+
+	<br />
+	<br />
 	<!-- wrapper는 나중에 css 작업에 용이하게 하기 위함 -->
 	<div id="signUpWrapper">
-		<form method="post" >
-		<!-- 닉네임 -->
+		<form method="post">
+			<!-- 닉네임 -->
 			<div class="form-group">
-				<label for="user_nickname">닉네임 *</label><br/>
-					<input type="text" class="form-control" id="user_nickname" name="user_nickname" placeholder="닉네임 입력" required/><br/>
-					<div class="check_font" id="nick_check"></div><br/>
+				<label for="user_nickname">닉네임</label><br /> <input type="text"
+					class="form-control" id="user_nickname" name="user_nickname"
+					placeholder="닉네임 입력" required /><br />
+				<div class="check_font" id="nick_check"></div>
+				<br />
 			</div>
-							
-		<!-- 이메일 -->
+
+			<!-- 이메일 -->
 			<div class="form-group">
-				<label for="email">이메일 *</label><br/>
-				<input type="text" class="form-control" id="email" name="email" placeholder="이메일 주소 입력 (예: abcd123@domain.com)" />
-				<input type="button" value="인증번호 발송" id="sendConfirm" /><br/>
-				<!-- authEmail은 인증번호 발송 버튼이 활성화 됨 -->
-				<div class="check_font" id="authEmail">
-					<input type="text" id="authNum" placeholder="인증번호 입력"/>
-					<input type="button" id="successAuth_btn" value="인증완료" onclick="fn_authEmail(this.form)"/>
-				</div>
-				<!-- successConfirm은 인증 완료 메세지를 위함 -->
-				<div class="check_font" id="successConfirm"></div><br/>
-				
+				<label for="email">이메일</label><br /> 
+				<input type="text"	class="form-control" id="email" name="email" placeholder="이메일 주소 입력 (예: abcd123@domain.com)" /><br />
+				<!-- emailCheck은 인증 완료 메세지를 위함 -->
+				<div class="check_font" id="email_check"></div>
+				<br />
 			</div>
-			
+			<div class="check_font" id="authEmail">
+				<label for="email">이메일 인증</label><br /> 
+				<input type="text" id="authNum" placeholder="인증번호 입력" />
+				<input type="button" id="sendAuth_btn" value="발송" />
+				<input type="button" id="successAuth_btn" value="확인" />
+				<!-- successAuth은 인증 완료 메세지를 위함 -->
+				<div class="check_font" id="successAuth"></div><br />
+			</div>
+
+
 		<!-- 비밀번호 -->
 			<div class="form-group">
-				<label for="password">비밀번호 *</label><br/>
+				<label for="password">비밀번호 </label><br/>
 				<input type="text" class="form-control" id='password' name="password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)"><br/>
 				<div class="check_font" id="pw_check"></div>
 			</div>
 			
 		<!-- 비밀번호 확인 -->
 			<div class="form-group">
-				<label for="re_password">비밀번호 확인 *</label><br/>
+				<label for="re_password">비밀번호 확인 </label><br/>
 				<input type="text" class="form-control" id="re_password" name="re_password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)"><br/>
 				<div class="check_font" id="pw_reCheck"></div>
 			</div>
@@ -162,7 +236,7 @@ function emailAuth(){
 			
 			<!-- 주소 -->
 			<div class="form-group">
-				<label for="address">주소 *</label><br/>
+				<label for="address">주소 </label><br/>
 				<select id="location1" name="location1_no">
 					<option id="none" value="">시/도 선택</option>
 					<option id="seoul" value="0">서울특별시</option>
@@ -188,21 +262,22 @@ function emailAuth(){
 				<label><input type="checkbox" name="exercise_no" value="7">요가</label><br/>
 				<label><input type="checkbox" name="exercise_no" value="8">명상</label>
 			</div>
-			<hr/>
-			
+			<hr />
+
 			<div>
 				<input type="radio" id="이용약관" />(필수)
-			</div><br/>
-			<div>
-				<input type="radio" id="개인정보처리방침" />(필수)<br/><br/>
 			</div>
-			
+			<br />
+			<div>
+				<input type="radio" id="개인정보처리방침" />(필수)<br /> <br />
+			</div>
+
 			<input type="button" id="signUpSubmit" value="회원가입하기" onclick="fn_signUpSubmit(this.form)">
-			
+
 		</form>
 	</div>
-	
-	
-	
+
+
+
 </body>
 </html>

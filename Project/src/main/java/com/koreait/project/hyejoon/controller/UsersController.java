@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.hyejoon.command.UsersLoginCommand;
+import com.koreait.project.hyejoon.command.myPage.UserInfoUpdatePwCheckCommand;
 import com.koreait.project.hyejoon.config.HyeAppContext;
 
 @Controller
@@ -23,6 +25,7 @@ public class UsersController {
 	private SqlSession sqlSession;
 	private AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(HyeAppContext.class);
 	private UsersLoginCommand usersLoginCommand = ctx.getBean("usersLoginCommand", UsersLoginCommand.class);
+	private UserInfoUpdatePwCheckCommand userInfoUpdatePwCheckCommand = ctx.getBean("userInfoUpdatePwCheckCommand", UserInfoUpdatePwCheckCommand.class);
 	
 	/***** 단순 이동 *****/
 	
@@ -45,6 +48,7 @@ public class UsersController {
 	}
 	
 	
+	
 	/***** 정보 전달 *****/
 	
 	// 로그인
@@ -63,6 +67,15 @@ public class UsersController {
 		return "redirect:/";
 	}
 	
-	
+	/*
+	// 마이페이지 정보 수정 페이지로 이동하기 위한 비밀번호 체크
+	@RequestMapping(value="usersInfoUpdatePage.hey", method=RequestMethod.POST)
+	public String usersInfoUpdatePage(HttpServletRequest request, Model model, RedirectAttributes redirect) {
+		model.addAttribute("request", request);
+		model.addAttribute("redirect", redirect);
+		userInfoUpdatePwCheckCommand.execute(sqlSession, model);
+		return "hyePages/usersInfoUpdatePage.hey";
+	}
+	*/
 	
 }
