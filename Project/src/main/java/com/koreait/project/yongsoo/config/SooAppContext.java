@@ -6,6 +6,12 @@ import org.springframework.context.annotation.Bean;
 import com.koreait.project.yongsoo.command.comment.AddCommentCommand;
 import com.koreait.project.yongsoo.command.comment.DeleteCommentCommand;
 import com.koreait.project.yongsoo.command.comment.GetCommentListCommand;
+import com.koreait.project.yongsoo.command.qna.DeleteQnACommand;
+import com.koreait.project.yongsoo.command.qna.GetQnAListCommand;
+import com.koreait.project.yongsoo.command.qna.GoQnAUpdatePageCommand;
+import com.koreait.project.yongsoo.command.qna.GoQnAViewPageCommand;
+import com.koreait.project.yongsoo.command.qna.UpdateQnACommand;
+import com.koreait.project.yongsoo.command.qna.WriteQnACommand;
 import com.koreait.project.yongsoo.command.trainer.GoTrainerDetailCommand;
 import com.koreait.project.yongsoo.command.trainer.GoTrainerListCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.CreateMeetingCommand;
@@ -121,5 +127,34 @@ public class SooAppContext {
 		return new ShortReviewContentCommand();
 	}
 	
+	@Bean
+	public GetQnAListCommand getQnAListCommand() {
+		return new GetQnAListCommand();
+	}
+	
+	@Bean
+	public WriteQnACommand writeQnACommand() {
+		return new WriteQnACommand();
+	}
+	
+	@Bean
+	public GoQnAViewPageCommand goQnAViewPageCommand() {
+		return new GoQnAViewPageCommand();
+	}
+	
+	@Bean
+	public GoQnAUpdatePageCommand goQnAUpdatePageCommand() {
+		return new GoQnAUpdatePageCommand();
+	}
+
+	@Bean
+	public UpdateQnACommand updateQnACommand() {
+		return new UpdateQnACommand();
+	}
+	
+	@Bean
+	public DeleteQnACommand deleteQnACommand() {
+		return new DeleteQnACommand();
+	}
 	
 }

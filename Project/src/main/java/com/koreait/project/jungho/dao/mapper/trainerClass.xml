@@ -8,15 +8,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 전체 목록을 뿌려주는 list 쿼리문 -->
 	<select id="trainerClassList" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
-		SELECT *
+		SELECT * 
 		FROM MEETING M1
 			INNER JOIN EXERCISE E1
 				ON E1.EXERCISE_NO = M1.EXERCISE_NO
 			INNER JOIN USERS U
 				ON M1.USER_NO = U.USER_NO
 			INNER JOIN PHOTO P
-				ON  M1.MEETING_NO = P.PHOTO_REFERER_NO
-		WHERE M.USER_NO = #{user_no}
+				ON M1.MEETING_NO = P.PHOTO_REFERER_NO
 	</select>
 	
 	<select id="classTag" resultType="com.koreait.project.dto.ExerciseDto">
@@ -44,8 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 보여주기 페이지를 위해 값 가져가는 쿼리문 -->
 	<select id="trainerClassView" parameterType="int" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
-		SELECT E.EXERCISE_NAME, L1.LOCATION1_NAME, L2.LOCATION2_NAME, U.USER_NO, U.USER_NICKNAME, U.USER_MESSAGE, U.PROFILE_PHOTO, U.EMAIL, 
-				 M.MEETING_NO, M.USER_NO, M.MEETING_MAX, M.MEETING_MIN, M.EXERCISE_NO, M.CREATED_AT, M.START_GATHER_DATE, M.END_GATHER_DATE, M.MEETING_DATE, M.LOCATION1_NO, M.LOCATION2_NO, M.MEETING_TITLE, M.MEETING_CONTENT, M.IS_PROGRESS, M.CANCEL_REASON, M.ON_HIDE, M.DETAIL_LOCATION, M.MEETING_HIT
+		SELECT *
 		FROM MEETING M
 		    JOIN LOCATION1 L1
 		    	 ON M.LOCATION1_NO = L1.LOCATION1_NO
@@ -55,6 +53,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 	 ON M.EXERCISE_NO = E.EXERCISE_NO
 			JOIN USERS U
 				 ON M.USER_NO = U.USER_NO
+			JOIN PHOTO P
+				 ON M.MEETING_NO = P.PHOTO_REFERER_NO
 		WHERE M.MEETING_NO = #{param1}
 	</select>
 	
@@ -90,37 +90,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- VIEW페이지에서 관련클래스 목록 추출하는 쿼리문 -->
 	<select id="relatedClass"  resultType="com.koreait.project.jungho.dto.TrainerClassDto">
-		SELECT M.USER_NO, U.USER_NICKNAME, U.USER_MESSAGE, M.MEETING_NO, M.MEETING_TITLE,
-				 M.MEETING_DATE, M.EXERCISE_NO, M.CREATED_AT, M.MEETING_MAX, M.MEETING_MIN, E.EXERCISE_NAME
+		SELECT *
 		FROM MEETING M
-			JOIN USERS U
+			INNER JOIN USERS U
 				ON M.USER_NO = U.USER_NO
-			JOIN EXERCISE E
+			INNER JOIN EXERCISE E
 				ON M.EXERCISE_NO = E.EXERCISE_NO
+			INNER JOIN PHOTO P
+				ON M.MEETING_NO = P.PHOTO_REFERER_NO
 		WHERE M.USER_NO != #{param1}
 	    AND M.EXERCISE_NO = #{param2}
 	</select>
 	
 	<!-- 트레이너 클래스 목록 페이지 검색창 쿼리문 -->
 	<select id="searchClass" resultType="com.koreait.project.jungho.dto.TrainerClassDto" parameterType="string">
-		SELECT M.USER_NO, U.USER_NICKNAME, U.USER_MESSAGE, M.MEETING_NO, M.MEETING_TITLE, M.MEETING_HIT,
-				 M.MEETING_DATE, M.EXERCISE_NO, M.CREATED_AT, M.MEETING_MAX, M.MEETING_MIN, E.EXERCISE_NAME
+		SELECT *
 		FROM MEETING M
-			JOIN USERS U
+			INNER JOIN USERS U
 				ON M.USER_NO = U.USER_NO
-			JOIN EXERCISE E
+			INNER JOIN EXERCISE E
 				ON M.EXERCISE_NO = E.EXERCISE_NO
-		WHERE MEETING_TITLE LIKE '%'||#{param1}||'%' OR
-		EXERCISE_NAME LIKE '%'||#{param1}||'%'
+			INNER JOIN PHOTO P
+				ON M.MEETING_NO = P.PHOTO_REFERER_NO
+		WHERE M.MEETING_TITLE LIKE '%'||#{param1}||'%' OR
+		E.EXERCISE_NAME LIKE '%'||#{param1}||'%'
 	</select>
 	
 	
 	
 	<!-- ▼▼▼▼▼▼▼▼▼▼ 태그들 ▼▼▼▼▼▼▼▼▼▼ -->
 	<select id="Tag0" resultType="com.koreait.project.jungho.dto.TrainerClassDto"	 parameterType="String">
-		SELECT M1.EXERCISE_NO, E1.EXERCISE_NAME, M1.MEETING_DATE, M1.MEETING_TITLE, M1.MEETING_NO, M1.MEETING_HIT
-		FROM MEETING M1 INNER JOIN EXERCISE E1
-		ON E1.EXERCISE_NO = M1.EXERCISE_NO
+		SELECT *
+		FROM MEETING M1
+			INNER JOIN EXERCISE E1
+				ON E1.EXERCISE_NO = M1.EXERCISE_NO
+			INNER JOIN PHOTO P
+				ON M1.MEETING_NO = P.PHOTO_REFERER_NO
 		WHERE EXERCISE_NAME = #{param1}
 	</select>
 	<!-- 

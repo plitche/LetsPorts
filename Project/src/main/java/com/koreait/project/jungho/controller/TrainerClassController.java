@@ -62,7 +62,7 @@ public class TrainerClassController {
 		
 		model.addAttribute("multipartRequest", multipartRequest);
 		TrainerClassInsertCommand trainerClassInsertCommand = ctx.getBean("trainerClassInsertCommand", TrainerClassInsertCommand.class);
-		int user_no = trainerClassInsertCommand.execute(sqlSession, model);
+		trainerClassInsertCommand.execute(sqlSession, model);
 		
 		return "redirect:TrainerClassListPage.leo";
 		
