@@ -13,6 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE EMAIL = #{param1}
 		   AND PASSWORD = #{param2}
 	</select>
+	
+	
+	<!-- 회원가입 -->
 	<select id="nickCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		  FROM USERS
@@ -22,5 +25,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*)
 		  FROM USERS
 		 WHERE email = #{email}
+	</select>
+	
+	<!-- 마이페이지  -->
+	<select id="userAuth" parameterType="String" resultType="com.koreait.project.dto.UsersDto">
+		SELECT *
+		  FROM USERS
+		 WHERE PASSWORD = #{password}
 	</select>
 </mapper>

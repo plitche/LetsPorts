@@ -10,7 +10,7 @@ import com.koreait.project.yongsoo.dto.TrainerTemDto;
 public interface TrainerMeetingDao {
 
 	// 트레이너가 개설한 모임 정보를 가져오기 위한 메소드
-	public List<MeetingTemDto> findMeetings(int user_no);
+	public List<MeetingTemDto> findMeetings(int page_no, int user_no);
 	// 트레이너 디테일 페이지에서 해당 트레이너의 총 모임 개수를 가지고 오기 위한 메소드
 	public int totalMeetingCount(int user_no);
 	

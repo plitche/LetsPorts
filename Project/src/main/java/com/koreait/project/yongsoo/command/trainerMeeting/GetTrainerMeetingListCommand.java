@@ -18,13 +18,14 @@ public class GetTrainerMeetingListCommand implements CommonMapCommand {
 
 		Map<String, Object> map = model.asMap();
 		int user_no = (int)map.get("user_no");
+		int page_no = (int)map.get("meetingPageNo");
 		
 		TrainerMeetingDao trainerMeetingDao = sqlSession.getMapper(TrainerMeetingDao.class);
 		// 총 모임 개수
 		int totalMeetingCount = trainerMeetingDao.totalMeetingCount(user_no);
 		
 		// 모임 리스트
-		List<MeetingTemDto> meetingList = trainerMeetingDao.findMeetings(user_no);
+		List<MeetingTemDto> meetingList = trainerMeetingDao.findMeetings(page_no, user_no);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		if (meetingList.size()>0) {

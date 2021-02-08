@@ -22,7 +22,7 @@ public class TrainerTemDto {
 	private String location1_name;
 	private int location2_no;
 	private String location2_name;
-	private int score;
+	private Double score;
 	private int reviews;
 	
 }

@@ -1,4 +1,4 @@
-package com.koreait.project.yongsoo.command.commonTrainer;
+package com.koreait.project.yongsoo.command.trainer;
 
 import java.util.List;
 
@@ -16,24 +16,20 @@ public class GoTrainerListCommand implements CommonVoidCommand {
 
 		TrainerDao trainerDao = sqlSession.getMapper(TrainerDao.class);
 		List<TrainerTemDto> trainerList = trainerDao.trainerList();
-		
+
 		for (int i=0; i<trainerList.size(); i++) {
 			int user_no = trainerList.get(i).getUser_no();
 			
 			if (trainerDao.trainerScore(user_no)==null) {
-				trainerList.get(i).setScore(0);
+				trainerList.get(i).setScore(0.0);
 			} else {
 				trainerList.get(i).setScore(trainerDao.trainerScore(user_no));
 			}
 			
-			if (trainerDao.reviewCount(user_no)==null) {
-				trainerList.get(i).setReviews(0);
-			} else {
-				trainerList.get(i).setReviews(trainerDao.reviewCount(user_no));
-			}
+			trainerList.get(i).setReviews(trainerDao.reviewCount(user_no));
 		}
-		
-		model.addAttribute("trainerList", trainerDao.trainerList());
+
+		model.addAttribute("trainerList", trainerList);
 		
 	}
 

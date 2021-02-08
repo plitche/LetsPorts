@@ -67,7 +67,7 @@
 }
 
 /* tap에서 모임 탭의 css */
-#trainerMeetingList a {
+#trainerMeetingList > a {
 	text-decoration: none;
 	color: inherit;	
 	float: left;
@@ -152,11 +152,42 @@
 }
 
 /* 트레이너 리뷰 modal파트 css */
+#trainerReviewList {
+	padding: 20px;
+}
+.eachReview {
+	padding: 20px;
+	border: 3px solid limegreen;
+	border-radius: 5%;
+}
 #modalDetail textarea {
 	border: 1px solid;
 }
+.reviewHeader {
+	display: flex;
+}
+.reviewHeader > div:nth-child(1) {
+	font-weight: 900;
+	font-size: 2rem;
+	margin-right: 50px;
+}
+.reviewContent {
+	margin: 15px 0px;
+}
+.reviewFooter > div:nth-child(1) {
+	float: left;
+}
+.reviewFooter > div:nth-child(2) {
+	float: right;
+}
 
-
+/* 리뷰 더보기 버튼 css */
+.eachReview {
+	display: none;
+}
+.review0nth, .review1nth, .review2nth, .review3nth, .review4nth {
+	display: block;
+}
 
 /* 트레이너에게 질문한 list 파트 css */
 table > thead > tr > td {
@@ -191,7 +222,8 @@ table > thead > tr > td {
 	text-decoration: none;
 	color: inherit;
 }
-
-
+#qnaPaging a {
+	margin: 0 5px;
+}
 
 

@@ -123,8 +123,6 @@ function rePwCheck(){
 
 
 
-
-
 // 생년월일 for문
 $(document).ready(function(){
        setBirthDate();
