@@ -6,7 +6,9 @@ import com.koreait.project.dto.CommentsDto;
 
 public interface TrainerClassCommentDao {
 
-	public List<CommentsDto> commentList(int meeting_no);
+	public List<CommentsDto> commentList(int beginRecord, int endRecord, int meeting_no);
+	
+	public int commentCount(int meeting_no);
 	
 	public int commentInsert(CommentsDto commentsDto);
 	
