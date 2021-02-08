@@ -1,5 +1,7 @@
 package com.koreait.project.hyejoon.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -7,25 +9,30 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.http.HttpRequest;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.koreait.project.hyejoon.command.UsersLoginCommand;
-import com.koreait.project.hyejoon.command.myPage.UserInfoUpdatePwCheckCommand;
+import com.koreait.project.dto.UsersDto;
+import com.koreait.project.hyejoon.command.login.SendTempPwCommand;
+import com.koreait.project.hyejoon.command.login.UserCheckCommand;
+import com.koreait.project.hyejoon.command.login.UsersLoginCommand;
 import com.koreait.project.hyejoon.config.HyeAppContext;
 
 @Controller
-public class UsersController {
+public class UsersLoginController {
 	
 	@Autowired
 	private SqlSession sqlSession;
 	private AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(HyeAppContext.class);
 	private UsersLoginCommand usersLoginCommand = ctx.getBean("usersLoginCommand", UsersLoginCommand.class);
-	private UserInfoUpdatePwCheckCommand userInfoUpdatePwCheckCommand = ctx.getBean("userInfoUpdatePwCheckCommand", UserInfoUpdatePwCheckCommand.class);
+	private SendTempPwCommand sendTempPwCommand = ctx.getBean("sendTempPwCommand", SendTempPwCommand.class);
+	private UserCheckCommand userCheckCommand = ctx.getBean("userCheckCommand", UserCheckCommand.class);
 	
 	/***** 단순 이동 *****/
 	
@@ -67,15 +74,24 @@ public class UsersController {
 		return "redirect:/";
 	}
 	
-	/*
-	// 마이페이지 정보 수정 페이지로 이동하기 위한 비밀번호 체크
-	@RequestMapping(value="usersInfoUpdatePage.hey", method=RequestMethod.POST)
-	public String usersInfoUpdatePage(HttpServletRequest request, Model model, RedirectAttributes redirect) {
-		model.addAttribute("request", request);
-		model.addAttribute("redirect", redirect);
-		userInfoUpdatePwCheckCommand.execute(sqlSession, model);
-		return "hyePages/usersInfoUpdatePage.hey";
+	// 회원인지 여부 확인을 위한 ajax용
+	@RequestMapping(value="userCheck.hey", method=RequestMethod.POST, produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> userCheck(@RequestBody UsersDto usersDto, Model model){
+		model.addAttribute("usersDto", usersDto);
+		return userCheckCommand.execute(sqlSession, model);
 	}
-	*/
+	
+	// 임시 비밀번호 발송
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	@RequestMapping(value="sendTempPw.hey", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> sendTempPw(@RequestBody String email, Model model) {
+		model.addAttribute("mailSender", mailSender);
+		model.addAttribute("email", email);
+		return sendTempPwCommand.execute(sqlSession, model);
+	}
 	
 }

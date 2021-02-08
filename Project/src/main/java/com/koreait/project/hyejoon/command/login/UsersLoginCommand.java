@@ -1,4 +1,4 @@
-package com.koreait.project.hyejoon.command;
+package com.koreait.project.hyejoon.command.login;
 
 import java.util.Map;
 
