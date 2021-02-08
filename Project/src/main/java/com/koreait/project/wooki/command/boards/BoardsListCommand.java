@@ -1,4 +1,4 @@
-package com.koreait.project.wooki.command;
+package com.koreait.project.wooki.command.boards;
 
 import java.util.HashMap;
 import java.util.List;

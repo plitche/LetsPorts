@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.TrainerClassUpdate_part1 {
+	display: flex;
+}
+.TrainerClassPhoto {
+	padding-left:300px;
+}
+
+.WishList {
+	padding-left:300px;
+	float: right;
+}
+
+.coverphotoUpdate {
+	padding-left: 300px;
+}

@@ -4,6 +4,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="../template/header.jsp" />
 <link type="text/css" rel="stylesheet" href="resources/style/jung/TrainerClassMain.css" >
+<script>
+	/* 로그인 alert을 위한 function */
+	var loginAlert = function() {
+						swal.fire({
+							title: '로그인이 필요한 기능입니다!', 	text: '로그인 페이지로 이동하시겠습니까?',
+							icon: 'warning',     			showCancelButton: true,
+							confirmButtonColor: 'green',	cancelButtonColor: 'red',
+							confirmButtonText: '이동하기',		cancelButtonText: '머물기'
+						}).then((result)=> {
+							if (result.isConfirmed) {
+								Swal.fire('로그인 페이지로 이동합니다.', '로그인 후 더 많은 정보를 확인하세요!^^', 'success').then((result)=> {
+										location.href='usersLoginPage.hey';	
+									}
+								);
+							}
+						});
+					}
+</script>
 
 <br/><br/>
 
@@ -85,8 +103,7 @@
 		// 트레이너 클래스 목록 페이지에서 로그인이 안되어있을경우 넘겨주는 스크립트
 		function forMakeClassLogin() {
 			if ('${loginUser}' == '') {
-				alert('LetSports 트레이너 자격이 있으신 분만 개설 가능합니다. 로그인해주세요.');
-				location.href= 'usersLoginPage.hey';
+				loginAlert();
 			} else {
 				location.href = 'TrainerClassInsertPage.leo';
 			}
@@ -113,10 +130,11 @@
 		<c:forEach var="MeetingDto" items="${MeetingList}">
 			<a href="TrainerClassViewPage.leo?meeting_no=${MeetingDto.meeting_no}">
 				<div class="MeetingClass">
-					<div><img alt="${MeetingDto.photo_filename}" src="resources/storage/${MeetingDto.photo_filename}"></div>
+					<div><img alt="${MeetingDto.photo_filename}" src="resources/storage/${MeetingDto.photo_filename}" style="width:250px; height:100px;"></div>
 					${MeetingDto.meeting_title}<br/><br/>
 					모임일 : ${MeetingDto.meeting_date}<br/>
 					운동 종목 : ${MeetingDto.exercise_name}<br/>
+					작성자 : ${MeetingDto.user_nickname}<br/>
 					조회수 ${MeetingDto.meeting_hit}<br/>
 				</div>
 			</a>

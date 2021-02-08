@@ -33,9 +33,11 @@ public interface TrainerClassDao {
 	
 	public int trainerClassDelete(int meeting_no);
 	
-	public int trainerClassUpdate(TrainerClassDto trainerClassDto);
+	public int trainerClassUpdate(MakeTrainerClassDto makeTrainerClassDto);
 	
 	public int materialsViewUpdate(String material, int meeting_no);
+	
+	public int updatePhoto(String uploadFilename, int meeting_no);
 	
 	// 관련 트레이너 클래스 리스트 추출
 	public List<TrainerClassDto> relatedClass(int user_no, int exercise_no);

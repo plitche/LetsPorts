@@ -1,4 +1,4 @@
-package com.koreait.project.wooki.command;
+package com.koreait.project.wooki.command.admin;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,24 +9,22 @@ import org.springframework.ui.Model;
 import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.wooki.dao.WookiDao;
 
-public class ChangeEmailIsPossibleCommand implements CommonMapCommand {
+public class UpdateNormalUserCommand implements CommonMapCommand {
 
 	@Override
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
-		Map<String, Object> map = model.asMap();
-		String email = (String) map.get("email");
+		int user_no = (int) model.asMap().get("user_no");
 		
 		WookiDao wookiDao = sqlSession.getMapper(WookiDao.class);
-		int result = wookiDao.changeEmailIsPossible(email);
+		int result = wookiDao.updateNormalUser(user_no);
 		
-		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		if(result > 0) {
-			resultMap.put("result", false);
+			map.put("result", true);
 		} else {
-			resultMap.put("result", true);
+			map.put("result", false);
 		}
-		
-		return resultMap;
+		return map;
 	}
 
 }

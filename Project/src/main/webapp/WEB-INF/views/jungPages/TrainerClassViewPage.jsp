@@ -5,6 +5,25 @@
     
 <jsp:include page="../template/header.jsp" />
 <link type="text/css" rel="stylesheet" href="resources/style/jung/TrainerClassViewPage.css" >
+<!-- sweetalert -->
+<script>
+	/* 로그인 alert을 위한 function */
+	var loginAlert = function() {
+						swal.fire({
+							title: '로그인이 필요한 기능입니다!', 	text: '로그인 페이지로 이동하시겠습니까?',
+							icon: 'warning',     			showCancelButton: true,
+							confirmButtonColor: 'green',	cancelButtonColor: 'red',
+							confirmButtonText: '이동하기',		cancelButtonText: '머물기'
+						}).then((result)=> {
+							if (result.isConfirmed) {
+								Swal.fire('로그인 페이지로 이동합니다.', '로그인 후 더 많은 정보를 확인하세요!^^', 'success').then((result)=> {
+										location.href='usersLoginPage.hey';	
+									}
+								);
+							}
+						});
+					}
+</script>
 
 
     <form method="post">
@@ -34,12 +53,13 @@
 				   
 					   <div class="WishList"><a href="">관심페이지 등록하기</a></div>
 					   <div class="TrainerClassPhoto">
-					   		<img alt="${trainerClassDto.photo_filename}" src="resources/storage/${trainerClassDto.photo_filename}">
+					   		<img alt="${trainerClassDto.photo_filename}" src="resources/storage/${trainerClassDto.photo_filename}" style="width: 300px; height:300px;">
 					   </div>
 				   
 				   </div>
 				   
 				   <!-- hidden -->
+				   <input type="hidden" name="photo_filename" value="${trainerClassDto.photo_filename}" />
 				   <input type="hidden" name="meeting_no" value="${trainerClassDto.meeting_no}" />
 				   <input type="hidden" name="meeting_title" value="${trainerClassDto.meeting_title}" />
 				   <input type="hidden" name="meeting_date" value="${trainerClassDto.meeting_date}" />
@@ -72,21 +92,36 @@
     	   		}
     	   		
     	   });
-    	   $(document).on('click', '#ClassApplyBtn', function() {
-			   if ('${loginUser}' == '') {
-				   alert('회원만 신청가능합니다. 로그인해주세요.');
-				   location.href= 'usersLoginPage.hey';
-			   } else {
-				   location.href = '';  // 클래스 신청했을 때 넘어가는 경로
-			   }
-		   });
     	   
+    	   // 트레이너 클래스 리스트로 넘어가는 경로 설정
     	   function fn_TrainerClassList() {
 	    		location.href = 'TrainerClassListPage.leo';
     	   }
     	   
     	   </script>
 			   
+    	   <script>
+    	   
+	    	   // 클래스 신청 클릭시 작동
+	    	   $(document).ready(function() {
+	    		   ClassApply();
+				});
+	    	   
+	    	   function ClassApply() {
+		    	   $(document).on('click', '#ClassApplyBtn', function() {
+					   if ('${loginUser.user_no}' == '') {
+						   loginAlert();	
+					   } else {
+						   location.href = '';  // 클래스 신청했을 때 넘어가는 경로
+					   }
+				   });
+	    		   
+	    	   }
+	    	
+    	   
+    	   </script>
+    	   
+    	   
 			   <!-- 버튼들(수정, 삭제, 등록) -->
 			   <div class="Btns1">
 			   
@@ -213,9 +248,12 @@
     		$('.relatedClass_all').empty();
 			$.each(list, function(idx, relatedClass) {
 				$('<div>').addClass('relatedClass')
+				.append($('<img alt="' + relatedClass.photo_filename + '" src="resources/storage/' + relatedClass.photo_filename + '" style="width:250px; height:100px;">'))
 				.append($('<a href="#" onclick="fn_showRelatedMeeting(' + relatedClass.meeting_no + '); return false;">' + relatedClass.meeting_title + '</a> '))
-				.append($('<div>' +  relatedClass.meeting_date + '</div>'))
-				.append($('<div>' +  relatedClass.exercise_name + '</div>'))
+				.append($('<div>모임날짜  : ' + relatedClass.meeting_date + '</div>'))
+				.append($('<div>운동종목 : ' + relatedClass.exercise_name + '</div>'))
+				.append($('<div>작성자 : ' + relatedClass.user_nickname + '</div>'))
+				.append($('<div>조회수 : ' + relatedClass.meeting_hit + '</div>'))
 				.appendTo('.relatedClass_all');
 			});
     	}
@@ -310,28 +348,77 @@
 			commentInsertCancel();
 		});
 		
+		// 페이징 처리
+		var commentPage = 1;  // 기본 페이징 1로 설정
+		
 		/**** 리스트 뿌려주기 ****/
 		function commentList() {
-			var meeting_no = '${trainerClassDto.meeting_no}';
+			var meeting_no = '${trainerClassDto.meeting_no}'; // 클래스에 댓글이 달리니까 클래스를 넘겨서 클래스 안에있는 댓글을 가져오기 위해 보낸다
+			
 			$.ajax({
-				url: 'comment.leo',
+				url: 'comment.leo', 
 				type: 'get',
-				data: 'meeting_no=' + meeting_no,
+				data: 'meeting_no=' + meeting_no + '&commentPage=' + commentPage,
 				dataType: 'json',
+				contentType: 'application/json',
 				success: function (responseObj) {
+					
+					var paging = responseObj.paging;
+					
 					if (responseObj.result) {
 						commentListContent(responseObj.commentList);
 						$('#totalCount').empty();
-						$('<span>').html(responseObj.totalCount)
+						$('<span>').html(paging.totalRecord)
 						.appendTo('#totalCount');
 					} else {
 						$('#listComment_all').empty();
 						 $('<div>').html('댓글을 작성해주세요')
 						.appendTo('#listComment_all');
 					}
+					
+					$('#paging').empty(); // 기존 페이징 초기화
+					
+					// <
+					if (paging.beginPage <= paging.pagePerBlock) {
+						$('#paging').append('<div class="disable"><a>◀</a></div>');
+					} else {
+						$('#paging').append('<div class="prev-block go-page" data-page="' + (paging.beginPage - 1) + '"><a>◀</a></div>');
+					}
+					
+					for (let p = paging.beginPage; p <= paging.endPage; p++) {
+						if (paging.commentPage == p) {
+							$('#paging').append('<div class="now-page"><a>' + p + '</a></div>')
+						} else {
+							$('#paging').append('<div class="go-page" data-page="' + p +'"><a>' + p + '</a></div>');
+						}
+					}
+					// >
+					if (paging.endPage >= paging.totalPage) {
+						$('#paging').append('<div class="disable"><a>▶</a></div>');
+					} else {
+						// class 의미
+						// 1) next-block : 다음(▶)으로 이동하려고
+						// 2) go-page : css (cursor: pointer) 적용하려고
+						$('#paging').append('<div class="next-block go-page" data-page="' + (paging.endPage + 1) + '"><a>▶</a></div>');
+					}
 				},
-				error: function() {alert('실패');}
+				error: function() {alert('실패44');}
 			});
+			
+			// 링크가 걸릴 때 이동할 페이지 번호를 알아내서 다시 목록을 뿌리는 함수들
+			$('#paging').on('click', '.prev-block', function(){
+				page = $(this).attr('data-page');
+				commentList();
+			});
+			$('#paging').on('click', '.go-page', function(){
+				page = $(this).attr('data-page');
+				commentList();
+			});
+			$('#paging').on('click', '.next-block', function(){
+				page = $(this).attr('data-page');
+				commentList();
+			});
+			
 		}
 		
 		function commentListContent(list) {
@@ -343,7 +430,7 @@
 				.append( $('<div>').addClass('comment_wrap')
 					.append( $('<div>').addClass('comment_all')
 						.append( $('<div>').addClass('comment1')
-								.append( $('<div>').html(comment.user_no))
+								.append( $('<div>').html(comment.user_nickname))
 								.append( $('<div>').html(comment.created_at))
 						)
 						.append( $('<div>').addClass('comment2').html(comment.comment_content) )
@@ -361,54 +448,71 @@
 			});
 		}
 		
+		
+		
 		/**** 댓글 삽입 ****/
 		function commentInsert() {
 			$('#commentBtn').click(function(){
-				var meeting_no = ${trainerClassDto.meeting_no};
-				var user_no = 10;
-				var comment_content = $('input:text[name="comment_content"]').val();
-				var sendObj = {
-						"comment_referer_no": meeting_no,
-						"user_no": user_no,
-						"comment_content": comment_content
-					};
 				
-				$.ajax({
-					url: 'commentInsert.leo',
-					type: 'post',
-					dataType:'json',
-					data: JSON.stringify(sendObj),
-					contentType: 'application/json; charset=utf-8',
-					success: function(responseObj) {
-						if (responseObj.result == true) {
-							alert('댓글이 작성되었습니다.');
-							commentList();
-							$('input:text[name="comment_content"]').val('');
-						} else {
-							alert('댓글이 작성되지 않았습니다.');
-						}
-					},
-					error: function(){alert('실패');}
-				});
+				if ( '${loginUser.user_no}' == '') {
+					loginAlert();
+				} else {
+					
+					var meeting_no = ${trainerClassDto.meeting_no};
+					var board_user_no = ${trainerClassDto.user_no};
+					var user_no = '${loginUser.user_no}';
+					var comment_content = $('input:text[name="comment_content"]').val();
+					var sendObj = {
+							"comment_referer_no": meeting_no,
+							"board_user_no": board_user_no,
+							"comment_content": comment_content,
+							"user_no":user_no
+						};
+					
+						$.ajax({
+							url: 'commentInsert.leo',
+							type: 'post',
+							data: JSON.stringify(sendObj),
+							contentType: 'application/json; charset=utf-8',
+							dataType:'json',
+							success: function(responseObj) {
+								if (responseObj.result == true) {
+									alert('댓글이 작성되었습니다.');
+									commentList();
+									$('input:text[name="comment_content"]').val('');
+								} else {
+									alert('댓글이 작성되지 않았습니다.');
+								}
+							},
+							error: function(){alert('실패??');}
+						});
+					
+				}
+					
+			
+				
 			});
 		}
 		
 		/**** 댓글 삭제 ****/	
 		function commentDelete(comment_no) {
-					$.ajax({
-						url: 'commentDelete.leo/' + comment_no,
-						type: 'get',
-						dataType: 'json',
-						success: function(responseObj) {
-							if (responseObj.result == 1) {
-								alert('삭제되었습니다.');
-								commentList();
-							} else {
-								alert('삭제에 실패했습니다.');
-							}
-						},
-						error: function(){alert('실패');}						
-					});
+			
+			
+			$.ajax({
+				url: 'commentDelete.leo/' + comment_no,
+				type: 'get',
+				contentType: 'application/json',
+				dataType: 'json',
+				success: function(responseObj) {
+					if (responseObj.result == 1) {
+						alert('삭제되었습니다.');
+						commentList();
+					} else {
+						alert('삭제에 실패했습니다.');
+					}
+				},
+				error: function(){alert('실패2124');}						
+			});
 		}
 		
 		/**** 댓글 수정하기 위한 input 생성 후 value 입력 ****/
@@ -481,6 +585,8 @@
 			});
 		}
 		
+		
+		
 	</script>
 	
 	
@@ -501,6 +607,10 @@
 	
 	<!-- 댓글 리스트란 -->
 	<div id="listComment_all">
+	
+	</div>
+	<!-- 페이징 -->
+	<div id="paging">
 	
 	</div>
 	
