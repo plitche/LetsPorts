@@ -34,7 +34,7 @@
 				   
 					   <div class="WishList"><a href="">관심페이지 등록하기</a></div>
 					   <div class="TrainerClassPhoto">
-					   		<img alt="${trainerClassDto.photo_filename}" src="resources/storage/${trainerClassDto.photo_filename}">
+					   		<img alt="${trainerClassDto.photo_filename}" src="resources/storage/${trainerClassDto.photo_filename}" style="width: 300px; height:300px;">
 					   </div>
 				   
 				   </div>
@@ -213,9 +213,12 @@
     		$('.relatedClass_all').empty();
 			$.each(list, function(idx, relatedClass) {
 				$('<div>').addClass('relatedClass')
+				.append($('<img alt="' + relatedClass.photo_filename + '" src="resources/storage/' + relatedClass.photo_filename + '" style="width:250px; height:100px;">'))
 				.append($('<a href="#" onclick="fn_showRelatedMeeting(' + relatedClass.meeting_no + '); return false;">' + relatedClass.meeting_title + '</a> '))
-				.append($('<div>' +  relatedClass.meeting_date + '</div>'))
-				.append($('<div>' +  relatedClass.exercise_name + '</div>'))
+				.append($('<div>모임날짜  : ' + relatedClass.meeting_date + '</div>'))
+				.append($('<div>운동종목 : ' + relatedClass.exercise_name + '</div>'))
+				.append($('<div>작성자 : ' + relatedClass.user_nickname + '</div>'))
+				.append($('<div>조회수 : ' + relatedClass.meeting_hit + '</div>'))
 				.appendTo('.relatedClass_all');
 			});
     	}
@@ -343,7 +346,7 @@
 				.append( $('<div>').addClass('comment_wrap')
 					.append( $('<div>').addClass('comment_all')
 						.append( $('<div>').addClass('comment1')
-								.append( $('<div>').html(comment.user_no))
+								.append( $('<div>').html(comment.user_nickname))
 								.append( $('<div>').html(comment.created_at))
 						)
 						.append( $('<div>').addClass('comment2').html(comment.comment_content) )
@@ -365,50 +368,57 @@
 		function commentInsert() {
 			$('#commentBtn').click(function(){
 				var meeting_no = ${trainerClassDto.meeting_no};
-				var user_no = 10;
+				var board_user_no = ${trainerClassDto.user_no};
+				var user_no = ${loginUser.user_no};
 				var comment_content = $('input:text[name="comment_content"]').val();
 				var sendObj = {
 						"comment_referer_no": meeting_no,
-						"user_no": user_no,
-						"comment_content": comment_content
+						"board_user_no": board_user_no,
+						"comment_content": comment_content,
+						"user_no":user_no
 					};
 				
-				$.ajax({
-					url: 'commentInsert.leo',
-					type: 'post',
-					dataType:'json',
-					data: JSON.stringify(sendObj),
-					contentType: 'application/json; charset=utf-8',
-					success: function(responseObj) {
-						if (responseObj.result == true) {
-							alert('댓글이 작성되었습니다.');
-							commentList();
-							$('input:text[name="comment_content"]').val('');
-						} else {
-							alert('댓글이 작성되지 않았습니다.');
-						}
-					},
-					error: function(){alert('실패');}
-				});
+					$.ajax({
+						url: 'commentInsert.leo',
+						type: 'post',
+						data: JSON.stringify(sendObj),
+						contentType: 'application/json; charset=utf-8',
+						dataType:'json',
+						success: function(responseObj) {
+							if (responseObj.result == true) {
+								alert('댓글이 작성되었습니다.');
+								commentList();
+								$('input:text[name="comment_content"]').val('');
+							} else {
+								alert('댓글이 작성되지 않았습니다.');
+							}
+						},
+						error: function(){alert('실패');}
+					});
+					
+			
+				
 			});
 		}
 		
 		/**** 댓글 삭제 ****/	
 		function commentDelete(comment_no) {
-					$.ajax({
-						url: 'commentDelete.leo/' + comment_no,
-						type: 'get',
-						dataType: 'json',
-						success: function(responseObj) {
-							if (responseObj.result == 1) {
-								alert('삭제되었습니다.');
-								commentList();
-							} else {
-								alert('삭제에 실패했습니다.');
-							}
-						},
-						error: function(){alert('실패');}						
-					});
+		
+			$.ajax({
+				url: 'commentDelete.leo/' + comment_no,
+				type: 'get',
+				contentType: 'application/json',
+				dataType: 'json',
+				success: function(responseObj) {
+					if (responseObj.result == 1) {
+						alert('삭제되었습니다.');
+						commentList();
+					} else {
+						alert('삭제에 실패했습니다.');
+					}
+				},
+				error: function(){alert('실패');}						
+			});
 		}
 		
 		/**** 댓글 수정하기 위한 input 생성 후 value 입력 ****/
@@ -480,6 +490,8 @@
 					$('input:text[name="comment_content"]').val('');
 			});
 		}
+		
+		
 		
 	</script>
 	
