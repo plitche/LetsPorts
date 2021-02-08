@@ -103,6 +103,8 @@
 		<button>작성 완료</button>
 	</div>
 </form>
+
+<!-- 섬머노트 에디터용 script -->
 <script>
 	 $(document).ready(function() {
 		$('#summernote').summernote({
@@ -116,7 +118,6 @@
 		});
 	 });
 </script>
- 
 
 <script>
 $(document).ready(function () {

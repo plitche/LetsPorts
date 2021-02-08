@@ -79,7 +79,7 @@
 					</ul>
 				</li>
 				<li><a href="goTrainerList.plitche" >트레이너</a></li>
-				<li><a href="javascript:void(0)" >질의응답</a></li>
+				<li><a href="goQnAPage.plitche" >질의응답</a></li>
 			</ul>
 		</nav>
 	</div>
