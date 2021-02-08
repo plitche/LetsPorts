@@ -35,9 +35,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="knowHowUpdate">
 		UPDATE BOARD_KNOWHOW
-		   SET knowhow_title = #{knowhow_title}
-		   	   knowhow_content = #{knowhow_content}
-		 WHERE KNOWHOW_NO = #{knowhow_no}
+		   SET KNOWHOW_TITLE = #{param1},
+		   	   KNOWHOW_CONTENT = #{param2}
+		 WHERE KNOWHOW_NO = #{param3}
 	</update>
 	
 	

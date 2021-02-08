@@ -39,7 +39,7 @@ public class WonAppContext {
 	}
 	
 	@Bean
-	public GoknowHowUpdatePageCommand goUpdatePageCommand() {
+	public GoknowHowUpdatePageCommand goknowHowUpdatePageCommand() {
 		return new GoknowHowUpdatePageCommand();
 	}
 	

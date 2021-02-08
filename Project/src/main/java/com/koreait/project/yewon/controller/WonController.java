@@ -100,17 +100,18 @@ public class WonController {
 	*/
 	
 	// updatePage에서 수정완료 후 viewPage로 이동
-	@RequestMapping(value = "board_knowHowUpdate.limyeng'", method=RequestMethod.GET)
+	@RequestMapping(value = "board_knowHowUpdate.limyeng", method=RequestMethod.GET)
 		public String boardViewPage(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
 		GoknowHowUpdateCommand goknowHowUpdateCommand= ctx.getBean("goknowHowUpdateCommand", GoknowHowUpdateCommand.class);
 		goknowHowUpdateCommand.execute(sqlSession, model);
 		int knowhow_no = goknowHowUpdateCommand.execute(sqlSession, model);
-		return "wonPages/board_knowhow/board_knowHowViewPage" +knowhow_no;
+		return "redirect:board_knowHowViewPage.limyeng?knowhow_no=" + knowhow_no;
 		
 	}
 	
 	// 댓글 작성 기능 구현
+	
 	
 
 }

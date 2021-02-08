@@ -13,18 +13,18 @@
 
 <style>
 	header {
-		height: 20px;
+		height: auto;
 		padding: 1rem;
 		color: black;
 		background: white;
 		font-weight: bold;
-		display: flex;
 		align-items: center;
 	}
 	
-	div {
+	div > ul > li {
 		height: auto;
 		width: 400px;
+		
 	}
 	
 	input {
@@ -42,13 +42,13 @@
 
 		<h3>오늘의 인기글</h3>
 		
-		<header>
-			<div>
-				<span>메뉴1</span>
-				<span>메뉴2</span>
-				<span>메뉴3</span><br/><br/>
-			</div>
-		</header>
+		<div class = "menu" id = "" >
+			<ul>
+				<li>메뉴1</li>
+				<li>메뉴2</li>
+				<li>메뉴3</li>
+			</ul>
+		</div>
 
 	
 	

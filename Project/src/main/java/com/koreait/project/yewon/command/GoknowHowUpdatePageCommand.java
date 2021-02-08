@@ -12,14 +12,15 @@ public class GoknowHowUpdatePageCommand {
 		
 		Map<String, Object> map = model.asMap();
 		
-		HttpServletRequest request = (HttpServletRequest)map.get("request");
-		
-		int knowhow_no = Integer.parseInt(request.getParameter("knowhow_no"));
-		
 		KnowHowDao knowHowDao = sqlSession.getMapper(KnowHowDao.class);
+		
+		int knowhow_no = (int)map.get("knowhow_no");
+
 		Board_knowhowDto board_knowhowDto = knowHowDao.boardknowHowView(knowhow_no);
 		
 		model.addAttribute("board_knowhowDto", board_knowhowDto);
+		
+		
 		
 	}
 
