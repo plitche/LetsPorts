@@ -17,8 +17,8 @@ public class CommentListCommand implements CommonMapCommand {
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 
 		Map<String, Object> map = model.asMap();
-		int meeting_no = (int)map.get("meeting_no");
-		int commentPage = (int)map.get("commentPage");
+		int meeting_no = (int)map.get("meeting_no"); 			// command에 받는다
+		int commentPage = (int)map.get("commentPage");	// command에 받는다.
 		
 		TrainerClassCommentDao trainerClassCommentDao = sqlSession.getMapper(TrainerClassCommentDao.class);
 		
@@ -38,12 +38,12 @@ public class CommentListCommand implements CommonMapCommand {
 		endPage = endPage < totalPage ? endPage : totalPage;
 		
 		Map<String, Object> paging = new HashMap<>();
-		paging.put("totalRecord", totalRecord);
-		paging.put("commentPage", commentPage);
-		paging.put("totalPage", totalPage);
-		paging.put("pagePerBlock", pagePerBlock);
-		paging.put("beginPage", beginPage);
-		paging.put("endPage", endPage);
+		paging.put("totalRecord", totalRecord);				// 전체 데이터 개수
+		paging.put("commentPage", commentPage);		// 현 페이지
+		paging.put("totalPage", totalPage);						// 전체 페이지의 개수
+		paging.put("pagePerBlock", pagePerBlock);		// 블록 당 존재하는 페이지 수
+		paging.put("beginPage", beginPage);					// 블록당 시작하는 페이지
+		paging.put("endPage", endPage);						// 블록당 끝나는 페이지
 		
 		
 		Map<String, Object> resultMap = new HashMap<>();

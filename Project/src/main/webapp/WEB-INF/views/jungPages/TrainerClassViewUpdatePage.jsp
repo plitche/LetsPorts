@@ -7,13 +7,13 @@
 
 
 
-	<form method="post">
+	<form method="post" enctype="multipart/form-data" >
 	
 		<br/><br/><br/>
     	   <div class="TrainerClassUpdate_part1"> 
     	   
 	    	   <div class="TrainerClassUpdate">
-	    	   
+	    	   		
 				   모임제목 : <input type="text" name="meeting_title" value="${trainerClassDto.meeting_title}"/><br/><br/>
 				   모임일 : <input type="text" name="meeting_date" value="${trainerClassDto.meeting_date}"/><br/><br/>
 				   모집 기간 : <input type="text" name="start_gather_date" value="${trainerClassDto.start_gather_date}"/> ~
@@ -26,7 +26,7 @@
 				   상세 주소 : <input type="text" name="detail_location" value="${trainerClassDto.detail_location}"/><br/><br/>
 				   준비물 : <!-- 준비물 받아오기.. 여러개 배열 받기. -->
 				   <c:forEach var="materialsList" items="${trainerClassDto.materials_name}">
-					   <input type="text" name="materials_name" value="${materialsList}"/>
+					   <div><input type="text" name="materials_name" value="${materialsList}"/></div>
 				   </c:forEach>
 				   <br/><br/>
 				   상세내용 :<br/>
@@ -37,14 +37,17 @@
 			   
 				   <div class="WishList"><a href="">관심페이지 등록하기</a></div>
 				   <div class="TrainerClassPhoto">
-				   		사진 
+					   		<img alt="${trainerClassDto.photo_filename}" src="resources/storage/${trainerClassDto.photo_filename}" style="width: 300px; height:300px;">
 				   </div>
-			   
+				   <div class="coverphotoUpdate"><input type="file" name="coverphotoUpdate" /></div>
+					
+								   
 			   </div>
+			</div>
 				
 				<!-- hidden -->
-				<input type="hidden" name="meeting_no"	value="${trainerClassDto.meeting_no}"/>
-				
+				<input type="hidden" name="meeting_no" value="${trainerClassDto.meeting_no}"/>
+				<input type="hidden" name="user_no" value="${loginUser.user_no}" />
 			   <input type="button" value="수정완료" onclick="fn_TrainerClassViewUpdate(this.form)">
 			   <input type="reset" value="초기화" />
 			   <input type="button" value="트레이너클래스페이지로" onclick="location.href='TrainerClassListPage.leo'" />

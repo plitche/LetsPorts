@@ -101,13 +101,13 @@ public class TrainerClassController {
 	
 	// 수정명령역할
 	@RequestMapping(value="TrainerClassViewUpdate.leo", method=RequestMethod.POST)
-	public String TrainerClassViewUpdate(TrainerClassDto trainerClassDto, Model model) {
+	public String TrainerClassViewUpdate(MultipartHttpServletRequest multipartRequest, Model model) {
 		
-		model.addAttribute("trainerClassDto", trainerClassDto);
+		model.addAttribute("multipartRequest", multipartRequest);
 		TrainerClassUpdateCommand trainerClassUpdateCommand = ctx.getBean("trainerClassUpdateCommand", TrainerClassUpdateCommand.class);
 		trainerClassUpdateCommand.execute(sqlSession, model);
 		
-		return "redirect:TrainerClassViewPage.leo?meeting_no=" + trainerClassDto.getMeeting_no();
+		return "redirect:TrainerClassViewPage.leo?meeting_no=" + multipartRequest.getParameter("meeting_no");
 	}
 	
 	// 트레이너 클래스의 검색 명령 역할
