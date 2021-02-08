@@ -34,8 +34,8 @@ public class knowhowCommentController {
 									method=RequestMethod.GET,
 									produces="application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> commentList(@RequestParam("meeting_no") int meeting_no, Model model) {
-		model.addAttribute("meeting_no", meeting_no);
+	public Map<String, Object> commentList(@RequestParam("comment_no") int comment_no, Model model) {
+		model.addAttribute("comment_no", comment_no);
 		CommentListCommand commentListCommand = ctx.getBean("commentListCommand", CommentListCommand.class);
 		return commentListCommand.execute(sqlSession, model);
 	}
@@ -65,13 +65,13 @@ public class knowhowCommentController {
 
 	
 	// update 하는 역할
-	@RequestMapping(value="commentUpdate.leo",
+	@RequestMapping(value="commentUpdate.limyeng",
 								method=RequestMethod.POST,
 								produces="application/json; charset=utf-8")		
 	@ResponseBody
 	public Map<String, Object> commentUpdate(@RequestBody CommentsDto commentsDto, Model model) {
 		model.addAttribute("commentsDto", commentsDto);
-		CommentUpdateCommand commentUpdateCommand = ctx.getBean("commentUpdateCommand", CommentUpdateCommand.class);
+		CommentUpdateCommand commentUpdateCommand = ctx.getBean("Command", CommentUpdateCommand.class);
 		return commentUpdateCommand.execute(sqlSession, model);
 	}
 	

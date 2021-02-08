@@ -7,10 +7,6 @@
 	<jsp:param value="노하우 리스트 페이지" name="title"/>
 </jsp:include>
 
-<script>
-	
-</script>
-
 <style>
 	header {
 		height: auto;

@@ -28,5 +28,7 @@ public interface KnowHowDao {
 	// 게시판 수정 완료 후 viewPage 게시판으로 넘어가는 정보
 	public void knowHowUpdate(String knowhow_title, String knowhow_content, int knowhow_no);
 
+	// viewPage에서 삭제 한 후 데이터 없애기
+	public int knowhowDelete(int knowhow_no);
 	
 }

@@ -12,8 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.method.annotation.RedirectAttributesMethodArgumentResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.koreait.project.yewon.command.GoknowHowDeleteCommand;
 import com.koreait.project.yewon.command.GoknowHowInsertCommand;
 import com.koreait.project.yewon.command.GoknowHowListCommand;
 import com.koreait.project.yewon.command.GoknowHowUpdateCommand;
@@ -89,7 +91,7 @@ public class WonController {
 	}
 	
 	
-	/*
+	
 	// viewPage에서 글목록으로 돌아가기 버튼 클릭시 list페이지로 이동
 	@RequestMapping(value = "board_knowHowListPage.limyeng",method=RequestMethod.GET)
 		public String boardknowHowlistPage(@RequestParam("knowhow_no")int knowhow_no, Model model) {
@@ -97,7 +99,7 @@ public class WonController {
 		model.addAttribute("knowhow_no", knowhow_no);
 		return "redirect:goboard_knowhowList.limyeng";
 	}
-	*/
+	
 	
 	// updatePage에서 수정완료 후 viewPage로 이동
 	@RequestMapping(value = "board_knowHowUpdate.limyeng", method=RequestMethod.GET)
@@ -110,7 +112,16 @@ public class WonController {
 		
 	}
 	
-	// 댓글 작성 기능 구현
+	// viewPage에서 삭제버튼 누르면 버리기
+	@RequestMapping(value = "fn_knowHowDelete.limyeng", method=RequestMethod.POST)
+	public String knowhowDelete(@RequestParam int knowhow_no, RedirectAttributes rttr , Model model) {
+		model.addAttribute("knowhow_no",knowhow_no);
+		model.addAttribute("rttr", rttr);
+		GoknowHowDeleteCommand goknowHowDeleteCommand = ctx.getBean("goknowHowDeleteCommand", GoknowHowDeleteCommand.class);
+		goknowHowDeleteCommand.execute(sqlSession, model);
+		return "redirect:goboard_knowhowList.limyeng";
+	}
+	
 	
 	
 
