@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.common.CommonVoidCommand;
 import com.koreait.project.dto.Board_qnaDto;
-import com.koreait.project.yongsoo.dao.QnADao;
+import com.koreait.project.yongsoo.dao.CommonQnADao;
 
 public class UpdateQnACommand implements CommonVoidCommand {
 
@@ -30,8 +30,8 @@ public class UpdateQnACommand implements CommonVoidCommand {
 		board_qnaDto.setBoard_qna_title(board_qna_title);
 		board_qnaDto.setBoard_qna_content(board_qna_content);
 		
-		QnADao qnaDao = sqlSession.getMapper(QnADao.class);
-		int updateResult = qnaDao.updateQnA(board_qnaDto);
+		CommonQnADao commonQnADao = sqlSession.getMapper(CommonQnADao.class);
+		int updateResult = commonQnADao.updateQnA(board_qnaDto);
 		
 		if (updateResult>0) {
 			rttr.addFlashAttribute("updateResult", true);

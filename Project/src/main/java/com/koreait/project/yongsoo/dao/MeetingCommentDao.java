@@ -5,7 +5,7 @@ import java.util.List;
 import com.koreait.project.dto.CommentsDto;
 import com.koreait.project.yongsoo.dto.CommentTemDto;
 
-public interface CommentDao {
+public interface MeetingCommentDao {
 
 	// 특정 모임 게시글에 달린 댓글 리스트를 불러오기 위한 메소드
 	public List<CommentTemDto> getCommentList(int meeting_no);

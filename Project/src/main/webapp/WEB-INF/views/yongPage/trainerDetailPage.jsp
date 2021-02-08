@@ -397,9 +397,9 @@
 					
 					var qnaPagingHtml = '<a href="#" onclick="preQnAPage(); return false;"> 이전 </a>';
 					for(let i=1; i<=Math.ceil(responseObj.totalQnACount/10); i++) {
-						qnaPagingHtml += '<a href="#" onclick="changeQnAPage(' + i + ') ; return false;">' + i + '</a>'; 
+						qnaPagingHtml += '<a href="#" onclick="changeQnAPage(' + i + '); return false;">' + i + '</a>'; 
 					}
-					qnaPagingHtml += '<a href="#" onclick="nextQnAPage('+Math.ceil(responseObj.totalQnACount/10)+'); return false;"> 다음 </a>';
+					qnaPagingHtml += '<a href="#" onclick="nextQnAPage(' + Math.ceil(responseObj.totalQnACount/10) + '); return false;"> 다음 </a>';
 					$('#qnaPaging').empty();
 					$('#qnaPaging').html(qnaPagingHtml);
 				} else {

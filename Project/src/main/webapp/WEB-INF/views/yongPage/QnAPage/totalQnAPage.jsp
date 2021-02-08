@@ -7,6 +7,7 @@
 	<jsp:param value="Q&A 페이지" name="title"/>
 </jsp:include>
 
+<!-- sweetalert -->
 <script>
 	/* 질문 작성 성공시 나타날 sweetalert */
 	var createResult = '${writeQnAResult}';
@@ -14,6 +15,7 @@
 		Swal.fire('질문이 작성되었습니다.', '댓글이 달리면 내용을 수정할 수 없으니 다시한번 확인해주세요! 질문이 해결되면 해결 버튼을 눌러주세요.^^', 'success');
 	}
 	
+	/* 질문 삭제 성공시 나타날 sweetalert */
 	var deleteResult = '${deleteResult}';
 	if (deleteResult) {
 		Swal.fire('질문이 삭제되었습니다.', '궁금하신 부분이 있으시면 언제든지 다시 질문을 작성해주세요!', 'success');
@@ -56,8 +58,13 @@
 		});
 	}
 </script>
+<!-- 키워드 검색 관련 처리 script -->
+<script>
+	function fn_search(f) {
+		
+	}
 
-
+</script>
 
 
 <section>
@@ -116,9 +123,14 @@
 	<fieldset>
 		<legend>게시물 검색</legend>
 		<p>
-			<select></select>
-			<input type="text" name="" />
-			<input type="button" value="찾기" onclick="" id="" />
+			<select name="searchCategory">
+				<option>제목 + 내용</option>
+				<option>제목만</option>
+				<option>글작성자</option>
+				<option>댓글작성자</option>
+			</select>
+			<input type="text" name="searchKeyword" />
+			<input type="button" value="찾기" onclick="fn_search(this.form)" />
 			<input type="button" value="새 질문 등록하기" id="writeQnABtn" />
 		</p>
 	</fieldset>

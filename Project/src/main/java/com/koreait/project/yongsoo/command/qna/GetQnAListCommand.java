@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonVoidCommand;
-import com.koreait.project.yongsoo.dao.QnADao;
+import com.koreait.project.yongsoo.dao.CommonQnADao;
 import com.koreait.project.yongsoo.dto.QnATemDto;
 
 public class GetQnAListCommand implements CommonVoidCommand {
@@ -14,8 +14,8 @@ public class GetQnAListCommand implements CommonVoidCommand {
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
 
-		QnADao qnaDao = sqlSession.getMapper(QnADao.class);
-		List<QnATemDto> qnaList = qnaDao.getQnAList();
+		CommonQnADao commonQnADao = sqlSession.getMapper(CommonQnADao.class);
+		List<QnATemDto> qnaList = commonQnADao.getQnAList();
 		model.addAttribute("qnaList", qnaList);
 	}
 

@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.common.CommonVoidCommand;
-import com.koreait.project.yongsoo.dao.QnADao;
+import com.koreait.project.yongsoo.dao.CommonQnADao;
 
 public class WriteQnACommand implements CommonVoidCommand {
 
@@ -24,8 +24,8 @@ public class WriteQnACommand implements CommonVoidCommand {
 		String board_qna_content = request.getParameter("board_qna_content");
 		int user_no = Integer.parseInt(request.getParameter("user_no"));
 		
-		QnADao qnaDao = sqlSession.getMapper(QnADao.class);
-		int writeQnAResult = qnaDao.writeQnA(board_qna_title, board_qna_content, user_no);
+		CommonQnADao commonQnADao = sqlSession.getMapper(CommonQnADao.class);
+		int writeQnAResult = commonQnADao.writeQnA(board_qna_title, board_qna_content, user_no);
 		
 		if (writeQnAResult>0) {
 			rttr.addFlashAttribute("writeQnAResult", true);
