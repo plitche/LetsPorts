@@ -1,4 +1,4 @@
-package com.koreait.project.hyejoon.command;
+package com.koreait.project.hyejoon.command.signUp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,12 +21,12 @@ public class EmailCheckCommand implements CommonMapCommand {
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		System.out.println(emailResult);
 		if(emailResult > 0) {
 			result.put("result", 1);
 		} else {
 			result.put("result", 0);
 		}
+		System.out.println("emailResult "+ emailResult);
 		
 		return result;
 	}

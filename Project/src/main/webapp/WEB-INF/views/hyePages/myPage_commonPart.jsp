@@ -6,7 +6,7 @@
 <!-- 헤더 인클루드 -->
 <jsp:include page="../template/header.jsp" />
 
-<script>
+<script type="text/javascript">
 <!-- 모달창 만들기 위함 -->
     window.onload = function() {
  
@@ -23,7 +23,28 @@
     document.querySelector('.modal_close').addEventListener('click', offClick);
  
 };
+</script >
+
+<script type="text/javascript">
+<!-- 정보수정 전 본인 확인 -->
+$(document).ready(function() {
+	userAuth();
+});
+
+function userAuth(){
+	
+$("#updateInfo_btn").click(function(){
+	var userAuthPw = $("userAuthPw").val();
+	if(userAuthPw == ${usersDto.password}) {
+		location.href = "hyePages/usersInfoUpdatePage.hey";
+	} else {
+		alert('비밀번호 다시 입력해주세요!');
+	}
+});
+
+}
 </script>
+
 
 <div class="myPageHeader" >
 		<h3>마이페이지</h3>
@@ -44,8 +65,8 @@
 				<p class="modal_close" ><a href="#">X</a></p>
 				<div id="verification_content">
 					<h3>회원 정보 수정을 위한 인증</h3>
-					<input type="password" id="password" placeholder="비밀번호 입력"><br/><br/>
-				  	<input type="button" value="내 정보 수정하러 가기">
+					<input type="password" id="userAuthPw" placeholder="비밀번호 입력"><br/><br/>
+				  	<input type="button" id="updateInfo_btn" value="내 정보 수정하러 가기">
 				</div>
 			</div>
 	</div>
