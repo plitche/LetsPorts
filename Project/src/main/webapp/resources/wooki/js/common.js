@@ -4,7 +4,7 @@ let is_progress = false;
 // 이메일 사용가능여부 확인 스테이터스
 let is_possible = false;
 
-// 어드민 로그인 메소드
+// 공통 - 어드민 로그인 메소드
 function fn_login(f) {
     if($('#email').val() == '') {
         alert('아이디를 입력해주세요.');
@@ -16,7 +16,7 @@ function fn_login(f) {
     f.submit();
 }
 
-// 로그인 성공여부 체크 메소드
+// 공통 - 로그인 성공여부 체크 메소드
 function fn_loginCehck(result) {
 	if(result == '0') {
 		alert('로그인 되었습니다.');
@@ -28,12 +28,12 @@ function fn_loginCehck(result) {
 	}
 }
 
-// 로그아웃 메소드
+// 공통 - 로그아웃 메소드
 function fn_logout() {
 	location.href = 'adminLogout.wooki';
 }
 
-// 페이지접속시 어드민권한이 있는지 확인하는 메소드
+// 공통 - 페이지접속시 어드민권한이 있는지 확인하는 메소드
 function fn_adminCheck(user_sep) {
 	if(user_sep != 0) {
 		alert('접근 권한이 없습니다.');
@@ -43,7 +43,7 @@ function fn_adminCheck(user_sep) {
 	return true;
 }
 
-// 선택한 nav-btn 강조 메소드
+// 공통 - 선택한 nav-btn 강조 메소드
 function fn_selectBtn() {
 	$('.nav-container .nav-btn').click(function() {
 		$('.nav-container .nav-btn').removeAttr('id', 'select-nav');
@@ -51,7 +51,22 @@ function fn_selectBtn() {
 	});
 }
 
-// 메인페이지 선택 메소드
+//공통 - timestamp 날짜형식으로 변경 이벤트
+function fn_stampToDate(timestamp) {
+	let d = new Date(timestamp);
+	let result = `${d.getFullYear()}-`;
+	if(d.getMonth() < 10) {result += 0;}
+	result += `${(d.getMonth() + 1)}-`;
+	if(d.getDate() < 10) {result += 0;}
+	result += `${d.getDate()} ${d.getHours()}:`;
+	if(d.getMinutes() < 10) {result += 0;}
+	result += `${d.getMinutes()}:`;
+	if(d.getSeconds() < 10) {result += 0;}
+	result += d.getSeconds();
+	return result;
+}
+
+// 회원관리 - 메인페이지 선택 메소드
 function fn_main() {
 	$('.content-container').empty();
 	$('.content-container')
@@ -59,7 +74,7 @@ function fn_main() {
 	.append('<p>환영합니다</p>');
 }
 
-// 일반회원 메뉴 실행 메소드
+// 회원관리 - 일반회원 메뉴 실행 메소드
 function fn_user(p) {
 	$.ajax({
 		url: 'userList.wooki',
@@ -78,7 +93,7 @@ function fn_user(p) {
 	});
 }
 
-// 유저 검색 만드는 함수
+// 회원관리 - 유저 검색 만드는 함수
 function userFilter(text_filter, search, user_separator) {
 	$('.content-container').empty();
 	$('.content-container').append('<h1>회원 관리</h1>');
@@ -102,7 +117,7 @@ function userFilter(text_filter, search, user_separator) {
 	$('#user_separator').val(user_separator);
 }
 
-// 유저탭 - 필터된 유저 리스트
+// 회원관리 - 필터된 유저 리스트
 function fn_filterUserList(p) {
 	let text_filter = $('#text_filter').val();
 	let search = $('#search').val();
@@ -133,7 +148,7 @@ function fn_filterUserList(p) {
 	});
 }
 
-// 유저리스트 테이블 만드는 함수
+// 회원관리 - 유저리스트 테이블 만드는 함수
 function userList(list, paging, totalRecord, recordPerPage, page) {
 	$('<table style="width: 1800px;">')
 	.append($('<thead id="title">'))
@@ -201,7 +216,7 @@ function userList(list, paging, totalRecord, recordPerPage, page) {
 	.appendTo('.paging');
 }
 
-// 이메일변경 모달 열기
+// 회원관리 - 이메일변경 모달 열기
 function fn_openChangeEmailModal() {
 	$('body').on('click', '#changeEmail', function() {
 		let user_no = $(this).parents('tr').find('#user_no').val();
@@ -212,7 +227,7 @@ function fn_openChangeEmailModal() {
 	});
 }
 
-// 이메일 변경 가능 아이디 체크
+// 회원관리 - 이메일 변경 가능 아이디 체크
 function fn_changeEmailIsPossible() {
 	$('#change_email').blur(function() {
 		if($('#change_email').val() == '') {
@@ -242,7 +257,7 @@ function fn_changeEmailIsPossible() {
 	});
 }
 
-//이메일변경 이벤트
+// 회원관리 - 이메일변경 이벤트
 function fn_changeEmail() {
 	$('#change_email_submit').click(function() {
 		if(is_progress == true) {
@@ -286,7 +301,7 @@ function fn_changeEmail() {
 	});
 }
 
-// 이메일변경 모달 닫기
+// 회원관리 - 이메일변경 모달 닫기
 function fn_closeChangeEmailModal() {
 	$('#change-email-modal').click(function(e) {
 		if(e.target == e.currentTarget) {
@@ -301,7 +316,7 @@ function fn_closeChangeEmailModal() {
 	});
 }
 
-// 임시비밀번호 발송
+// 회원관리 - 임시비밀번호 발송
 function fn_sendTempPass() {
 	$('body').on('click', '#changePwd', function() {
 		if(is_progress == true) {
@@ -333,9 +348,41 @@ function fn_sendTempPass() {
 	});
 }
 
-// 관리자 등록 페이지
+// 회원관리 - 회원탈퇴 메소드
+function fn_deleteUser() {
+	$('body').on('click', '#deleteId', function() {
+		if(is_progress == true) {
+			return;
+		}
+		if(!confirm('탈퇴하시겠습니까?')) {
+			return;
+		}
+		is_progress = true;
+		let user_no = $(this).parents('tr').find('#user_no').val();
+		$.ajax({
+			url: `deleteUser/${user_no}.wooki`,
+			type: 'delete',
+			dataType: 'json',
+			success: function(obj) {
+				if(obj.result) {
+					alert('삭제되었습니다.');
+				} else {
+					alert('삭제되지 않았습니다.');
+				}
+				fn_filterUserList($('#now_page').val());
+				setTimeout(function() {is_progress = false;}, 1000);
+			},
+			error: function() {
+				alert('실패');
+				setTimeout(function() {is_progress = false;}, 1000);
+			}
+		});
+	});
+}
+
+// 어드민 - 관리자 등록 페이지
 function fn_addAdminPage() {
-	$('.content-container').empty
+	$('.content-container').empty();
 	let string = `
 	<h1>관리자추가</h1>
     <div class="flex">
@@ -361,7 +408,7 @@ function fn_addAdminPage() {
 	fn_adminList();
 }
 
-// 관리자 회원 리스트 불러와서 추가하는 메소드
+// 어드민 - 관리자 회원 리스트 불러와서 추가하는 메소드
 function fn_adminList() {
 	$.ajax({
 		url: 'adminList.wooki',
@@ -384,7 +431,7 @@ function fn_adminList() {
 	});
 }
 
-// 관리자 회원 일반회원으로 변경하는 메소드
+// 어드민 - 관리자 회원 일반회원으로 변경하는 메소드
 function fn_updateNormalUser() {
 	$('body').on('click', '#btn_updateNormalUser', function() {
 		if(!confirm('변경하시겠습니까?')) {
@@ -416,8 +463,8 @@ function fn_updateNormalUser() {
 	});
 }
 
-// 입력된 유저번호 기준 일치하는 회원 가져오는 가져오는 메소드
-function fn_checkUser() {
+// 어드민 - 입력된 유저번호 기준 일치하는 회원 가져오는 가져오는 메소드
+function fn_checkAdminUser() {
 	$('body').on('blur', '#admin_target_no', function() {
 		let target_no = $('#admin_target_no').val();
 		if(target_no == '') {
@@ -451,7 +498,7 @@ function fn_checkUser() {
 	});
 }
 
-// 일반회원 관리자 회원으로 변경하는 메소드
+// 어드민 - 일반회원 관리자 회원으로 변경하는 메소드
 function fn_updateAdminUser() {
 	$('body').on('click', '#btn_updateAdminUser', function() {
 		if(!is_possible) {
@@ -485,39 +532,8 @@ function fn_updateAdminUser() {
 	});
 }
 
-// 회원관리 - 회원탈퇴 메소드
-function fn_deleteUser() {
-	$('body').on('click', '#deleteId', function() {
-		if(!confirm('탈퇴하시겠습니까?')) {
-			return;
-		}
-		if(is_progress == true) {
-			return;
-		}
-		is_progress = true;
-		let user_no = $(this).parents('tr').find('#user_no').val();
-		$.ajax({
-			url: `deleteUser/${user_no}.wooki`,
-			type: 'delete',
-			dataType: 'json',
-			success: function(obj) {
-				if(obj.result) {
-					alert('삭제되었습니다.');
-				} else {
-					alert('삭제되지 않았습니다.');
-				}
-				fn_filterUserList($('#now_page').val());
-				setTimeout(function() {is_progress = false;}, 1000);
-			},
-			error: function() {
-				alert('실패');
-				setTimeout(function() {is_progress = false;}, 1000);
-			}
-		});
-	});
-}
 
-//트레이너 메뉴 실행 메소드
+// 트레이너 - 트레이너 메뉴 실행 메소드
 function fn_trainerUser(p) {
 	$.ajax({
 		url: 'trainerUserList.wooki',
@@ -534,7 +550,7 @@ function fn_trainerUser(p) {
 	});
 }
 
-// 트레이너 검색 공간 만드는 함수
+// 트레이너 - 트레이너 검색탭 만드는 함수
 function trainerUserFilter(text_filter, search, user_separator) {
 	$('.content-container').empty();
 	$('.content-container').append('<h1>트레이너 관리</h1>');
@@ -555,7 +571,7 @@ function trainerUserFilter(text_filter, search, user_separator) {
 	$('#search').val(search);
 }
 
-// 트레이너탭 - 필터된 유저 리스트
+// 트레이너 - 필터된 유저 리스트
 function fn_filterTrainerUserList(p) {
 	let search = $('#search').val();
 	if(search == '') {
@@ -586,7 +602,7 @@ function fn_filterTrainerUserList(p) {
 	});
 }
 
-//유저리스트 테이블 만드는 함수
+// 트레이너 - 유저리스트 테이블 만드는 함수
 function trainerUserList(list, paging, totalRecord, recordPerPage, page) {
 	$('<table style="width: 1000px;">')
 	.append($('<thead id="title">'))
@@ -637,14 +653,14 @@ function trainerUserList(list, paging, totalRecord, recordPerPage, page) {
 	.appendTo('.paging');
 }
 
-// 트레이너 추가 모달 오픈
+// 트레이너 - 트레이너 추가 모달 오픈
 function fn_openAddTrainerModal() {
 	$('#add-trainer-modal').addClass('show');
 }
 
-//입력된 유저번호 기준 일치하는 회원 가져오는 가져오는 메소드2
-function fn_checkUser() {
-	$('#trainer_target_user_no').blur(function() {
+// 트레이너 - 입력된 유저번호 기준 일치하는 회원 가져오는 가져오는 메소드2
+function fn_checkTrainerUser() {
+	$('body').on('blur', '#trainer_target_user_no', function() {
 		let target_no = $(this).val();
 		if(target_no == '') {
 			alert('유저번호를 입력해주세요.');
@@ -675,7 +691,7 @@ function fn_checkUser() {
 	});
 }
 
-// 트레이너 회원가입 메일발송 메소드
+// 트레이너 - 트레이너 회원가입 메일발송 메소드
 function fn_addTrainerSendEamil() {
 	$('#send-add-trainer-email').click(function() {
 		if(is_progress == true) {
@@ -712,7 +728,7 @@ function fn_addTrainerSendEamil() {
 	});
 }
 
-// 트레이너추가 모달 닫기
+// 트레이너 - 트레이너추가 모달 닫기
 function fn_closeAddTrainerModal() {
 	$('#add-trainer-modal').click(function(e) {
 		if(e.target == e.currentTarget) {
@@ -724,7 +740,7 @@ function fn_closeAddTrainerModal() {
 	});
 }
 
-//트레이너 - 일반회원 전환 메소드
+// 트레이너 - 일반회원 전환 메소드
 function fn_deleteUser() {
 	$('body').on('click', '#deleteTrainerInfo', function() {
 		if(!confirm('전환하시겠습니까?')) {
@@ -756,9 +772,9 @@ function fn_deleteUser() {
 	});
 }
 
-// 게시글 관리 페이지로딩 이벤트
+// 게시글관리 - 페이지로딩 이벤트
 function fn_boardsPage() {
-	$('.content-container').empty
+	$('.content-container').empty();
 	let string = `
 	<h1>게시글관리</h1>
 	<div>
@@ -799,7 +815,7 @@ function fn_boardsPage() {
 	fn_boardsList(1);
 }
 
-// 게시글 관리 - 검색필터 선택시 추가 메소드
+// 게시글관리 - 검색필터 선택시 추가 메소드
 function fn_boardFilterAdd() {
 	$('body').on('change', 'select[name="boardSep"]', function() {
 		let target = $('select[name="boardSep"]').val();
@@ -861,22 +877,7 @@ function fn_boardsList(p) {
 	});
 }
 
-// timestamp 날짜형식으로 변경 이벤트
-function fn_stampToDate(timestamp) {
-	let d = new Date(timestamp);
-	let result = `${d.getFullYear()}-`;
-	if(d.getMonth() < 10) {result += 0;}
-	result += `${(d.getMonth() + 1)}-`;
-	if(d.getDate() < 10) {result += 0;}
-	result += `${d.getDate()} ${d.getHours()}:`;
-	if(d.getMinutes() < 10) {result += 0;}
-	result += `${d.getMinutes()}:`;
-	if(d.getSeconds() < 10) {result += 0;}
-	result += d.getSeconds();
-	return result;
-}
-
-// 게시글 리스트 tbody, tfoot 삽입이벤트
+// 게시글관리 - 게시글 리스트 tbody, tfoot 삽입이벤트
 function fn_insertBoardsList(list, paging, totalRecord, recordPerPage, page) {
 	$('tbody#list').empty();
 	$('tfoot.paging').empty();
@@ -914,7 +915,7 @@ function fn_insertBoardsList(list, paging, totalRecord, recordPerPage, page) {
 	$('tfoot.paging').append(tfoot);
 }
 
-// 게시글 숨기기, 보이기 기능개발
+// 게시글관리 - 게시글 숨기기, 보이기 기능개발
 function fn_boardsOnHideToggle() {
 	let btn = ['#showBtn', '#hideBtn'];
 	for(let i = 0; i < btn.length; i++) {
@@ -955,10 +956,13 @@ function fn_boardsOnHideToggle() {
 	}
 }
 
-//게시글 삭제 기능개발
+// 게시글관리 - 게시글 삭제 기능개발
 function fn_boardDelete() {
 	$('body').on('click', '#deleteBoard', function() {
 		if(is_progress == true) {
+			return;
+		}
+		if(!confirm('삭제하시겠습니까?')) {
 			return;
 		}
 		is_progress = true;
@@ -985,9 +989,9 @@ function fn_boardDelete() {
 	});
 }
 
-// 댓글 관리 페이지로딩 이벤트
+// 댓글관리 - 페이지로딩 이벤트
 function fn_commentsPage() {
-	$('.content-container').empty
+	$('.content-container').empty();
 	let string = `
 	<h1>댓글관리</h1>
 	<div>
@@ -1029,7 +1033,7 @@ function fn_commentsPage() {
 	fn_commentsList(1);
 }
 
-// 댓글 관리 - 검색필터 선택시 추가 메소드
+// 댓글관리 - 검색필터 선택시 추가 메소드
 function fn_commentFilterAdd() {
 	$('body').on('change', 'select[name="commentSep"]', function() {
 		let target = $('select[name="commentSep"]').val();
@@ -1061,7 +1065,7 @@ function fn_commentFilterAdd() {
 	});
 }
 
-//게시글관리 - 게시글 리스트 불러오기 메소드
+// 댓글관리 - 댓글 리스트 불러오기 메소드
 function fn_commentsList(p) {
 	let commentSep = $('select[name="commentSep"]').val();
 	let columnName = $('select[name="columnName"]').val();
@@ -1091,7 +1095,7 @@ function fn_commentsList(p) {
 	});
 }
 
-// 게시글 리스트 tbody, tfoot 삽입이벤트
+// 댓글관리 - 댓글 리스트 tbody, tfoot 삽입이벤트
 function fn_insertCommentsList(list, paging, totalRecord, recordPerPage, page) {
 	$('tbody#list').empty();
 	$('tfoot.paging').empty();
@@ -1129,7 +1133,7 @@ function fn_insertCommentsList(list, paging, totalRecord, recordPerPage, page) {
 	$('tfoot.paging').append(tfoot);
 }
 
-//댓글 숨기기, 보이기 기능개발
+// 댓글관리 - 댓글 숨기기, 보이기 기능개발
 function fn_commentsOnHideToggle() {
 	let btn = ['#showCommentBtn', '#hideCommentBtn'];
 	for(let i = 0; i < btn.length; i++) {
@@ -1167,4 +1171,505 @@ function fn_commentsOnHideToggle() {
 			});
 		});
 	}
+}
+
+// 댓글관리 - 댓글 삭제 기능개발
+function fn_commentDelete() {
+	$('body').on('click', '#deleteComment', function() {
+		if(is_progress == true) {
+			return;
+		}
+		if(!confirm('삭제하시겠습니까?')) {
+			return;
+		}
+		is_progress = true;
+		let comment_no = $(this).parents('tr').find('#comment_no').val();
+		$.ajax({
+			url: `commentDelete/${comment_no}.wooki`,
+			type: 'delete',
+			dataType: 'json',
+			success: function(obj) {
+				if(obj.result) {
+					alert('댓글이 삭제 되었습니다.')
+				} else {
+					alert('댓글 삭제에 실패하였습니다.')
+				}
+				fn_commentsList($('#now_page').val());
+				setTimeout(function() {is_progress = false;}, 1000);
+			},
+			error: function() {
+				setTimeout(function() {is_progress = false;}, 1000);
+				alert('실패');
+			}
+		});
+	});
+}
+
+// 리뷰관리 - 리뷰관리 페이지로딩 이벤트
+function fn_reviewPage() {
+	$('.content-container').empty();
+	let string = `
+	<h1>리뷰관리</h1>
+	<div>
+		<form id="filterBox">
+			<table>
+				<tbody id="filterQuery">
+					<tr>
+						<td>테이블명칭</td>
+						<td>
+							<select name="reviewSep">
+								<option value="100">선택안함</option>
+								<option value="review_no">리뷰번호</option>
+								<option value="target_user_no">리뷰대상</option>
+								<option value="writer_user_no">작성자</option>
+								<option value="meeting_no">모임번호</option>
+								<option value="score">별점</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<table style="width: 1000px;">
+		<thead id="title">
+			<tr>
+				<th>번호</th>
+				<th>리뷰번호</th>
+				<th>리뷰대상</th>
+				<th>작성자</th>
+				<th>별점</th>
+				<th>모임번호</th>
+				<th style="width: 250px;">리뷰내용</th>
+				<th>작성일</th>
+				<th>비고</th>
+			</tr>
+		</thead>
+		<tbody id="list"></tbody>
+		<tfoot class="paging"></tfoot>
+	</table>`
+	$('.content-container').html(string);
+	fn_reviewList(1);
+}
+
+// 리뷰관리 - 검색필터 선택시 추가 메소드
+function fn_reviewFilterAdd() {
+	$('body').on('change', 'select[name="reviewSep"]', function() {
+		let target = $('select[name="reviewSep"]').val();
+		let addTd = [$('<td id="td4">'), $('<td id="td5">')];
+		let selectTag = [$('#td4'), $('#td5')];
+		for(let i = 0; i < selectTag.length; i++) {
+			selectTag[i].remove();
+		}
+		if(target == 100) {
+			fn_reviewList(1);
+			return;
+		}
+		for(let i = 0; i < addTd.length; i++) {
+			addTd[i].appendTo('#filterQuery > tr');
+		}
+		$('#td4').html('<input type="text" name="query" id="query" />');
+		$('#td5').html('<input type="button" value="검색" id="searchBtn" onclick="fn_reviewList(1)" />');
+	});
+}
+
+// 리뷰관리 - 리뷰 리스트 불러오기 메소드
+function fn_reviewList(p) {
+	let reviewSep = $('select[name="reviewSep"]').val();
+	let query = $('#query').val();
+	if(query == undefined ) {
+		query = '';
+	}
+	$.ajax({
+		url: 'reivewList.wooki',
+		type: 'get',
+		data: {
+			page: p,
+			reviewSep: reviewSep,
+			query: query
+		},
+		dataType: 'json',
+		success: function(list) {
+			fn_insertReviewList(list.list, list.paging, list.totalRecord, list.recordPerPage, list.page);
+		},
+		error: function() {
+			alert('실패');
+		}
+	});
+}
+
+// 리뷰관리 - 리뷰 리스트 tbody, tfoot 삽입이벤트
+function fn_insertReviewList(list, paging, totalRecord, recordPerPage, page) {
+	$('tbody#list').empty();
+	$('tfoot.paging').empty();
+	$.each(list, function(idx, review) {
+		let is_on_hide = '';
+		let created_at = fn_stampToDate(review.created_at);
+		if(review.on_hide == 0) {
+			is_on_hide = '<input type="button" value="숨기기" id="hideReviewBtn" />';
+		} else {
+			is_on_hide = '<input type="button" value="보이기" id="showReviewBtn" />';
+		}
+		let tbody = `
+		<tr>
+			<td>${totalRecord - (recordPerPage * (page - 1)) - idx}</td>
+			<td>${review.review_no}</td>
+			<td>${review.target_user_no}</td>
+			<td>${review.writer_user_no}</td>
+			<td>${review.score}</td>
+			<td>${review.meeting_no}</td>
+			<td>${review.content}</td>
+			<td>${created_at}</td>
+			<td>
+				<input type="hidden" name="review_no" id="review_no" value="${review.review_no}" />
+				${is_on_hide}
+			</td>
+		</tr>`;
+		$('tbody#list').append(tbody);
+	});
+	let tfoot = `
+	<tr>
+		<td colspan="9">${paging}</td>
+		<input type="hidden" id="now_page" value="${page}"/>
+	</tr>`;
+	$('tfoot.paging').append(tfoot);
+}
+
+// 리뷰관리 - 리뷰 숨기기, 보이기 기능개발
+function fn_reviewOnHideToggle() {
+	let btn = ['#showReviewBtn', '#hideReviewBtn'];
+	for(let i = 0; i < btn.length; i++) {
+		$('body').on('click', btn[i], function() {
+			if(is_progress == true) {
+				return;
+			}
+			is_progress = true;
+			let review_no = $(this).parents('tr').find('#review_no').val();
+			$.ajax({
+				url: `reviewOnHideToggle/${review_no}/${i}.wooki`,
+				type: 'put',
+				dataType: 'json',
+				success: function(obj) {
+					if(i == 0) {
+						if(obj.result) {
+							alert('리뷰 공개 성공하였습니다.')
+						} else {
+							alert('리뷰 공개 실패하였습니다.')
+						}
+					} else {
+						if(obj.result) {
+							alert('리뷰 숨기기 성공하였습니다.')
+						} else {
+							alert('리뷰 숨기기 실패하였습니다.')
+						}
+					}
+					fn_reviewList($('#now_page').val());
+					setTimeout(function() {is_progress = false;}, 1000);
+				},
+				error: function() {
+					setTimeout(function() {is_progress = false;}, 1000);
+					alert('실패');
+				}
+			});
+		});
+	}
+}
+
+// 트레이너QnA - 트레이너QnA 페이지로딩 이벤트
+function fn_tQnAPage() {
+	$('.content-container').empty();
+	let string = `
+	<h1>트레이너 QNA 관리</h1>
+	<div>
+		<form id="filterBox">
+			<table>
+				<tbody id="filterQuery">
+					<tr>
+						<td>검색조건</td>
+						<td>
+							<select name="tQnASep">
+								<option value="100">선택안함</option>
+								<option value="is_answered">미답변질문</option>
+								<option value="question_user_no">질문유저번호</option>
+								<option value="trainer_user_no">트레이너번호</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<table style="width: 1000px;">
+		<thead id="title">
+			<tr>
+				<th>번호</th>
+				<th>질문자</th>
+				<th>트레이너번호</th>
+				<th style="width: 250px;">질문내용</th>
+				<th style="width: 250px;">답변내용</th>
+				<th>작성일</th>
+				<th colspan="2">비고</th>
+			</tr>
+		</thead>
+		<tbody id="list"></tbody>
+		<tfoot class="paging"></tfoot>
+	</table>`
+	$('.content-container').html(string);
+	fn_tQnAList(1);
+}
+
+// 트레이너QnA - 검색필터 선택시 추가 메소드
+function fn_tQnAFilterAdd() {
+	$('body').on('change', 'select[name="tQnASep"]', function() {
+		let target = $('select[name="tQnASep"]').val();
+		let addTd = [$('<td id="td4">'), $('<td id="td5">')];
+		let selectTag = [$('#td4'), $('#td5')];
+		for(let i = 0; i < selectTag.length; i++) {
+			selectTag[i].remove();
+		}
+		if(target == 100) {
+			fn_tQnAList(1);
+			return;
+		}
+		for(let i = 0; i < addTd.length; i++) {
+			addTd[i].appendTo('#filterQuery > tr');
+		}
+		if(target == 'is_answered') {
+			$('#td4').html('<input type="hidden" name="query" id="query" value="0" />');
+		} else {
+			$('#td4').html('<input type="text" name="query" id="query" />');
+		}
+		$('#td5').html('<input type="button" value="검색" id="searchBtn" onclick="fn_tQnAList(1)" />');
+	});
+}
+
+// 트레이너QnA - 트레이너QnA 리스트 불러오기 메소드
+function fn_tQnAList(p) {
+	let tQnASep = $('select[name="tQnASep"]').val();
+	let query = $('#query').val();
+	if(query == undefined ) {
+		query = '';
+	}
+	$.ajax({
+		url: 'tQnAList.wooki',
+		type: 'get',
+		data: {
+			page: p,
+			tQnASep: tQnASep,
+			query: query
+		},
+		dataType: 'json',
+		success: function(list) {
+			fn_inserttQnAList(list.list, list.paging, list.totalRecord, list.recordPerPage, list.page);
+		},
+		error: function() {
+			alert('실패');
+		}
+	});
+}
+
+// 트레이너QnA - 트레이너QnA 리스트 tbody, tfoot 삽입이벤트
+function fn_inserttQnAList(list, paging, totalRecord, recordPerPage, page) {
+	$('tbody#list').empty();
+	$('tfoot.paging').empty();
+	$.each(list, function(idx, tQnA) {
+		let is_on_hide = '';
+		let created_at = fn_stampToDate(tQnA.created_at);
+		if(tQnA.on_hide == 0) {
+			is_on_hide = '<input type="button" value="숨기기" id="hideTQnABtn" />';
+		} else {
+			is_on_hide = '<input type="button" value="보이기" id="showTQnABtn" />';
+		}
+		let answered = '';
+		if(tQnA.trainer_qna_answered != null) {
+			answered = tQnA.trainer_qna_answered
+		}
+		let tbody = `
+		<tr>
+			<td>${totalRecord - (recordPerPage * (page - 1)) - idx}</td>
+			<td>${tQnA.question_user_no}</td>
+			<td>${tQnA.trainer_user_no}</td>
+			<td>${tQnA.trainer_qna_content}</td>
+			<td id="answerd">${answered}</td>
+			<td>${created_at}</td>
+			<td>
+				<input type="hidden" name="trainer_qna_no" id="trainer_qna_no" value="${tQnA.trainer_qna_no}" />
+				${is_on_hide}
+			</td>
+			<td id="updateBtnArea">
+				<input type="button" value="수정하기" id="tAnswerdUpdateBtn" />
+			</td>
+		</tr>`;
+		$('tbody#list').append(tbody);
+	});
+	let tfoot = `
+	<tr>
+		<td colspan="8">${paging}</td>
+		<input type="hidden" id="now_page" value="${page}"/>
+	</tr>`;
+	$('tfoot.paging').append(tfoot);
+}
+
+// 트레이너QnA - 트레이너 답변 업데이트 메소드
+function fn_tAnswerdUpdate() {
+	$('body').on('click', '#tAnswerdUpdateBtn', function() {
+		let answerd = $(this).parents('tr').find('#answerd')
+		let beforeText = answerd.html();
+		$(this).parents('tr').find('#answerd').html(`<textarea id="afterText" cols="25" rows="10">${beforeText}</textarea>`);
+		let updateBtnArea = $(this).parents('tr').find('#updateBtnArea');
+		updateBtnArea.empty();
+		let btns = `
+		<input type="button" value="수정완료" id="sendTAnwswerdUpdate" />
+		<input type="button" value="취소하기" onclick="fn_tQnAList($('#now_page').val());" />`;
+		updateBtnArea.html(btns);
+	});
+}
+
+// 트레이너QnA - 트레이너 답변 ajax 통신 메소드
+function fn_sendTAnwswerdUpdate() {
+	$('body').on('click', '#sendTAnwswerdUpdate', function() {
+		if(is_progress == true) {
+			return;
+		}
+		is_progress = true;
+		let answerd = $(this).parents('tr').find('#answerd > textarea').val();
+		let trainer_qna_no = $(this).parents('tr').find('#trainer_qna_no').val();;
+		let sendObj = {trainer_qna_no: trainer_qna_no, trainer_qna_answered: answerd};
+		$.ajax({
+			url: 'tAnswerdUpdate.wooki',
+			type: 'put',
+			data: JSON.stringify(sendObj),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: function(obj) {
+				if(obj.result) {
+					alert('답변수정 성공하였습니다.');
+				} else {
+					alert('답변수정 실패하였습니다.');
+				}
+				fn_tQnAList($('#now_page').val());
+				setTimeout(function() {is_progress = false;}, 1000);
+			},
+			error: function() {
+				setTimeout(function() {is_progress = false;}, 1000);
+				alert('실패');
+			}
+		});
+	});
+}
+
+
+// 트레이너QnA - 문의 숨기기, 보이기 기능개발
+function fn_reviewOnHideToggle() {
+	let btn = ['#showTQnABtn', '#hideTQnABtn'];
+	for(let i = 0; i < btn.length; i++) {
+		$('body').on('click', btn[i], function() {
+			if(is_progress == true) {
+				return;
+			}
+			is_progress = true;
+			let trainer_qna_no = $(this).parents('tr').find('#trainer_qna_no').val();;
+			$.ajax({
+				url: `tQnAOnHideToggle/${trainer_qna_no}/${i}.wooki`,
+				type: 'put',
+				dataType: 'json',
+				success: function(obj) {
+					if(i == 0) {
+						if(obj.result) {
+							alert('문의 공개 성공하였습니다.')
+						} else {
+							alert('문의 공개 실패하였습니다.')
+						}
+					} else {
+						if(obj.result) {
+							alert('문의 숨기기 성공하였습니다.')
+						} else {
+							alert('문의 숨기기 실패하였습니다.')
+						}
+					}
+					fn_tQnAList($('#now_page').val());
+					setTimeout(function() {is_progress = false;}, 1000);
+				},
+				error: function() {
+					setTimeout(function() {is_progress = false;}, 1000);
+					alert('실패');
+				}
+			});
+		});
+	}
+}
+
+// 사진 - 사진관리 페이지 로딩 이벤트
+function fn_photoPage() {
+	$('.content-container').empty();
+	let string = `
+	<h1>사진 관리</h1>
+	<div>
+		<form id="filterBox">
+			<table>
+				<tbody id="filterQuery">
+					<tr>
+						<td>검색조건</td>
+						<td>
+							<select name="photoSep">
+								<option value="100">선택안함</option>
+								<option value="0">노하우</option>
+								<option value="1">질문과답변</option>
+								<option value="2">모임</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<table style="width: 1000px;">
+		<thead id="title">
+			<tr>
+				<th>번호</th>
+				<th>사진번호</th>
+				<th>유저번호</th>
+				<th>게시글구분자</th>
+				<th>게시글번호</th>
+				<th>사진미리보기</th>
+				<th>비고</th>
+			</tr>
+		</thead>
+		<tbody id="list"></tbody>
+		<tfoot class="paging"></tfoot>
+	</table>`
+	$('.content-container').html(string);
+	fn_photoList(1);
+}
+
+// 사진 - 검색필터 선택시 추가 메소드
+function fn_photoFilterAdd() {
+	$('body').on('change', 'select[name="photoSep"]', function() {
+		let target = $('select[name="photoSep"]').val();
+		let addTd = [$('<td id="td3">'), $('<td id="td4">'), $('<td id="td5">')];
+		let selectTag = [$('#td3'), $('#td4'), $('#td5')];
+		for(let i = 0; i < selectTag.length; i++) {
+			selectTag[i].remove();
+		}
+		if(target == 100) {
+			fn_photoList(1);
+			return;
+		}
+		addTd[0].appendTo('#filterQuery > tr');
+		addTd[2].appendTo('#filterQuery > tr');
+		$('<select name="columnName">')
+		.append($('<option value="all">').html('전체검색'))
+		.append($('<option value="photo_referer_no">').html('게시글번호'))
+		.append($('<option value="user_no">').html('작성자번호'))
+		.appendTo('#td3');
+		$('#td5').html('<input type="button" value="검색" id="searchBtn" onclick="fn_photoList(1)" />');
+	});
+	$('body').on('change', 'select[name="columnName"]', function() {
+		$('#td4').remove();
+		if($('select[name="columnName"]').val() == 'all') {
+			return;
+		};
+		$('#td5').before($('<td id="td4">'));
+		$('#td4').html('<input type="text" name="query" id="query" />');
+	});
 }

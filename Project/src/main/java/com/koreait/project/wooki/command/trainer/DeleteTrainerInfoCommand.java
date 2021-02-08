@@ -1,4 +1,4 @@
-package com.koreait.project.wooki.command;
+package com.koreait.project.wooki.command.trainer;
 
 import java.io.File;
 import java.util.HashMap;

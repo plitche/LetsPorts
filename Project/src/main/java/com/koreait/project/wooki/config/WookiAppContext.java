@@ -3,26 +3,32 @@ package com.koreait.project.wooki.config;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 
-import com.koreait.project.wooki.command.AddTrainerSendEmailCommand;
-import com.koreait.project.wooki.command.AdminListCommand;
 import com.koreait.project.wooki.command.AdminLoginCommand;
-import com.koreait.project.wooki.command.BoardDeleteCommand;
-import com.koreait.project.wooki.command.BoardsListCommand;
-import com.koreait.project.wooki.command.BoardsOnHideToggleCommand;
-import com.koreait.project.wooki.command.ChangeEmailCommand;
-import com.koreait.project.wooki.command.ChangeEmailIsPossibleCommand;
 import com.koreait.project.wooki.command.CheckUserCommand;
-import com.koreait.project.wooki.command.CommentsListCommand;
-import com.koreait.project.wooki.command.CommentsOnHideToggleCommand;
-import com.koreait.project.wooki.command.DeleteTrainerInfoCommand;
-import com.koreait.project.wooki.command.DeleteUserCommand;
-import com.koreait.project.wooki.command.FilterTrainerUserListCommand;
-import com.koreait.project.wooki.command.UserListCommand;
-import com.koreait.project.wooki.command.FilterUserListCommand;
-import com.koreait.project.wooki.command.SendTempPassCommand;
-import com.koreait.project.wooki.command.TrainerUserListCommand;
-import com.koreait.project.wooki.command.UpdateAdminUserCommand;
-import com.koreait.project.wooki.command.UpdateNormalUserCommand;
+import com.koreait.project.wooki.command.admin.AdminListCommand;
+import com.koreait.project.wooki.command.admin.UpdateAdminUserCommand;
+import com.koreait.project.wooki.command.admin.UpdateNormalUserCommand;
+import com.koreait.project.wooki.command.boards.BoardDeleteCommand;
+import com.koreait.project.wooki.command.boards.BoardsListCommand;
+import com.koreait.project.wooki.command.boards.BoardsOnHideToggleCommand;
+import com.koreait.project.wooki.command.comments.CommentDeleteCommand;
+import com.koreait.project.wooki.command.comments.CommentsListCommand;
+import com.koreait.project.wooki.command.comments.CommentsOnHideToggleCommand;
+import com.koreait.project.wooki.command.review.ReivewListCommand;
+import com.koreait.project.wooki.command.review.ReviewOnHideToggleCommand;
+import com.koreait.project.wooki.command.trainer.AddTrainerSendEmailCommand;
+import com.koreait.project.wooki.command.trainer.DeleteTrainerInfoCommand;
+import com.koreait.project.wooki.command.trainer.FilterTrainerUserListCommand;
+import com.koreait.project.wooki.command.trainer.TrainerUserListCommand;
+import com.koreait.project.wooki.command.trainerQnA.TAnswerdUpdateCommand;
+import com.koreait.project.wooki.command.trainerQnA.TQnAListCommand;
+import com.koreait.project.wooki.command.trainerQnA.TQnAOnHideToggleCommand;
+import com.koreait.project.wooki.command.users.ChangeEmailCommand;
+import com.koreait.project.wooki.command.users.ChangeEmailIsPossibleCommand;
+import com.koreait.project.wooki.command.users.DeleteUserCommand;
+import com.koreait.project.wooki.command.users.FilterUserListCommand;
+import com.koreait.project.wooki.command.users.SendTempPassCommand;
+import com.koreait.project.wooki.command.users.UserListCommand;
 
 @Configurable
 public class WookiAppContext {
@@ -124,5 +130,35 @@ public class WookiAppContext {
 	@Bean
 	public CommentsOnHideToggleCommand commentsOnHideToggleCommand() {
 		return new CommentsOnHideToggleCommand();
+	}
+	
+	@Bean
+	public CommentDeleteCommand commentDeleteCommand() {
+		return new CommentDeleteCommand();
+	}
+	
+	@Bean
+	public ReivewListCommand reivewListCommand() {
+		return new ReivewListCommand();
+	}
+	
+	@Bean
+	public ReviewOnHideToggleCommand reviewOnHideToggleCommand() {
+		return new ReviewOnHideToggleCommand();
+	}
+	
+	@Bean
+	public TQnAListCommand tQnAListCommand() {
+		return new TQnAListCommand();
+	}
+	
+	@Bean
+	public TAnswerdUpdateCommand tAnswerdUpdateCommand() {
+		return new TAnswerdUpdateCommand();
+	}
+	
+	@Bean
+	public TQnAOnHideToggleCommand tQnAOnHideToggleCommand() {
+		return new TQnAOnHideToggleCommand();
 	}
 }
