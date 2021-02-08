@@ -1,4 +1,4 @@
-package com.koreait.project.yongsoo.command.comment;
+package com.koreait.project.yongsoo.command.meetingComment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonMapCommand;
-import com.koreait.project.yongsoo.dao.CommentDao;
+import com.koreait.project.yongsoo.dao.MeetingCommentDao;
 import com.koreait.project.yongsoo.dto.CommentTemDto;
 
 public class GetCommentListCommand implements CommonMapCommand {
@@ -19,7 +19,7 @@ public class GetCommentListCommand implements CommonMapCommand {
 		Map<String, Object> map = model.asMap();
 		int meeting_no = (int)map.get("meeting_no");
 		
-		CommentDao commentDao = sqlSession.getMapper(CommentDao.class);
+		MeetingCommentDao commentDao = sqlSession.getMapper(MeetingCommentDao.class);
 		List<CommentTemDto> commentList = commentDao.getCommentList(meeting_no);
 
 		Map<String, Object> result = new HashMap<String, Object>(); 

@@ -27,7 +27,6 @@
 						});
 					}
 </script>
-
 <!-- 이 호스트의 다른 모임 list ajax-->
 <script>
 	/* 페이지 로드 */
@@ -87,7 +86,6 @@
 		location.href = 'meetingViewPage.plitche?meeting_no='+meeting_no;
 	}
 </script>
-
 <!-- 다른 호스트의 같은 운동 모임 list ajax -->
 <script>
 	/* 페이지로드 */
@@ -146,7 +144,6 @@
 	}
 	
 </script>
-
 <!-- 댓글을 위한 ajax  -->
 <script>
 	$(document).ready(function() {
@@ -169,7 +166,7 @@
 				)
 				.append( $('<div class="comment-btn">').html('<input type="button" class="btnsBtn" value="[버튼]" />')
 					.append( $('<a href="#" class="btnClass" onclick="fn_commentUpdate(' + comment.comment_no + '); return false;" >').html('수정') )
-					.append( $('<a href="#" class="btnClass" onclick="fn_commentDelete(' + comment.comment_no + '); return false;" >').html('삭제') )		
+					.append( $('<a href="#" class="btnClass" onclick="fn_deleteComment(' + comment.comment_no + '); return false;" >').html('삭제') )		
 				)
 				.appendTo('#commentContent');
 			} else {
@@ -259,25 +256,31 @@
 	
 	// 뎃글 삭제 버튼을 눌렸을때 작동할 ajax함수
 	function fn_deleteComment(comment_no) {
-		if (confirm('뎃글을 삭제하시겠습니까?')) {
-			$.ajax({
-				url: 'deleteComment.plitche/'+ comment_no,
-				type: 'get',
-				dataType: 'json',
-				success: function(responseObj) {
-					if (responseObj.result) {
-						alert('뎃글이 삭제되었습니다.');
-						getCommentList();
-					} else {
-						alert('뎃글이 삭제되지 않았습니다.');
-					}
-				},
-				error: function(){alert('실패');}
-			});
-		}
+		swal.fire({
+			title: '작성한 댓글이 삭제됩니다.', 	text: '정말 삭제하시겠습니까?',
+			icon: 'warning',     			showCancelButton: true,
+			confirmButtonColor: 'red',		cancelButtonColor: 'green',
+			confirmButtonText: '삭제하기',		cancelButtonText: '취소하기'
+		}).then((result)=> {
+			if (result.isConfirmed) {
+				$.ajax({
+					url: 'deleteComment.plitche/'+ comment_no,
+					type: 'get',
+					dataType: 'json',
+					success: function(responseObj) {
+						if (responseObj.result) {
+							Swal.fire('댓글이 삭제되었습니다.', '더 많은 댓글 달아주실꺼죠!?^^', 'success');
+							getCommentList();
+						} else {
+							alert('댓글이 삭제되지 않았습니다.');
+						}
+					},
+					error: function(){alert('실패');}
+				});
+			}
+		});
 	}
 </script>
-
 <!-- 신청하기 버튼 클릭시 작동 -->
 <script>
 	$(document).ready(function() {
@@ -296,7 +299,6 @@
 		});
 	}
 </script>
-
 <!-- 트레이너에게 질문하기 버튼 클릭시 작동-->
 <script>
 	$(document).ready(function() {

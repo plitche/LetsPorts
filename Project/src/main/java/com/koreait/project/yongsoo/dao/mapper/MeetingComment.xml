@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.koreait.project.yongsoo.dao.CommentDao">
+<mapper namespace="com.koreait.project.yongsoo.dao.MeetingCommentDao">
 	
 <!-- 		SELECT C.comment_no, C.comment_referer_sep, C.comment_referer_no, C.user_no, C.comment_content,
 			   C.created_at, C.on_hide, U.user_nickname -->
@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="addComment" parameterType="com.koreait.project.dto.CommentsDto">
 		INSERT INTO COMMENTS
-		VALUES (COMMENTS_SEQ.NEXTVAL, 1, #{comment_referer_no}, #{board_user_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
+		VALUES (COMMENTS_SEQ.NEXTVAL, 2, #{comment_referer_no}, #{board_user_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
 	</insert>
 	
 	<delete id="deleteComment" parameterType="int">

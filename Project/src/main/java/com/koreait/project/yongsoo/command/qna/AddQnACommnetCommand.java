@@ -1,4 +1,4 @@
-package com.koreait.project.yongsoo.command.comment;
+package com.koreait.project.yongsoo.command.qna;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,21 +7,22 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonMapCommand;
-import com.koreait.project.yongsoo.dao.CommentDao;
+import com.koreait.project.dto.CommentsDto;
+import com.koreait.project.yongsoo.dao.CommonQnADao;
 
-public class DeleteCommentCommand implements CommonMapCommand {
+public class AddQnACommnetCommand implements CommonMapCommand {
 
 	@Override
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 
 		Map<String, Object> map = model.asMap();
-		int comment_no = (int)map.get("comment_no");
-		CommentDao commentDao = sqlSession.getMapper(CommentDao.class);
-		int deleteResult = commentDao.deleteComment(comment_no);
+		CommentsDto commentsDto = (CommentsDto)map.get("commentsDto");
+		
+		CommonQnADao commonQnADao = sqlSession.getMapper(CommonQnADao.class);
+		int addCommentResult = commonQnADao.addQnACommnet(commentsDto);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
-
-		if (deleteResult > 0) {
+		if (addCommentResult>0) {
 			result.put("result", true);
 		} else {
 			result.put("result", false);
