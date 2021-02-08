@@ -59,6 +59,7 @@
 				   </div>
 				   
 				   <!-- hidden -->
+				   <input type="hidden" name="photo_filename" value="${trainerClassDto.photo_filename}" />
 				   <input type="hidden" name="meeting_no" value="${trainerClassDto.meeting_no}" />
 				   <input type="hidden" name="meeting_title" value="${trainerClassDto.meeting_title}" />
 				   <input type="hidden" name="meeting_date" value="${trainerClassDto.meeting_date}" />
@@ -348,14 +349,14 @@
 		});
 		
 		// 페이징 처리
-		var commentPage = 1;
+		var commentPage = 1;  // 기본 페이징 1로 설정
 		
 		/**** 리스트 뿌려주기 ****/
 		function commentList() {
-			var meeting_no = '${trainerClassDto.meeting_no}';
+			var meeting_no = '${trainerClassDto.meeting_no}'; // 클래스에 댓글이 달리니까 클래스를 넘겨서 클래스 안에있는 댓글을 가져오기 위해 보낸다
 			
 			$.ajax({
-				url: 'comment.leo',
+				url: 'comment.leo', 
 				type: 'get',
 				data: 'meeting_no=' + meeting_no + '&commentPage=' + commentPage,
 				dataType: 'json',
@@ -401,7 +402,7 @@
 						$('#paging').append('<div class="next-block go-page" data-page="' + (paging.endPage + 1) + '"><a>▶</a></div>');
 					}
 				},
-				error: function() {alert('실패');}
+				error: function() {alert('실패44');}
 			});
 			
 			// 링크가 걸릴 때 이동할 페이지 번호를 알아내서 다시 목록을 뿌리는 함수들
@@ -483,7 +484,7 @@
 									alert('댓글이 작성되지 않았습니다.');
 								}
 							},
-							error: function(){alert('실패');}
+							error: function(){alert('실패??');}
 						});
 					
 				}
@@ -510,7 +511,7 @@
 						alert('삭제에 실패했습니다.');
 					}
 				},
-				error: function(){alert('실패');}						
+				error: function(){alert('실패2124');}						
 			});
 		}
 		
