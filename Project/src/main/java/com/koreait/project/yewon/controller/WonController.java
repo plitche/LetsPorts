@@ -89,6 +89,7 @@ public class WonController {
 	}
 	
 	
+	/*
 	// viewPage에서 글목록으로 돌아가기 버튼 클릭시 list페이지로 이동
 	@RequestMapping(value = "board_knowHowListPage.limyeng",method=RequestMethod.GET)
 		public String boardknowHowlistPage(@RequestParam("knowhow_no")int knowhow_no, Model model) {
@@ -96,7 +97,7 @@ public class WonController {
 		model.addAttribute("knowhow_no", knowhow_no);
 		return "redirect:goboard_knowhowList.limyeng";
 	}
-	
+	*/
 	
 	// updatePage에서 수정완료 후 viewPage로 이동
 	@RequestMapping(value = "board_knowHowUpdate.limyeng'", method=RequestMethod.GET)
