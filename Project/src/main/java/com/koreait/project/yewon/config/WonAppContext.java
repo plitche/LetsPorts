@@ -3,6 +3,7 @@ package com.koreait.project.yewon.config;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 
+import com.koreait.project.yewon.command.GoknowHowDeleteCommand;
 import com.koreait.project.yewon.command.GoknowHowDetailCommand;
 import com.koreait.project.yewon.command.GoknowHowInsertCommand;
 import com.koreait.project.yewon.command.GoknowHowListCommand;
@@ -41,6 +42,12 @@ public class WonAppContext {
 	@Bean
 	public GoknowHowUpdatePageCommand goknowHowUpdatePageCommand() {
 		return new GoknowHowUpdatePageCommand();
+	}
+	
+	// viewPage에서 삭제 Command
+	@Bean
+	public GoknowHowDeleteCommand goknowHowDeleteCommand() {
+		return new GoknowHowDeleteCommand();
 	}
 	
 }
