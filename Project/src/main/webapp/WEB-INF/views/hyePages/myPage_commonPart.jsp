@@ -1,3 +1,4 @@
+<%@page import="com.koreait.project.dto.UsersDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -28,48 +29,94 @@
 </script >
 
 <script type="text/javascript">
-// 정보수정 전 본인 확인
-$(document).ready(function() {
-	pwCheckForUpdate();
+	// 정보수정 전 본인 확인
+	$(document).ready(function() {
+		goUsersInfoUpdate();
+	});
+	
+	function goUsersInfoUpdate() {
+		$(document).on("click", "#forUpdateInfo_btn", function() {
+			var pw = '<%=((UsersDto)session.getAttribute("loginUser")).getPassword()%>';
+			if (pw == $('#userAuthPw').val()) {
+				alert('정보를 수정하러 갑니다.');
+				location.href='usersInfoUpdatePage.hey'
+			}
+		});
+	}
+
+</script>
+<script type="text/javascript">
+// 파일 업로드 버튼 설정
+var $file = $( "#file" );
+
+$("#fileBtn" ).on( "click", function(){
+
+	$file.trigger( "click" );
+
+	var fileName;
+
+	$("#file").change(function(){
+
+	fileName = this.value;
+
+	
+
+		if(fileName==""){
+
+			$(".fileName").empty().css("display", "inline-block").html("no files selected");
+
+			$("#profile_photo").unbild("change");
+
+		}else{
+
+			 fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);		
+
+			$(".fileName").empty().css("display", "inline-block").append(fileName);
+
+			$("#profile_photo").unbild("change");
+
+		};
+
+	});
+
 });
 
-function pwCheckForUpdate() {
-	$(document).on("click", "#forUpdateInfo_btn", function() {
-		var userAuthPw = $('#userAuthPw').val();
 
-		$.ajax({
-			url : "goUsersInfoUpdate.hey",
-			type : "post",
-			data : userAuthPw,
-			dataType : "json",
-			contentType : "text/plain",
-			success : function(data) {
-				
-				if (data.result == 1) {
-						// 1은 값이 db에 있을 때
-						alert('정보를 수정하러 갑니다.');
-						location.href='usersInfoUpdatePage.hey'
-						console.log("회원 정보 일치!");
-					} else {
-						alert('비밀번호를 다시 확인하세요.');
-						console.log("비밀번호 틀림");
-						
-					}
-				}, error : function() {
-						console.log("실패");
-				}
-			});
-		});
+// 파일 업로드 ajax
+	$(document).ready(function() {
+		uploadFile();
+	});
+
+function uploadFile(){
+    var form = $('#file_form')[0];
+    var formData = new FormData(form);
+    formData.append("fileObj", $("#profile_photo")[0].files[0]);
+
+    $.ajax({
+   		url: 'uploadPhoto.hey',
+        processData: false,
+        contentType: false,
+        data: formData,
+        type: 'post',
+        success: function(result){
+            alert("업로드 성공!!");
+        }, error : unction() {
+			console.log("실패");
+		}
+     });
 }
 
 </script>
 
-
 <div class="myPageHeader" >
 		<h3>마이페이지</h3>
 	<div class="userImage">
-		트레이너 사진 파일 이름:<br/>
-		<a id="uploadIcon" href="#"><i class="fas fa-camera fa-lg"></i></a>
+		<form id="file_form" method="post" enctype="multipart/form-data" action="">
+			<div>사진</div>
+			<input type="file" id="profile_photo" name="profile_photo" style="display:none;">
+			<input type="button" id="fileBtn" value="Select File" style="cursor:pointer;"><span class="fileName"></span>
+		</form>
+
 	</div>
 	<div class="myPageInfo">
 		<br/>
@@ -84,13 +131,13 @@ function pwCheckForUpdate() {
 				<p class="modal_close" ><a href="#">X</a></p>
 					<div id="verification_content">
 						<h3>회원 정보 수정을 위한 인증</h3>
-						<input type="password" id="updatePwCheck" placeholder="비밀번호 입력"><br/><br/>
+						<input type="password" id="userAuthPw" placeholder="비밀번호 입력"><br/><br/>
 					  	<input type="button" id="forUpdateInfo_btn" value="내 정보 수정하러 가기" >
 					</div>
 			</div>
 	</div>
-		
-		<!-- 각각 페이지 따로 만들 것! -->
+	
+	<!-- 각각 페이지 따로 만들 것! -->
 	<div class="interestBtns">
 		<a href="#"><i class="fas fa-heart fa-lg"></i><br/>관심모임</a>
 		<a href="#"><i class="fas fa-id-badge fa-lg"></i><br/>관심 트레이너</a>

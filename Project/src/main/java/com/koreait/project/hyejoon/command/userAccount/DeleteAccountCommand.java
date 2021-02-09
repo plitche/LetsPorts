@@ -1,9 +1,10 @@
-package com.koreait.project.hyejoon.command.myPage;
+package com.koreait.project.hyejoon.command.userAccount;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
@@ -11,29 +12,25 @@ import org.springframework.ui.Model;
 import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.hyejoon.dao.UsersDao;
 
-public class UserInfoUpdatePwCheckCommand implements CommonMapCommand {
+public class DeleteAccountCommand implements CommonMapCommand {
 
 	@Override
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
-		Map<String, Object> map = model.asMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
-		String password = request.getParameter("password");
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		HttpSession session = request.getSession();
+		
+		int user_no = (int)session.getAttribute("user_no");
 		
 		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
-		int updateUser = usersDao.infoUdatePwCheck(password);
 		
-		System.out.println("password : " + password);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		if(updateUser > 0) {
-			result.put("result", 1);
-		} else {
-			result.put("result", 0);
-		}
+		result.put("result", usersDao.deleteAccount(user_no));
 		
-		// false:0, true:1 -> controller에도 연관되는 부분이므로 참고!
 		return result;
+		
 	}
 
 }

@@ -1,4 +1,3 @@
-
 /*정규식 체크
 	//모든 공백 체크 정규식
 	var empJ = /\s/g;
@@ -13,7 +12,12 @@
 
 // 페이지 로드 이벤트
    $(document).ready(function() {
-      nickCheck();      
+      nickCheck();    
+      emailCheck();
+      emailAuth();
+      pwCheck();
+      rePwCheck();
+      setBirthDate();
    });
 
 
@@ -22,12 +26,16 @@ function nickCheck() {
 	var nickJ = /^[a-zA-Z0-9가-힣]{2,15}$/;
 	// 닉네임 키업 체크
 	$("#user_nickname").keyup(function() {
+		
 		var user_nickname = $('#user_nickname').val();
+		var obj = {"user_nickname" : user_nickname};
 
 		$.ajax({
-			url : 'nickCheck.hey/' + user_nickname,
-			type : 'get',
-			dataType : 'json',
+			url : 'nickCheck.hey',
+			type : "post",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			dataType : "json",
 			success : function(data) {
 				console.log("true = 사용불가 / false = 사용가능 : "+ data);						
 				
@@ -59,12 +67,113 @@ function nickCheck() {
 	
 }
 
-// 비밀번호
-$(document).ready(function() {
-	pwCheck();
-	rePwCheck();
-});
 
+
+function emailCheck() {
+	// 이메일 정규식
+	var regEmail = /^[a-z][a-z0-9-_]+@[a-zA-Z0-9]{3,}(\.[a-zA-Z]{2,6}){1,2}$/;
+	
+	// 이메일 키업 체크
+	$("#email").keyup(function(){
+	var email = $("#email").val();
+	var status = $("#authEmail").css('display'); // status 변수에 ID가 authEmail인 요소의 display의 속성을 '대입'
+	var obj = {"email" : email};
+	
+		$.ajax({
+			url : 'emailCheck.hey',
+			type : 'post',
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			dataType : "json",
+			success : function(data) {
+				console.log("1 = 사용불가 / 0 = 사용가능 : "+ data);
+				
+				if (data.result == 1) {
+					$("#email_check").text("이미 사용중인 이메일입니다.");
+					$("#email_check").css('color', 'red');
+					console.log("이메일중복");
+					
+					if(status == 'none'){ // status가 none 상태일경우 
+						$("#authEmail").hide(); // ID가 authEmail인 요소를 hide();
+					}
+					
+				} else {
+					
+					if(regEmail.test(email)){
+						$("#email_check").text("사용가능한 이메일입니다.");
+						$("#email_check").css('color', 'green');
+						console.log("정규식 통과");
+						
+						if(status == 'none'){ // status가 none 상태일경우 
+							$('#authEmail').show(); // ID가 authEmail인 요소를 show();
+						}
+			
+					} else {
+						$("#email_check").text('이메일 정보를 다시 확인하세요.');
+						$("#email_check").css('color', 'red');
+						console.log("이메일 정보 이상");
+						
+						if(status == 'none'){ // status가 none 상태일경우 
+							$("#authEmail").hide(); // ID가 authEmail인 요소를 hide();
+						}
+						
+					}
+					
+				}
+			}, error : function() {
+					console.log("실패");
+			}
+			
+		})
+	});
+}
+
+
+//이메일 인증 전송
+function emailAuth(){
+$(document).on("click", "#sendAuth_btn", function() {
+	// alert('이메일 인증 시작!');
+	var email = $("#email").val();
+	var authKey; // 인증키
+	var obj = {"email" : email};
+	/* 0 = 메일 전송 전, 1=메일 전송 됨*/
+	
+	$.ajax({
+		url : "emailAuth.hey",
+		type : "post",
+		data : JSON.stringify(obj),
+		contentType : "application/json",
+		dataType : "json",
+		success : function(data) {
+			alert('인증번호 발송! 회원가입을 위해 꼭 인증 해주세요.');
+			authKey = data.authKey;
+			console.log(authKey);
+				
+		}, error : function() {
+				console.log("뭐가 그리 문제야 say something!");
+		}
+		
+	}); // ajax
+	
+	$("#successAuth_btn").click(function(){
+		var authNum = $("#authNum").val();
+		
+		if(authNum != authKey) {
+			alert('다시 인증 해주세요.');
+			return;
+			
+		} else {
+			alert('인증이 완료되었습니다.');
+			$('#successAuth').text('인증 완료');
+			$('#successAuth').css('color', 'green');
+		}
+		
+	}); // keyup
+	
+});
+}
+
+// 비밀번호
 function pwCheck(){
 	var empJ = /\s/g;
 	var pwJ = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#%&_])[A-Za-z0-9!@#%&_]{8,16}$/;
@@ -116,10 +225,6 @@ function rePwCheck(){
 
 
 // 생년월일 for문
-$(document).ready(function(){
-       setBirthDate();
-   });    
-
    // setBirthDate 년, 월, 일 표시
    function setBirthDate(){
        var date = new Date();

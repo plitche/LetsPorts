@@ -17,6 +17,7 @@ public class UsersLoginCommand implements CommonVoidCommand {
 	
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
+		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession();

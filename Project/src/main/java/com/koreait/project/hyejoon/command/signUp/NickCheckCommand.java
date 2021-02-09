@@ -17,18 +17,12 @@ public class NickCheckCommand implements CommonMapCommand {
 		Map<String, Object> map = model.asMap();
 		String user_nickname = (String)map.get("user_nickname");
 		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
-		int nickResult = usersDao.nickCheck(user_nickname);
-		
 		
 		Map<String, Object> result = new HashMap<String, Object>();
-		
-		if(nickResult > 0) {
-			result.put("result", 1);
-		} else {
-			result.put("result", 0);
-		}
+		result.put("result", usersDao.nickCheck(user_nickname));
 		
 		return result;
+		
 	}
 
 }

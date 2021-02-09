@@ -16,20 +16,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<update id="updateTempPw">
 		UPDATE USERS
-		   SET password = #{param2}
-		 WHERE email = #{param1}
+		   SET PASSWORD = #{param2}
+		 WHERE EMAIL = #{param1}
 	</update>	
 	
 	<!-- 회원가입 -->
 	<select id="nickCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		  FROM USERS
-		 WHERE user_nickname = #{user_nickname}
+		 WHERE USER_NICKNAME = #{user_nickname}
 	</select>
 	<select id="emailCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		  FROM USERS
-		 WHERE email = #{email}
+		 WHERE EMAIL = #{email}
 	</select>
 	<insert id="insertJoin" parameterType="com.koreait.project.dto.UsersDto">
 		INSERT INTO
@@ -47,9 +47,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 마이페이지  -->
-	<select id="infoUdatePwCheck" parameterType="String" resultType="com.koreait.project.dto.UsersDto">
-		SELECT COUNT(*)
-		  FROM USERS
-		 WHERE password = #{password}
-	</select>
+	<update id="updateAccount">
+		UPDATE USER
+		   SET PASSWORD = #{param1},
+		   	   USER_NICKNAME = #{param2},
+		   	   LOCATION1_NO = #{param3}
+		   	   LOCATION2_NO = #{param4}
+		 WHERE USER_NO = #{user_no}
+	</update>
+	<delete id="deleteAccount" parameterType="int">
+		DELETE FROM USERS
+		 WHERE USER_NO = #{user_no}
+	</delete>
 </mapper>

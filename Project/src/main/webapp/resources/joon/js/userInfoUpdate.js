@@ -1,17 +1,26 @@
 // 회원 정보 수정 페이지용
+// 페이지 로드
+$(document).ready(function() {
+	nickCheck();    
+    pwCheck();
+    rePwCheck();
+});
 
 function nickCheck() {
 	//닉네임 정규식
 	var nickJ = /^[a-zA-Z0-9가-힣]{2,15}$/;
+	
 	// 닉네임 키업 체크
 	$("#user_nickname").keyup(function() {
 		var user_nickname = $('#user_nickname').val();
-		var isDisabled = $("#editBox").attr("disabled");
-
+		var obj = {"user_nickname" : user_nickname};
+		
 		$.ajax({
-			url : 'nickCheck.hey/' + user_nickname,
-			type : 'get',
-			dataType : 'json',
+			url : 'updateNickCheck.hey',
+			type : "post",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			dataType : "json",
 			success : function(data) {
 				console.log("true = 사용불가 / false = 사용가능 : "+ data);						
 				
@@ -19,7 +28,6 @@ function nickCheck() {
 						// 1 : 닉네임이 중복되는 문구
 						$("#nick_check").text("이미 사용중인 닉네임입니다.");
 						$("#nick_check").css('color', 'red');
-						$("#signUpSubmit").attr("disabled", true);
 						console.log("닉네임중복");
 					} else {
 						
@@ -27,13 +35,11 @@ function nickCheck() {
 						if(nickJ.test(user_nickname)){
 							$("#nick_check").text("사용가능한 닉네임입니다.");
 							$("#nick_check").css('color', 'green');
-							$('#signUpSubmit').attr("disabled", false);
 							console.log("정규식 통과");
 				
 						}  else {
 							$('#nick_check').text("닉네임은 한글, 영어, 숫자 이용 2-15자 사용 가능합니다.");
 							$('#nick_check').css('color', 'red');
-							$('#signUpSubmit').attr("disabled", true);
 							console.log("특수문자 안돼");
 						}
 						
@@ -48,10 +54,6 @@ function nickCheck() {
 
 
 //비밀번호
-$(document).ready(function() {
-	pwCheck();
-	rePwCheck();
-});
 
 function pwCheck(){
 	var empJ = /\s/g;
@@ -106,10 +108,6 @@ function rePwCheck(){
 }
 
 //생년월일 for문
-$(document).ready(function(){
-       setBirthDate();
-   });    
-
    // setBirthDate 년, 월, 일 표시
    function setBirthDate(){
        var date = new Date();

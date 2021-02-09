@@ -6,20 +6,28 @@ import org.springframework.context.annotation.Bean;
 import com.koreait.project.hyejoon.command.login.SendTempPwCommand;
 import com.koreait.project.hyejoon.command.login.UserCheckCommand;
 import com.koreait.project.hyejoon.command.login.UsersLoginCommand;
-import com.koreait.project.hyejoon.command.myPage.UserInfoUpdatePwCheckCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailAuthCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailCheckCommand;
 import com.koreait.project.hyejoon.command.signUp.InsertJoinCommand;
 import com.koreait.project.hyejoon.command.signUp.NickCheckCommand;
+import com.koreait.project.hyejoon.command.userAccount.DeleteAccountCommand;
+import com.koreait.project.hyejoon.command.userAccount.UpdateAccountCommand;
 
 @Configurable
 public class HyeAppContext {
 	
+	// 로그인 
 	@Bean
 	public UsersLoginCommand usersLoginCommand() {
 		return new UsersLoginCommand();
 	}
 	
+	@Bean
+	public SendTempPwCommand sendTempPwCommand() {
+		return new SendTempPwCommand();
+	}
+	
+	// 회원 가입
 	@Bean
 	public NickCheckCommand nickCheckCommand() {
 		return new NickCheckCommand();
@@ -40,25 +48,19 @@ public class HyeAppContext {
 		return new InsertJoinCommand();
 	}
 	
-	/*
-	@Bean
-	public ExerciseCheckedCommand exerciseCheckedCommand() {
-		return new ExerciseCheckedCommand();
-	}
-	*/
-	
 	@Bean
 	public UserCheckCommand userCheckCommand() {
 		return new UserCheckCommand();
 	}
 	
+	// 마이페이지
 	@Bean
-	public SendTempPwCommand sendTempPwCommand() {
-		return new SendTempPwCommand();
+	public UpdateAccountCommand updateAccountCommand() {
+		return new UpdateAccountCommand();
+	}
+	@Bean
+	public DeleteAccountCommand deleteAccountCommand() {
+		return new DeleteAccountCommand();
 	}
 	
-	@Bean
-	public UserInfoUpdatePwCheckCommand userInfoUpdatePwCheckCommand() {
-		return new UserInfoUpdatePwCheckCommand();
-	}
 }

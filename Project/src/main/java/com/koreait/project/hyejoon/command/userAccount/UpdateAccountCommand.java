@@ -1,0 +1,62 @@
+package com.koreait.project.hyejoon.command.userAccount;
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.ui.Model;
+
+import com.koreait.project.common.CommonVoidCommand;
+import com.koreait.project.dto.UsersDto;
+import com.koreait.project.hyejoon.dao.UsersDao;
+
+public class UpdateAccountCommand implements CommonVoidCommand {
+
+	@Override
+	public void execute(SqlSession sqlSession, Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
+		
+		
+		String password = request.getParameter("password");
+		String user_nickname = request.getParameter("user_nickname");
+		int location1_no = Integer.parseInt(request.getParameter("location1_no"));
+		int location2_no = Integer.parseInt(request.getParameter("location2_no"));
+		String[] list = request.getParameterValues("exercise_no");
+		int[] exerc_list = new int[list.length];
+		
+		for (int i=0; i<list.length; i++) {
+			exerc_list[i] = Integer.parseInt(list[i]);
+		}
+		
+		
+		UsersDto usersDto = new UsersDto();
+		usersDto.setPassword(password);
+		usersDto.setUser_nickname(user_nickname);
+		usersDto.setLocation1_no(location1_no);
+		usersDto.setLocation2_no(location2_no);
+		
+		
+		
+		// 데이터 저장
+		// users_interest테이블에 insert하기위한 메소드 호출
+		int joinResult = usersDao.updateAccount(usersDto);
+		int interestResult = 0;
+		
+		if(joinResult > 0) {
+			// 새로 생성된 관심분야 번호를 가져오기위한 메소드 호출
+			int user_no = usersDao.getUserNo(user_nickname);
+			
+			// 새로 생성된 관심분야 번호와 관심분야를 저장하기 위한 메소드 호출
+			for (int i=0; i < exerc_list.length; i++) {
+				int exercise_no = exerc_list[i];
+				interestResult += usersDao.insertExerciseList(user_no, exercise_no);
+				
+			}
+			
+		}
+	}
+
+}
