@@ -69,14 +69,10 @@
 			<ul class="menu-bar">
 				<li><a href="javascript:void(0)" >ABOUT US</a></li>
 				<li>
-					<a href="goboard_knowhowList.limyeng">노하우 게시판</a>
+					<a href="GoBoard_KnowHowList.limyeng">노하우 게시판</a>
 				</li>
 				<li>
-					<a href="javascript:void(0)" >커뮤니티</a>
-					<ul class="depth2">
-						<li><a href="TrainerClassListPage.leo" >트레이너 클래스</a></li>					
-						<li><a href="javascript:void(0)" >운동 메이트</a></li>					
-					</ul>
+					<a href="TrainerClassListPage.leo" >커뮤니티</a>
 				</li>
 				<li><a href="goTrainerList.plitche" >트레이너</a></li>
 				<li><a href="goQnAPage.plitche" >질의응답</a></li>

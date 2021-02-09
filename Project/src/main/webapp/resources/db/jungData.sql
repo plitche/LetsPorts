@@ -4,6 +4,13 @@ INSERT INTO USERS values (10, 'user10@xxx.xxx', '1111', 1, SYSDATE, SYSDATE, 1, 
 INSERT INTO USERS values (11, 'user11@xxx.xxx', '1111', 1, SYSDATE, SYSDATE, 2, 2, 0, 'naver', '근육걸', '잘부탁드려요', 'profile11', 2000, 12, 31, 1, 1);
 INSERT INTO USERS values (12, 'user12@xxx.xxx', '1111', 1, SYSDATE, SYSDATE, 3, 3, 0, 'naver', '헬스맨', '잘부탁드려요', 'profile12', 2000, 12, 31, 2, 1);
 
+INSERT INTO USERS VALUES (1, 'user1@xxx.xxx', '1111', 2, SYSDATE, SYSDATE, 1, 1, 0, 'naver', '나정호', '나랑 운동하자', 'profile1', 1994, 08, 22, 0, 0);
+INSERT INTO USERS VALUES (2, 'user2@xxx.xxx', '1111', 2, SYSDATE, SYSDATE, 2, 2, 0, 'naver', '권용수', '나랑 운동하자', 'profile1', 1992, 08, 22, 0, 0);
+INSERT INTO USERS VALUES (3, 'user3@xxx.xxx', '1111', 2, SYSDATE, SYSDATE, 3, 3, 0, 'kakao', '상혜준', '나랑 운동하자', 'profile1', 1993, 08, 22, 0, 0);
+INSERT INTO USERS VALUES (4, 'user4@xxx.xxx', '1111', 2, SYSDATE, SYSDATE, 4, 4, 0, 'google', '임예원', '나랑 운동하자', 'profile1', 1998, 08, 22, 0, 0);
+INSERT INTO USERS VALUES (5, 'user5@xxx.xxx', '1111', 2, SYSDATE, SYSDATE, 5, 5, 0, 'kakao', '김영욱', '나랑 운동하자', 'profile1', 1993, 08, 22, 0, 0);
+
+
 select * from COMMENTS;
 select * from MEETING;
 

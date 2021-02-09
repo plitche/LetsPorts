@@ -21,37 +21,70 @@
 							}
 						});
 					}
+	
+	window.onload = function() {
+		 
+	    function onClick() {
+	        document.querySelector('.modal_wrap').style.display ='block';
+	        document.querySelector('.black_bg').style.display ='block';
+	    }   
+	    function offClick() {
+	        document.querySelector('.modal_wrap').style.display ='none';
+	        document.querySelector('.black_bg').style.display ='none';
+	    }
+	 
+	    document.getElementById('modal_btn').addEventListener('click', onClick);
+	    document.querySelector('.black_bg').addEventListener('click', offClick);
+	 
+	};
+
 </script>
 
-<br/><br/>
-
-	<h3>트레이너 클래스 전체보기</h3>
-	<br/>
+<br/>
 
 <form>
-	
-	<div class="QueryAndTag">
-	
-		<div id="Query">
-			<input type="text" name="search_content" placeholder="검색어를 입력하세요"/>
-			<input type="button" value="검색" onclick="fn_SearchClass(this.form)" />
-			<a href="TrainerClassListPage.leo"><img alt="모든 목록" src="resources/images/jung/rotate-option.png" /></a>
+		<div class="filter_content">
+			<br/><br/>	
+			<div class="QueryAndTag">
+				<div id="Query">
+					<input type="text" name="search_content" placeholder="검색어를 입력하세요"/>
+					<input type="button" value="검색" onclick="fn_SearchClass(this.form)" />
+				</div>
+			</div>
+			<button type='button' id="modal_btn">모임유형 ▼</button>
+			<div class="black_bg"></div>
+			<div class="modal_wrap">
+			    <div class="modal_content">
+					<div id="model_title">모임 유형</div>
+					<div id="line"></div>
+					<a href="#" ><div class="catagory">모든 모임</div></a>
+					<a href="#" ><div class="catagory">트레이너</div></a>
+					<a href="#" ><div class="catagory">운동메이트</div></a>
+			    </div>
+			</div>
 		</div>
-			
-		<div id="Tag">
-		
+
+	<br/><br/>
+
+	<div id="Tag">
+		<div id="Tag_name">운동카테고리</div>
+		<div id="Tag_content">
 			<c:forEach var="Tags" items="${ClassTags}">
 				<input type="button" value="#${Tags.exercise_name}" onclick="Tag${Tags.exercise_no}(this.form)" />
 				<input type="hidden" name="${Tags.exercise_name}" value="${Tags.exercise_name}" />
 			</c:forEach>
-			
-		</div>	
-		
-	</div>
+		</div>
+	</div>	
 	
+</form>	
+
 	<br/><br/>
-</form>
 	
+	<div id="line1"></div>
+	
+	<br/>
+	<div><h3>모임 전체보기</h3></div>
+	<br/>
 	
 	<script>
 	

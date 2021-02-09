@@ -19,7 +19,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="classTag" resultType="com.koreait.project.dto.ExerciseDto">
-		SELECT EXERCISE_NAME, EXERCISE_NO FROM EXERCISE
+		SELECT EXERCISE_NAME, EXERCISE_NO
+		FROM EXERCISE
 	</select>
 	
 	<!-- 클래스의 meeting 테이블에 내용들을 삽입하는 쿼리문 -->
@@ -30,7 +31,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- meeting 테이블 삽입 후 새롭게 생긴 meeting_no 값을 최신화시켜 가져오는 쿼리문 -->
 	<select id="findNewMeetingNo" resultType="int" parameterType="int">
 		SELECT MAX(MEETING_NO)
-		  FROM MEETING WHERE USER_NO = #{param1}
+		FROM MEETING
+		WHERE USER_NO = #{param1}
 	</select>
 	<!-- 새롭게 생긴 meeting_no을 가져와 material을 추가시키는 쿼리문 -->
 	<insert id="materialsInsert">
@@ -60,36 +62,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- materials 테이블에 저장된 내용을 가져가는 쿼리문 -->
 	<select id="materialsView" resultType="com.koreait.project.dto.MaterialsDto" parameterType="int">
-		SELECT * FROM MATERIALS WHERE MEETING_NO = #{param1}
+		SELECT *
+		FROM MATERIALS
+		WHERE MEETING_NO = #{param1}
 	</select>
 	
 	<!-- 뷰페이지에 들어왔을때 조회수 증가 -->
 	<update id="addhit" parameterType="int">
-		UPDATE MEETING SET MEETING_HIT = MEETING_HIT + 1
+		UPDATE MEETING
+		SET MEETING_HIT = MEETING_HIT + 1
 		WHERE MEETING_NO = #{param1}
 	</update>
 	
 	<!-- materials에 있는 데이터(자식데이터) 먼저 삭제하는 쿼리문 -->
 	<delete id="materialsDelete" parameterType="int">
-		DELETE FROM MATERIALS WHERE MEETING_NO = #{param1}
+		DELETE FROM MATERIALS
+		WHERE MEETING_NO = #{param1}
 	</delete>
 	<!-- 자식데이터 삭제후 -> meeting테이블의 데이터 삭제하는 쿼리문 -->
 	<delete id="trainerClassDelete" parameterType="int" >
-		DELETE FROM MEETING WHERE MEETING_NO = #{param1}
+		DELETE FROM MEETING
+		WHERE MEETING_NO = #{param1}
 	</delete>
 	
 	<!-- 트레이너 클래스의 meeting테이블의 내용들을 수정하는 쿼리문 -->
 	<update id="trainerClassUpdate" parameterType="com.koreait.project.jungho.dto.MakeTrainerClassDto">
-		UPDATE MEETING SET MEETING_TITLE = #{meeting_title}, MEETING_DATE = #{meeting_date}, START_GATHER_DATE = #{start_gather_date}, END_GATHER_DATE = #{end_gather_date}, MEETING_MIN = #{meeting_min}, MEETING_MAX = #{meeting_max}, EXERCISE_NO = #{exercise_no}, LOCATION1_NO = #{location1_no}, LOCATION2_NO = #{location2_no}, DETAIL_LOCATION = #{detail_location}, MEETING_CONTENT = #{meeting_content}
+		UPDATE MEETING
+		SET MEETING_TITLE = #{meeting_title}, MEETING_DATE = #{meeting_date}, START_GATHER_DATE = #{start_gather_date}, END_GATHER_DATE = #{end_gather_date}, MEETING_MIN = #{meeting_min}, MEETING_MAX = #{meeting_max}, EXERCISE_NO = #{exercise_no}, LOCATION1_NO = #{location1_no}, LOCATION2_NO = #{location2_no}, DETAIL_LOCATION = #{detail_location}, MEETING_CONTENT = #{meeting_content}
 		WHERE MEETING_NO = #{meeting_no}
 	</update>
 	<!-- 트레이너 클래스의 materials테이블의 내용들을 수정하는 쿼리문 -->
 	<update id="materialsViewUpdate">
-		UPDATE MATERIALS SET MATERIALS_NAME = #{param1} WHERE MEETING_NO = #{param2}
+		UPDATE MATERIALS
+		SET MATERIALS_NAME = #{param1}
+		WHERE MEETING_NO = #{param2}
 	</update>
 	<!-- 트레이너 클래스에 사진을 수정하는 쿼리문 -->
 	<update id="updatePhoto">
-		UPDATE PHOTO SET PHOTO_FILENAME = #{param1} WHERE PHOTO_REFERER_NO = #{param2}
+		UPDATE PHOTO
+		SET PHOTO_FILENAME = #{param1}
+		WHERE PHOTO_REFERER_NO = #{param2}
 	</update>
 	
 	<!-- VIEW페이지에서 관련클래스 목록 추출하는 쿼리문 -->
@@ -132,69 +144,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ON M1.MEETING_NO = P.PHOTO_REFERER_NO
 		WHERE EXERCISE_NAME = #{param1}
 	</select>
-	<!-- 
-	<select id="Tag1" resultType="com.koreait.project.jungho.dto.TrainerClassDto"	 parameterType="String">
-		SELECT M1.EXERCISE_NO, E1.EXERCISE_NAME, M1.MEETING_DATE, M1.MEETING_TITLE, M1.MEETING_NO
-		FROM MEETING M1 INNER JOIN EXERCISE E1
-		ON E1.EXERCISE_NO = M1.EXERCISE_NO
-		WHERE EXERCISE_NAME = #{param1}
-	</select>
-	<select id="Tag2" resultType="com.koreait.project.jungho.dto.TrainerClassDto"	 parameterType="String">
-		SELECT M1.EXERCISE_NO, E1.EXERCISE_NAME, M1.MEETING_DATE, M1.MEETING_TITLE, M1.MEETING_NO
-		FROM MEETING M1 INNER JOIN EXERCISE E1
-		ON E1.EXERCISE_NO = M1.EXERCISE_NO
-		WHERE EXERCISE_NAME = #{param1}
-	</select>
-	<select id="Tag3" resultType="com.koreait.project.jungho.dto.TrainerClassDto"	 parameterType="String">
-		SELECT M1.EXERCISE_NO, E1.EXERCISE_NAME, M1.MEETING_DATE, M1.MEETING_TITLE, M1.MEETING_NO
-		FROM MEETING M1 INNER JOIN EXERCISE E1
-		ON E1.EXERCISE_NO = M1.EXERCISE_NO
-		WHERE EXERCISE_NAME = #{param1}
-	</select>
-	<select id="Tag4" resultType="com.koreait.project.jungho.dto.TrainerClassDto"	 parameterType="String">
-		SELECT M1.EXERCISE_NO, E1.EXERCISE_NAME, M1.MEETING_DATE, M1.MEETING_TITLE, M1.MEETING_NO
-		FROM MEETING M1 INNER JOIN EXERCISE E1
-		ON E1.EXERCISE_NO = M1.EXERCISE_NO
-		WHERE EXERCISE_NAME = #{param1}
-	</select>
-	<select id="Tag5" resultType="com.koreait.project.jungho.dto.TrainerClassDto"	 parameterType="String">
-		SELECT M1.EXERCISE_NO, E1.EXERCISE_NAME, M1.MEETING_DATE, M1.MEETING_TITLE, M1.MEETING_NO
-		FROM MEETING M1 INNER JOIN EXERCISE E1
-		ON E1.EXERCISE_NO = M1.EXERCISE_NO
-		WHERE EXERCISE_NAME = #{param1}
-	</select>
-	<select id="Tag6" resultType="com.koreait.project.jungho.dto.TrainerClassDto"	 parameterType="String">
-		SELECT M1.EXERCISE_NO, E1.EXERCISE_NAME, M1.MEETING_DATE, M1.MEETING_TITLE, M1.MEETING_NO
-		FROM MEETING M1 INNER JOIN EXERCISE E1
-		ON E1.EXERCISE_NO = M1.EXERCISE_NO
-		WHERE EXERCISE_NAME = #{param1}
-	</select>
-	<select id="Tag7" resultType="com.koreait.project.jungho.dto.TrainerClassDto"	 parameterType="String">
-		SELECT M1.EXERCISE_NO, E1.EXERCISE_NAME, M1.MEETING_DATE, M1.MEETING_TITLE, M1.MEETING_NO
-		FROM MEETING M1 INNER JOIN EXERCISE E1
-		ON E1.EXERCISE_NO = M1.EXERCISE_NO
-		WHERE EXERCISE_NAME = #{param1}
-	</select>
-	<select id="Tag8" resultType="com.koreait.project.jungho.dto.TrainerClassDto"	 parameterType="String">
-		SELECT M1.EXERCISE_NO, E1.EXERCISE_NAME, M1.MEETING_DATE, M1.MEETING_TITLE, M1.MEETING_NO
-		FROM MEETING M1 INNER JOIN EXERCISE E1
-		ON E1.EXERCISE_NO = M1.EXERCISE_NO
-		WHERE EXERCISE_NAME = #{param1}
-	</select>
-	
-	
-	-->
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 </mapper>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link type="text/css" rel="stylesheet" href="resources/style/soo/qnaViewPage.css" >
 <!DOCTYPE html>
 
 <jsp:include page="../../template/header.jsp">
@@ -29,8 +30,9 @@
 <!-- 수정하기 / 삭제하기 클릭시 처리할 script -->
 <script>
 	/* 수정하기 버튼 클릭시 작동할 function */
-	function fn_goUpdateQnA() {
-		location.href='goUpdateQnAPage.plitche?board_qna_no='+${qnaTemDto.board_qna_no};
+	function fn_goUpdateQnA(f) {
+		f.action='goUpdateQnAPage.plitche';
+		f.submit();
 	}
 	
 	/* 삭제하기 버튼 클릭시 작동할 function */
@@ -54,6 +56,36 @@
 		Swal.fire('질문이 수정되었습니다.', '댓글이 작성되기 전에 내용을 다시한번 확인해주세요.^^', 'success');
 	}
 </script>
+<!-- 해결 완료 클릭 시 처리할 script -->
+<script>
+	function fn_solveQnA(board_qna_no) {
+		swal.fire({
+			title: '해결 완료하시면 더 이상 댓글을 받을 수 없습니다.', 	text: '정말 완료하시겠습니까?',
+			icon: 'warning',     			showCancelButton: true,
+			confirmButtonColor: 'green',		cancelButtonColor: 'red',
+			confirmButtonText: '완료하기',		cancelButtonText: '취소하기'
+		}).then((result)=> {
+			if (result.isConfirmed) {
+				$.ajax({
+					url: 'solveQnA.plitche/'+board_qna_no,
+					type: 'get',
+					dataType: 'json',
+					success: function(responseObj) {
+						if(responseObj.result) {
+							Swal.fire('질문이 해결되었습니다.', '더 많은 정보들을 물어보세요!^^', 'success');
+							$('#writeComment').empty();
+							$('#solveBtn').remove();
+						} else {
+							alert('해결완료가 안되었습니다.');
+						}
+					},
+					error: function(){alert('해결완료 실패');}
+				});
+			}
+		});
+		
+	}
+</script>
 <!-- 댓글 관련 scirpt -->
 <script>
 	$(document).ready(function() {
@@ -75,7 +107,7 @@
 						.append( $('<p class="'+qnaComment.comment_no+'nthComment">').html(qnaComment.comment_content) )
 						.append( $('<p>').html('작성일: ' + qnaComment.created_at) )
 					)
-					.append( $('<div class="comment-btn">').html('<input type="button" value="[버튼]" />')
+					.append( $('<div class="comment-btn">').html('<input type="button" class="btnsBtn" value="[버튼]" />')
 						.append( $('<div class="'+qnaComment.comment_no+'nthBtn">')
 							.append( $('<a href="#" class="btnClass" onclick="fn_updateComment(' + qnaComment.comment_no + '); return false;" >').html('수정') )
 							.append( $('<a href="#" class="btnClass" onclick="fn_deleteComment(' + qnaComment.comment_no + '); return false;" >').html('삭제') )
@@ -107,8 +139,7 @@
 			success: function(responseObj) {
 				if(responseObj.result) {
 					$('#totalCommentCount').empty();
-					$('#totalCommentCount')
-					.append( $('<p>').html('총 : ' + responseObj.commentCount + '개') )
+					$('#totalCommentCount').html('총 : ' + responseObj.commentCount + '개');
 					
 					qnaCommentListTable(responseObj.qnaCommentList);
 
@@ -190,6 +221,17 @@
 		});
 	}
 	
+	// 버튼 클릭 시 하위 수정, 삭제 버튼이 나오게 하기위한 function
+	function showBtns() {
+		$(document).on('click', '.btnsBtn', function() {
+			if ( $('.btnClass').css('display') == 'none') {
+				$(this).parent('div').find('a').show();
+			} else {
+				$(this).parent('div').find('a').hide();
+			}
+		});
+	}
+	
 	// 댓글 수정 버튼을 눌렸을 때 내용을 input으로 바꿔줄 function
 	function fn_updateComment(qnaComment_no) {
 		var commentContent = $('p[class="'+qnaComment_no+'nthComment"]').text();
@@ -257,31 +299,88 @@
 	}
 </script>
 
+<c:if test="${qnaTemDto.is_resolved eq 1}">
+	<h3>해결 완료된 질문입니다!! 많은 정보를 얻어가세요.^^</h3>
+</c:if>
+<c:if test="${qnaTemDto.is_resolved eq 0}">
+	<h3>아직 해결되지 않은 질문입니다!! 빠른 해결에 도움을 주세요.^^</h3>
+</c:if>
 
-작성자 : ${qnaTemDto.user_nickname} <br/>
-제목 : ${qnaTemDto.board_qna_title} <br/>
-질문 내용 : ${qnaTemDto.board_qna_content} <br/>
 
 <c:if test="${loginUser.user_no ne null}">
 	<c:if test="${qnaTemDto.user_no eq loginUser.user_no}">
-		<input type="button" value="수정하기" onclick="fn_goUpdateQnA()" />
-		<input type="button" value="해결완료" onclick="fn_solveQna()" />
-		<input type="button" value="삭제하기" onclick="fn_deleteQnA()" />		
+		<form method="post" id="writerBtn">
+			<input type="hidden" name="user_nickname" value="${qnaTemDto.user_nickname}" />
+			<input type="hidden" name="board_qna_no" value="${qnaTemDto.board_qna_no}" />
+			<input type="hidden" name="board_qna_title" value="${qnaTemDto.board_qna_title}" />
+			<input type="hidden" name="board_qna_content" value="${qnaTemDto.board_qna_content}" />
+			
+			<input type="button" value="수정하기" onclick="fn_goUpdateQnA(this.form)" />
+			<c:if test="${qnaTemDto.is_resolved eq 0}">
+				<input type="button" id="solveBtn" value="해결완료" onclick="fn_solveQnA(${qnaTemDto.board_qna_no})" />
+			</c:if>
+			<input type="button" value="삭제하기" onclick="fn_deleteQnA()" />
+		</form>
 	</c:if>		
 </c:if>
-	
-<div id="comment"> 
-	<p style="font-weight: 800; font-size: 1.5rem; margin-top: 20px;">댓글</p>
-	<div id="totalCommentCount"></div>
+<form method="get" id="backToQnAList">
+	<input type="hidden" name="page" value="${page}"/>
+	<input type="button" value="전체목록 돌아가기" onclick="fn_goQnAListPage(this.form)"/>				
+</form>
+
+<table id="qnaDetail">
+	<colgroup>
+		<col width="100">
+		<col width="*">
+		<col width="100">
+	</colgroup>
+	<thead>
+		<tr>
+			<th colspan="3">${qnaTemDto.board_qna_title}</th>
+		</tr>	
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="2">사진</td>
+			<td>
+				<c:if test="${qnaTemDto.user_separator eq 0}">관리자</c:if>
+				<c:if test="${qnaTemDto.user_separator eq 1}">트레이너</c:if>
+				<c:if test="${qnaTemDto.user_separator eq 2}">일반 회원</c:if>
+			</td>
+			<c:if test="${qnaTemDto.is_resolved eq 1}">
+				<td style="color: green;">해결 완료</td>
+			</c:if>
+			<c:if test="${qnaTemDto.is_resolved eq 0}">
+				<td style="color: red;">미 해결</td>
+			</c:if>
+		</tr>
+		<tr>
+			<td>${qnaTemDto.user_nickname}</td>
+			<td>${qnaTemDto.created_at}</td>
+		</tr>
+		<tr>
+			<td colspan="3">${qnaTemDto.board_qna_content}</td>
+		</tr>
+	</tbody>
+</table>
+
+<div id="comment">
+	<div id="commentHeader">
+		<div style="font-weight: 800; font-size: 1.5rem; margin: 0 20px 0 10px;">댓글</div>
+		<div id="totalCommentCount"></div>
+		<div style="margin-left: 85%">공유</div>
+	</div>
 	<div id="commentContent"></div>
 	<div id="commentPaging"></div>
-	<form>
-		<div id="writeComment">
-			<p>${loginUser.user_nickname}</p>
-			<textarea rows="5" cols="100" id="comment_content" name="comment_content" placeholder="내용을 입력하시오"></textarea><br/>
-		</div>
-		<input type="button" value="작성완료" id="addComment"/>
-	</form>
+	<c:if test="${qnaTemDto.is_resolved eq 0}">
+		<form>
+			<div id="writeComment">
+				<p style="font-weight: bold; font-size: 1.5rem;">${loginUser.user_nickname}</p>
+				<textarea rows="5" cols="100" id="comment_content" name="comment_content" placeholder="댓글을 남겨보세요"></textarea><br/>
+				<input type="button" value="작성완료" id="addComment"/>
+			</div>
+		</form>
+	</c:if>
 </div>
 	
 
@@ -297,7 +396,14 @@
 		});
 	 });
 </script>
+<!-- 뷰페이지에서 list페이지로 돌아가기 -->
+<script>
+	function fn_goQnAListPage(f) {
+		f.action='goQnAPage.plitche';
+		f.submit();
+	}
 
+</script>
 
 <%@ include file="../../template/footer.jsp" %>
 

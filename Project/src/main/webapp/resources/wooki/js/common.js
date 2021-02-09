@@ -1525,7 +1525,7 @@ function fn_tAnswerdUpdate() {
 	});
 }
 
-// 트레이너QnA - 트레이너 답변 ajax 통신 메소드
+// 트레이너QnA - 트레이너 답변업데이트 ajax 통신 메소드
 function fn_sendTAnwswerdUpdate() {
 	$('body').on('click', '#sendTAnwswerdUpdate', function() {
 		if(is_progress == true) {
@@ -1560,7 +1560,7 @@ function fn_sendTAnwswerdUpdate() {
 
 
 // 트레이너QnA - 문의 숨기기, 보이기 기능개발
-function fn_reviewOnHideToggle() {
+function fn_tQnAOnHideToggle() {
 	let btn = ['#showTQnABtn', '#hideTQnABtn'];
 	for(let i = 0; i < btn.length; i++) {
 		$('body').on('click', btn[i], function() {
@@ -1672,4 +1672,109 @@ function fn_photoFilterAdd() {
 		$('#td5').before($('<td id="td4">'));
 		$('#td4').html('<input type="text" name="query" id="query" />');
 	});
+}
+
+// 사진 - 사진 리스트 불러오기 메소드
+function fn_photoList(p) {
+	let photoSep = $('select[name="photoSep"]').val();
+	let columnName = $('select[name="columnName"]').val();
+	if(columnName == undefined ) {
+		columnName = '';
+	}
+	let query = $('#query').val();
+	if(query == undefined ) {
+		query = '';
+	}
+	$.ajax({
+		url: 'photoList.wooki',
+		type: 'get',
+		data: {
+			page: p,
+			photoSep: photoSep,
+			columnName: columnName,
+			query: query
+		},
+		dataType: 'json',
+		success: function(list) {
+			fn_insertPhotoList(list.list, list.paging, list.totalRecord, list.recordPerPage, list.page);
+		},
+		error: function() {
+			alert('실패');
+		}
+	});
+}
+
+// 사진 - 사진 리스트 tbody, tfoot 삽입이벤트
+function fn_insertPhotoList(list, paging, totalRecord, recordPerPage, page) {
+	$('tbody#list').empty();
+	$('tfoot.paging').empty();
+	$.each(list, function(idx, photo) {
+		let is_on_hide = '';
+		if(photo.on_hide == 0) {
+			is_on_hide = '<input type="button" value="숨기기" id="hidePhotoBtn" />';
+		} else {
+			is_on_hide = '<input type="button" value="보이기" id="showPhotoBtn" />';
+		}
+		let photoSepName = ['노하우', '질문과답변', '모임'];
+		let tbody = `
+		<tr>
+			<td>${totalRecord - (recordPerPage * (page - 1)) - idx}</td>
+			<td>${photo.photo_no}</td>
+			<td>${photo.user_no}</td>
+			<td>${photoSepName[photo.photo_referer_sep]}</td>
+			<td>${photo.photo_referer_no}</td>
+			<td><img width="200px" src="resources/storage/${photo.photo_filename}" /></td>
+			<td>
+				<input type="hidden" name="photo_no" id="photo_no" value="${photo.photo_no}" />
+				${is_on_hide}
+			</td>
+		</tr>`;
+		$('tbody#list').append(tbody);
+	});
+	let tfoot = `
+	<tr>
+		<td colspan="7">${paging}</td>
+		<input type="hidden" id="now_page" value="${page}"/>
+	</tr>`;
+	$('tfoot.paging').append(tfoot);
+}
+
+// 사진 - 사진 숨기기, 보이기 기능개발
+function fn_photoOnHideToggle() {
+	let btn = ['#showPhotoBtn', '#hidePhotoBtn'];
+	for(let i = 0; i < btn.length; i++) {
+		$('body').on('click', btn[i], function() {
+			if(is_progress == true) {
+				return;
+			}
+			is_progress = true;
+			let photo_no = $(this).parents('tr').find('#photo_no').val();;
+			$.ajax({
+				url: `photoOnHideToggle/${photo_no}/${i}.wooki`,
+				type: 'put',
+				dataType: 'json',
+				success: function(obj) {
+					if(i == 0) {
+						if(obj.result) {
+							alert('사진 공개 성공하였습니다.')
+						} else {
+							alert('사진 공개 실패하였습니다.')
+						}
+					} else {
+						if(obj.result) {
+							alert('사진 숨기기 성공하였습니다.')
+						} else {
+							alert('사진 숨기기 실패하였습니다.')
+						}
+					}
+					fn_photoList($('#now_page').val());
+					setTimeout(function() {is_progress = false;}, 1000);
+				},
+				error: function() {
+					setTimeout(function() {is_progress = false;}, 1000);
+					alert('실패');
+				}
+			});
+		});
+	}
 }

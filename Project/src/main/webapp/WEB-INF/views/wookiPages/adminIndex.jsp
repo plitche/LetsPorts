@@ -41,7 +41,9 @@
 		fn_tQnAFilterAdd();
 		fn_tAnswerdUpdate();
 		fn_sendTAnwswerdUpdate();
+		fn_tQnAOnHideToggle();
 		fn_photoFilterAdd();
+		fn_photoOnHideToggle();
 		$('.photo').click(function() {
 			fn_photoPage();
 		});
