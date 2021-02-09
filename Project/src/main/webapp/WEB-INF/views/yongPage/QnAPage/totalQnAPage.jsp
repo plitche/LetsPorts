@@ -61,7 +61,8 @@
 <!-- 키워드 검색 관련 처리 script -->
 <script>
 	function fn_search(f) {
-		
+		f.action='goQnAPage.plitche';
+		f.submit();
 	}
 
 </script>
@@ -96,10 +97,10 @@
 			</tr>
 		</c:if>
 		<c:if test="${not empty qnaList}">
-			<c:forEach var="list" items="${qnaList}">
+			<c:forEach var="list" items="${qnaList}" varStatus="k">
 				<tr>
-					<td>${list.board_qna_no}</td>
-					<td><a href="goQnAViewPage.plitche?board_qna_no=${list.board_qna_no}">${list.board_qna_title}</a></td>
+					<td>${totalRecord-((page-1) * recordPerPage + k.index)}</td>
+					<td><a href="goQnAViewPage.plitche?board_qna_no=${list.board_qna_no}&page=${page}">${list.board_qna_title}</a></td>
 					<td>${list.user_nickname}</td>
 					<td>${list.created_at}</td>
 					<c:if test="${list.is_resolved eq 0}">
@@ -114,20 +115,20 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="5"></td>
+			<td colspan="5">${paging}</td>
 		</tr>	
 	</tfoot>
 </table>
 
-<form>
+<form method="get">
 	<fieldset>
 		<legend>게시물 검색</legend>
 		<p>
 			<select name="searchCategory">
-				<option>제목 + 내용</option>
-				<option>제목만</option>
-				<option>글작성자</option>
-				<option>댓글작성자</option>
+				<option value="">검색 조건</option>
+				<option value="1">제목 + 내용</option>
+				<option value="2">제목만</option>
+				<option value="3">글작성자</option>
 			</select>
 			<input type="text" name="searchKeyword" />
 			<input type="button" value="찾기" onclick="fn_search(this.form)" />

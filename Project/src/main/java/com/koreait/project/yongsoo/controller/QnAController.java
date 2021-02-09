@@ -10,7 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,10 +26,12 @@ import com.koreait.project.yongsoo.command.qna.DeleteQnACommentCommand;
 import com.koreait.project.yongsoo.command.qna.GetQnACommentCommand;
 import com.koreait.project.yongsoo.command.qna.GetQnAListCommand;
 import com.koreait.project.yongsoo.command.qna.GoQnAViewPageCommand;
+import com.koreait.project.yongsoo.command.qna.SolveQnACommend;
 import com.koreait.project.yongsoo.command.qna.UpdateQnACommand;
 import com.koreait.project.yongsoo.command.qna.UpdateQnACommentContentCommand;
 import com.koreait.project.yongsoo.command.qna.WriteQnACommand;
 import com.koreait.project.yongsoo.config.SooAppContext;
+import com.koreait.project.yongsoo.dto.QnATemDto;
 
 @Controller
 public class QnAController {
@@ -40,7 +42,8 @@ public class QnAController {
 	
 	// 헤더의 질의응답 버튼을 클릭했을때 질문 리스트를 보여주기위한 메소드
 	@RequestMapping(value="goQnAPage.plitche", method=RequestMethod.GET)
-	public String goQnAPage(Model model) {
+	public String goQnAPage(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
 		GetQnAListCommand getQnAListCommand = ctx.getBean("getQnAListCommand", GetQnAListCommand.class);
 		getQnAListCommand.execute(sqlSession, model);
 		return "yongPage/QnAPage/totalQnAPage";
@@ -66,24 +69,20 @@ public class QnAController {
 	
 	// 질문 리스트에서 제목 클릭시 view페이지로 이동하기 위한 메소드
 	@RequestMapping(value="goQnAViewPage.plitche", method=RequestMethod.GET)
-	public String qnaView(@RequestParam int board_qna_no, Model model) {
-		model.addAttribute("board_qna_no", board_qna_no);
+	public String qnaView(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
 		GoQnAViewPageCommand goQnAViewPageCommand = ctx.getBean("goQnAViewPageCommand", GoQnAViewPageCommand.class);
 		goQnAViewPageCommand.execute(sqlSession, model);
 		return "yongPage/QnAPage/qnaViewPage";
 	}
 	
 	// 질문 view페이지에서 수정하기 클릭 시 update 페이지로 이동하기 위한 메소드
-	@RequestMapping(value="goUpdateQnAPage.plitche", method=RequestMethod.GET)
-	public String goUpdateQnAPage(@RequestParam int board_qna_no, Model model) {
-		model.addAttribute("board_qna_no", board_qna_no);
-		// 어짜피 같은 역하을 하는 command, dao, query문이기 때문에 재활용 가능
-		GoQnAViewPageCommand goQnAViewPageCommand = ctx.getBean("goQnAViewPageCommand", GoQnAViewPageCommand.class);
-		goQnAViewPageCommand.execute(sqlSession, model);
+	@RequestMapping(value="goUpdateQnAPage.plitche", method=RequestMethod.POST)
+	public String goUpdateQnAPage(@ModelAttribute("qnaTemDto") QnATemDto qnaTemDto) {
 		return "yongPage/QnAPage/qnaUpdatePage";
 	}
 	
-	// 질문 view페이지에서 수정하기 클릭 시 delete해주기 위한 메소드
+	// 질문 view페이지에서 삭제하기 클릭 시 delete해주기 위한 메소드
 	@RequestMapping(value="deleteQnA.plitche")
 	public String goDeleteQnA(@RequestParam int board_qna_no, RedirectAttributes rttr, Model model) {
 		model.addAttribute("board_qna_no", board_qna_no);
@@ -102,6 +101,16 @@ public class QnAController {
 		updateQnACommand.execute(sqlSession, model);
 		int board_qna_no = Integer.parseInt(request.getParameter("board_qna_no"));
 		return "redirect:goQnAViewPage.plitche?board_qna_no="+board_qna_no;
+	}
+	
+	// 질문 view 페이지에서 해결 완료 클릭시 데이터에 접근하기 위한 메소드
+	@RequestMapping(value="solveQnA.plitche/{board_qna_no}", method=RequestMethod.GET,
+					produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> solveQnA(@PathVariable("board_qna_no") int board_qna_no, Model model) {
+		model.addAttribute("board_qna_no", board_qna_no);
+		SolveQnACommend solveQnACommend = ctx.getBean("solveQnACommend", SolveQnACommend.class);
+		return solveQnACommend.execute(sqlSession, model);
 	}
 	
 	// 특정 질문에 작성된 뎃글 list를 가져오기 위한 메소드
@@ -146,6 +155,12 @@ public class QnAController {
 		DeleteQnACommentCommand deleteQnACommentCommand = ctx.getBean("deleteQnACommentCommand", DeleteQnACommentCommand.class);
 		return deleteQnACommentCommand.execute(sqlSession, model);
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 }

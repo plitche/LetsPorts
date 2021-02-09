@@ -84,7 +84,43 @@
 					
 				</select> 
 			</div>
-			<input type="text" id="detailLocation" name="detail_location" placeholder="상세주소를 입력하세요."/>
+			<input type="hidden" id="detailLocation" name="detail_location"/>			
+			<div id="map" style="width:500px;height:400px;"></div>
+			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74162e293be31e9dc5e8e7b8c8e0be9c"></script>
+			<script>
+				var container = document.getElementById('map');
+				var options = {
+					center: new kakao.maps.LatLng(37.567301, 126.978946),
+					level: 9
+				};
+		
+				var map = new kakao.maps.Map(container, options);
+				
+				// 지도를 클릭한 위치에 표출할 마커입니다
+				var marker = new kakao.maps.Marker({ 
+				    // 지도 중심좌표에 마커를 생성합니다 
+				    position: map.getCenter() 
+				}); 
+				// 지도에 마커를 표시합니다
+				marker.setMap(map);
+
+				// 지도에 클릭 이벤트를 등록합니다
+				// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+				kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+				    
+				    // 클릭한 위도, 경도 정보를 가져옵니다 
+				    var latlng = mouseEvent.latLng; 
+				    
+				    // 마커 위치를 클릭한 위치로 옮깁니다
+				    marker.setPosition(latlng);
+				    
+				    var lat = latlng.getLat();
+				    var lng = latlng.getLng();
+				    var detailLocation = lat + '/' + lng;
+				    $('#detailLocation').val(detailLocation);
+				    
+				});
+			</script>
 			<div id="materials">
 				<p>준비물</p>
 				<div id="materialList">
