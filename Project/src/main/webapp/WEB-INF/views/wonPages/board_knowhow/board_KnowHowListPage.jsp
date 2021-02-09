@@ -56,9 +56,31 @@
 		<button type = "submit">검색</button>
 	</div><br/><br/>
 	
+	<div id = "Tag">
+	<h4>카테고리</h4>
+		<ul>
+			<li><a href = ""></a>족구</li>
+			<li>축구</li>
+			<li>농구</li>
+			<li>볼링</li>
+			<li>크로스핏</li>
+			<li>스피닝</li>
+			<li>댄스</li>
+			<li>요가</li>
+			<li>명상</li>
+			<li>다이어트 정보</li>
+			<li>건강 정보</li>
+			<li>식단 정보</li>
+		</ul>
 		
+			<c:forEach var = "Tags" items = "">
+				<input type = "button" value = ""/>
+				<input type = "hidden" value = "" value = ""/>
+			</c:forEach>
+		
+		</div>
 	
-	<div style="display: flex">
+	<div id = "container" style="display: flex">
 		<c:if test="${empty list}">
 			없음
 		</c:if> 
@@ -77,24 +99,7 @@
 
 	
 	
-		<div style="display: flex">
-			<c:if test="${empty list}">
-				<tr>
-					<td colspan = "5">없음</td>
-				</tr>
-			</c:if> 
-			<c:if test="${not empty list}">
-				<c:forEach var = "dto" items = "${list}">
-					<div style= "border: 1px solid black" >
-						<div>번호: ${dto.knowhow_no}</div>
-						<div>제목: <a href="Board_KnowHowViewPage.limyeng?knowhow_no=${dto.knowhow_no}">${dto.knowhow_title}</a></div>
-						<div>내용: ${dto.knowhow_content}</div>
-						<div>작성일: ${dto.created_at}</div>
-						<div>조회수: ${dto.knowhow_hit}</div>
-					</div>
-				</c:forEach>
-			</c:if>
-	</div>
+		
 	<br/><br/>
 	<table>
 	
