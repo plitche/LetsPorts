@@ -9,7 +9,7 @@ import com.koreait.project.common.CommonVoidCommand;
 import com.koreait.project.dto.Board_knowhowDto;
 import com.koreait.project.yewon.dao.KnowHowDao;
 
-public class GoknowHowListCommand implements CommonVoidCommand {
+public class GoKnowHowListCommand implements CommonVoidCommand {
 	
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
