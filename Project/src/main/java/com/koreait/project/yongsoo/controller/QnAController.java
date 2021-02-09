@@ -1,6 +1,6 @@
 package com.koreait.project.yongsoo.controller;
 
-import java.nio.channels.FileChannel.MapMode;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,16 +10,24 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.koreait.project.dto.CommentsDto;
+import com.koreait.project.yongsoo.command.qna.AddQnACommnetCommand;
 import com.koreait.project.yongsoo.command.qna.DeleteQnACommand;
+import com.koreait.project.yongsoo.command.qna.DeleteQnACommentCommand;
+import com.koreait.project.yongsoo.command.qna.GetQnACommentCommand;
 import com.koreait.project.yongsoo.command.qna.GetQnAListCommand;
-import com.koreait.project.yongsoo.command.qna.GoQnAUpdatePageCommand;
 import com.koreait.project.yongsoo.command.qna.GoQnAViewPageCommand;
 import com.koreait.project.yongsoo.command.qna.UpdateQnACommand;
+import com.koreait.project.yongsoo.command.qna.UpdateQnACommentContentCommand;
 import com.koreait.project.yongsoo.command.qna.WriteQnACommand;
 import com.koreait.project.yongsoo.config.SooAppContext;
 
@@ -95,5 +103,49 @@ public class QnAController {
 		int board_qna_no = Integer.parseInt(request.getParameter("board_qna_no"));
 		return "redirect:goQnAViewPage.plitche?board_qna_no="+board_qna_no;
 	}
+	
+	// 특정 질문에 작성된 뎃글 list를 가져오기 위한 메소드
+	@RequestMapping(value="getQnACommentList.plitche/{qnaNo}/commentPageNo/{commentPageNo}", method=RequestMethod.GET,
+					produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getQnACommentList(@PathVariable("qnaNo") int qnaNo,
+												 @PathVariable("commentPageNo") int commentPageNo,
+												 Model model) {
+		model.addAttribute("qnaNo", qnaNo);
+		model.addAttribute("commentPageNo", commentPageNo);
+		GetQnACommentCommand getQnACommentCommand = ctx.getBean("getQnACommentCommand", GetQnACommentCommand.class);
+		return getQnACommentCommand.execute(sqlSession, model);
+	}
+	
+	// 특정 질문에 댓글 작성완료 버튼 클릭시 insert를 해주기 위한 메소드
+	@RequestMapping(value="addQnAComment.plitche", method=RequestMethod.POST,
+					produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> addQnAComment(@RequestBody CommentsDto commentsDto, Model model) {
+		model.addAttribute("commentsDto", commentsDto);
+		AddQnACommnetCommand addQnACommnetCommand = ctx.getBean("addQnACommnetCommand", AddQnACommnetCommand.class);
+		return addQnACommnetCommand.execute(sqlSession, model);
+	}
+	
+	// 댓글 수정 완료 클릭 시 update해주기 위한 메소드
+	@RequestMapping(value="updateQnAComment.plitche", method=RequestMethod.POST,
+					produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> updateQnAComment(@RequestBody CommentsDto commentsDto, Model model) {
+		model.addAttribute("commentsDto", commentsDto);
+		UpdateQnACommentContentCommand updateQnACommentContentCommand = ctx.getBean("updateQnACommentContentCommand", UpdateQnACommentContentCommand.class);
+		return updateQnACommentContentCommand.execute(sqlSession, model);
+	}
+	
+	// 댓글 삭제버튼 클릭 시 delete해주기 위한 메소드
+	@RequestMapping(value="deleteQnAComment.plitche/{qnaComment_no}", method=RequestMethod.GET,
+					produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> deleteQnACommnet(@PathVariable("qnaComment_no") int qnaComment_no, Model model) {
+		model.addAttribute("qnaComment_no", qnaComment_no);
+		DeleteQnACommentCommand deleteQnACommentCommand = ctx.getBean("deleteQnACommentCommand", DeleteQnACommentCommand.class);
+		return deleteQnACommentCommand.execute(sqlSession, model);
+	}
+	
 	
 }

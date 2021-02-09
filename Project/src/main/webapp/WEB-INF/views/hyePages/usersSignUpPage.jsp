@@ -31,26 +31,25 @@
 		
 		// 이메일 키업 체크
 		$("#email").keyup(function(){
-		var email = $('#email').val();
-		var status = $('#authEmail').css('display'); // status 변수에 ID가 authEmail인 요소의 display의 속성을 '대입'
+		var email = $("#email").val();
+		var status = $("#authEmail").css('display'); // status 변수에 ID가 authEmail인 요소의 display의 속성을 '대입'
 		
 			$.ajax({
-				url : "emailCheck.hey",
-				type : "post",
+				url : 'emailCheck.hey',
+				type : 'post',
 				data : email,
-				dataType : "json",
-				contentType : "text/plain",
+				dataType : 'json',
+				contentType : 'text/plain',
 				success : function(data) {
 					console.log("1 = 사용불가 / 0 = 사용가능 : "+ data);
 					
 					if (data.result == 1) {
 						$("#email_check").text("이미 사용중인 이메일입니다.");
 						$("#email_check").css('color', 'red');
-						$("#signUpSubmit").attr("disabled", true);
 						console.log("이메일중복");
 						
 						if(status == 'none'){ // status가 none 상태일경우 
-							$('#authEmail').hide(); // ID가 authEmail인 요소를 hide();
+							$("#authEmail").hide(); // ID가 authEmail인 요소를 hide();
 						}
 						
 					} else {
@@ -58,7 +57,6 @@
 						if(regEmail.test(email)){
 							$("#email_check").text("사용가능한 이메일입니다.");
 							$("#email_check").css('color', 'green');
-							$('#signUpSubmit').attr("disabled", false);
 							console.log("정규식 통과");
 							
 							if(status == 'none'){ // status가 none 상태일경우 
@@ -66,13 +64,12 @@
 							}
 				
 						} else {
-							$('#email_check').text('이메일 정보를 다시 확인하세요.');
-							$('#email_check').css('color', 'red');
-							$('#signUpSubmit').attr("disabled", true);				
+							$("#email_check").text('이메일 정보를 다시 확인하세요.');
+							$("#email_check").css('color', 'red');
 							console.log("이메일 정보 이상");
 							
 							if(status == 'none'){ // status가 none 상태일경우 
-								$('#authEmail').hide(); // ID가 authEmail인 요소를 hide();
+								$("#authEmail").hide(); // ID가 authEmail인 요소를 hide();
 							}
 							
 						}
@@ -141,36 +138,15 @@ function emailAuth(){
 </script>
 <!-- 관심분야 -->
 <script type="text/javascript">
-$(document).ready(function() {
-    exercise();      
- });
 
-function exercise(){
-	var exerc_list = [];
-	
-	$("input[name='exercise_no']:checked").each(function(){		//jQuery로 for문 돌면서 check 된값 배열에 담는다.
-		exerc_list.push($(this).val());
-		
-		$.ajax({
-			url : "exerciseCheck.hey/",
-			type : "post",
-			data: {
-				 valueArrTest:exerc_list	
-			},
-			dataType : "json",
-			contentType: "text/plain",
-			success : function(data) {
-				console.log("성공");
-				
-			}, error : function(){
-				console.log("실패");
-			}
-				
-		});
-	});
+</script>
 
-}
-
+<!-- 회원가입하기! -->
+<script type="text/javascript">
+	function fn_signUpSubmit(f) {
+		f.action='insertJoin.hey',
+		f.submit();
+	}
 </script>
 
 <title>회원가입 입력</title>

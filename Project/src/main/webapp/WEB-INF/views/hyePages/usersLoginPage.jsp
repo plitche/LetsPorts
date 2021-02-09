@@ -4,6 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%-- jQuery --%>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	crossorigin="anonymous"></script>
 <link type="text/css" rel="stylesheet" href="resources/joon/css/usersLoginPage.css" >
 
 <title>로그인 페이지</title>
@@ -45,6 +49,80 @@
 	}
 		
 </script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	userCheck();
+	sendTempPw();
+});
+function userCheck() {
+	
+	// 이메일 키업 체크
+	$("#regEmail").keyup(function(){
+	var email = $('#regEmail').val();
+	
+		$.ajax({
+			url : "emailCheck.hey",
+			type : "post",
+			data : email,
+			dataType : "json",
+			contentType : "text/plain",
+			success : function(data) {
+				console.log("1 = 사용불가 / 0 = 사용가능 : "+ data);
+				
+				if (data.result == 1) {
+					$("#email_check").text("회원이시네요.");
+					$("#email_check").css('color', 'green');
+					console.log("회원임");
+					
+					
+				} else {
+					
+						$("#email_check").text("등록된 정보가 없습니다.");
+						$("#email_check").css('color', 'red');
+						console.log("정보 없음");
+			
+				}
+					
+			},error : function() {
+					console.log("실패");
+			}
+			
+		});
+	});
+}
+
+	// 임시비번 보내기
+function sendTempPw(){
+	$(document).on("click", "#sendTempPw", function() {
+		// alert('이메일 인증 시작!');
+		var email = $("#regEmail").val();
+		
+		var tempPw; // 임시비번
+		/* 0 = 메일 전송 전, 1=메일 전송 됨*/
+		
+		$.ajax({
+			url : "sendTempPw.hey",
+			type : "post",
+			data : email,
+			dataType : "json",
+			contentType : "text/plain",
+			success : function(data) {
+				alert('임시 비밀번호 발송! 메일을 확인해주세요.');
+				tempPw = data.tempPw;
+				console.log(tempPw);
+					
+			}, error : function() {
+					console.log("뭐가 그리 문제야 say something!");
+			}
+			
+		}); // ajax
+		
+	});
+}
+</script>
+
 </head>
 <body>
 		<h3>로그인</h3>
@@ -61,8 +139,10 @@
 				<p class="modal_close" ><a href="#">X</a></p>
 				<div id="verification_content">
 					<h3>임시 비밀번호 발급</h3>
-					<input type="text" id="email" placeholder="가입한 이메일 주소 입력"><br/><br/>
-				  	<input type="button" value="임시 비밀번호 발송"><br/><br/>
+					<input type="text" id="regEmail" name="email" placeholder="가입한 이메일 주소 입력"><br/>
+					<!-- emailCheck은 발송확인 메세지를 위함 -->
+					<div class="check_font" id="email_check"></div>
+				  	<input type="button" id="sendTempPw" value="임시 비밀번호 발송"><br/><br/>
 				</div>
 			</div>
 		

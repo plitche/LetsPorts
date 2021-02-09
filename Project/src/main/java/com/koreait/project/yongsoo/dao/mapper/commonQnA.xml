@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.koreait.project.yongsoo.dao.CommonQnADao">
+	
+	<select id="getQnAList" resultType="com.koreait.project.yongsoo.dto.QnATemDto">
+		SELECT *
+		  FROM BOARD_QNA B FULL OUTER JOIN USERS U
+		    ON B.USER_NO = U.USER_NO
+		 WHERE B.BOARD_QNA_NO IS NOT NULL 
+		 ORDER BY B.BOARD_QNA_NO
+	</select>
+	
+	<insert id="writeQnA">
+		INSERT INTO BOARD_QNA
+		VALUES (BOARD_QNA_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, SYSDATE, 0, null, 0)
+	</insert>
+	
+	<select id="getUpdateQnAInfo" parameterType="int" resultType="com.koreait.project.yongsoo.dto.QnATemDto">
+		SELECT *
+		  FROM BOARD_QNA B FULL OUTER JOIN USERS U
+		    ON B.USER_NO = U.USER_NO
+		 WHERE B.BOARD_QNA_NO = #{board_qna_no}
+	</select>
+
+	<update id="updateQnA" parameterType="com.koreait.project.dto.Board_qnaDto">
+		UPDATE BOARD_QNA
+		   SET BOARD_QNA_TITLE = #{board_qna_title},
+		       BOARD_QNA_CONTENT = #{board_qna_content}
+		 WHERE BOARD_QNA_NO = #{board_qna_no}
+	</update>
+	
+	<delete id="deleteQnAInfo" parameterType="int">
+		DELETE FROM BOARD_QNA
+		 WHERE BOARD_QNA_NO = #{board_qna_no}
+	</delete>
+	
+	<select id="getQnACommnetList" resultType="com.koreait.project.yongsoo.dto.CommentTemDto">
+		SELECT *
+		  FROM (SELECT C1.*, ROWNUM RN
+		 	    FROM (SELECT *
+		 		      FROM COMMENTS
+		 		      WHERE COMMENT_REFERER_NO = #{param1}
+		 		      ORDER BY COMMENT_NO DESC) C1 
+		 	   ) C2
+		       FULL OUTER JOIN USERS U
+		 	   ON C2.USER_NO = U.USER_NO
+		 WHERE RN BETWEEN (#{param2}*10-9) AND (#{param2}*10)
+	</select>
+	<select id="getQnACommentCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM COMMENTS
+		 WHERE COMMENT_REFERER_NO = #{qnaNo}
+	</select>
+	
+	<insert id="addQnACommnet" parameterType="com.koreait.project.dto.CommentsDto">
+		INSERT INTO COMMENTS
+		VALUES (COMMENTS_SEQ.NEXTVAL, 1, #{comment_referer_no}, #{board_user_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
+	</insert>
+	
+	<update id="updateQnAComment">
+		UPDATE COMMENTS
+		   SET COMMENT_CONTENT = #{param2}
+		 WHERE COMMENT_NO = #{param1}
+	</update>
+	
+	<delete id="deleteQnAComment" parameterType="int">
+		DELETE FROM COMMENTS
+		 WHERE COMMENT_NO = #{qnaComment_no}
+	</delete>
+	
+	
+	
+</mapper>

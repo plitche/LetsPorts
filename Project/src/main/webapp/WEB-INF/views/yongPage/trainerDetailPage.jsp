@@ -55,6 +55,7 @@
 	
 	
 	/* 트레이너 리스트페이지에서 트레이너 디테일 페이지로 이동시 자동으로 실행 될 함수(모임 리스트 불러오기용) */
+
 	var meetingPageNo = 1;
 	function getTrainerMeetingList() {
 		var user_no = ${trainerTemDto.user_no};
@@ -396,9 +397,9 @@
 					
 					var qnaPagingHtml = '<a href="#" onclick="preQnAPage(); return false;"> 이전 </a>';
 					for(let i=1; i<=Math.ceil(responseObj.totalQnACount/10); i++) {
-						qnaPagingHtml += '<a href="#" onclick="changeQnAPage(' + i + ') ; return false;">' + i + '</a>'; 
+						qnaPagingHtml += '<a href="#" onclick="changeQnAPage(' + i + '); return false;">' + i + '</a>'; 
 					}
-					qnaPagingHtml += '<a href="#" onclick="nextQnAPage('+Math.ceil(responseObj.totalQnACount/10)+'); return false;"> 다음 </a>';
+					qnaPagingHtml += '<a href="#" onclick="nextQnAPage(' + Math.ceil(responseObj.totalQnACount/10) + '); return false;"> 다음 </a>';
 					$('#qnaPaging').empty();
 					$('#qnaPaging').html(qnaPagingHtml);
 				} else {

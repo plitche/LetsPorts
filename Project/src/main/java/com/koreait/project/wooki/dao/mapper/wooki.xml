@@ -782,4 +782,146 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			comment_no = #{param1}
 	</update>
 	
+	<delete id="deleteComment" parameterType="int">
+		delete from
+			comments
+		where
+			comment_no = #{param1}
+	</delete>
+	
+	<select id="totalReviewRecord" resultType="int">
+		select
+			count(*)
+		from
+			review
+	</select>
+	
+	<select id="reviewList" resultType="com.koreait.project.wooki.dto.ReviewDto">
+		select
+			*
+		from
+			(select
+				rownum as rn, a.*
+			from
+				(select
+					*
+				from
+					review
+				order by
+					created_at desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
+	
+	<select id="totalReviewRecordFilterQuery" resultType="int">
+		select
+			count(*)
+		from
+			review
+		where
+			${param1} = #{param2}
+	</select>
+	
+	<select id="reviewListFilterQuery" resultType="com.koreait.project.wooki.dto.ReviewDto">
+		select
+			*
+		from
+			(select
+				rownum as rn,
+				a.*
+			from
+				(select
+					*
+				from
+					review
+				where
+					${param3} = #{param4}
+				order by
+					created_at desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
+	
+	<update id="reviewOnHideToggle">
+		update
+			review
+		set
+			on_hide = #{param2}
+		where
+			review_no = #{param1}
+	</update>
+	
+	<select id="totalTQnARecord" resultType="int">
+		select
+			count(*)
+		from
+			trainer_qna
+	</select>
+	
+	<select id="tQnAList" resultType="com.koreait.project.wooki.dto.Trainer_qnaDto">
+		select
+			*
+		from
+			(select
+				rownum as rn, a.*
+			from
+				(select
+					*
+				from
+					trainer_qna
+				order by
+					created_at desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
+	
+	<select id="totalTQnARecordFilterQuery" resultType="int">
+		select
+			count(*)
+		from
+			trainer_qna
+		where
+			${param1} = #{param2}
+	</select>
+	
+	<select id="tQnAListFilterQuery" resultType="com.koreait.project.wooki.dto.Trainer_qnaDto">
+		select
+			*
+		from
+			(select
+				rownum as rn,
+				a.*
+			from
+				(select
+					*
+				from
+					trainer_qna
+				where
+					${param3} = #{param4}
+				order by
+					created_at desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
+	
+	<update id="tAnswerdUpdate">
+		update
+			trainer_qna
+		set
+			trainer_qna_answered = #{param2},
+			is_answered = 1,
+			answered_date = sysdate
+		where
+			trainer_qna_no = #{param1}
+	</update>
+	
+	<update id="tQnAOnHideToggle">
+		update
+			trainer_qna
+		set
+			on_hide = #{param2}
+		where
+			trainer_qna_no = #{param1}
+	</update>
+	
 </mapper>

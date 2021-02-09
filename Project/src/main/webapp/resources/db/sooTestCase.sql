@@ -42,6 +42,7 @@ SELECT * FROM TRAINER_INFO;
 select * from COMMENTS
 select * from photo
 select * from review
+select * from BOARD_QNA
 
 SELECT *
   FROM (SELECT T1.*, ROWNUM RN
@@ -78,5 +79,24 @@ SELECT *
  WHERE RN = 1
 
 
+SELECT *
+  FROM (SELECT C1.*, ROWNUM RN
+ 	    FROM (SELECT *
+ 		      FROM COMMENTS
+ 		      WHERE COMMENT_REFERER_NO = 2
+ 		      ORDER BY COMMENT_NO DESC) C1 
+ 	   ) C2
+       FULL OUTER JOIN USERS U
+ 	   ON C2.USER_NO = U.USER_NO
+ WHERE RN BETWEEN 3 AND 5
+ 		
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 		 

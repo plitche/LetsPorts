@@ -22,27 +22,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.koreait.project.wooki.command.AddTrainerSendEmailCommand;
-import com.koreait.project.wooki.command.AdminListCommand;
 import com.koreait.project.wooki.command.AdminLoginCommand;
-import com.koreait.project.wooki.command.BoardDeleteCommand;
-import com.koreait.project.wooki.command.BoardsListCommand;
-import com.koreait.project.wooki.command.BoardsOnHideToggleCommand;
-import com.koreait.project.wooki.command.ChangeEmailCommand;
-import com.koreait.project.wooki.command.ChangeEmailIsPossibleCommand;
 import com.koreait.project.wooki.command.CheckUserCommand;
-import com.koreait.project.wooki.command.CommentsListCommand;
-import com.koreait.project.wooki.command.CommentsOnHideToggleCommand;
-import com.koreait.project.wooki.command.DeleteTrainerInfoCommand;
-import com.koreait.project.wooki.command.DeleteUserCommand;
-import com.koreait.project.wooki.command.FilterTrainerUserListCommand;
-import com.koreait.project.wooki.command.FilterUserListCommand;
-import com.koreait.project.wooki.command.SendTempPassCommand;
-import com.koreait.project.wooki.command.TrainerUserListCommand;
-import com.koreait.project.wooki.command.UpdateAdminUserCommand;
-import com.koreait.project.wooki.command.UpdateNormalUserCommand;
-import com.koreait.project.wooki.command.UserListCommand;
+import com.koreait.project.wooki.command.admin.AdminListCommand;
+import com.koreait.project.wooki.command.admin.UpdateAdminUserCommand;
+import com.koreait.project.wooki.command.admin.UpdateNormalUserCommand;
+import com.koreait.project.wooki.command.boards.BoardDeleteCommand;
+import com.koreait.project.wooki.command.boards.BoardsListCommand;
+import com.koreait.project.wooki.command.boards.BoardsOnHideToggleCommand;
+import com.koreait.project.wooki.command.comments.CommentDeleteCommand;
+import com.koreait.project.wooki.command.comments.CommentsListCommand;
+import com.koreait.project.wooki.command.comments.CommentsOnHideToggleCommand;
+import com.koreait.project.wooki.command.review.ReivewListCommand;
+import com.koreait.project.wooki.command.review.ReviewOnHideToggleCommand;
+import com.koreait.project.wooki.command.trainer.AddTrainerSendEmailCommand;
+import com.koreait.project.wooki.command.trainer.DeleteTrainerInfoCommand;
+import com.koreait.project.wooki.command.trainer.FilterTrainerUserListCommand;
+import com.koreait.project.wooki.command.trainer.TrainerUserListCommand;
+import com.koreait.project.wooki.command.trainerQnA.TAnswerdUpdateCommand;
+import com.koreait.project.wooki.command.trainerQnA.TQnAListCommand;
+import com.koreait.project.wooki.command.trainerQnA.TQnAOnHideToggleCommand;
+import com.koreait.project.wooki.command.users.ChangeEmailCommand;
+import com.koreait.project.wooki.command.users.ChangeEmailIsPossibleCommand;
+import com.koreait.project.wooki.command.users.DeleteUserCommand;
+import com.koreait.project.wooki.command.users.FilterUserListCommand;
+import com.koreait.project.wooki.command.users.SendTempPassCommand;
+import com.koreait.project.wooki.command.users.UserListCommand;
 import com.koreait.project.wooki.config.WookiAppContext;
+import com.koreait.project.wooki.dto.Trainer_qnaDto;
 import com.koreait.project.wooki.dto.UsersDto;
 
 @Controller
@@ -72,6 +79,12 @@ public class WookiController {
 	private BoardDeleteCommand boardDeleteCommand = ctx.getBean("boardDeleteCommand", BoardDeleteCommand.class);
 	private CommentsListCommand commentsListCommand = ctx.getBean("commentsListCommand", CommentsListCommand.class);
 	private CommentsOnHideToggleCommand commentsOnHideToggleCommand = ctx.getBean("commentsOnHideToggleCommand", CommentsOnHideToggleCommand.class);
+	private CommentDeleteCommand commentDeleteCommand = ctx.getBean("commentDeleteCommand", CommentDeleteCommand.class);
+	private ReivewListCommand reivewListCommand = ctx.getBean("reivewListCommand", ReivewListCommand.class);
+	private ReviewOnHideToggleCommand reviewOnHideToggleCommand = ctx.getBean("reviewOnHideToggleCommand", ReviewOnHideToggleCommand.class);
+	private TQnAListCommand tQnAListCommand = ctx.getBean("tQnAListCommand", TQnAListCommand.class);
+	private TAnswerdUpdateCommand tAnswerdUpdateCommand = ctx.getBean("tAnswerdUpdateCommand", TAnswerdUpdateCommand.class);
+	private TQnAOnHideToggleCommand tQnAOnHideToggleCommand = ctx.getBean("tQnAOnHideToggleCommand", TQnAOnHideToggleCommand.class);
 	
 	@GetMapping(value="adminPage.wooki")
 	public String adminPage() {
@@ -263,5 +276,59 @@ public class WookiController {
 		model.addAttribute("comment_no", comment_no);
 		model.addAttribute("on_hide", on_hide);
 		return commentsOnHideToggleCommand.execute(sqlSession, model);
+	}
+	
+	@DeleteMapping(value="commentDelete/{comment_no}.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> commentDelete(
+			@PathVariable("comment_no") int comment_no,
+			Model model) {
+		model.addAttribute("comment_no", comment_no);
+		return commentDeleteCommand.execute(sqlSession, model);
+	}
+	
+	@GetMapping(value="reivewList.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> reivewList(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		return reivewListCommand.execute(sqlSession, model);
+	}
+	
+	@PutMapping(value="reviewOnHideToggle/{review_no}/{on_hide}.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> reviewOnHideToggle(
+			@PathVariable("review_no") int review_no,
+			@PathVariable("on_hide") int on_hide,
+			Model model) {
+		model.addAttribute("review_no", review_no);
+		model.addAttribute("on_hide", on_hide);
+		return reviewOnHideToggleCommand.execute(sqlSession, model);
+	}
+	
+	@GetMapping(value="tQnAList.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> tQnAList(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		return tQnAListCommand.execute(sqlSession, model);
+	}
+
+	@PutMapping(value="tAnswerdUpdate.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> tAnswerdUpdate(
+			@RequestBody Trainer_qnaDto tQnA,
+			Model model) {
+		model.addAttribute("tQnA", tQnA);
+		return tAnswerdUpdateCommand.execute(sqlSession, model);
+	}
+	
+	@PutMapping(value="tQnAOnHideToggle/{trainer_qna_no}/{on_hide}.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> tQnAOnHideToggle(
+			@PathVariable("trainer_qna_no") int trainer_qna_no,
+			@PathVariable("on_hide") int on_hide,
+			Model model) {
+		model.addAttribute("trainer_qna_no", trainer_qna_no);
+		model.addAttribute("on_hide", on_hide);
+		return tQnAOnHideToggleCommand.execute(sqlSession, model);
 	}
 }
