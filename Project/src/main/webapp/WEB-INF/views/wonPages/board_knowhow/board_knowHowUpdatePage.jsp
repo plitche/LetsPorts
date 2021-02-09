@@ -25,7 +25,7 @@
 						
 				<input type = "hidden"  name = "knowhow_no" value="${board_knowhowDto.knowhow_no}">
 				<input type = "button" class = "btn" value = "수정완료" onclick = "fn_knowHowUpdate(this.form)">
-				<input type = "button" class = "btn" value = "취소" onclick = "location.href = 'goboard_knowhowView.limyeng'">
+				<input type = "button" class = "btn" value = "취소" onclick = "location.href = 'Board_KnowHowViewPage.limyeng?knowhow_no=${board_knowhowDto.knowhow_no}'">
 	</form>
 	
 	<script>

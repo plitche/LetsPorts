@@ -69,7 +69,7 @@
 			<ul class="menu-bar">
 				<li><a href="javascript:void(0)" >ABOUT US</a></li>
 				<li>
-					<a href="goboard_knowhowList.limyeng">노하우 게시판</a>
+					<a href="GoBoard_KnowHowList.limyeng">노하우 게시판</a>
 				</li>
 				<li>
 					<a href="javascript:void(0)" >커뮤니티</a>

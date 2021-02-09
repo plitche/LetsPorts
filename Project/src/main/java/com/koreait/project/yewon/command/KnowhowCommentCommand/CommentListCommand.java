@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.dto.CommentsDto;
 import com.koreait.project.jungho.dao.TrainerClassCommentDao;
-import com.koreait.project.yewon.dao.KnowhowCommentDao;
-import com.koreait.project.yewon.dto.knowhowClassDto;
+import com.koreait.project.yewon.dao.KnowHowCommentDao;
+import com.koreait.project.yewon.dto.KnowhowClassDto;
 
 public class CommentListCommand implements CommonMapCommand {
 
@@ -21,7 +21,7 @@ public class CommentListCommand implements CommonMapCommand {
 		Map<String, Object> map = model.asMap();
 		int comment_no = (int)map.get("comment_no");
 		
-		KnowhowCommentDao knowhowCommentDao = sqlSession.getMapper(KnowhowCommentDao.class);
+		KnowHowCommentDao knowhowCommentDao = sqlSession.getMapper(KnowHowCommentDao.class);
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		

@@ -10,11 +10,11 @@ import org.springframework.ui.Model;
 import com.koreait.project.common.CommonVoidCommand;
 import com.koreait.project.yewon.dao.KnowHowDao;
 
-public class GoknowHowInsertCommand implements CommonVoidCommand {
+public class GoKnowHowInsertCommand implements CommonVoidCommand {
 
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
-
+		
 		Map<String, Object> map = model.asMap();
 
 		HttpServletRequest request = (HttpServletRequest)map.get("request");

@@ -56,18 +56,28 @@
 		<button type = "submit">검색</button>
 	</div><br/><br/>
 	
+		
 	
-	<table border="1">
-		<thead>
-			<tr>
-				<td>번호 </td>
-				<td>제목 </td>
-				<td>내용 </td>
-				<td>작성일 </td>
-				<td>조회수 </td>
-			</tr>
-		</thead>
-		<tbody>
+	<div style="display: flex">
+		<c:if test="${empty list}">
+			없음
+		</c:if> 
+		<c:if test="${not empty list}">
+			<c:forEach var = "dto" items = "${list}">
+				<div style="border: 1px solid black">
+					<div>번호: ${dto.knowhow_no}</div>
+					<div>제목: <a href="Board_KnowHowViewPage.limyeng?knowhow_no=${dto.knowhow_no}">${dto.knowhow_title}</a></div>
+					<div>내용: ${dto.knowhow_content}</div>
+					<div>작성일: ${dto.created_at}</div>
+					<div>조회수: ${dto.knowhow_hit}</div>
+				</div>
+			</c:forEach>
+		</c:if>
+	</div>
+
+	
+	
+		<div style="display: flex">
 			<c:if test="${empty list}">
 				<tr>
 					<td colspan = "5">없음</td>
@@ -75,23 +85,22 @@
 			</c:if> 
 			<c:if test="${not empty list}">
 				<c:forEach var = "dto" items = "${list}">
-					<tr>
-						<td>${dto.knowhow_no}</td>
-						<td><a href="board_knowHowViewPage.limyeng?knowhow_no=${dto.knowhow_no}">${dto.knowhow_title}</a></td>
-						<td>${dto.knowhow_content}</td>
-						<td>${dto.created_at}</td>
-						<td>${dto.knowhow_hit}</td>
-					</tr>
+					<div style= "border: 1px solid black" >
+						<div>번호: ${dto.knowhow_no}</div>
+						<div>제목: <a href="Board_KnowHowViewPage.limyeng?knowhow_no=${dto.knowhow_no}">${dto.knowhow_title}</a></div>
+						<div>내용: ${dto.knowhow_content}</div>
+						<div>작성일: ${dto.created_at}</div>
+						<div>조회수: ${dto.knowhow_hit}</div>
+					</div>
 				</c:forEach>
 			</c:if>
-			</tbody>
-	</table><br/><br/>
-			
+	</div>
+	<br/><br/>
 	<table>
+	
 		<tr>
-			
 			<td colspan = "5">
-				<input type = "button" id = "btn1" value = "새글 작성하러 가기" onclick = "location.href='board_knowHowInsertPage.limyeng'" />
+				<input type = "button" id = "btn1" value = "새글 작성하러 가기" onclick = "location.href='goBoard_KnowHowInsertPage.limyeng'" />
 			</td>
 		</tr>
 	</table><br/><br/>

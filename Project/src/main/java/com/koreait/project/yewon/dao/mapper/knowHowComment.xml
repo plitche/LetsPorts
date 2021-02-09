@@ -6,14 +6,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- Spring에서 새로 배우는 스타일 -->
 <mapper namespace="com.koreait.project.yewon.dao.KnowhowCommentDao">
 	
-	<select id="commentList" parameterType="int" resultType="com.koreait.project.dto.CommentsDto">
+	<select id="commentList" parameterType="int" resultType="com.koreait.project.yewon.dto.KnowhowClassDto">
 		SELECT * 
 		  FROM COMMENTS C FULL OUTER JOIN USERS U
 		    ON C.USER_NO = U.USER_NO
 		 WHERE C.COMMENT_REFERER_NO = #{comment_no}
 	</select>
 	
-	<insert id="commentInsert" parameterType="com.koreait.project.dto.CommentsDto">
+	<insert id="commentInsert" parameterType="com.koreait.project.yewon.dto.KnowhowClassDto">
 		INSERT INTO COMMENTS VALUES
 		(COMMENTS_SEQ.NEXTVAL, 1, #{comment_referer_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
 	</insert>

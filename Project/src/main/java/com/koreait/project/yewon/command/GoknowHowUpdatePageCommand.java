@@ -16,7 +16,7 @@ public class GoknowHowUpdatePageCommand {
 		
 		int knowhow_no = (int)map.get("knowhow_no");
 
-		Board_knowhowDto board_knowhowDto = knowHowDao.boardknowHowView(knowhow_no);
+		Board_knowhowDto board_knowhowDto = knowHowDao.knowHowView(knowhow_no);
 		
 		model.addAttribute("board_knowhowDto", board_knowhowDto);
 		

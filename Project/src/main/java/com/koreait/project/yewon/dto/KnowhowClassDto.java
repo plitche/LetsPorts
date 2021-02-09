@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class knowhowClassDto {
+public class KnowhowClassDto {
 	
 	private int comment_no;
 	private int comment_referer_sep;	// 노하우:0, 질의응답:1, 커뮤니티:2

@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.jungho.dao.TrainerClassCommentDao;
-import com.koreait.project.yewon.dao.KnowhowCommentDao;
+import com.koreait.project.yewon.dao.KnowHowCommentDao;
 
 public class CommentDeleteCommand implements CommonMapCommand {
 
@@ -18,7 +18,7 @@ public class CommentDeleteCommand implements CommonMapCommand {
 		Map<String, Object> map = model.asMap();
 		int comment_no = (int)map.get("comment_no");
 		
-		KnowhowCommentDao knowhowCommentDao = sqlSession.getMapper(KnowhowCommentDao.class);
+		KnowHowCommentDao knowhowCommentDao = sqlSession.getMapper(KnowHowCommentDao.class);
 		
 		int deleteResult = knowhowCommentDao.commentDelete(comment_no);
 		

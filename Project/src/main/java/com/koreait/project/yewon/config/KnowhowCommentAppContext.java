@@ -9,7 +9,7 @@ import com.koreait.project.yewon.command.KnowhowCommentCommand.CommentListComman
 import com.koreait.project.yewon.command.KnowhowCommentCommand.CommentUpdateCommand;
 
 @Configurable
-public class knowhowCommentAppcontext {
+public class KnowhowCommentAppContext {
 
 	@Bean
 	public CommentListCommand commentListCommand() {
@@ -30,5 +30,5 @@ public class knowhowCommentAppcontext {
 	public CommentUpdateCommand commentUpdateCommand() {
 		return new CommentUpdateCommand();
 	}
-	
+
 }

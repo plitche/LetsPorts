@@ -9,9 +9,9 @@ import org.springframework.ui.Model;
 import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.dto.CommentsDto;
 import com.koreait.project.jungho.dao.TrainerClassCommentDao;
-import com.koreait.project.yewon.controller.knowhowCommentController;
-import com.koreait.project.yewon.dao.KnowhowCommentDao;
-import com.koreait.project.yewon.dto.knowhowClassDto;
+import com.koreait.project.yewon.controller.KnowHowCommentController;
+import com.koreait.project.yewon.dao.KnowHowCommentDao;
+import com.koreait.project.yewon.dto.KnowhowClassDto;
 
 public class CommentInsertCommand implements CommonMapCommand {
 
@@ -19,9 +19,9 @@ public class CommentInsertCommand implements CommonMapCommand {
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 		
 		Map<String, Object> map = model.asMap();
-		knowhowClassDto knowhowClassDto = (knowhowClassDto)map.get("knowhowClassDto");
+		KnowhowClassDto knowhowClassDto = (KnowhowClassDto)map.get("knowhowClassDto");
 		
-		KnowhowCommentDao knowhowCommentDao  = sqlSession.getMapper(KnowhowCommentDao.class);
+		KnowHowCommentDao knowhowCommentDao  = sqlSession.getMapper(KnowHowCommentDao.class);
 		
 		int InsertResult = knowhowCommentDao.commentInsert(knowhowClassDto);
 		

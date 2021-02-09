@@ -20,14 +20,14 @@ import com.koreait.project.jungho.command.TrainerClassCommentCommand.CommentDele
 import com.koreait.project.jungho.command.TrainerClassCommentCommand.CommentInsertCommand;
 import com.koreait.project.jungho.command.TrainerClassCommentCommand.CommentListCommand;
 import com.koreait.project.jungho.command.TrainerClassCommentCommand.CommentUpdateCommand;
-import com.koreait.project.jungho.config.commentAppContext;
+import com.koreait.project.yewon.config.KnowhowCommentAppContext;
 
 @Controller
-public class knowhowCommentController {
+public class KnowHowCommentController {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(commentAppContext.class);
+	AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(KnowhowCommentAppContext.class);
 	
 	// List 뿌려주는 역할
 	@RequestMapping(value="comment.limyeng",
@@ -74,7 +74,7 @@ public class knowhowCommentController {
 		CommentUpdateCommand commentUpdateCommand = ctx.getBean("Command", CommentUpdateCommand.class);
 		return commentUpdateCommand.execute(sqlSession, model);
 	}
-	
 
 }
+	 
 

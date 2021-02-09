@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Bean;
 
 import com.koreait.project.yewon.command.GoknowHowDeleteCommand;
 import com.koreait.project.yewon.command.GoknowHowDetailCommand;
-import com.koreait.project.yewon.command.GoknowHowInsertCommand;
-import com.koreait.project.yewon.command.GoknowHowListCommand;
+import com.koreait.project.yewon.command.GoKnowHowInsertCommand;
+import com.koreait.project.yewon.command.GoKnowHowListCommand;
 import com.koreait.project.yewon.command.GoknowHowUpdateCommand;
 import com.koreait.project.yewon.command.GoknowHowUpdatePageCommand;
 import com.koreait.project.yewon.command.GoknowHowViewCommand;
@@ -15,8 +15,8 @@ import com.koreait.project.yewon.command.GoknowHowViewCommand;
 public class WonAppContext {
 
 	@Bean
-	public GoknowHowListCommand goknowhowListCommand() {
-		return new GoknowHowListCommand();
+	public GoKnowHowListCommand goKnowHowListCommand() {
+		return new GoKnowHowListCommand();
 	}
 	
 	@Bean
@@ -25,8 +25,8 @@ public class WonAppContext {
 	}
 	
 	@Bean
-	public GoknowHowInsertCommand goknowHowInsertCommand() {
-		return new GoknowHowInsertCommand();
+	public GoKnowHowInsertCommand goknowHowInsertCommand() {
+		return new GoKnowHowInsertCommand();
 	}
 	
 	@Bean
@@ -49,8 +49,5 @@ public class WonAppContext {
 	public GoknowHowDeleteCommand goknowHowDeleteCommand() {
 		return new GoknowHowDeleteCommand();
 	}
-<<<<<<< HEAD
-	
-=======
->>>>>>> 4ce050066912fe962a1939ec8c8c8e8227b89dbb
+
 }
