@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.koreait.project.wooki.dto.BoardsDto;
 import com.koreait.project.wooki.dto.CommentsDto;
+import com.koreait.project.wooki.dto.PhotoDto;
 import com.koreait.project.wooki.dto.ReviewDto;
 import com.koreait.project.wooki.dto.Trainer_infoDto;
 import com.koreait.project.wooki.dto.Trainer_qnaDto;
@@ -89,4 +90,15 @@ public interface WookiDao {
 	public int tAnswerdUpdate(int trainer_qna_no, String trainer_qna_answered);
 	// 트레이너문의 숨김, 보이기
 	public int tQnAOnHideToggle(int trainer_qna_no, int on_hide);
+	// 전체 사진 리스트
+	public int totalPhotoRecord();
+	public List<PhotoDto> photoList(int beginRecord, int endRecord);
+	// 사진 필터 리스트(게시글종류)
+	public int totalPhotoRecordFilterAll(int photoSep);
+	public List<PhotoDto> photoListFilterAll(int beginRecord, int endRecord, int photoSep);
+	// 사진 필터 리스트(게시글종류 + 검색어)
+	public int totalPhotoRecordFilterQuery(int photoSep, String columnName, String query);
+	public List<PhotoDto> photoListFilterQuery(int beginRecord, int endRecord, int photoSep, String columnName, String query);
+	// 사진 숨김, 보이기
+	public int photoOnHideToggle(int photo_no, int on_hide);
 }

@@ -1,4 +1,6 @@
-/* 		$('#content').append('<input type="file" id="inpfile" accept="image/*" />'); */
+// 에디터 동작 중 삭제한 img 파일들의 filename
+let deleteList = [];
+
 // 텍스트 박스 추가 메소드
 function fn_addContent() {
 	let html = `
@@ -9,57 +11,7 @@ function fn_addContent() {
 	$('#content').append(html);
 }
 
-//파일전송 테스트
-function fn_filesend() {
-	$('#btnUpload').on('click', function() {
-	    let form = $('#send')[0]
-	    let data = new FormData(form);
-	    
-	    $.ajax({
-	        type: "POST",
-	        enctype: 'multipart/form-data',
-	        url: "upload.wooki",
-	        data: data,
-	        processData: false,
-	        contentType: false,
-	        success: function (data) {
-	        	let filename = data.filename;
-	        	let html = `
-				<div class="flex">
-					<img src="resources/storage/boardsPhoto/${filename}"/>
-					<i class="far fa-trash-alt"></i>
-				</div>`;
-				$('#content').append(html);
-	        },
-	        error: function (e) {
-	            alert('fail');
-	        }
-	    });
-	})
-}
-
-function deleteContent() {
-	$('body').on('click', '.fa-trash-alt', (e) => {
-		let target = $(e.target).parent('div');
-		target.remove();
-	})
-}
-
-$('body').on('change', '#inpfile', function() {
-	let targetDiv = document.getElementById("content");
-	let file = $(this).prop('files')[0];
-	let img = document.createElement("img");
-	let reader  = new FileReader();
-	targetDiv.append(img);
-	reader.addEventListener("load", function () {
-		img.src = reader.result;
-	}); 
-	let data = reader.result;
-	if (file) {
-		reader.readAsDataURL(file);
-	}
-});
-
+// 텍스트 박스 엔터시 div구분을 br 구분으로 변경하는 메소드
 function divToBr() {
 	$('body').on('keypress', '[contenteditable="true"]', (e) => {
 		if(e.keyCode == 13) {
@@ -77,3 +29,62 @@ function divToBr() {
 		}
 	});
 }
+
+//파일전송 테스트
+function fn_filesend() {
+	$('body').on('change', '#upload', function() {
+		let file = document.getElementById('upload').files[0];
+	    let data = new FormData();
+	    data.append("upload", file);
+	    $.ajax({
+	        type: "POST",
+	        enctype: 'multipart/form-data',
+	        url: "upload.wooki",
+	        data: data,
+	        processData: false,
+	        contentType: false,
+	        dataType: 'json',
+	        success: function (data) {
+	        	let filename = data.filename;
+	        	let html = `
+				<div class="flex">
+					<img src="resources/storage/${filename}"/>
+					<i class="far fa-trash-alt"></i>
+				</div>`;
+				$('#content').append(html);
+	        },
+	        error: function (e) {
+	            alert('실패');
+	        }
+	    });
+	})
+}
+
+// div, img 삭제
+function deleteContent() {
+	$('body').on('click', '.fa-trash-alt', (e) => {
+		let target = $(e.target).parent('div');
+		let img = $(e.target).parent('div').find('img');
+		let src = img.attr('src');
+		if(src != undefined) {
+			let index = src.lastIndexOf('/');
+			let filename = src.substr(index + 1);
+			deleteList.push(filename);
+		}
+		target.remove();
+	});
+}
+
+// 저장하기 눌렀을 때 실행할 파일삭제 ajax
+//let filesname = deleteList.toString();
+//$.ajax({
+//	url: `testDelete/${filesname}.wooki`,
+//	type: 'delete',
+//	sueccess: function(obj) {
+//		deleteList = [];
+//	},
+//	error: function() {
+//		alert('실패');
+//		deleteList = [];
+//	}
+//});
