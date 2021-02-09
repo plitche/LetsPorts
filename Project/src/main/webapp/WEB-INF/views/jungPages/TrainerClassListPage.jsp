@@ -23,7 +23,6 @@
 					}
 	
 	window.onload = function() {
-		 
 	    function onClick() {
 	        document.querySelector('.modal_wrap').style.display ='block';
 	        document.querySelector('.black_bg').style.display ='block';
@@ -35,8 +34,15 @@
 	 
 	    document.getElementById('modal_btn').addEventListener('click', onClick);
 	    document.querySelector('.black_bg').addEventListener('click', offClick);
-	 
 	};
+	
+	$(document).on('click', '#catagory1', function(){
+		$('#catagory_title').html('모든 모임 전체보기')
+	});
+	
+	
+	
+	
 
 </script>
 
@@ -57,9 +63,9 @@
 			    <div class="modal_content">
 					<div id="model_title">모임 유형</div>
 					<div id="line"></div>
-					<a href="#" ><div class="catagory">모든 모임</div></a>
-					<a href="#" ><div class="catagory">트레이너</div></a>
-					<a href="#" ><div class="catagory">운동메이트</div></a>
+					<a href="TrainerClassListPage.leo" ><div class="catagory" id="catagory1">모든 모임</div></a>
+					<a href="#" ><div class="catagory" id="catagory2">트레이너</div></a>
+					<a href="#" ><div class="catagory" id="catagory3">운동메이트</div></a>
 			    </div>
 			</div>
 		</div>
@@ -83,7 +89,7 @@
 	<div id="line1"></div>
 	
 	<br/>
-	<div><h3>모임 전체보기</h3></div>
+	<div><h3 id="catagory_title">모임 전체보기</h3></div>
 	<br/>
 	
 	<script>
@@ -152,7 +158,7 @@
 			<a href="#" onclick="forMakeClassLogin()">
 				<div class="maketrainerClass">
 					
-						+ 트레이너 클래스 개설<br/><br/>
+						+ 클래스 개설<br/><br/>
 						클래스를 개설해 자신만의 운동을
 						사람들에게 가르쳐주세요.
 						
