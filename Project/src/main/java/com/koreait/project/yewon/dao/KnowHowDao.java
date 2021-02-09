@@ -22,7 +22,7 @@ public interface KnowHowDao {
 	
 	List<Board_knowhowDto> list = new ArrayList<Board_knowhowDto>();
 	
-	// 게시판 수정하기에서 knowhow_no랑 일치하는 게시물 정보 가져오기
+	// 게시판 제목 클릭하면 view페이지로 넘어가고 knowhow_no랑 일치하는 게시물 정보 가져오기
 	public Board_knowhowDto boardknowHowView(int knowhow_no);
 	
 	// 게시판 수정 완료 후 viewPage 게시판으로 넘어가는 정보

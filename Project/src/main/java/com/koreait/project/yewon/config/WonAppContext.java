@@ -49,4 +49,8 @@ public class WonAppContext {
 	public GoknowHowDeleteCommand goknowHowDeleteCommand() {
 		return new GoknowHowDeleteCommand();
 	}
+<<<<<<< HEAD
+	
+=======
+>>>>>>> 4ce050066912fe962a1939ec8c8c8e8227b89dbb
 }

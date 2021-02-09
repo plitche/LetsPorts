@@ -112,6 +112,18 @@ public class WonController {
 		
 	}
 	
+<<<<<<< HEAD
+
+	// viewPage에서 삭제버튼 누르면 버리기
+		@RequestMapping(value = "fn_knowHowDelete.limyeng", method=RequestMethod.POST)
+		public String knowhowDelete(@RequestParam int knowhow_no, RedirectAttributes rttr , Model model) {
+			model.addAttribute("knowhow_no",knowhow_no);
+			model.addAttribute("rttr", rttr);
+			GoknowHowDeleteCommand goknowHowDeleteCommand = ctx.getBean("goknowHowDeleteCommand", GoknowHowDeleteCommand.class);
+			goknowHowDeleteCommand.execute(sqlSession, model);
+			return "redirect:goboard_knowhowList.limyeng";
+		}
+=======
 	// viewPage에서 삭제버튼 누르면 버리기
 	@RequestMapping(value = "fn_knowHowDelete.limyeng", method=RequestMethod.POST)
 	public String knowhowDelete(@RequestParam int knowhow_no, RedirectAttributes rttr , Model model) {
@@ -123,6 +135,7 @@ public class WonController {
 	}
 	
 	
+>>>>>>> 4ce050066912fe962a1939ec8c8c8e8227b89dbb
 	
 
 }
