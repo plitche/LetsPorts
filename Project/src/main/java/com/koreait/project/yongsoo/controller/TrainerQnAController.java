@@ -71,5 +71,4 @@ public class TrainerQnAController {
 		return writeAnswerCommand.execute(sqlSession, model);
 	}
 	
-	
 }

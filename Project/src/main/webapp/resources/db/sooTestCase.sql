@@ -42,6 +42,7 @@ SELECT * FROM TRAINER_INFO;
 select * from COMMENTS
 select * from photo
 select * from review
+select * from BOARD_QNA
 
 SELECT *
   FROM (SELECT T1.*, ROWNUM RN
@@ -78,5 +79,51 @@ SELECT *
  WHERE RN = 1
 
 
+SELECT *
+  FROM (SELECT C1.*, ROWNUM RN
+ 	    FROM (SELECT *
+ 		      FROM COMMENTS
+ 		      WHERE COMMENT_REFERER_NO = 2
+ 		      ORDER BY COMMENT_NO DESC) C1 
+ 	   ) C2
+       FULL OUTER JOIN USERS U
+ 	   ON C2.USER_NO = U.USER_NO
+ WHERE RN BETWEEN 3 AND 5
+ 		
+ 		SELECT *
+		  FROM (SELECT ROWNUM RN, B1.*
+		          FROM (SELECT *
+		                  FROM BOARD_QNA
+		                 WHERE BOARD_QNA_NO IS NOT NULL
+		                 ORDER BY BOARD_QNA_NO DESC) B1) B2 
+      		   FULL OUTER JOIN USERS U
+		       ON B2.USER_NO = U.USER_NO
+		 WHERE B2.RN BETWEEN 3 AND 10 
+           AND B2.BOARD_QNA_CONTENT LIKE '%'||'궁'||'%'
+ 
+		SELECT *
+		  FROM BOARD_QNA B JOIN USERS U
+		    ON B.USER_NO = U.USER_NO
+		 WHERE U.USER_NICKNAME LIKE '%'||'근'||'%' 
+
+ 		SELECT *
+		  FROM BOARD_QNA B FULL OUTER JOIN USERS U
+		    ON B.USER_NO = U.USER_NO
+		 WHERE U.USER_NICKNAME LIKE '%'||'근'||'%' 
+		 
+		SELECT *
+		  FROM (SELECT ROWNUM RN, B1.*
+		          FROM (SELECT *
+		                  FROM BOARD_QNA
+		                 WHERE BOARD_QNA_NO IS NOT NULL
+		                 ORDER BY BOARD_QNA_NO DESC) B1) B2 
+      		   FULL OUTER JOIN USERS U
+		       ON B2.USER_NO = U.USER_NO
+		 WHERE RN BETWEEN 2 AND 12
+		   AND (BOARD_QNA_TITLE LIKE '%'||'궁'||'%'
+            OR BOARD_QNA_CONTENT LIKE '%'||'궁'||'%')
+ 
+		 
+		 
 
 		 

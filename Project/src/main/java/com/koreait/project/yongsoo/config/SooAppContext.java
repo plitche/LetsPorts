@@ -3,15 +3,18 @@ package com.koreait.project.yongsoo.config;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 
-import com.koreait.project.yongsoo.command.comment.AddCommentCommand;
-import com.koreait.project.yongsoo.command.comment.DeleteCommentCommand;
-import com.koreait.project.yongsoo.command.comment.GetCommentListCommand;
-
+import com.koreait.project.yongsoo.command.meetingComment.AddCommentCommand;
+import com.koreait.project.yongsoo.command.meetingComment.DeleteCommentCommand;
+import com.koreait.project.yongsoo.command.meetingComment.GetCommentListCommand;
+import com.koreait.project.yongsoo.command.qna.AddQnACommnetCommand;
 import com.koreait.project.yongsoo.command.qna.DeleteQnACommand;
+import com.koreait.project.yongsoo.command.qna.DeleteQnACommentCommand;
+import com.koreait.project.yongsoo.command.qna.GetQnACommentCommand;
 import com.koreait.project.yongsoo.command.qna.GetQnAListCommand;
-import com.koreait.project.yongsoo.command.qna.GoQnAUpdatePageCommand;
 import com.koreait.project.yongsoo.command.qna.GoQnAViewPageCommand;
+import com.koreait.project.yongsoo.command.qna.SolveQnACommend;
 import com.koreait.project.yongsoo.command.qna.UpdateQnACommand;
+import com.koreait.project.yongsoo.command.qna.UpdateQnACommentContentCommand;
 import com.koreait.project.yongsoo.command.qna.WriteQnACommand;
 
 import com.koreait.project.yongsoo.command.trainer.GoTrainerDetailCommand;
@@ -145,11 +148,6 @@ public class SooAppContext {
 	}
 	
 	@Bean
-	public GoQnAUpdatePageCommand goQnAUpdatePageCommand() {
-		return new GoQnAUpdatePageCommand();
-	}
-
-	@Bean
 	public UpdateQnACommand updateQnACommand() {
 		return new UpdateQnACommand();
 	}
@@ -159,5 +157,30 @@ public class SooAppContext {
 		return new DeleteQnACommand();
 	}
 
+	
+	@Bean
+	public GetQnACommentCommand getQnACommentCommand() {
+		return new GetQnACommentCommand();
+	}
+	
+	@Bean
+	public AddQnACommnetCommand addQnACommnetCommand() {
+		return new AddQnACommnetCommand();
+	}
+	
+	@Bean
+	public DeleteQnACommentCommand deleteQnACommentCommand() {
+		return new DeleteQnACommentCommand();
+	}
+	
+	@Bean
+	public UpdateQnACommentContentCommand updateQnACommentContentCommand() {
+		return new UpdateQnACommentContentCommand();
+	}
+	
+	@Bean
+	public SolveQnACommend solveQnACommend() {
+		return new SolveQnACommend();
+	}
 	
 }

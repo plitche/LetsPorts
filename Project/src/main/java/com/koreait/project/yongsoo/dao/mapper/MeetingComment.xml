@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.koreait.project.yongsoo.dao.MeetingCommentDao">
+	
+<!-- 		SELECT C.comment_no, C.comment_referer_sep, C.comment_referer_no, C.user_no, C.comment_content,
+			   C.created_at, C.on_hide, U.user_nickname -->
+	<select id="getCommentList" parameterType="int" resultType="com.koreait.project.yongsoo.dto.CommentTemDto">
+		SELECT *
+		  FROM COMMENTS C FULL OUTER JOIN USERS U
+		    ON C.USER_NO = U.USER_NO
+		 WHERE COMMENT_REFERER_NO = #{meeting_no}
+	</select>
+	
+	<insert id="addComment" parameterType="com.koreait.project.dto.CommentsDto">
+		INSERT INTO COMMENTS
+		VALUES (COMMENTS_SEQ.NEXTVAL, 2, #{comment_referer_no}, #{board_user_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
+	</insert>
+	
+	<delete id="deleteComment" parameterType="int">
+		DELETE
+		  FROM COMMENTS
+		 WHERE COMMENT_NO = #{comment_no}
+	</delete>
+	
+	
+	
+</mapper>

@@ -4,7 +4,9 @@
 <link type="text/css" rel="stylesheet" href="resources/joon/css/myPage_commonPart.css" >
 <!DOCTYPE html>
 <!-- 헤더 인클루드 -->
-<jsp:include page="../template/header.jsp" />
+<jsp:include page="../template/header.jsp">
+	<jsp:param value="마이페이지" name="title"/>
+</jsp:include>
 
 <script type="text/javascript">
 <!-- 모달창 만들기 위함 -->
@@ -26,23 +28,40 @@
 </script >
 
 <script type="text/javascript">
-<!-- 정보수정 전 본인 확인 -->
+// 정보수정 전 본인 확인
 $(document).ready(function() {
-	userAuth();
+	pwCheckForUpdate();
 });
 
-function userAuth(){
-	
-$("#updateInfo_btn").click(function(){
-	var userAuthPw = $("userAuthPw").val();
-	if(userAuthPw == ${usersDto.password}) {
-		location.href = "hyePages/usersInfoUpdatePage.hey";
-	} else {
-		alert('비밀번호 다시 입력해주세요!');
-	}
-});
+function pwCheckForUpdate() {
+	$(document).on("click", "#forUpdateInfo_btn", function() {
+		var userAuthPw = $('#userAuthPw').val();
 
+		$.ajax({
+			url : "goUsersInfoUpdate.hey",
+			type : "post",
+			data : userAuthPw,
+			dataType : "json",
+			contentType : "text/plain",
+			success : function(data) {
+				
+				if (data.result == 1) {
+						// 1은 값이 db에 있을 때
+						alert('정보를 수정하러 갑니다.');
+						location.href='usersInfoUpdatePage.hey'
+						console.log("회원 정보 일치!");
+					} else {
+						alert('비밀번호를 다시 확인하세요.');
+						console.log("비밀번호 틀림");
+						
+					}
+				}, error : function() {
+						console.log("실패");
+				}
+			});
+		});
 }
+
 </script>
 
 
@@ -63,11 +82,11 @@ $("#updateInfo_btn").click(function(){
 			<div class="black_bg"></div>
 			<div class="modal_wrap">
 				<p class="modal_close" ><a href="#">X</a></p>
-				<div id="verification_content">
-					<h3>회원 정보 수정을 위한 인증</h3>
-					<input type="password" id="userAuthPw" placeholder="비밀번호 입력"><br/><br/>
-				  	<input type="button" id="updateInfo_btn" value="내 정보 수정하러 가기">
-				</div>
+					<div id="verification_content">
+						<h3>회원 정보 수정을 위한 인증</h3>
+						<input type="password" id="updatePwCheck" placeholder="비밀번호 입력"><br/><br/>
+					  	<input type="button" id="forUpdateInfo_btn" value="내 정보 수정하러 가기" >
+					</div>
 			</div>
 	</div>
 		

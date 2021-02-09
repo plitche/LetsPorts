@@ -2,11 +2,13 @@ package com.koreait.project.yongsoo.command.qna;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonVoidCommand;
-import com.koreait.project.yongsoo.dao.QnADao;
+import com.koreait.project.yongsoo.dao.CommonQnADao;
 import com.koreait.project.yongsoo.dto.QnATemDto;
 
 public class GoQnAViewPageCommand implements CommonVoidCommand {
@@ -15,12 +17,14 @@ public class GoQnAViewPageCommand implements CommonVoidCommand {
 	public void execute(SqlSession sqlSession, Model model) {
 
 		Map<String, Object> map = model.asMap();
-		int board_qna_no = (int)map.get("board_qna_no");
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		int board_qna_no = Integer.parseInt(request.getParameter("board_qna_no"));
 		
-		QnADao qnaDao = sqlSession.getMapper(QnADao.class);
+		CommonQnADao qnaDao = sqlSession.getMapper(CommonQnADao.class);
 		QnATemDto qnaTemDto = qnaDao.getUpdateQnAInfo(board_qna_no);
 		
 		model.addAttribute("qnaTemDto", qnaTemDto);
+		model.addAttribute("page", request.getParameter("page"));
 		
 	}
 

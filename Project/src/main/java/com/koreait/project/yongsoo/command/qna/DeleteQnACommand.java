@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.common.CommonVoidCommand;
-import com.koreait.project.yongsoo.dao.QnADao;
+import com.koreait.project.yongsoo.dao.CommonQnADao;
 
 public class DeleteQnACommand implements CommonVoidCommand {
 
@@ -18,8 +18,8 @@ public class DeleteQnACommand implements CommonVoidCommand {
 		RedirectAttributes rttr = (RedirectAttributes)map.get("rttr");
 		int board_qna_no = (int)map.get("board_qna_no");
 		
-		QnADao qnaDao = sqlSession.getMapper(QnADao.class);
-		int deleteResult = qnaDao.deleteQnAInfo(board_qna_no);
+		CommonQnADao commonQnADao = sqlSession.getMapper(CommonQnADao.class);
+		int deleteResult = commonQnADao.deleteQnAInfo(board_qna_no);
 		
 		if (deleteResult>0) {
 			rttr.addFlashAttribute("deleteResult", true);

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koreait.project.dto.CommentsDto;
-import com.koreait.project.yongsoo.command.comment.AddCommentCommand;
-import com.koreait.project.yongsoo.command.comment.DeleteCommentCommand;
-import com.koreait.project.yongsoo.command.comment.GetCommentListCommand;
+import com.koreait.project.yongsoo.command.meetingComment.AddCommentCommand;
+import com.koreait.project.yongsoo.command.meetingComment.DeleteCommentCommand;
+import com.koreait.project.yongsoo.command.meetingComment.GetCommentListCommand;
 import com.koreait.project.yongsoo.config.SooAppContext;
 
 @Controller
@@ -37,7 +37,7 @@ public class CommentController {
 		return getCommentListCommand.execute(sqlSession, model);
 	}
 	
-	// 뎃글 작성 완료 버튼 클릭시 작동할 메소드
+	// 모임 뎃글 작성 완료 버튼 클릭시 작동할 메소드
 	@RequestMapping(value="addComment.plitche", method=RequestMethod.POST, produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> addComment(@RequestBody CommentsDto commentsDto, Model model) {
@@ -46,7 +46,7 @@ public class CommentController {
 		return addCommentCommand.execute(sqlSession, model);
 	}
 	
-	// 뎃글 삭제 시 작동할 메소드
+	// 모임 뎃글 삭제 시 작동할 메소드
 	@RequestMapping(value="deleteComment.plitche/{comment_no}", method=RequestMethod.GET,
 					produces="application/json; charset=utf-8")		
 	@ResponseBody
@@ -54,12 +54,6 @@ public class CommentController {
 		model.addAttribute("comment_no", comment_no);
 		DeleteCommentCommand deleteCommentCommand = ctx.getBean("deleteCommentCommand", DeleteCommentCommand.class);
 		return deleteCommentCommand.execute(sqlSession, model);
-	}
-	
-	
-	@RequestMapping(value="gotest.plitche")
-	public String gotest() {
-		return "yongPage/test";
 	}
 	
 }

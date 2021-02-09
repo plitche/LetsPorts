@@ -24,7 +24,8 @@
 		fn_closeChangeEmailModal();
 		fn_sendTempPass();
 		fn_updateNormalUser();
-		fn_checkUser();
+		fn_checkAdminUser();
+		fn_checkTrainerUser();
 		fn_updateAdminUser();
 		fn_deleteUser();
 		fn_addTrainerSendEamil();
@@ -34,6 +35,22 @@
 		fn_boardDelete();
 		fn_commentFilterAdd();
 		fn_commentsOnHideToggle();
+		fn_commentDelete();
+		fn_reviewFilterAdd();
+		fn_reviewOnHideToggle();
+		fn_tQnAFilterAdd();
+		fn_tAnswerdUpdate();
+		fn_sendTAnwswerdUpdate();
+		fn_photoFilterAdd();
+		$('.photo').click(function() {
+			fn_photoPage();
+		});
+		$('.trainer_qna').click(function() {
+			fn_tQnAPage();
+		});
+		$('.review').click(function() {
+			fn_reviewPage();
+		});
 		$('.comment').click(function() {
 			fn_commentsPage();
 		});

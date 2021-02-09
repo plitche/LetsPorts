@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (board_knowhow_seq.NEXTVAL, #{param1}, #{param2}) 
 	</insert>
 	
-	<select id="boardknowHowView" parameterType="int" resultType="com.koreait.project.dto.Board_knowhowDto">
+	<select id="knowHowView" parameterType="int" resultType="com.koreait.project.dto.Board_knowhowDto">
 		SELECT *
 		  FROM BOARD_KNOWHOW
 		 WHERE KNOWHOW_NO = #{knowhow_no}
@@ -35,12 +35,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="knowHowUpdate">
 		UPDATE BOARD_KNOWHOW
-		   SET knowhow_title = #{knowhow_title}
-		   	   knowhow_content = #{knowhow_content}
-		 WHERE KNOWHOW_NO = #{knowhow_no}
+		   SET KNOWHOW_TITLE = #{param1},
+		   	   KNOWHOW_CONTENT = #{param2}
+		 WHERE KNOWHOW_NO = #{param3}
 	</update>
 	
-	
+	<delete id="knowHowDelete" parameterType="int">
+		DELETE
+		  FROM board_knowhow
+		 WHERE knowhow_no = #{param1}
+	</delete>
 	
 	
 	

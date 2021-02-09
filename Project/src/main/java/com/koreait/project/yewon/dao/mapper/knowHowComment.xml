@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- Spring에서 새로 배우는 스타일 -->
+<mapper namespace="com.koreait.project.yewon.dao.KnowhowCommentDao">
+	
+	<select id="commentList" parameterType="int" resultType="com.koreait.project.yewon.dto.KnowhowClassDto">
+		SELECT * 
+		  FROM COMMENTS C FULL OUTER JOIN USERS U
+		    ON C.USER_NO = U.USER_NO
+		 WHERE C.COMMENT_REFERER_NO = #{comment_no}
+	</select>
+	
+	<insert id="commentInsert" parameterType="com.koreait.project.yewon.dto.KnowhowClassDto">
+		INSERT INTO COMMENTS VALUES
+		(COMMENTS_SEQ.NEXTVAL, 1, #{comment_referer_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
+	</insert>
+	
+	<delete id="commentDelete" parameterType="int">
+		DELETE FROM COMMENTS WHERE COMMENT_NO = #{comment_no}
+	</delete>
+	
+	<update id="commentUpdate" >
+		UPDATE COMMENTS SET COMMENT_CONTENT = #{param1}
+		WHERE COMMENT_NO = #{param2}
+	</update>
+
+</mapper>
