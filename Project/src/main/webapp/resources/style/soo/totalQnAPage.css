@@ -1,0 +1,99 @@
+@charset "UTF-8";
+.qnaTitle {
+	text-align: center;
+	font-weight: 600;
+	font-size: 26px;
+	padding: 60px 0 30px;
+}
+
+#qnaHeader {
+	display: flex;
+}
+
+#newQnA {
+	text-align: right;
+}
+#newQnA input {
+	border: none;
+	background: black;
+	color: white;
+	border-radius: 10%;
+	padding: 5px;
+}
+#userQnA {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	table-layout: fixed;
+	font-size: 14px;
+	line-height: 1.25;
+}
+#userQnA th {
+	padding: 16px;
+	font-weight: bold;
+	border-top: 2px solid #000;
+	border-bottom: 1px solid #d7d7d7;
+	background: #fcfcfc;
+	text-align: center;
+}
+#userQnA tbody {
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+#userQnA tbody td {
+	padding: 16px;
+	border-bottom: 1px solid #d7d7d7;
+	margin: 0;
+}
+#userQnA tbody > tr > td:nth-child(1),
+#userQnA tbody > tr > td:nth-child(2),
+#userQnA tbody > tr > td:nth-child(4),
+#userQnA tbody > tr > td:nth-child(5) {
+	text-align: center;
+}
+#userQnA tbody > tr > td:nth-child(3) {
+	font-weight: bold;
+}
+#userQnA td > a {
+	text-decoration: none;
+	color: #000;
+}
+#userQnA td > a:hover {
+	text-decoration: none;	
+	color: deepBlue;
+}
+#userQnA tfoot td {
+	padding: 40px 0 30px;
+	text-align: center;
+}
+form p {
+	text-align: center;
+	background: #fcfcfc;
+}
+p > select {
+	width: 145px;
+	height: 36px;
+	border: solid 1px;
+	vertical-align: top;
+	padding: 5px;
+}
+select option {
+	height: 30px;
+	padding: 5px;
+}
+#search {
+	width: 200px;
+	height: 36px;
+	border: solid 1px;
+	vertical-align: top;
+	padding: 5px;
+}
+#searchBtn {
+	background: #000;
+	color: white;
+	width: 56px;
+	height: 36px;
+	vertical-align: top;
+	border: none;
+}
+

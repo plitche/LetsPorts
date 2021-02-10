@@ -14,6 +14,8 @@ import com.koreait.project.wooki.command.boards.BoardsOnHideToggleCommand;
 import com.koreait.project.wooki.command.comments.CommentDeleteCommand;
 import com.koreait.project.wooki.command.comments.CommentsListCommand;
 import com.koreait.project.wooki.command.comments.CommentsOnHideToggleCommand;
+import com.koreait.project.wooki.command.photo.PhotoListCommand;
+import com.koreait.project.wooki.command.photo.PhotoOnHideToggleCommand;
 import com.koreait.project.wooki.command.review.ReivewListCommand;
 import com.koreait.project.wooki.command.review.ReviewOnHideToggleCommand;
 import com.koreait.project.wooki.command.trainer.AddTrainerSendEmailCommand;
@@ -160,5 +162,15 @@ public class WookiAppContext {
 	@Bean
 	public TQnAOnHideToggleCommand tQnAOnHideToggleCommand() {
 		return new TQnAOnHideToggleCommand();
+	}
+	
+	@Bean
+	public PhotoListCommand photoListCommand() {
+		return new PhotoListCommand();
+	}
+	
+	@Bean
+	public PhotoOnHideToggleCommand photoOnHideToggleCommand() {
+		return new PhotoOnHideToggleCommand();
 	}
 }

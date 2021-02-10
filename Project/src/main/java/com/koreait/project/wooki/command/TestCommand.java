@@ -1,4 +1,4 @@
-package com.koreait.project.wooki.controller;
+package com.koreait.project.wooki.command;
 
 import java.io.File;
 import java.util.HashMap;
@@ -12,18 +12,6 @@ public class TestCommand {
 	public Map<String, Object> test(MultipartHttpServletRequest multipartRequest, Model model) {
 		
 		// 1. multipartRequest에 저장된 첨부가 1개일 때는 getFile()을 씁니다.
-		/*
-			<input type="file" name="filename" /> 일 때
-			MultipartFile file = multipartRequest.getFile("filename");
-		*/
-		
-		// 2. multipartRequest에 저장된 첨부가 multiple일 때는 getFiles()를 씁니다.
-		// 첨부타입이 multiple이면 첨부된 파일들은 List에 저장되어 넘어온
-		// 각 첨부 파일들의 타입은 MultipartFile입니다.
-		/*
-			<input type="file" name="files" multiple />일 때
-			List<MultipartFile> files = multipartRequest.getFiles ("files");
-		*/
 		MultipartFile file = multipartRequest.getFile("upload");
 		Map<String, Object> map = new HashMap<>();
 
@@ -38,11 +26,10 @@ public class TestCommand {
 			// 확장자
 			String extension = originalFilename.substring(pos + 1);
 			// 파일명
-			String baseFilename = originalFilename.substring(0, pos);
-			String uploadFilename = baseFilename + "_" + System.currentTimeMillis() + "." + extension;
+			String uploadFilename = System.currentTimeMillis() + "." + extension;
 			
 			// 업로드 할 경로 구하기 resources/storage 디렉토리에 저장하기로 합니다.
-			String realPath = multipartRequest.getServletContext().getRealPath("/resources/storage/boardsPhoto");
+			String realPath = multipartRequest.getServletContext().getRealPath("/resources/storage");
 			
 			// 업로드 할 경로가 없으면 storage 디렉토리를 만듭니다.
 			File dir = new File(realPath);

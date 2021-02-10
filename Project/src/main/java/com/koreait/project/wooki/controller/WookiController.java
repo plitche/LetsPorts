@@ -33,6 +33,8 @@ import com.koreait.project.wooki.command.boards.BoardsOnHideToggleCommand;
 import com.koreait.project.wooki.command.comments.CommentDeleteCommand;
 import com.koreait.project.wooki.command.comments.CommentsListCommand;
 import com.koreait.project.wooki.command.comments.CommentsOnHideToggleCommand;
+import com.koreait.project.wooki.command.photo.PhotoListCommand;
+import com.koreait.project.wooki.command.photo.PhotoOnHideToggleCommand;
 import com.koreait.project.wooki.command.review.ReivewListCommand;
 import com.koreait.project.wooki.command.review.ReviewOnHideToggleCommand;
 import com.koreait.project.wooki.command.trainer.AddTrainerSendEmailCommand;
@@ -85,6 +87,8 @@ public class WookiController {
 	private TQnAListCommand tQnAListCommand = ctx.getBean("tQnAListCommand", TQnAListCommand.class);
 	private TAnswerdUpdateCommand tAnswerdUpdateCommand = ctx.getBean("tAnswerdUpdateCommand", TAnswerdUpdateCommand.class);
 	private TQnAOnHideToggleCommand tQnAOnHideToggleCommand = ctx.getBean("tQnAOnHideToggleCommand", TQnAOnHideToggleCommand.class);
+	private PhotoListCommand photoListCommand = ctx.getBean("photoListCommand", PhotoListCommand.class);
+	private PhotoOnHideToggleCommand photoOnHideToggleCommand = ctx.getBean("photoOnHideToggleCommand", PhotoOnHideToggleCommand.class);
 	
 	@GetMapping(value="adminPage.wooki")
 	public String adminPage() {
@@ -330,5 +334,23 @@ public class WookiController {
 		model.addAttribute("trainer_qna_no", trainer_qna_no);
 		model.addAttribute("on_hide", on_hide);
 		return tQnAOnHideToggleCommand.execute(sqlSession, model);
+	}
+	
+	@GetMapping(value="photoList.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> photoList(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		return photoListCommand.execute(sqlSession, model);
+	}
+	
+	@PutMapping(value="photoOnHideToggle/{photo_no}/{on_hide}.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> photoOnHideToggle(
+			@PathVariable("photo_no") int photo_no,
+			@PathVariable("on_hide") int on_hide,
+			Model model) {
+		model.addAttribute("photo_no", photo_no);
+		model.addAttribute("on_hide", on_hide);
+		return photoOnHideToggleCommand.execute(sqlSession, model);
 	}
 }

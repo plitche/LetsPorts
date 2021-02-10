@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link type="text/css" rel="stylesheet" href="resources/style/soo/totalQnAPage.css" >
 <!DOCTYPE html>
 
 <jsp:include page="../../template/header.jsp">
@@ -61,33 +62,33 @@
 <!-- 키워드 검색 관련 처리 script -->
 <script>
 	function fn_search(f) {
+		if ($('#search').val()=='') {
+			Swal.fire('검색어를 입력해주세요!', '', 'info');
+			return;
+		}
 		f.action='goQnAPage.plitche';
 		f.submit();
 	}
 
 </script>
 
-
-<section>
-	<p>자주 하는 질문</p>
-	<ul>
-		<li><a href="javascript:void(0)">트레이너</a></li>
-		<li><a href="javascript:void(0)">운동</a></li>
-		<li><a href="javascript:void(0)">제휴</a></li>
-		<li><a href="javascript:void(0)">시설</a></li>
-		<li><a href="javascript:void(0)">기타</a></li>
-	</ul>
-</section>
-
-<p> 전체 질문과 답변
-<table>
+<div class="qnaTitle"> Total Question & Answer </div>
+<p id="newQnA"><input type="button" value="새 질문 등록하기" id="writeQnABtn" /></p>
+<table id="userQnA">
+	<colgroup>
+		<col width="60">
+		<col width="90">
+		<col width="*">
+		<col width="100">
+		<col width="110">
+	</colgroup>
 	<thead>
 		<tr>
-			<td>질문 번호</td>
-			<td>제목</td>
-			<td>작성자</td>
-			<td>작성일</td>
-			<td>질문 해결 완료</td>
+			<th>No.</th>
+			<th>IsSolved</th>
+			<th>Content</th>
+			<th>Nickname</th>
+			<th>Date</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -100,19 +101,20 @@
 			<c:forEach var="list" items="${qnaList}" varStatus="k">
 				<tr>
 					<td>${totalRecord-((page-1) * recordPerPage + k.index)}</td>
+					<c:if test="${list.is_resolved eq 0}">
+						<td style="color:pink;">미해결</td>
+					</c:if>
+					<c:if test="${list.is_resolved eq 1}">
+						<td style="color:green;">해결완료</td>
+					</c:if>
 					<td><a href="goQnAViewPage.plitche?board_qna_no=${list.board_qna_no}&page=${page}">${list.board_qna_title}</a></td>
 					<td>${list.user_nickname}</td>
 					<td>${list.created_at}</td>
-					<c:if test="${list.is_resolved eq 0}">
-						<td>미해결</td>
-					</c:if>
-					<c:if test="${list.is_resolved eq 1}">
-						<td>해결완료</td>
-					</c:if>
 				</tr>
 			</c:forEach>
 		</c:if>
 	</tbody>
+	
 	<tfoot>
 		<tr>
 			<td colspan="5">${paging}</td>
@@ -121,20 +123,16 @@
 </table>
 
 <form method="get">
-	<fieldset>
-		<legend>게시물 검색</legend>
-		<p>
-			<select name="searchCategory">
-				<option value="">검색 조건</option>
-				<option value="1">제목 + 내용</option>
-				<option value="2">제목만</option>
-				<option value="3">글작성자</option>
-			</select>
-			<input type="text" name="searchKeyword" />
-			<input type="button" value="찾기" onclick="fn_search(this.form)" />
-			<input type="button" value="새 질문 등록하기" id="writeQnABtn" />
-		</p>
-	</fieldset>
+	<p>
+		<select name="searchCategory">
+			<option value="">검색 조건</option>
+			<option value="1">제목 + 내용</option>
+			<option value="2">제목만</option>
+			<option value="3">글작성자</option>
+		</select>
+		<input id="search" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요."/>
+		<input id="searchBtn" type="button" value="검색" onclick="fn_search(this.form)" />
+	</p>
 </form>
 
 

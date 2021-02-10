@@ -43,6 +43,7 @@ select * from COMMENTS
 select * from photo
 select * from review
 select * from BOARD_QNA
+select * from Meeting_participants
 
 SELECT *
   FROM (SELECT T1.*, ROWNUM RN

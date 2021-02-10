@@ -8,6 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- jquery, fontawesome -->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="https://kit.fontawesome.com/07b67006ce.js"></script>
 	
 	<!-- css파일 및 js파일 -->
@@ -23,24 +24,30 @@
 	</script>
 	<style type="text/css">
 		div[contenteditable="true"] {
-			width: 700px;
+			width: 500px;
 		}
 		.flex i {
 			align-self: flex-end;
 		}
 		#content img {
-			width: 700px;
+			width: 500px;
 			display: block;
+		}
+		.addBtn {
+			display: inline-block;
+			padding: 5px 15px;
+			font-size: 20px;
+			border: 1px solid black;
+			border-radius: 5px;
 		}
 	</style>
 </head>
 <body>
 	<div id="content"></div>
-	<button type="button" onclick="fn_addContent()"><i class="far fa-plus-square"></i></button>
-	<button type="button" onclick="fn_addPhoto()"><i class="far fa-images"></i></button>
-	<form id="send">
-		<input type="file" id="upload" name="upload" accept="image/*" />
-		<input type="button" value="전송" id="btnUpload" />
-	</form>
+	<i class="far fa-plus-square addBtn" onclick="fn_addContent()"></i>
+	<label>
+		<input style="display: none" type="file" id="upload" name="upload" accept="image/*" />
+		<i class="far fa-images addBtn"></i>
+	</label>
 </body>
 </html>

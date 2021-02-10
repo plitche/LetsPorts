@@ -4,6 +4,8 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	text-decoration: none;
+	list-style: none;
 }
 
 ul {
@@ -20,7 +22,7 @@ ul {
 .top-wrap {
 	width: 1080px;
 	margin: 0 auto;
-	height: 280px;
+	height: 250px;
 }
 
 .top {

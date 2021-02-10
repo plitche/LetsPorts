@@ -21,4 +21,5 @@ public class QnATemDto {
 	private int on_hide;
 	
 	private String user_nickname;
+	private int user_separator;
 }

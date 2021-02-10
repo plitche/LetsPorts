@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link type="text/css" rel="stylesheet" href="resources/style/soo/qnaViewPage.css" >
 <!DOCTYPE html>
 
 <jsp:include page="../../template/header.jsp">
 	<jsp:param value="질문 상세페이지" name="title"/>
 </jsp:include>
 
+<!-- fontawesome -->
+<script src="https://kit.fontawesome.com/6b75fdce2b.js" crossorigin="anonymous"></script>
 <!-- sweetalert -->
 <script>
 	/* 로그인 alert을 위한 function */
@@ -85,7 +88,6 @@
 		
 	}
 </script>
-
 <!-- 댓글 관련 scirpt -->
 <script>
 	$(document).ready(function() {
@@ -103,12 +105,12 @@
 				.append( $('<div class="comment-container" >')
 					.append( $('<div class="profile">').html('<img alt="프로필" src="">') )
 					.append( $('<div class="comment-content">')
-						.append( $('<p>').html('닉네임: ' + qnaComment.user_nickname) )
+						.append( $('<p>').html(qnaComment.user_nickname) )
 						.append( $('<p class="'+qnaComment.comment_no+'nthComment">').html(qnaComment.comment_content) )
-						.append( $('<p>').html('작성일: ' + qnaComment.created_at) )
+						.append( $('<p>').html(qnaComment.created_at) )
 					)
-					.append( $('<div class="comment-btn">').html('<input type="button" value="[버튼]" />')
-						.append( $('<div class="'+qnaComment.comment_no+'nthBtn">')
+					.append( $('<div class="comment-btn">')
+						.append( $('<div class="'+qnaComment.comment_no+'nthBtn">').addClass('editComment')
 							.append( $('<a href="#" class="btnClass" onclick="fn_updateComment(' + qnaComment.comment_no + '); return false;" >').html('수정') )
 							.append( $('<a href="#" class="btnClass" onclick="fn_deleteComment(' + qnaComment.comment_no + '); return false;" >').html('삭제') )
 						)
@@ -119,9 +121,9 @@
 				.append( $('<div class="comment-container">')
 					.append( $('<div class="profile">').html('<img alt="프로필" src="">') )
 					.append( $('<div class="comment-content">')
-						.append( $('<p>').html('닉네임: ' + qnaComment.user_nickname) )
-						.append( $('<p>').html('내용: ' + qnaComment.comment_content) )
-						.append( $('<p>').html('작성일: ' + qnaComment.created_at) )
+						.append( $('<p>').html(qnaComment.user_nickname) )
+						.append( $('<p>').html(qnaComment.comment_content) )
+						.append( $('<p>').html(qnaComment.created_at) )
 					)
 				);
 			}
@@ -139,8 +141,7 @@
 			success: function(responseObj) {
 				if(responseObj.result) {
 					$('#totalCommentCount').empty();
-					$('#totalCommentCount')
-					.append( $('<p>').html('총 : ' + responseObj.commentCount + '개') )
+					$('#totalCommentCount').html(responseObj.commentCount + '개');
 					
 					qnaCommentListTable(responseObj.qnaCommentList);
 
@@ -153,9 +154,11 @@
 					$('#commentPaging').empty();
 					$('#commentPaging').html(commentPagingHtml);
 				} else {
-					$('#commentContent').empty();
-					$('#commentContent')
-					.append( $('<div>').html('작성된 comment가 없습니다. 첫번째 뎃글을 작성해주세요.') );
+					if (${qnaTemDto.is_resolved} == '0') {
+						$('#commentContent').empty();
+						$('#commentContent')
+						.append( $('<div>').html('작성된 comment가 없습니다. 첫번째 뎃글을 작성해주세요.') );	
+					}
 				}
 			},
 			error: function(){alert('실패');}
@@ -209,7 +212,7 @@
 					contentType: 'application/json; charset=utf-8',
 					success: function(responseObj) {
 						if(responseObj.result) {
-							alert('새로운 뎃글이 작성되었습니다.');
+							Swal.fire('새로운 댓글이 작성되었습니다.', '활발한 활동 감사합니다!' ,'success');
 							getQnACommentList();
 							document.getElementById("comment_content").value='';
 						} else {
@@ -289,19 +292,17 @@
 	}
 </script>
 
-작성자 : ${qnaTemDto.user_nickname} <br/>
-제목 : ${qnaTemDto.board_qna_title} <br/>
-질문 내용 : ${qnaTemDto.board_qna_content} <br/>
-	
-<form method="get">
-	<input type="hidden" name="page" value="${page}"/>
-	<input type="button" value="전체목록 돌아가기" onclick="fn_goQnAListPage(this.form)"/>				
-</form>
+<c:if test="${qnaTemDto.is_resolved eq 1}">
+	<h3>해결 완료된 질문입니다!! 많은 정보를 얻어가세요.^^</h3>
+</c:if>
+<c:if test="${qnaTemDto.is_resolved eq 0}">
+	<h3>아직 해결되지 않은 질문입니다!! 빠른 해결에 도움을 주세요.^^</h3>
+</c:if>
+
 
 <c:if test="${loginUser.user_no ne null}">
 	<c:if test="${qnaTemDto.user_no eq loginUser.user_no}">
-		<form method="post">
-		
+		<form method="post" id="writerBtn">
 			<input type="hidden" name="user_nickname" value="${qnaTemDto.user_nickname}" />
 			<input type="hidden" name="board_qna_no" value="${qnaTemDto.board_qna_no}" />
 			<input type="hidden" name="board_qna_title" value="${qnaTemDto.board_qna_title}" />
@@ -315,17 +316,62 @@
 		</form>
 	</c:if>		
 </c:if>
-	
-<div id="comment"> 
-	<p style="font-weight: 800; font-size: 1.5rem; margin-top: 20px;">댓글</p>
-	<div id="totalCommentCount"></div>
+<form method="get" id="backToQnAList">
+	<input type="hidden" name="page" value="${page}"/>
+	<input type="button" value="전체목록 돌아가기" onclick="fn_goQnAListPage(this.form)"/>				
+</form>
+
+<table id="qnaDetail">
+	<colgroup>
+		<col width="100">
+		<col width="*">
+		<col width="100">
+	</colgroup>
+	<thead>
+		<tr>
+			<th colspan="3">${qnaTemDto.board_qna_title}</th>
+		</tr>	
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="2">사진</td>
+			<td>
+				<c:if test="${qnaTemDto.user_separator eq 0}">관리자</c:if>
+				<c:if test="${qnaTemDto.user_separator eq 1}">트레이너</c:if>
+				<c:if test="${qnaTemDto.user_separator eq 2}">일반 회원</c:if>
+			</td>
+			<c:if test="${qnaTemDto.is_resolved eq 1}">
+				<td style="color: green;">해결 완료</td>
+			</c:if>
+			<c:if test="${qnaTemDto.is_resolved eq 0}">
+				<td style="color: red;">미 해결</td>
+			</c:if>
+		</tr>
+		<tr>
+			<td>${qnaTemDto.user_nickname}</td>
+			<td>${qnaTemDto.created_at}</td>
+		</tr>
+		<tr>
+			<td colspan="3">${qnaTemDto.board_qna_content}</td>
+		</tr>
+	</tbody>
+</table>
+
+<div id="comment">
+	<div id="commentHeader">
+		<span style="color: black"><i class="far fa-comment-dots fa-2x"></i></span>
+		<div style="font-weight: 800; margin: 0 10px;">댓글</div>
+		<div id="totalCommentCount"></div>
+		<div style="margin-left: 87%"><i class="fas fa-link fa-2x"></i></div>
+		
+	</div>
 	<div id="commentContent"></div>
 	<div id="commentPaging"></div>
 	<c:if test="${qnaTemDto.is_resolved eq 0}">
 		<form>
 			<div id="writeComment">
-				<p>${loginUser.user_nickname}</p>
-				<textarea rows="5" cols="100" id="comment_content" name="comment_content" placeholder="내용을 입력하시오"></textarea><br/>
+				<p style="font-weight: bold; font-size: 1.5rem;">${loginUser.user_nickname}</p>
+				<textarea rows="5" cols="100" id="comment_content" name="comment_content" placeholder="댓글을 남겨보세요"></textarea><br/>
 				<input type="button" value="작성완료" id="addComment"/>
 			</div>
 		</form>

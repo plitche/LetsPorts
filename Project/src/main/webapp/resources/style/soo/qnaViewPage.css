@@ -1,0 +1,167 @@
+@charset "UTF-8";
+
+h3 {
+	text-align: center;
+	padding: 50px;
+}
+#backToQnAList {
+	text-align: right;
+}
+
+
+#backToQnAList input {
+	background: #000;
+	color: white;
+	border-radius: 5%;
+	padding: 5px;
+}
+#qnaDetail {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+#qnaDetail th, #qnaDetail tr {
+	padding: 12px 0;
+}
+#qnaDetail th {
+	color: #000;
+	font-weight: bold;
+	font-size: 20px;
+	border-top: 2px solid #000;
+	border-bottom: 1px solid #d7d7d7;
+	background: #fcfcfc;
+	text-align: center;
+}
+#qnaDetail tbody tr:nth-child(2) {
+	border-bottom: 1px solid #d7d7d7;
+}
+#qnaDetail tbody tr:nth-child(3) td {
+	padding: 12px;
+}
+#qnaDetail tbody tr:nth-child(3) p {
+	min-height: 300px;
+}
+
+
+#writerBtn {
+	float: left;
+	margin-bottom: auto;
+}
+#writerBtn input {
+	background: #000;
+	color: white;
+	border-radius: 5%;
+	padding: 5px;
+}
+
+
+#comment {
+	margin-top: 50px;
+}
+#commentHeader {
+	display: flex;
+}
+#commentHeader > div {
+	font-size: 1.5rem;
+}
+#commentContent {
+	border-top: 2px solid #000;
+	padding-top: 30px;
+	margin-top: 10px;
+}
+.comment-container {
+	display: flex;
+}
+.comment-container img {
+	width: 60px;
+	height: 60px;
+	border: 1px solid;
+}
+.profile {
+	width: 6%;
+}
+.comment-content {
+	width: 90%;
+	margin-bottom: 15px;
+}
+.comment-content > p:nth-child(1) {
+	font-weight: 900;
+	font-size: 1.5rem;
+	margin-bottom: 5px;
+}
+.comment-content > p:nth-child(3) {
+	margin-top: 5px;
+	color: gray;
+}
+.comment-btn {
+	width: 15%;
+	flex-direction: column;
+	width: auto;
+}
+.comment-content p, .comment-content pre {
+	margin: 0;
+}
+.comment-btn a {
+	text-decoration: none;
+	color: inherit;
+}
+.comment-btn a:hover {
+	color: blue;	
+}
+.editComment {
+	display: flex;
+	flex-direction: column;
+}
+.btnClass {
+	padding: 3px;
+	text-decoration: none;
+}
+
+#writeComment {
+	padding: 12px;
+	border: 1px solid #d7d7d7;
+	min-height: 130px;
+}
+#writeComment textarea {
+	width: 100%;
+	border: none;
+	height: 50px;
+	overflow: auto;
+	outline: none;
+}
+#writeComment input {
+	float: right;
+	color: darkgray;
+	padding: 5px;
+	border: none;
+	background: none;
+}
+
+
+
+#commentPaging {
+	text-align: center;
+	margin: 30px 0;
+}
+#commentPaging a {
+	color: #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

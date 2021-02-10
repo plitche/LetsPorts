@@ -695,3 +695,18 @@ INSERT INTO trainer_qna VALUES (trainer_qna_seq.nextval, 20, 39, '질문이요59
 INSERT INTO trainer_qna VALUES (trainer_qna_seq.nextval, 21, 40, '질문이요60', '튼튼하며, 끓는 작고 안고, 이것이야말로 날카로우나 힘있다. 풀밭에 대고, 두손을 봄바람이다.', SYSDATE, 1, 1, '따뜻한 설산에서 일월과 그러므로 목숨을 대한 이상을 석가는 것이다. 위하여 속에서 타오르고 청춘은 있으랴? 용감하고 사람은 위하여, 운다. 안고, 품으며, 품에 미묘한 넣는 싸인 얼마나 있는가?', SYSDATE, 0);
 INSERT INTO trainer_qna VALUES (trainer_qna_seq.nextval, 33, 38, '질문이요61', '것이다.보라, 아니더면, 무엇을 커다란 같이, 사랑의 속잎나고, 커다란 살 철환하였는가? 뜨고, 없으면 할지라도 그와 교향악이다. 무엇을 끓는 것이다.보라, 피가 보배를 말이다. 피어나는 우리의 능히 물방아 듣기만 현저하게 있는 철환하였는가?', SYSDATE, 1, 1, '청춘의 사랑의 인도하겠다는 청춘에서만 듣기만 스며들어 부패뿐이다. 방황하여도, 이상이 피는 스며들어 품고 간에 것이다. 곳으로 황금시대의 고동을 예수는 만물은 풍부하게 꾸며 운다. 미인을 커다란 찬미를 꾸며 아니다.', SYSDATE, 0);
 INSERT INTO trainer_qna VALUES (trainer_qna_seq.nextval, 4, 39, '질문이요62', '고행을 방지하는 크고 있을 피가 수 청춘의 청춘의 길지 사막이다. 이것을 만물은 불어 인생을 약동하다. 따뜻한 인생에 산야에 운다. 하는 안고, 기관과 인간에 곳으로 날카로우나 같은 부패뿐이다.', SYSDATE, 1, 0, NULL, NULL, 0);
+
+-- 사진 13장
+INSERT INTO photo VALUES (photo_seq.nextval, 0, 12, 5, '1.jpg', SYSDATE, 0);
+INSERT INTO photo VALUES (photo_seq.nextval, 0, 12, 5, '2.jpg', SYSDATE, 0);
+INSERT INTO photo VALUES (photo_seq.nextval, 0, 12, 5, '3.jpg', SYSDATE, 0);
+INSERT INTO photo VALUES (photo_seq.nextval, 0, 2, 3, '4.jpg', SYSDATE, 0);
+INSERT INTO photo VALUES (photo_seq.nextval, 0, 2, 3, '5.jpg', SYSDATE, 0);
+INSERT INTO photo VALUES (photo_seq.nextval, 0, 2, 3, '6.jpg', SYSDATE, 0);
+INSERT INTO photo VALUES (photo_seq.nextval, 0, 2, 3, '7.jpg', SYSDATE, 0);
+INSERT INTO photo VALUES (photo_seq.nextval, 0, 2, 3, '8.jpg', SYSDATE, 0);
+INSERT INTO photo VALUES (photo_seq.nextval, 2, 2, 2, '9.jpg', SYSDATE, 0);
+INSERT INTO photo VALUES (photo_seq.nextval, 2, 2, 2, '10.jpg', SYSDATE, 0);
+INSERT INTO photo VALUES (photo_seq.nextval, 2, 2, 2, '11.jpg', SYSDATE, 0);
+INSERT INTO photo VALUES (photo_seq.nextval, 2, 2, 2, '12.jpg', SYSDATE, 0);
+INSERT INTO photo VALUES (photo_seq.nextval, 2, 2, 2, '13.jpg', SYSDATE, 0);

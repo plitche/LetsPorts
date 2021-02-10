@@ -924,4 +924,97 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			trainer_qna_no = #{param1}
 	</update>
 	
+	<select id="totalPhotoRecord" resultType="int">
+		select
+			count(*)
+		from
+			photo
+	</select>
+	
+	<select id="photoList" resultType="com.koreait.project.wooki.dto.PhotoDto">
+		select
+			*
+		from
+			(select
+				rownum as rn, a.*
+			from
+				(select
+					*
+				from
+					photo
+				order by
+					created_at desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
+
+	<select id="totalPhotoRecordFilterAll" resultType="int">
+		select
+			count(*)
+		from
+			photo
+		where
+			photo_referer_sep = #{param1}
+	</select>
+	
+	<select id="photoListFilterAll" resultType="com.koreait.project.wooki.dto.PhotoDto">
+		select
+			*
+		from
+			(select
+				rownum as rn,
+				a.*
+			from
+				(select
+					*
+				from
+					photo
+				where
+					photo_referer_sep = #{param3}
+				order by
+					created_at desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
+	
+	<select id="totalPhotoRecordFilterQuery" resultType="int">
+		select
+			count(*)
+		from
+			photo
+		where
+			photo_referer_sep = #{param1}
+			and ${param2} = #{param3}
+	</select>
+	
+	<select id="photoListFilterQuery" resultType="com.koreait.project.wooki.dto.PhotoDto">
+		select
+			*
+		from
+			(select
+				rownum as rn,
+				a.*
+			from
+				(select
+					*
+				from
+					photo
+				where
+					photo_referer_sep = #{param3}
+					and ${param4} = #{param5}
+				order by
+					created_at desc) a) b
+		where
+			b.rn between #{param1} and #{param2}
+	</select>
+	
+	<update id="photoOnHideToggle">
+		update
+			photo
+		set
+			on_hide = #{param2}
+		where
+			photo_no = #{param1}
+	</update>
+	
 </mapper>
