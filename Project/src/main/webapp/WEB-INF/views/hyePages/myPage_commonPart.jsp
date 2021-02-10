@@ -39,7 +39,7 @@
 			var pw = '<%=((UsersDto)session.getAttribute("loginUser")).getPassword()%>';
 			if (pw == $('#userAuthPw').val()) {
 				alert('정보를 수정하러 갑니다.');
-				location.href='usersInfoUpdatePage.hey'
+				location.href='userUpdateView.hey'
 			}
 		});
 	}
@@ -47,15 +47,15 @@
 </script>
 <script type="text/javascript">
 // 파일 업로드 버튼 설정
-var $file = $( "#file" );
+var $file = $("#profile_photo");
 
-$("#fileBtn" ).on( "click", function(){
+$("#fileBtn").on("click", function(){
 
 	$file.trigger( "click" );
 
 	var fileName;
 
-	$("#file").change(function(){
+	$("#profile_photo").change(function(){
 
 	fileName = this.value;
 
@@ -98,9 +98,9 @@ function uploadFile(){
         contentType: false,
         data: formData,
         type: 'post',
-        success: function(result){
-            alert("업로드 성공!!");
-        }, error : unction() {
+        success: function(data){
+            alert("사진 수정 완료되었습니다.");
+        }, error : function() {
 			console.log("실패");
 		}
      });
@@ -122,7 +122,7 @@ function uploadFile(){
 		<br/>
 		별점
 		<br/>
-		닉네임님
+		${loginUser.user_nickname}님
 			<!-- 모달 창으로 본인 인증 -->
 		 
 		<p><a href="#" id="modal_btn">정보 수정</a></p><br/>
@@ -147,7 +147,7 @@ function uploadFile(){
 		
 <div class="statusMsg">
 	상태 메세지<br/>
-	<textarea rows="3" cols="100" placeholder="상태 메세지를 입력해주세요."></textarea>
+	<textarea rows="3" cols="100" placeholder="상태 메세지를 입력해주세요.">${loginUser.user_message}</textarea>
 	<input type="button" value="수정하기" id="updateBtn" />
 </div>
 

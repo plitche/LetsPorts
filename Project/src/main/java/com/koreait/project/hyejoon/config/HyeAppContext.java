@@ -6,12 +6,14 @@ import org.springframework.context.annotation.Bean;
 import com.koreait.project.hyejoon.command.login.SendTempPwCommand;
 import com.koreait.project.hyejoon.command.login.UserCheckCommand;
 import com.koreait.project.hyejoon.command.login.UsersLoginCommand;
+import com.koreait.project.hyejoon.command.myPage.UploadProfilePhotoCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailAuthCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailCheckCommand;
 import com.koreait.project.hyejoon.command.signUp.InsertJoinCommand;
 import com.koreait.project.hyejoon.command.signUp.NickCheckCommand;
 import com.koreait.project.hyejoon.command.userAccount.DeleteAccountCommand;
 import com.koreait.project.hyejoon.command.userAccount.UpdateAccountCommand;
+import com.koreait.project.hyejoon.command.userAccount.UserUpdateViewCommand;
 
 @Configurable
 public class HyeAppContext {
@@ -55,12 +57,20 @@ public class HyeAppContext {
 	
 	// 마이페이지
 	@Bean
+	public UserUpdateViewCommand userUpdateViewCommand() {
+		return new UserUpdateViewCommand();
+	}
+	@Bean
 	public UpdateAccountCommand updateAccountCommand() {
 		return new UpdateAccountCommand();
 	}
 	@Bean
 	public DeleteAccountCommand deleteAccountCommand() {
 		return new DeleteAccountCommand();
+	}
+	@Bean
+	public UploadProfilePhotoCommand uploadProfilePhotoCommand() {
+		return new UploadProfilePhotoCommand();
 	}
 	
 }

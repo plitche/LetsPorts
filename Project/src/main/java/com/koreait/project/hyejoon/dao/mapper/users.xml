@@ -36,17 +36,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 USERS 
 		VALUES (USERS_SEQ.NEXTVAL, #{email}, #{password}, 2, SYSDATE, null, 0, 0, 0, '일반회원가입', #{user_nickname}, '안녕하세요~:D', null, #{birth_year}, #{birth_month}, #{birth_day}, #{location1_no}, #{location2_no})
 	</insert>
+
 	<select id="getUserNo" parameterType="String" resultType="int">
 		SELECT USER_NO
 		  FROM USERS
 		 WHERE EMAIL = #{email}
 	</select>	
+
 	<insert id="insertExerciseList">
 		INSERT INTO USER_INTEREST
 		VALUES (USER_INTEREST_SEQ.NEXTVAL, #{param1}, #{param2})
 	</insert>
 	
 	<!-- 마이페이지  -->
+	
+	<select id="userUpdateInterest" parameterType="int" resultType="com.koreait.project.dto.User_interestDto">
+		SELECT *
+		  FROM USER_INTEREST
+		 WHERE USER_NO = #{user_no}
+	</select>
+	<select id="getExerciseName" parameterType="int" resultType="String">
+		SELECT EXERCISE_NAME
+		  FROM EXERCISE
+		 WHERE EXERCISE_NO = #{exercise_no}
+	</select>
+	
 	<update id="updateAccount">
 		UPDATE USER
 		   SET PASSWORD = #{param1},
