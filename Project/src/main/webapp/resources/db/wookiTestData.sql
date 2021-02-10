@@ -1,3 +1,10 @@
+DROP TABLE temp_board;
+DROP TABLE test_board;
+DROP SEQUENCE temp_board_seq;
+DROP SEQUENCE test_board_seq;
+
+
+
 DROP TABLE is_reviewed;
 DROP TABLE materials;
 DROP TABLE user_interest;
@@ -334,6 +341,40 @@ CREATE TABLE is_reviewed (
     writer_user_no    NUMBER    REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     status            NUMBER    NOT NULL
 );
+
+
+
+
+
+
+
+-- 테스트보드
+CREATE TABLE test_board (
+	no			number			primary key,
+	user_no		number			REFERENCES users(user_no) ON DELETE CASCADE NOT NULL,
+	content		varchar2(4000)	NOT NULL
+);
+CREATE SEQUENCE test_board_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+-- 텍스트 에디터용
+CREATE SEQUENCE temp_board_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE TABLE temp_board (
+	temp_no		NUMBER		PRIMARY KEY,
+	user_no		NUMBER		REFERENCES users(user_no) ON DELETE CASCADE NOT NULL,
+	created_at	DATE		NOT NULL
+);
+
+
+
+
+
 
 INSERT ALL
 -- 태그인덱스
