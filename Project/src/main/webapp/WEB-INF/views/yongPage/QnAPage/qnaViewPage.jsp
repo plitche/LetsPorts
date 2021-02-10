@@ -8,6 +8,8 @@
 	<jsp:param value="질문 상세페이지" name="title"/>
 </jsp:include>
 
+<!-- fontawesome -->
+<script src="https://kit.fontawesome.com/6b75fdce2b.js" crossorigin="anonymous"></script>
 <!-- sweetalert -->
 <script>
 	/* 로그인 alert을 위한 function */
@@ -103,12 +105,12 @@
 				.append( $('<div class="comment-container" >')
 					.append( $('<div class="profile">').html('<img alt="프로필" src="">') )
 					.append( $('<div class="comment-content">')
-						.append( $('<p>').html('닉네임: ' + qnaComment.user_nickname) )
+						.append( $('<p>').html(qnaComment.user_nickname) )
 						.append( $('<p class="'+qnaComment.comment_no+'nthComment">').html(qnaComment.comment_content) )
-						.append( $('<p>').html('작성일: ' + qnaComment.created_at) )
+						.append( $('<p>').html(qnaComment.created_at) )
 					)
-					.append( $('<div class="comment-btn">').html('<input type="button" class="btnsBtn" value="[버튼]" />')
-						.append( $('<div class="'+qnaComment.comment_no+'nthBtn">')
+					.append( $('<div class="comment-btn">')
+						.append( $('<div class="'+qnaComment.comment_no+'nthBtn">').addClass('editComment')
 							.append( $('<a href="#" class="btnClass" onclick="fn_updateComment(' + qnaComment.comment_no + '); return false;" >').html('수정') )
 							.append( $('<a href="#" class="btnClass" onclick="fn_deleteComment(' + qnaComment.comment_no + '); return false;" >').html('삭제') )
 						)
@@ -119,9 +121,9 @@
 				.append( $('<div class="comment-container">')
 					.append( $('<div class="profile">').html('<img alt="프로필" src="">') )
 					.append( $('<div class="comment-content">')
-						.append( $('<p>').html('닉네임: ' + qnaComment.user_nickname) )
-						.append( $('<p>').html('내용: ' + qnaComment.comment_content) )
-						.append( $('<p>').html('작성일: ' + qnaComment.created_at) )
+						.append( $('<p>').html(qnaComment.user_nickname) )
+						.append( $('<p>').html(qnaComment.comment_content) )
+						.append( $('<p>').html(qnaComment.created_at) )
 					)
 				);
 			}
@@ -139,7 +141,7 @@
 			success: function(responseObj) {
 				if(responseObj.result) {
 					$('#totalCommentCount').empty();
-					$('#totalCommentCount').html('총 : ' + responseObj.commentCount + '개');
+					$('#totalCommentCount').html(responseObj.commentCount + '개');
 					
 					qnaCommentListTable(responseObj.qnaCommentList);
 
@@ -152,9 +154,11 @@
 					$('#commentPaging').empty();
 					$('#commentPaging').html(commentPagingHtml);
 				} else {
-					$('#commentContent').empty();
-					$('#commentContent')
-					.append( $('<div>').html('작성된 comment가 없습니다. 첫번째 뎃글을 작성해주세요.') );
+					if (${qnaTemDto.is_resolved} == '0') {
+						$('#commentContent').empty();
+						$('#commentContent')
+						.append( $('<div>').html('작성된 comment가 없습니다. 첫번째 뎃글을 작성해주세요.') );	
+					}
 				}
 			},
 			error: function(){alert('실패');}
@@ -208,7 +212,7 @@
 					contentType: 'application/json; charset=utf-8',
 					success: function(responseObj) {
 						if(responseObj.result) {
-							alert('새로운 뎃글이 작성되었습니다.');
+							Swal.fire('새로운 댓글이 작성되었습니다.', '활발한 활동 감사합니다!' ,'success');
 							getQnACommentList();
 							document.getElementById("comment_content").value='';
 						} else {
@@ -217,17 +221,6 @@
 					},
 					error: function(){alert('실패');}
 				});
-			}
-		});
-	}
-	
-	// 버튼 클릭 시 하위 수정, 삭제 버튼이 나오게 하기위한 function
-	function showBtns() {
-		$(document).on('click', '.btnsBtn', function() {
-			if ( $('.btnClass').css('display') == 'none') {
-				$(this).parent('div').find('a').show();
-			} else {
-				$(this).parent('div').find('a').hide();
 			}
 		});
 	}
@@ -366,9 +359,11 @@
 
 <div id="comment">
 	<div id="commentHeader">
-		<div style="font-weight: 800; font-size: 1.5rem; margin: 0 20px 0 10px;">댓글</div>
+		<span style="color: black"><i class="far fa-comment-dots fa-2x"></i></span>
+		<div style="font-weight: 800; margin: 0 10px;">댓글</div>
 		<div id="totalCommentCount"></div>
-		<div style="margin-left: 85%">공유</div>
+		<div style="margin-left: 87%"><i class="fas fa-link fa-2x"></i></div>
+		
 	</div>
 	<div id="commentContent"></div>
 	<div id="commentPaging"></div>

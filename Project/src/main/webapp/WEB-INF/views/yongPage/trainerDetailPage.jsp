@@ -590,7 +590,7 @@
 <div id="trainerInfo">
 	<div id="trainerSimple">
 		<div id="trainerImage">
-			트레이너 사진 파일 이름: ${trainerTemDto.profile_photo} <br/>
+			<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}" >
 		</div>
 		<p style="color: red;"> &lt; 트레이너 정보 &gt; </p>
 		<p style="font-size: 1.5rem; font-weight: 800;">닉네임 : ${trainerTemDto.user_nickname}</p>
