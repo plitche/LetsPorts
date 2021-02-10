@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import com.koreait.project.hyejoon.command.login.SendTempPwCommand;
 import com.koreait.project.hyejoon.command.login.UserCheckCommand;
 import com.koreait.project.hyejoon.command.login.UsersLoginCommand;
+import com.koreait.project.hyejoon.command.myPage.DeletePhotoCommand;
 import com.koreait.project.hyejoon.command.myPage.UploadProfilePhotoCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailAuthCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailCheckCommand;
@@ -71,6 +72,10 @@ public class HyeAppContext {
 	@Bean
 	public UploadProfilePhotoCommand uploadProfilePhotoCommand() {
 		return new UploadProfilePhotoCommand();
+	}
+	@Bean
+	public DeletePhotoCommand deletePhotoCommand() {
+		return new DeletePhotoCommand();
 	}
 	
 }

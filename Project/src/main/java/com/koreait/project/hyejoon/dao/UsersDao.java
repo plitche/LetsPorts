@@ -21,7 +21,9 @@ public interface UsersDao {
 	public String getExerciseName(int exercise_no);
 	
 	// 마이페이지
-	public int photoInsert(String filename);	// 프로필 사진 업로드
+	public int userProfilePhotoUpdate(int user_no, String uploadFilename);	// 프로필 사진 업로드
+	public int userProfilePhotoBlankUpdate(int user_no);	// 기본사진으로 돌리기
+	public UsersDto getUserSession(int user_no); // 사진업로드 후 유저세션 업로드용
 	public int userCheck(String email);	// 유저여부 체크
 	public List<User_interestDto> userUpdateInterest(int user_no);	// 회원정보수정페이지 보여주기(user_interest 테이블용)
 	
