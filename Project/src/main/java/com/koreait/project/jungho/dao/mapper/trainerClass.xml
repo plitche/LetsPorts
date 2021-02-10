@@ -9,13 +9,70 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 전체 목록을 뿌려주는 list 쿼리문 -->
 	<select id="trainerClassList" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
 		SELECT * 
-		FROM MEETING M1
-			INNER JOIN EXERCISE E1
-				ON E1.EXERCISE_NO = M1.EXERCISE_NO
-			INNER JOIN USERS U
-				ON M1.USER_NO = U.USER_NO
-			INNER JOIN PHOTO P
-				ON M1.MEETING_NO = P.PHOTO_REFERER_NO
+		FROM (SELECT ROWNUM RN, B1.*
+			FROM (SELECT * FROM
+						MEETING M1
+					FULL OUTER JOIN EXERCISE E1
+						ON E1.EXERCISE_NO = M1.EXERCISE_NO
+					FULL OUTER JOIN USERS U
+						ON M1.USER_NO = U.USER_NO
+					FULL OUTER JOIN PHOTO P
+						ON M1.MEETING_NO = P.PHOTO_REFERER_NO
+						WHERE MEETING_NO IS NOT NULL) B1 ) B2
+		WHERE B2.RN BETWEEN #{param1} AND #{param2}
+	</select>
+	<!-- 모든 클래스 갯수 가져오기 -->
+	<select id="allClassCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETING
+	</select>
+	
+	<!-- 필터링 : 트레이너 리스트만 가져오는 것 -->
+	<select id="trainerList" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
+		SELECT * 
+		FROM (SELECT ROWNUM RN, B1.*
+			FROM (SELECT * FROM
+						MEETING M1
+					FULL OUTER JOIN EXERCISE E1
+						ON E1.EXERCISE_NO = M1.EXERCISE_NO
+					FULL OUTER JOIN USERS U
+						ON M1.USER_NO = U.USER_NO
+					FULL OUTER JOIN PHOTO P
+						ON M1.MEETING_NO = P.PHOTO_REFERER_NO
+						WHERE MEETING_NO IS NOT NULL
+						AND USER_SEPARATOR = 1) B1 ) B2
+		WHERE B2.RN BETWEEN #{param1} AND #{param2}
+	</select>
+	<!-- 모든 트레이너 리스트 클래스 갯수 가져오기 -->
+	<select id="trainerClassCount" resultType="int">
+		SELECT COUNT(*)
+		 FROM MEETING M, USERS U
+		WHERE M.USER_NO = U.USER_NO
+		   AND U.USER_SEPARATOR = 1
+	</select>
+	
+	<!-- 필터링 : 운동메이트(유저) 리스트만 가져오는 것 -->
+	<select id="exerciseMateList" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
+		SELECT * 
+		FROM (SELECT ROWNUM RN, B1.*
+			FROM (SELECT * FROM
+						MEETING M1
+					FULL OUTER JOIN EXERCISE E1
+						ON E1.EXERCISE_NO = M1.EXERCISE_NO
+					FULL OUTER JOIN USERS U
+						ON M1.USER_NO = U.USER_NO
+					FULL OUTER JOIN PHOTO P
+						ON M1.MEETING_NO = P.PHOTO_REFERER_NO
+						WHERE MEETING_NO IS NOT NULL
+						AND USER_SEPARATOR = 2) B1 ) B2
+		WHERE B2.RN BETWEEN #{param1} AND #{param2}
+	</select>
+	<!-- 모든 트레이너 리스트 클래스 갯수 가져오기 -->
+	<select id="exerciseMateCount" resultType="int">
+		SELECT COUNT(*)
+		 FROM MEETING M, USERS U
+		WHERE M.USER_NO = U.USER_NO
+		   AND U.USER_SEPARATOR = 2
 	</select>
 	
 	<select id="classTag" resultType="com.koreait.project.dto.ExerciseDto">
@@ -119,7 +176,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 트레이너 클래스 목록 페이지 검색창 쿼리문 -->
-	<select id="searchClass" resultType="com.koreait.project.jungho.dto.TrainerClassDto" parameterType="string">
+	<select id="searchClass" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
+	SELECT * 
+		FROM (SELECT ROWNUM RN, B1.*
+			FROM (SELECT M.MEETING_NO, M.MEETING_TITLE, M.MEETING_DATE, M.MEETING_HIT, E.EXERCISE_NAME, U.USER_NICKNAME, P.PHOTO_FILENAME
+					  FROM MEETING M
+					INNER JOIN EXERCISE E
+						ON E.EXERCISE_NO = M.EXERCISE_NO
+					INNER JOIN USERS U
+						ON M.USER_NO = U.USER_NO
+					INNER JOIN PHOTO P
+						ON M.MEETING_NO = P.PHOTO_REFERER_NO
+						WHERE   MEETING_TITLE LIKE '%'||#{param3}||'%' OR
+									EXERCISE_NAME LIKE '%'||#{param3}||'%' OR
+									USER_NICKNAME LIKE '%'||#{param3}||'%' ) B1 ) B2
+		WHERE RN BETWEEN #{param1} AND #{param2}
+	</select>
+	<select id="searchClassCount" resultType="int" parameterType="String">
+		SELECT COUNT(*)
+			FROM MEETING M, EXERCISE E, USERS U
+			WHERE M.EXERCISE_NO = E.EXERCISE_NO
+			AND M.USER_NO = U.USER_NO
+			AND (M.MEETING_TITLE LIKE '%'||#{search_content}||'%'
+			OR E.EXERCISE_NAME LIKE '%'||#{search_content}||'%'
+			OR U.USER_NICKNAME LIKE '%'||#{search_content}||'%')
+	</select>
+	<!-- 
 		SELECT *
 		FROM MEETING M
 			INNER JOIN USERS U
@@ -130,19 +212,85 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ON M.MEETING_NO = P.PHOTO_REFERER_NO
 		WHERE M.MEETING_TITLE LIKE '%'||#{param1}||'%' OR
 		E.EXERCISE_NAME LIKE '%'||#{param1}||'%'
-	</select>
-	
-	
+	 -->
 	
 	<!-- ▼▼▼▼▼▼▼▼▼▼ 태그들 ▼▼▼▼▼▼▼▼▼▼ -->
-	<select id="Tag0" resultType="com.koreait.project.jungho.dto.TrainerClassDto"	 parameterType="String">
-		SELECT *
-		FROM MEETING M1
-			INNER JOIN EXERCISE E1
-				ON E1.EXERCISE_NO = M1.EXERCISE_NO
-			INNER JOIN PHOTO P
-				ON M1.MEETING_NO = P.PHOTO_REFERER_NO
-		WHERE EXERCISE_NAME = #{param1}
+	<select id="Tag0" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
+	SELECT * 
+		FROM (SELECT ROWNUM RN, B1.*
+			FROM (SELECT *
+					  FROM MEETING M
+					FULL OUTER JOIN EXERCISE E
+						ON E.EXERCISE_NO = M.EXERCISE_NO
+					FULL OUTER JOIN USERS U
+						ON M.USER_NO = U.USER_NO
+					FULL OUTER JOIN PHOTO P
+						ON M.MEETING_NO = P.PHOTO_REFERER_NO
+						WHERE E.EXERCISE_NAME = #{param3} ) B1 ) B2
+		WHERE RN BETWEEN #{param1} AND #{param2}
 	</select>
-	
+	<!-- 운동이름이 족구인 것의 총갯수 -->
+	<select id="족구TagCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETING M, EXERCISE E
+		WHERE E.EXERCISE_NO = M.EXERCISE_NO
+		AND EXERCISE_NAME LIKE '족구'
+	</select>
+	<!-- 운동이름이 족구인 것의 총갯수 -->
+	<select id="축구TagCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETING M, EXERCISE E
+		WHERE E.EXERCISE_NO = M.EXERCISE_NO
+		AND EXERCISE_NAME LIKE '축구'
+	</select>
+	<!-- 운동이름이 족구인 것의 총갯수 -->
+	<select id="농구TagCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETING M, EXERCISE E
+		WHERE E.EXERCISE_NO = M.EXERCISE_NO
+		AND EXERCISE_NAME LIKE '농구'
+	</select>
+	<!-- 운동이름이 족구인 것의 총갯수 -->
+	<select id="볼링TagCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETING M, EXERCISE E
+		WHERE E.EXERCISE_NO = M.EXERCISE_NO
+		AND EXERCISE_NAME LIKE '볼링'
+	</select>
+	<!-- 운동이름이 족구인 것의 총갯수 -->
+	<select id="크로스핏TagCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETING M, EXERCISE E
+		WHERE E.EXERCISE_NO = M.EXERCISE_NO
+		AND EXERCISE_NAME LIKE '크로스핏'
+	</select>
+	<!-- 운동이름이 족구인 것의 총갯수 -->
+	<select id="스피닝TagCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETING M, EXERCISE E
+		WHERE E.EXERCISE_NO = M.EXERCISE_NO
+		AND EXERCISE_NAME LIKE '스피닝'
+	</select>
+	<!-- 운동이름이 족구인 것의 총갯수 -->
+	<select id="댄스TagCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETING M, EXERCISE E
+		WHERE E.EXERCISE_NO = M.EXERCISE_NO
+		AND EXERCISE_NAME LIKE '댄스'
+	</select>
+	<!-- 운동이름이 족구인 것의 총갯수 -->
+	<select id="요가TagCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETING M, EXERCISE E
+		WHERE E.EXERCISE_NO = M.EXERCISE_NO
+		AND EXERCISE_NAME LIKE '요가'
+	</select>
+	<!-- 운동이름이 족구인 것의 총갯수 -->
+	<select id="명상TagCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETING M, EXERCISE E
+		WHERE E.EXERCISE_NO = M.EXERCISE_NO
+		AND EXERCISE_NAME LIKE '명상'
+	</select>
+
 </mapper>

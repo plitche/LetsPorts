@@ -360,7 +360,6 @@
 				type: 'get',
 				data: 'meeting_no=' + meeting_no + '&commentPage=' + commentPage,
 				dataType: 'json',
-				contentType: 'application/json',
 				success: function (responseObj) {
 					
 					var paging = responseObj.paging;
@@ -382,7 +381,7 @@
 					if (paging.beginPage <= paging.pagePerBlock) {
 						$('#paging').append('<div class="disable"><a>◀</a></div>');
 					} else {
-						$('#paging').append('<div class="prev-block go-page" data-page="' + (paging.beginPage - 1) + '"><a>◀</a></div>');
+						$('#paging').append('<div class="prev-block" data-page="' + (paging.beginPage - 1) + '"><a>◀</a></div>');
 					}
 					
 					for (let p = paging.beginPage; p <= paging.endPage; p++) {
@@ -399,7 +398,7 @@
 						// class 의미
 						// 1) next-block : 다음(▶)으로 이동하려고
 						// 2) go-page : css (cursor: pointer) 적용하려고
-						$('#paging').append('<div class="next-block go-page" data-page="' + (paging.endPage + 1) + '"><a>▶</a></div>');
+						$('#paging').append('<div class="next-block" data-page="' + (paging.endPage + 1) + '"><a>▶</a></div>');
 					}
 				},
 				error: function() {alert('실패44');}
@@ -407,15 +406,15 @@
 			
 			// 링크가 걸릴 때 이동할 페이지 번호를 알아내서 다시 목록을 뿌리는 함수들
 			$('#paging').on('click', '.prev-block', function(){
-				page = $(this).attr('data-page');
+				commentPage = $(this).attr('data-page');
 				commentList();
 			});
 			$('#paging').on('click', '.go-page', function(){
-				page = $(this).attr('data-page');
+				commentPage = $(this).attr('data-page');
 				commentList();
 			});
 			$('#paging').on('click', '.next-block', function(){
-				page = $(this).attr('data-page');
+				commentPage = $(this).attr('data-page');
 				commentList();
 			});
 			

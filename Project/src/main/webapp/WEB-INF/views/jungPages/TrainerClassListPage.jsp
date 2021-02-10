@@ -23,7 +23,6 @@
 					}
 	
 	window.onload = function() {
-		 
 	    function onClick() {
 	        document.querySelector('.modal_wrap').style.display ='block';
 	        document.querySelector('.black_bg').style.display ='block';
@@ -35,14 +34,30 @@
 	 
 	    document.getElementById('modal_btn').addEventListener('click', onClick);
 	    document.querySelector('.black_bg').addEventListener('click', offClick);
-	 
 	};
+	
+	
+	
+	$(document).on('click', '#catagory1', function(){
+		location.href='TrainerClassListPage.leo';
+	});
+	
+	$(document).on('click', '#catagory2', function(){
+		location.href='TrainerClassList.leo';
+	});
+	
+	$(document).on('click', '#catagory3', function(){
+		location.href='ExerciseMateList.leo';
+	});
+
+	
+	
 
 </script>
 
 <br/>
 
-<form>
+<form method="get">
 		<div class="filter_content">
 			<br/><br/>	
 			<div class="QueryAndTag">
@@ -57,9 +72,9 @@
 			    <div class="modal_content">
 					<div id="model_title">모임 유형</div>
 					<div id="line"></div>
-					<a href="#" ><div class="catagory">모든 모임</div></a>
-					<a href="#" ><div class="catagory">트레이너</div></a>
-					<a href="#" ><div class="catagory">운동메이트</div></a>
+					<a href="#" ><div class="catagory" id="catagory1">모든 모임</div></a>
+					<a href="#" ><div class="catagory" id="catagory2">트레이너</div></a>
+					<a href="#" ><div class="catagory" id="catagory3">운동메이트</div></a>
 			    </div>
 			</div>
 		</div>
@@ -76,14 +91,85 @@
 		</div>
 	</div>	
 	
-</form>	
+
 
 	<br/><br/>
 	
 	<div id="line1"></div>
 	
 	<br/>
-	<div><h3>모임 전체보기</h3></div>
+	
+	<!-- 필터링 부분 처리 -->
+	<c:if test="${Lists eq 0}">
+		<div>
+			<h3 id="catagory_title">모든모임</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		</div>
+	</c:if>
+	<c:if test="${Lists eq 1}">
+		<div>
+			<h3 id="catagory_title">트레이너모임</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		</div>
+	</c:if>
+	<c:if test="${Lists eq 2}">
+		<div>
+			<h3 id="catagory_title">운동메이트모임</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		</div>
+	</c:if>
+	<!-- 검색 부분 처리 -->
+	<c:if test="${Lists eq 3}">
+		<div>
+			<h3 id="catagory_title">${searchContent}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		</div>
+	</c:if>
+	<!-- 태그 부분 처리 -->
+	<c:if test="${Lists eq 10}">
+		<div>
+			<h3 id="catagory_title">${Tag0}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		</div>
+	</c:if>
+	<c:if test="${Lists eq 11}">
+		<div>
+			<h3 id="catagory_title">${Tag1}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		</div>
+	</c:if>
+	<c:if test="${Lists eq 12}">
+		<div>
+			<h3 id="catagory_title">${Tag2}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		</div>
+	</c:if>
+	<c:if test="${Lists eq 13}">
+		<div>
+			<h3 id="catagory_title">${Tag3}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		</div>
+	</c:if>
+	<c:if test="${Lists eq 14}">
+		<div>
+			<h3 id="catagory_title">${Tag4}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		</div>
+	</c:if>
+	<c:if test="${Lists eq 15}">
+		<div>
+			<h3 id="catagory_title">${Tag5}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		</div>
+	</c:if>
+	<c:if test="${Lists eq 16}">
+		<div>
+			<h3 id="catagory_title">${Tag6}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		</div>
+	</c:if>
+	<c:if test="${Lists eq 17}">
+		<div>
+			<h3 id="catagory_title">${Tag7}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		</div>
+	</c:if>
+	<c:if test="${Lists eq 18}">
+		<div>
+			<h3 id="catagory_title">${Tag8}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		</div>
+	</c:if>
+	
+
+	
 	<br/>
 	
 	<script>
@@ -152,7 +238,7 @@
 			<a href="#" onclick="forMakeClassLogin()">
 				<div class="maketrainerClass">
 					
-						+ 트레이너 클래스 개설<br/><br/>
+						+ 클래스 개설<br/><br/>
 						클래스를 개설해 자신만의 운동을
 						사람들에게 가르쳐주세요.
 						
@@ -174,6 +260,9 @@
 		</c:forEach>
 	
 	</div>
-
+	<div class="paging" style="width:100px; height: 30px; margin: auto;"  >
+		${paging}
+	</div>
+</form>	
 
 <%@ include file="../template/footer.jsp" %>
