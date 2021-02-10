@@ -11,14 +11,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class QnATemDto {
 
-	private int board_qna_no;
-	private String board_qna_title;
-	private String board_qna_content;
-	private int user_no;
+	private int trainer_qna_no;
+	private int question_user_no;
+	private int trainer_user_no;
+	private String trainer_qna_title;
+	private String trainer_qna_content;
 	private Date created_at;
-	private int is_resolved;	// 완료:1, 계속받겠다:0
-	private Date resolve_date;
-	private int on_hide;
+	private int is_published;	// 공개:0, 비공개:1
+	private int is_answered;	// 답변아직:0, 답변완료:1 
+	private String trainer_qna_answered;
+	private Date answered_date;
+	private int on_hide;	// 안숨김:0, 숨김:1 
 	
 	private String user_nickname;
 	private int user_separator;

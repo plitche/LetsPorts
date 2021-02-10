@@ -23,4 +23,8 @@ public class MeetingTemDto {
 	private int meeting_max;
 	private int meeting_min;
 	private String photo_filename;
+	private int location1_no;
+	private String location1_name;
+	private int location2_no;
+	private String location2_name;
 }

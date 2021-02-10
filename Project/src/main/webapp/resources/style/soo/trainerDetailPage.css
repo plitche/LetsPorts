@@ -23,12 +23,21 @@
 	word-break: break-all;
 }
 
+#totalMeeting, #totalReview, #totalQnA{
+	border: none;
+	text-align: center;
+	line-height: normal;
+	font-size: 1.5rem;
+	font-weight: 900;
+}
+
 /* 하단 탭형식 css */
 #tab {
-	width: 810px;
+	width: 90%;
 	height: auto;
 	overflow: hidden;
-	margin: 0 auto;
+	margin: 20px auto;
+	padding: 10px 0 20px 30px;
 }
 #tab ul {
 	padding: 0;
@@ -39,54 +48,126 @@
 }
 #tab ul li{
 	display: inline-block;
-	width: 250px;
-	margin-top: 50px;
-	margin-bottom: 30px;
-	margin: 50px 10px 30px 10px;
+	width: 30%;
+	margin: 20px 10px 30px 10px;
 	line-height: 50px;
 	float: left;
 	text-align: center;
 	cursor: pointer;
+	font-weight: bold;
+	box-shadow: 3px 2px 2px darkgray;
+	border-bottom: 3px solid darkgray;
 }
 #tab ul li:hover, #tab ul li.on {
-	background: #ccc;
+	background: #000;
+	color: white;
+	border-bottom: 3px solid Yellow;
+	box-shadow: 3px 2px 2px yellow; 
 }
 #tab .conBox {
 	width: 100%;
 	height: auto;
 	overflow: hidden;
 	min-height: 200px;
-	background: #ccc;
 	display: none;
 }
 #tab .conBox.on {
 	display: block;
-	margin-bottom: 30px;
+}
+
+/* 버튼들 css */
+.TrainerDetailBtn {
+	color: white;
+	background: #000;
+	padding: 6px;
+	float: right;
+}
+#openReviewModal, #openQnAModal {
+	margin-right: 4.5%;
+	margin-bottom: 20px;
 }
 
 /* tap에서 모임 탭의 css */
 #trainerMeetingList > a {
+	width: 30%;
 	text-decoration: none;
 	color: inherit;	
 	float: left;
+	margin: 10px 10px;
+	background: #fff;
+	transition: 0.2s ease;
+}
+#trainerMeetingList > a:hover {
+	transform: translateY(15px);
 }
 #trainerMeetingList .trainerMeeting {
-	border: 2px solid black;
-	border-radius: 10%;
-	width: 250px;
+	width: 100%;
 	height: auto;
-	margin: 10px 10px;
+	border-radius: 16px;
+	border: 1px solid #f1f1f1;
 }
-.trainerMeeting div {
-	height: 100px;
+.trainerMeeting > div:nth-child(1) {
+	height: 120px;
 	text-align: center;
 	line-height: 100px;
-	border-radius: 15%;
 }
-.trainerMeeting img {
+.trainerMeeting > div > img {
 	width: 100%;
 	height: 100%;
-	border-radius: 15%;
+	border-radius: 16px 16px 0 0;
+}
+.meetingContent  {
+	padding: 13px;
+}
+.meetingContent > div:nth-child(1) {
+	font-size: 16px;
+	width: 100%;
+	font-weight: 700;
+	color: #383535;
+	line-height: 1.5rem;
+	height: 3em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.meetingContent > div:nth-child(2) {
+	display: flex;
+}
+.meetingContent > div:nth-child(2) > div {
+	border: 1px solid #f1f1f1;
+	display: inline-block;
+	font-weight: 400;
+	color: #383535;
+	border-radius: 12px;
+	background-color: #f4f4f4;
+	padding: 0 8px;
+	margin: 4px 8px 0 8px;
+}
+#trainerMeetingFooter {
+	clear: both;
+	text-align: center;
+	padding: 30px;
+}
+#trainerMeetingFooter a {
+	text-decoration: none;
+	color: #000;
+	margin: 0 5px;
+	font-size: 15px;
+}
+
+.writerInfo {
+	border-top: .5px solid #dbdbdb;
+	padding-top: 10px;
+}
+.writerInfo img {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+.writerInfo > span:nth-child(2) {
+	font-size: 14px;
+	line-height: 40px;
+	font-weight: 700;
 }
 
 /* modal창을 위한 css */
@@ -123,6 +204,18 @@
 	background:rgba(0, 0, 0, 0.5);
 	z-index: -1;
 }
+.modal_title > div {
+	text-align: center;	
+}
+.modal_title > div:nth-child(1) {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+.modal_title > div:nth-child(2),
+.modal_title > div:nth-child(3) {
+	color: gray;
+	font-size: 12px;
+}
 #content, #title {
 	width: 400px;
 }
@@ -142,6 +235,8 @@
 }
 #closeModalBtn {
 	margin-bottom: 5px;
+	border: none;
+	background: none;
 }
 #modal input {
 	border: 1.5px solid;
@@ -188,40 +283,58 @@
 }
 
 /* 트레이너에게 질문한 list 파트 css */
-table > thead > tr > td {
-	width: 10%;
-}
-.questionTitle, .create_at {
-	width: 15%;
-}
-.questionContent {
-	width: 35%;
+#trainerQnAList {
+	clear: both;
+	width: 95%;
+	margin-left: 6px;
 }
 #questionList {
-	margin: 0 auto;
-	border: solid;
+	margin: 30px auto;
 }
-#questionList > thead > tr, 
-#questionList > tbody td:nth-child(1),
-#questionList > tbody td:nth-child(3),
-#questionList > tbody td:nth-child(4),
-#questionList > tbody td:nth-child(5) {
+#questionList th {
+	border-top: 2px solid #000;
+	padding: 16px;
+	font-weight: bold;
+	border-top: 2px solid #000;
+	border-bottom: 1px solid #d7d7d7;
+	background: #fcfcfc;
 	text-align: center;
 }
-#questionList td {
-	padding: 4px 7px;
-	border-bottom: 1px solid #f2f2f2;
-	height: 28px;
+#questionList tbody td {
+	padding: 16px;
+	border-bottom: 1px solid #d7d7d7;
+	margin: 0;
+	text-align: center;
+}
+#questionList > tbody td:nth-child(2) {
+	/* font-weight: bold; */	
 }
 #questionList a:hover {
-	color: red;
+	color: orangered;
+	font-weight: bold;	
 }
-#questionList a {
+#questionList tbody a {
 	text-decoration: none;
 	color: inherit;
 }
 #qnaPaging a {
+	text-decoration: none;
+	color: #000;
 	margin: 0 5px;
+	font-size: 15px;
+}
+#qnaPaging {
+	padding: 40px 0 30px;
+	text-align: center;
+}
+
+
+/* 질문 등록하기 css */
+#writeQuestion {
+	border: none;
+	background: #000;
+	color: white;
+	font-weight: bold;
 }
 
 
