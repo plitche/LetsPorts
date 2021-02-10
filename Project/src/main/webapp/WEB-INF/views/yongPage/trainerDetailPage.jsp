@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link type="text/css" rel="stylesheet" href="resources/style/soo/trainerDetailPage.css" >
-<script src="resources/style/soo/trainerDetailPage.js"></script>
+<script src="https://kit.fontawesome.com/6b75fdce2b.js" crossorigin="anonymous"></script>
 <!DOCTYPE html>
 
 <jsp:include page="../template/header.jsp">
@@ -42,17 +42,23 @@
 		$.each(list, function(idx, meeting){
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
-			.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
-			.append( $('<p>').html(meeting.meeting_title) )
-			.append( $('<p>').html('모임 주제: ' + meeting.exercise_name) )
-			.append( $('<p>').html('최소: ' + meeting.meeting_min + '명 / 최대: ' + meeting.meeting_max + '명')  )
-			.append( $('<p>').html('일시: ' + meeting.meeting_date) )
-			.append( $('<p>').html('작성자: ' + meeting.user_nickname) )
+				.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
+				.append( $('<div class="meetingContent">')
+					.append( $('<div>').text(meeting.meeting_title) )
+					.append( $('<div>')
+						.append( $('<div>').text(meeting.exercise_name) )
+						.append( $('<div>').text(meeting.meeting_min +'명 ~ ' + meeting.meeting_max+'명') )
+					 )
+					.append( $('<div>').html('<i class="fas fa-map-marker-alt"></i> '+meeting.location1_name + ' ' + meeting.location2_name + '∙' + meeting.meeting_date) )
+					.append( $('<div class="writerInfo">')
+						.append( $('<span>').html('<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}" />') )
+						.append( $('<span>').text(meeting.user_nickname) )
+					)
+				)
 			)
 			.appendTo("#trainerMeetingList");
 		});
 	}
-	
 	
 	/* 트레이너 리스트페이지에서 트레이너 디테일 페이지로 이동시 자동으로 실행 될 함수(모임 리스트 불러오기용) */
 
@@ -66,10 +72,8 @@
 			success: function(responseObj) {
 				if (responseObj.result) {
 					$('#totalMeeting').empty();
-					$('<div>')
-					.append( $('<p>').html('총 :' + responseObj.totalMeetingCount + '개') )
-					.appendTo('#totalMeeting');
-					
+					$('#totalMeeting').text(responseObj.totalMeetingCount);
+
 					trainerMeetingListTable(responseObj.meetingList);
 					
 					var meetingPagingHtml = '<a href="#" onclick="preMeetingPage(); return false;"> 이전 </a>';
@@ -191,9 +195,7 @@
 			success: function(responseObj) {
 				if(responseObj.result) {
 					$('#totalReview').empty();
-					$('<div>')
-					.append( $('<p id="totalReviewCount">').text('총 : ' + responseObj.reviewCount + '개') )
-					.appendTo('#totalReview');
+					$('#totalReview').text(responseObj.reviewCount);
 					
 					reivewListTable(responseObj.reviewList);
 					
@@ -204,9 +206,7 @@
 					}
 				} else {
 					$('#totalReview').empty();
-					$('<div>')
-					.append( $('<p id="totalReviewCount">').text('총 : ' + responseObj.reviewCount + '개') )
-					.appendTo('#totalReview');
+					$('#totalReview').text(responseObj.reviewCount);
 				}
 			},
 			error: function(){alert('리뷰 가져오기 ajax 실패');}
@@ -217,7 +217,7 @@
 	var reviewIndex = 5;
 	function showMoreReviews() {
 		$(document).on('click', '#showMoreReviews', function() {
-			var totalReviewCount = $('#totalReviewCount').text().substring(4, 5);
+			var totalReviewCount = $('#totalReviewCount').text();
 			for (let i=0; i<5; i++) {
 				$('.review'+(reviewIndex+i)+'nth').css('display', 'block');
 			}
@@ -344,7 +344,7 @@
 	$(document).ready(function(){
 		getTrainerQnAList();
 		writeQuestion();
-		closeModal();
+		// closeModal();
 		openQnAPopUp();
 	});
 	
@@ -359,7 +359,6 @@
 				$('<tr>')
 				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
 				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
-				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
 				.append( $('<td>').html(trainerInfo.user_nickname) )
 				.append( $('<td>').html(qna.created_at) )
 				.append( $('<input type="hidden" name="' + qna.trainer_qna_no + '" value="' + idx + '"/>') )
@@ -369,7 +368,6 @@
 				$('<tr>')
 				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
 				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
-				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_content + '</a>') )
 				.append( $('<td>').html(trainerInfo.user_nickname) )
 				.append( $('<td>').html(qna.created_at) )
 				.append( $('<td name="isAnswered">').addClass('isAnswered').html('답변완료') )
@@ -378,7 +376,7 @@
 		});
 	}
 	
-	// 현재 패이지로 이동시 자동으로 뎃글 리스트를 불러올 ajax함수
+	// 현재 페이지로 이동시 자동으로 뎃글 리스트를 불러올 ajax함수
 	function getTrainerQnAList() {
 		var user_no = ${trainerTemDto.user_no}
 
@@ -389,9 +387,7 @@
 			success: function(responseObj) {
 				if (responseObj.result) {
 					$('#totalQnA').empty();
-					$('<div>')
-					.append( $('<p>').html('총 :' + responseObj.totalQnACount + '개') )
-					.appendTo('#totalQnA');
+					$('#totalQnA').text(responseObj.totalQnACount);
 					
 					trainerQnAListTable(responseObj.qnaList, responseObj.trainerTemDto);
 					
@@ -404,7 +400,7 @@
 					$('#qnaPaging').html(qnaPagingHtml);
 				} else {
 					$('<tr>')
-					.append( $('<td colspan="6">').html('등록된 질문이 없습니다. 첫 번째 질문을 등록해 주세요.') )
+					.append( $('<td colspan="5">').html('등록된 질문이 없습니다. 첫 번째 질문을 등록해 주세요.') )
 					.appendTo('#qnaList');
 				}
 			},
@@ -438,12 +434,18 @@
 	function openQnAPopUp() {
 		$('#openQnAModal').click(function() {
 			if( '${loginUser.user_no}' == '' ) {
+				$('#modal').hide();
 				loginAlert();
 			} else {
+				$('.modal_title').empty();
+				$('.modal_title')
+				.append( $('<div>').text('트레이너에게 질문을 남겨주세요~') )
+				.append( $('<div>').text('작성한 질문은 수정/삭제를 할 수 없습니다. 신중히 작성해주세요!') );
+
 				$('#modalDetail').empty();
 				$('<form>')
-				.append( $('<input type="text" id="title" name="trainer_qna_title" placeholder="제목을 입력하세요."/>') )
-				.append( $('<input type="text" id="content" name="trainer_qna_content" placeholder="질문내용을 입력하세요."/>')  )
+				.append( $('<input type="text" id="title" name="trainer_qna_title" placeholder="질문 제목을 입력하세요."/>') )
+				.append( $('<input type="text" id="content" name="trainer_qna_content" placeholder="질문 내용을 입력하세요."/>')  )
 				.append( $('<br/>') )
 				.append( $('<div>') 
 					.append( $('<input type="checkbox" name="is_published" id="is_published" value="1"/>') )
@@ -458,36 +460,45 @@
 	// 작성된 질문내용을 처리하는 ajax 함수
 	function writeQuestion() {
 		$(document).on("click", "#writeQuestion", function() {
-			var question_user_no = '${loginUser.user_no}'
-			var trainer_user_no = ${trainerTemDto.user_no};
-			var trainer_qna_title = $('input[name="trainer_qna_title"]').val();
-			var trainer_qna_content = $('input[name="trainer_qna_content"]').val();
-			var is_published = $('input[name="is_published"]').val();
-			var sendObj = {
-				"question_user_no" : question_user_no,	
-				"trainer_user_no" : trainer_user_no,
-				"trainer_qna_title" : trainer_qna_title,
-				"trainer_qna_content" : trainer_qna_content,
-				"is_published" : is_published
-			};
+			if ($('input[name="trainer_qna_title"]').val() == '' || 
+				$('input[name="trainer_qna_content"]').val() == '' ) {
+				Swal.fire('정보가 전부 입력되지 않았습니다.', '질문 제목과 내용을 확인해주세요!', 'error');
+				$('input[name="trainer_qna_title"]').focus();
+			} else {
+				var question_user_no = '${loginUser.user_no}'
+				var trainer_user_no = ${trainerTemDto.user_no};
+				var trainer_qna_title = $('input[name="trainer_qna_title"]').val();
+				var trainer_qna_content = $('input[name="trainer_qna_content"]').val();
+				var is_published = $('input[name="is_published"]').val();
+				var sendObj = {
+					"question_user_no" : question_user_no,	
+					"trainer_user_no" : trainer_user_no,
+					"trainer_qna_title" : trainer_qna_title,
+					"trainer_qna_content" : trainer_qna_content,
+					"is_published" : is_published
+				};
+				
+				$.ajax({
+					url: 'writeQnA.plitche',
+					type: 'post',
+					data: JSON.stringify(sendObj),
+					contentType: 'application/json; charset=UTF-8',
+					dataType: 'json',
+					success: function(responseObj) {
+						if (responseObj.result) {
+							alert('질문이 등록되었습니다.');
+							qnaPageNo=1;
+							getTrainerQnAList();
+						} else {
+							alert('등록을 등록하지 못했습니다.');
+						}
+					},
+					error: function(){alert('질문 작성하기 실패');}
+				});
+				
+				$('#modal').attr("style", "display:none");
+			}
 			
-			$.ajax({
-				url: 'writeQnA.plitche',
-				type: 'post',
-				data: JSON.stringify(sendObj),
-				contentType: 'application/json; charset=UTF-8',
-				dataType: 'json',
-				success: function(responseObj) {
-					if (responseObj.result) {
-						alert('질문이 등록되었습니다.');
-						qnaPageNo=1;
-						getTrainerQnAList();
-					} else {
-						alert('등록을 등록하지 못했습니다.');
-					}
-				},
-				error: function(){alert('질문 작성하기 실패');}
-			});
 		});
 	}
 	
@@ -523,12 +534,15 @@
 							.appendTo('#modalDetail');
 						} else {
 							$('#modal').attr("style", "display:block");
+							$('.modal_title').empty();
 							$('#modalDetail').empty();
 							$('<div>')
-							.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
-							.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
-							.append( $('<p>').html('질문 내용: ' + responseObj.qna.trainer_qna_content) )
-							.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
+							.append( $('<div>').text('질문 제목') )
+							.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
+							.append( $('<div>').text('질문 내용') )
+							.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
+							.append( $('<div>').text('작성자: ' + responseObj.qna.user_nickname) )
+							.append( $('<div>').text('작성일: ' + responseObj.qna.created_at) )
 							.appendTo('#modalDetail');
 						}
 						
@@ -551,6 +565,7 @@
 	
 	// 질문 답변 작성 완료 후 답변작성 완료를 누르면 작동할 ajax함수
 	function fn_writeAnswer(trainer_qna_no) {
+		
 		var trainer_qna_answered = $('textarea[name="trainer_qna_answered"]').val();
 		var sendObj = {
 			"trainer_qna_no": trainer_qna_no,
@@ -576,14 +591,15 @@
 	}
 	
 	// ajax처리 후 modal창 닫아주는 함수
-	function closeModal() {
+	/*
+	 	function closeModal() {
 		$(document).on("click", "#writeQuestion", function() {
 			$('#modal').attr("style", "display:none");
 		});
 		$(document).on("click", "#answerBtn", function() {
 			$('#modal').attr("style", "display:none");
 		});
-	}
+	} */
 	
 </script>
 
@@ -592,76 +608,92 @@
 		<div id="trainerImage">
 			<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}" >
 		</div>
-		<p style="color: red;"> &lt; 트레이너 정보 &gt; </p>
-		<p style="font-size: 1.5rem; font-weight: 800;">닉네임 : ${trainerTemDto.user_nickname}</p>
-		<p style="font-size: 1rem; font-weight: 600;">이름 : ${trainerTemDto.trainer_name} </p>
+		<p style="font-size: 2rem; font-weight: bold; margin: 10px 0 0 0;">
+			${trainerTemDto.user_nickname}
+		</p>
+		<p>${trainerTemDto.trainer_name} </p>
 		<p>활동 센터 : ${trainerTemDto.employment} </p>		
+		<p>활동 경력 : ${trainerTemDto.career}년</p>
 		<p>상태 메세지 : ${trainerTemDto.user_message} </p>
 	</div>
-	<div id="trainerDetail">
-		<p>* 트레이너 경력 : ${trainerTemDto.career}년</p>
-		<pre>* 트레이너 프로필 : ${trainerTemDto.profile}
-		 
-		 저는 예전엔 120kg이 나가는 운동의 운자도 모르던
-		 친구였었습니다..! 지금의 모습이 되기까지 미친듯한 다이어트가 도움됐다기보단 운동을 
-		 즐기고 꾸준한 생활습관에서의 노력이 제모습들을 만들었다고 생각이 듭니다:)
-		 
-		 여러분 또한 버핏서울과 함께하며 운동이란 게 힘들고 어려운 게 아니라 충분히 즐겁고 내
-		 삶의 일부가 될 수가 있다는 것을 느껴보셨으면 좋겠습니다. 우리가 함께 땀 흘리고 
-		 즐기다 보면 어느새 내가 꿈꾸던 모습들에 한 발자국 더 다가갈 수 있지 않을까 라는 
-		 생각이 듭니다!
-		 
-		 저 또한 옆에서 여러분들이 다치지 않고 재밌게 즐기실 수 있도록 최선을 다해 도와드리도록
-		 하겠습니다!
-	 	 버핏서울 화이팅.!!
-	 	 </pre>
+	<div id="trainerDetail" style="border-top: 2px solid #000">
+		<h2>트레이너 프로필</h2> 
+		<pre style="background: none; border: none; padding-top: 20px;">
+${trainerTemDto.profile}
+저는 예전엔 120kg이 나가는 운동의 운자도 모르던 친구였었습니다..! 
+지금의 모습이 되기까지 미친듯한 다이어트가 도움됐다기보단 운동을  즐기고 꾸준한 생활습관에서의 
+노력이 제모습들을 만들었다고 생각이 듭니다:)
+
+여러분 또한 버핏서울과 함께하며 운동이란 게 힘들고 어려운 게 아니라 충분히 즐겁고 내 삶의 일부가 될 
+수가 있다는 것을 느껴보셨으면 좋겠습니다. 우리가 함께 땀 흘리고 즐기다 보면 어느새 내가 꿈꾸던 모습들에
+ 한 발자국 더 다가갈 수 있지 않을까 라는 생각이 듭니다!
+
+저 또한 옆에서 여러분들이 다치지 않고 재밌게 즐기실 수 있도록 최선을 다해 도와드리도록 하겠습니다!
+버핏서울 화이팅.!!
+ 	 	</pre>
+		<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
+			<input type="button" class="TrainerDetailBtn" value="새 프로그램 등록" onclick="location.href='goCreateMeetingPage.plitche'"/>
+		</c:if>	
 	</div>
 </div>
 
+
 <div id="tab">
 	<ul>
-		<li data-id="meetingList" class="on">${trainerTemDto.user_nickname}의 모임들</li>
-		<li data-id="reviewList">${trainerTemDto.user_nickname}에게 달린리뷰</li>
-		<li data-id="QnAList">${trainerTemDto.user_nickname}에게 달린질문</li>
+		<li data-id="meetingList" class="on">
+			${trainerTemDto.user_nickname}의 Hot!한 모임들
+			<span style="color: orangered; margin-left: 5px; "><i class="fas fa-user-friends"></i></span>
+			<span id="totalMeeting" style="color: orangered"></span>
+		</li>
+		<li data-id="reviewList">
+			모임 리뷰 With ${trainerTemDto.user_nickname}!
+			<span style="color: orangered; margin-left: 5px;"><i class="fas fa-grin-hearts"></i></span>
+			<span id="totalReview" style="color: orangered"></span>
+		</li>
+		<li data-id="QnAList">
+			${trainerTemDto.user_nickname}에게 질문해 보세요!
+			<span style="color: orangered; margin-left: 5px;"><i class="fas fa-comments"></i></span>
+			<span id="totalQnA" style="color: orangered"></span>
+		</li>
 	</ul>
 	<div id="meetingList" class="conBox on">
-		<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
-			<a href="goCreateMeetingPage.plitche">새 프로그램 등록하기</a>
-		</c:if>
-		<div id="totalMeeting"></div>
 		<div id="trainerMeetingList"></div>
-		<div id="trainerMeetingFooter" style=""></div>
+		<div id="trainerMeetingFooter"></div>
 	</div>
 	
 	<div id="reviewList" class="conBox">
-		<button type="button" id="openReviewModal">새 리뷰 등록하기</button>
-		<div id="totalReview"></div>
+		<input type="button" id="openReviewModal" class="TrainerDetailBtn" value="리뷰 작성하기">
 		<div id="trainerReviewList">
 			<div id="reviewListWrap"></div>
 			<div id="reviewShowCutBtn"></div>
 		</div>
 	</div>
-		
+	
 	<div id="QnAList" class="conBox">
-		<button type="button" id="openQnAModal">새 질문 등록하기</button>
-		<div id="totalQnA"></div>
+	<input type="button" id="openQnAModal" class="TrainerDetailBtn" value="질문 등록하기">
 		<div id="currentPage" style="text-align: center;"></div>
 		<div id="trainerQnAList">
 			<table id="questionList">
+				<colgroup>
+					<col width="80">
+					<col width="*">
+					<col width="90">
+					<col width="10%">
+					<col width="10%">
+				</colgroup>
 				<thead>
 					<tr>
-						<td class="questionNo">질문번호</td>
-						<td class="questionTitle">질문제목</td>
-						<td class="questionContent">질문내용</td>
-						<td class="questionWriter">작성자</td>
-						<td class="create_at">일시</td>
-						<td class="answered">답변여부</td>
+						<th>No.</th>
+						<th>Question Title</th>
+						<th>Writer</th>
+						<th>Date</th>
+						<th>Answered</th>
 					</tr>
 				</thead>
 				<tbody id="qnaList"></tbody>
 				<tfoot>
 					<tr style="text-align: center;">
-						<td colspan="6" id="qnaPaging"></td>
+						<td colspan="5" id="qnaPaging"></td>
 					</tr>
 				</tfoot>
 			</table>
@@ -672,7 +704,8 @@
 <div>
   	<div id="modal">
   		<div class="modal_content">
-		    <button id="closeModalBtn">X</button>
+		    <button id="closeModalBtn"><i class="far fa-times-circle fa-2x"></i></button>
+  			<div class="modal_title"></div>
 		    <div id="modalDetail"></div>
 	    </div>
 	    <div class="modal_layer"></div>

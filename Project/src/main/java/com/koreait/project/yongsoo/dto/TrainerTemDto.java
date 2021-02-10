@@ -12,9 +12,9 @@ public class TrainerTemDto {
 	private int user_no;
 	private int user_separator;
 	private String user_nickname;
+	private String profile_photo;
 	private String trainer_name;
 	private String user_message;
-	private String profile_photo;
 	private int career;	// 1년,2년,3년 등 #연차로 표기
 	private String employment;
 	private String profile;

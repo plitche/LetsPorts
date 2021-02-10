@@ -44,6 +44,7 @@
 	padding: 16px;
 	border-bottom: 1px solid #d7d7d7;
 	margin: 0;
+	text-align: center;
 }
 #userQnA tbody > tr > td:nth-child(1),
 #userQnA tbody > tr > td:nth-child(2),
@@ -60,7 +61,7 @@
 }
 #userQnA td > a:hover {
 	text-decoration: none;	
-	color: deepBlue;
+	color: orangered;
 }
 #userQnA tfoot td {
 	padding: 40px 0 30px;
