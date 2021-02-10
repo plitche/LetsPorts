@@ -58,24 +58,26 @@
 	
 	<div id = "Tag">
 	<h4>카테고리</h4>
-		<ul>
-			<li><a href = ""></a>족구</li>
-			<li>축구</li>
-			<li>농구</li>
-			<li>볼링</li>
-			<li>크로스핏</li>
-			<li>스피닝</li>
-			<li>댄스</li>
-			<li>요가</li>
-			<li>명상</li>
-			<li>다이어트 정보</li>
-			<li>건강 정보</li>
-			<li>식단 정보</li>
+		<ul class = "category">
+			<li><a href = "javascript:void(0)">족구</a></li>
+			<li><a href = "">축구</a></li>
+			<li><a href = "">농구</a></li>
+			<li><a href = "">볼링</a></li>
+			<li><a href = "">크로스핏</a></li>
+			<li><a href = "">스피닝</a></li>
+			<li><a href = "">댄스</a></li>
+			<li><a href = "">요가</a></li>
+			<li><a href = "">명상</a></li>
+			<li><a href = "">다이어트정보</a></li>
+			<li><a href = "">건강정보</a></li>
+			<li><a href = "">식단정보</a></li>
 		</ul>
 		
-			<c:forEach var = "Tags" items = "">
-				<input type = "button" value = ""/>
-				<input type = "hidden" value = "" value = ""/>
+			
+		
+			<c:forEach var = "tags" items = "${tag_name}">
+				<input type = "button" value = "${tags.tag_name}" onclick = "Tag${tags.tag_no}"/>
+				<input type = "hidden" value = "${tags.tag_name}" value = "${Tags.tag_name}"/>
 			</c:forEach>
 		
 		</div>
@@ -109,6 +111,61 @@
 			</td>
 		</tr>
 	</table><br/><br/>
+
+	<script>
+	// 태그 기능
+	function fn_Tag0(f) { // 족구
+		f.action = 'Tag.limyeng'; 
+		f.submit();
+	}
+	function fn_Tag1(f) { // 축구
+		f.action = 'Tag.limyeng';
+		f.submit();
+	}
+	function fn_Tag2(f) { // 농구
+		f.action = 'Tag.limyeng';
+		f.submit();
+	}
+	function fn_Tag3(f) { // 볼링
+		f.action = 'Tag.limyeng';
+		f.submit();
+	}
+	function fn_Tag4(f) { // 크로스핏
+		f.action = 'Tag.limyeng';
+		f.submit();
+	}
+	function fn_Tag5(f) { // 스피닝
+		f.action = 'Tag.limyeng';
+		f.submit();
+	}
+	function fn_Tag6(f) { // 댄스
+		f.action = 'Tag.limyeng';
+		f.submit();
+	}
+	function fn_Tag7(f) { // 요가
+		f.action = 'Tag.limyeng';
+		f.submit();
+	}
+	function fn_Tag8(f) { // 명상
+		f.action = 'Tag.limyeng';
+		f.submit();
+	}
+	function fn_Tag9(f) { // 다이어트 정보
+		f.action = 'Tag.limyeng';
+		f.submit();
+	}
+	function fn_Tag10(f) { // 건강정보
+		f.action = 'Tag.limyeng';
+		f.submit();
+	}
+	function fn_Tag11(f) { // 식단 정보
+		f.action = 'Tag.limyeng';
+		f.submit();
+	}
+	
+	
+			
+	</script>
 
 	
 	<%@ include file="../../template/footer.jsp" %>
