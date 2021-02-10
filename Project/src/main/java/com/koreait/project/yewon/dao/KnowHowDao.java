@@ -31,6 +31,7 @@ public interface KnowHowDao {
 	// viewPage에서 삭제 한 후 데이터 없애기
 	public int knowHowDelete(int knowhow_no);
 	
-
+	// 조회수 증가
+	public int addhit(int knowhow_no);
 	
 }
