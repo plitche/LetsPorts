@@ -72,81 +72,12 @@
 
 </script>
 
-
-<div class="qnaTitle"> 자주하는 질문과 답변 </div>
-<div id="qnaHeader">
-	<nav class="oftenQnA">
-		<div>
-			<a data-id="tabLink1" href="javascript:void(0)">트레이너</a>
-			<a data-id="tabLink2" href="javascript:void(0)">운동</a>
-			<a data-id="tabLink3" href="javascript:void(0)">제휴</a>
-			<a data-id="tabLink4" href="javascript:void(0)">기타</a>
-		</div>
-	</nav>
-	<div id="tabPart" style="background: gray; width: 70%;">
-		<div class="tab onTab">메인사진 띄우기</div>
-		<div id="tabLink1" class="tab">
-			<table>
-				<colgroup>
-					<col width="60">
-					<col width="*">
-				</colgroup>
-				<tbody><tr><td>111</td></tr></tbody>
-			</table>
-		</div>
-
-		<div id="tabLink2" class="tab">
-			<table>
-				<colgroup>
-					<col width="60">
-					<col width="*">
-				</colgroup>
-				<tbody><tr><td>222</td></tr></tbody>
-			</table>
-		</div>
-
-		<div id=tabLink3 class="tab">
-			<table>
-				<colgroup>
-					<col width="60">
-					<col width="*">
-				</colgroup>
-				<tbody><tr><td>333</td></tr></tbody>
-			</table>
-		</div>
-
-		<div id="tabLink4" class="tab">
-			<table>
-				<colgroup>
-					<col width="60">
-					<col width="*">
-				</colgroup>
-				<tbody><tr><td>444</td></tr></tbody>
-			</table>
-		</div>
-	</div>
-</div>
-
-<!-- 탭 구현을 위한 script -->
-<script>
-	$(document).ready(function() {
-		$('nav a').on('click', function() {
-			$('#tabPart div').removeClass('onTab');
-			$('#'+$(this).data('id')).addClass('onTab');
-			
-			$(this).addClass('clickedTab');
-			$(this).siblings().removeClass('clickedTab');
-		});
-	});
-</script>
-
-
 <div class="qnaTitle"> Total Question & Answer </div>
 <p id="newQnA"><input type="button" value="새 질문 등록하기" id="writeQnABtn" /></p>
 <table id="userQnA">
 	<colgroup>
 		<col width="60">
-		<col width="80">
+		<col width="90">
 		<col width="*">
 		<col width="100">
 		<col width="110">

@@ -61,10 +61,14 @@ h3 {
 #commentHeader {
 	display: flex;
 }
-#commentContent {
-	border-top: 2px solid #000; 
+#commentHeader > div {
+	font-size: 1.5rem;
 }
-
+#commentContent {
+	border-top: 2px solid #000;
+	padding-top: 30px;
+	margin-top: 10px;
+}
 .comment-container {
 	display: flex;
 }
@@ -80,9 +84,17 @@ h3 {
 	width: 90%;
 	margin-bottom: 15px;
 }
+.comment-content > p:nth-child(1) {
+	font-weight: 900;
+	font-size: 1.5rem;
+	margin-bottom: 5px;
+}
+.comment-content > p:nth-child(3) {
+	margin-top: 5px;
+	color: gray;
+}
 .comment-btn {
-	width: 10%;
-	display: flex;
+	width: 15%;
 	flex-direction: column;
 	width: auto;
 }
@@ -92,13 +104,17 @@ h3 {
 .comment-btn a {
 	text-decoration: none;
 	color: inherit;
-	display: none;
 }
 .comment-btn a:hover {
-	color: gold;	
+	color: blue;	
+}
+.editComment {
+	display: flex;
+	flex-direction: column;
 }
 .btnClass {
-	display: none;
+	padding: 3px;
+	text-decoration: none;
 }
 
 #writeComment {
@@ -123,7 +139,13 @@ h3 {
 
 
 
-
+#commentPaging {
+	text-align: center;
+	margin: 30px 0;
+}
+#commentPaging a {
+	color: #000;
+}
 
 
 

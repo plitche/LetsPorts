@@ -1616,6 +1616,7 @@ function fn_photoPage() {
 								<option value="0">노하우</option>
 								<option value="1">질문과답변</option>
 								<option value="2">모임</option>
+								<option value="3">임시게시글</option>
 							</select>
 						</td>
 					</tr>
@@ -1715,7 +1716,7 @@ function fn_insertPhotoList(list, paging, totalRecord, recordPerPage, page) {
 		} else {
 			is_on_hide = '<input type="button" value="보이기" id="showPhotoBtn" />';
 		}
-		let photoSepName = ['노하우', '질문과답변', '모임'];
+		let photoSepName = ['노하우', '질문과답변', '모임', '임시게시글'];
 		let tbody = `
 		<tr>
 			<td>${totalRecord - (recordPerPage * (page - 1)) - idx}</td>

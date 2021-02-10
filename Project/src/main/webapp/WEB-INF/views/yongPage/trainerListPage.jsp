@@ -3,36 +3,32 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 
+<script src="https://kit.fontawesome.com/6b75fdce2b.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="resources/style/soo/trainerListPage.css" >
+
 <jsp:include page="../template/header.jsp">
 	<jsp:param value="트레이너 리스트 페이지" name="title"/>
 </jsp:include>
 
-<link rel="stylesheet" href="resources/style/soo/trainerListPage.css" >
-
-<br/><br/>
-<table border="1">
-	<tbody>
-		<tr>
-			<td>인기 트레이너</td>
-			<td>인기 트레이너</td>
-			<td>인기 트레이너</td>
-		</tr>
-	</tbody>
-</table>	
-
+<div id="trainerMainPhoto">
+	<img alt="coaching" src="resources/images/soo/coaching.jpg">
+</div>
 <br/><br/>
 <div id="ManageTrainer">
 	<div>
-		<p>3차 면접을 통한 까다로운 선발</p>
-		<p>우리는 서류면접, 시뮬레이션 면접, 경영진 면접까지 총 3단계의 까다로운 면접을 통해 트레이너를 선발합니다. </p>
+		<img class="introLogo" alt="interview" src="resources/images/soo/job-interview.png">
+		<div class="introTitle">3차 면접을 통한 까다로운 선발</div>
+		<div class="introContent">우리는 서류면접, 시뮬레이션 면접, 실제 모임 면접까지 총 3단계의 까다로운 면접을 통해 트레이너를 선발합니다. </div>
 	</div>
 	<div>
-		<p>시뮬레이션 및 정기 교육 진행</p>
-		<p>트레이너의 성장과 서비스 퀄리티 향상을 위해 매달 정기적인 교육 및 노하우 공유 회의를 진행합니다.</p>
+		<img class="introLogo" alt="training" src="resources/images/soo/training.png">
+		<div class="introTitle">시뮬레이션 및 정기 교육 진행</div>
+		<div class="introContent">트레이너의 성장과 서비스 퀄리티 향상을 위해 매달 정기적인 교육 및 노하우 공유 회의를 진행합니다.</div>
 	</div>
 	<div>
-		<p>평가제도</p>
-		<p>반기 별로 수업 만족도, 재등록율, 근태, cs 등을 종합적으로 반영하여 트레이너 승급, 인센티브를 제공합니다. 주요 지표들이 좋지 않을 경우, 철저한 내부 보수 교육을 실시합니다.</p>
+		<img class="introLogo" alt="score" src="resources/images/soo/score.png">
+		<div class="introTitle">LetsPots만의 평가제도</div>
+		<div class="introContent">트레이너 모임 리뷰, 평가, 횟수 등을 종합적으로 반영하여 트레이너를 관리합니다. 주요 지표들이 좋지 않을 경우, 철저한 교육을 실시합니다.</div>
 	</div>
 </div>
 <br/><br/>
@@ -50,19 +46,24 @@
 			<a href="goTrainerDetail.plitche?user_no=${trainer.user_no}">
 				<div class="trainer">
 					<div class="trainer-picture">
-						사진 : ${trainer.profile_photo}
+						<div class="overlay">
+							<div style="bottom: 60px;"><i class="fas fa-check-circle"></i> 활동센터 : ${trainer.employment} </div>
+							<div style="bottom: 30px;"><i class="fas fa-check-circle"></i> 활동경력 : ${trainer.career}년 </div>
+							<div style="bottom: 0px;"><i class="fas fa-check-circle"></i> ${trainer.user_message} </div>
+						</div>
+						<img alt="${trainer.profile_photo}" src="resources/storage/${trainer.profile_photo}" >
 					</div>
 					<div class="trainer-info">
-						<div>닉네임 : ${trainer.user_nickname}</div>
 						<div>이름 : ${trainer.trainer_name}</div>
+						<div>${trainer.user_nickname}</div>
 						<div>
 							<c:if test="${trainer.score eq 0.0}">
-								<span>평점 : 0점 /</span>	
+								<span><i class="fas fa-star"></i> 0점 </span>	
 							</c:if>
 							<c:if test="${trainer.score ne 0.0}">
-								<span>평점 : ${trainer.score}점 /</span>	
+								<span><i class="fas fa-star"></i> ${trainer.score}점 </span>	
 							</c:if>
-							<span>리뷰 : ${trainer.reviews}개</span>
+							<span><i class="far fa-comments"></i> ${trainer.reviews}개</span>
 						</div>				
 					</div>
 				</div>

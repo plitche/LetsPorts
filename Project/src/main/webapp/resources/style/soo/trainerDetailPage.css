@@ -16,10 +16,8 @@
 #trainerDetail {
 	width: 70%;
 }
-#trainerImage {
-	width: 250px;
-	height: 250px;
-	background: silver;
+#trainerImage img {
+	width: 100%;
 }
 #trainerDetail pre {
 	word-break: break-all;
