@@ -36,7 +36,6 @@ public class InsertJoinCommand implements CommonVoidCommand {
 			exerc_list[i] = Integer.parseInt(list[i]);
 		}
 		
-		
 		UsersDto usersDto = new UsersDto();
 		usersDto.setEmail(email);
 		usersDto.setPassword(password);
@@ -47,12 +46,9 @@ public class InsertJoinCommand implements CommonVoidCommand {
 		usersDto.setLocation1_no(location1_no);
 		usersDto.setLocation2_no(location2_no);
 		
-		
-		
 		// 데이터 저장
 		// users_interest테이블에 insert하기위한 메소드 호출
 		int joinResult = usersDao.insertJoin(usersDto);
-		int interestResult = 0;
 		
 		if(joinResult > 0) {
 			// 새로 생성된 관심분야 번호를 가져오기위한 메소드 호출
@@ -60,13 +56,10 @@ public class InsertJoinCommand implements CommonVoidCommand {
 			
 			// 새로 생성된 관심분야 번호와 관심분야를 저장하기 위한 메소드 호출
 			for (int i=0; i < exerc_list.length; i++) {
-				int exercise_no = exerc_list[i];
-				interestResult += usersDao.insertExerciseList(user_no, exercise_no);
-				
+				usersDao.insertExerciseList(user_no, exerc_list[i]);
 			}
 			
 		}
-
 		
 	}
 

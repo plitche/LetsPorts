@@ -9,137 +9,13 @@
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
 
-<script src="resources/joon/js/signUp.js"></script>
+<script src="resources/joon/js/usersSignUpPage.js"></script>
 
 <style type="text/css">
 	#authEmail {
 		display: none;
 	}
 </style>
-
-<script type="text/javascript">
-//이메일 중복확인
-//페이지 로드 이벤트
-	$(document).ready(function(){
-		emailCheck();
-		emailAuth();
-	});
-	
-	function emailCheck() {
-		// 이메일 정규식
-		var regEmail = /^[a-z][a-z0-9-_]+@[a-zA-Z0-9]{3,}(\.[a-zA-Z]{2,6}){1,2}$/;
-		
-		// 이메일 키업 체크
-		$("#email").keyup(function(){
-		var email = $("#email").val();
-		var status = $("#authEmail").css('display'); // status 변수에 ID가 authEmail인 요소의 display의 속성을 '대입'
-		
-			$.ajax({
-				url : 'emailCheck.hey',
-				type : 'post',
-				data : email,
-				dataType : 'json',
-				contentType : 'text/plain',
-				success : function(data) {
-					console.log("1 = 사용불가 / 0 = 사용가능 : "+ data);
-					
-					if (data.result == 1) {
-						$("#email_check").text("이미 사용중인 이메일입니다.");
-						$("#email_check").css('color', 'red');
-						console.log("이메일중복");
-						
-						if(status == 'none'){ // status가 none 상태일경우 
-							$("#authEmail").hide(); // ID가 authEmail인 요소를 hide();
-						}
-						
-					} else {
-						
-						if(regEmail.test(email)){
-							$("#email_check").text("사용가능한 이메일입니다.");
-							$("#email_check").css('color', 'green');
-							console.log("정규식 통과");
-							
-							if(status == 'none'){ // status가 none 상태일경우 
-								$('#authEmail').show(); // ID가 authEmail인 요소를 show();
-							}
-				
-						} else {
-							$("#email_check").text('이메일 정보를 다시 확인하세요.');
-							$("#email_check").css('color', 'red');
-							console.log("이메일 정보 이상");
-							
-							if(status == 'none'){ // status가 none 상태일경우 
-								$("#authEmail").hide(); // ID가 authEmail인 요소를 hide();
-							}
-							
-						}
-						
-					}
-				}, error : function() {
-						console.log("실패");
-				}
-				
-			})
-		});
-	}
-	
-	
-//이메일 인증 전송
-function emailAuth(){
-	$(document).on("click", "#sendAuth_btn", function() {
-		// alert('이메일 인증 시작!');
-		var email = $("#email").val();
-		
-		var authKey; // 인증키
-		/* 0 = 메일 전송 전, 1=메일 전송 됨*/
-		
-		$.ajax({
-			url : "emailAuth.hey",
-			type : "post",
-			data : email,
-			dataType : "json",
-			contentType : "text/plain",
-			success : function(data) {
-				alert('인증번호 발송! 회원가입을 위해 꼭 인증 해주세요.');
-				authKey = data.authKey;
-				console.log(authKey);
-					
-			}, error : function() {
-					console.log("뭐가 그리 문제야 say something!");
-			}
-			
-		}); // ajax
-		
-		$("#successAuth_btn").click(function(){
-			var authNum = $("#authNum").val();
-			
-			if(authNum != authKey) {
-				alert('다시 인증 해주세요.');
-				return;
-				
-			} else {
-				alert('인증이 완료되었습니다.');
-				$('#successAuth').text('인증 완료');
-				$('#successAuth').css('color', 'green');
-			}
-			
-		}); // keyup
-		
-	});
-}
-</script>
-<!-- 생년월일 -->
-<script type="text/javascript">
-	
-</script>
-<!-- 주소 -->
-<script type="text/javascript">
-	
-</script>
-<!-- 관심분야 -->
-<script type="text/javascript">
-
-</script>
 
 <!-- 회원가입하기! -->
 <script type="text/javascript">
@@ -190,14 +66,14 @@ function emailAuth(){
 		<!-- 비밀번호 -->
 			<div class="form-group">
 				<label for="password">비밀번호 </label><br/>
-				<input type="text" class="form-control" id='password' name="password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)"><br/>
+				<input type="password" class="form-control" id='password' name="password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)"><br/>
 				<div class="check_font" id="pw_check"></div>
 			</div>
 			
 		<!-- 비밀번호 확인 -->
 			<div class="form-group">
 				<label for="re_password">비밀번호 확인 </label><br/>
-				<input type="text" class="form-control" id="re_password" name="re_password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)"><br/>
+				<input type="password" class="form-control" id="re_password" name="re_password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)"><br/>
 				<div class="check_font" id="pw_reCheck"></div>
 			</div>
 			
