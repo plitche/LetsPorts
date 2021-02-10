@@ -99,6 +99,7 @@ function uploadFile(){
         data: formData,
         type: 'post',
         success: function(data){
+        	
             alert("사진 수정 완료되었습니다.");
         }, error : function() {
 			console.log("실패");

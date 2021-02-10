@@ -74,11 +74,8 @@ public class MyPageController {
 		return nickCheckCommand.execute(sqlSession, model);
 	}
 	
-
-	
 	// 회원 정보 수정하기
 	@RequestMapping(value="updateAccount.hey", method=RequestMethod.POST)
-	@ResponseBody
 	public String updateAccount(HttpServletRequest request, Model model, RedirectAttributes redirect) {
 		model.addAttribute("request", request);
 		model.addAttribute("redirect", redirect);
