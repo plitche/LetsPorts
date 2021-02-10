@@ -2,6 +2,8 @@ package com.koreait.project.jungho.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -25,6 +27,7 @@ import com.koreait.project.jungho.command.TagCommand.Tag5Command;
 import com.koreait.project.jungho.command.TagCommand.Tag6Command;
 import com.koreait.project.jungho.command.TagCommand.Tag7Command;
 import com.koreait.project.jungho.command.TagCommand.Tag8Command;
+import com.koreait.project.jungho.command.TrainerClassCommand.ExerciseMateListCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.RelatedClassCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.SearchClassCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassDeleteCommand;
@@ -32,6 +35,7 @@ import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassInsert
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassListCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassUpdateCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassViewCommand;
+import com.koreait.project.jungho.command.TrainerClassCommand.TrainerListCommand;
 import com.koreait.project.jungho.config.JungAppContext;
 import com.koreait.project.jungho.dto.TrainerClassDto;
 
@@ -44,9 +48,28 @@ public class TrainerClassController {
 	
 	// 커뮤니티 -> 트레이너 클래스 선택하면 넘어와서 리스트뿌려주는 command 작업
 	@RequestMapping(value="TrainerClassListPage.leo")
-	public String TrainerClassMain(Model model) {
+	public String TrainerClassMain(Model model, HttpServletRequest request) {
+		model.addAttribute("request", request);
 		TrainerClassListCommand trainerClassListCommand = ctx.getBean("trainerClassListCommand", TrainerClassListCommand.class);
 		trainerClassListCommand.execute(sqlSession, model);
+		return "jungPages/TrainerClassListPage";
+	}
+	
+	// 트레이너모임 관련 클래스만 뿌려주는 command
+	@RequestMapping(value="TrainerClassList.leo")
+	public String TrainerClassList(Model model, HttpServletRequest request) {
+		model.addAttribute("request", request);
+		TrainerListCommand trainerListCommand = ctx.getBean("trainerListCommand", TrainerListCommand.class);
+		trainerListCommand.execute(sqlSession, model);
+		return "jungPages/TrainerClassListPage";
+	}
+	
+	// 운동메이트 관련 클래스만 뿌려주는 command
+	@RequestMapping(value="ExerciseMateList.leo")
+	public String ExerciseMateList(Model model, HttpServletRequest request) {
+		model.addAttribute("request", request);
+		ExerciseMateListCommand exerciseMateListCommand = ctx.getBean("exerciseMateListCommand", ExerciseMateListCommand.class);
+		exerciseMateListCommand.execute(sqlSession, model);
 		return "jungPages/TrainerClassListPage";
 	}
 	
@@ -112,10 +135,9 @@ public class TrainerClassController {
 	
 	// 트레이너 클래스의 검색 명령 역할
 	@RequestMapping(value="SearchClass.leo", method=RequestMethod.GET)
-	public String SearchClass(@RequestParam("search_content") String search_content, RedirectAttributes rttr, Model model) {
+	public String SearchClass(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("search_content", search_content);
-		model.addAttribute("rttr", rttr);
+		model.addAttribute("request", request);
 		SearchClassCommand searchClassCommand = ctx.getBean("searchClassCommand", SearchClassCommand.class);
 		searchClassCommand.execute(sqlSession, model);
 		
@@ -139,81 +161,81 @@ public class TrainerClassController {
 	
 	// 태그 9개 처리 (족구, 축구, 스피닝 등등등)
 	@RequestMapping(value="Tag0.leo", method=RequestMethod.GET)
-	public String Tag0(@RequestParam("족구") String 족구, Model model) {
+	public String Tag0(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("족구", 족구);
+		model.addAttribute("request", request);
 		Tag0Command tag0Command = ctx.getBean("tag0Command", Tag0Command.class);
 		tag0Command.execute(sqlSession, model);
 		
 		return "jungPages/TrainerClassListPage";
 	}
 	@RequestMapping(value="Tag1.leo", method=RequestMethod.GET)
-	public String Tag1(@RequestParam("축구") String 축구, Model model) {
+	public String Tag1(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("축구", 축구);
+		model.addAttribute("request", request);
 		Tag1Command tag1Command = ctx.getBean("tag1Command", Tag1Command.class);
 		tag1Command.execute(sqlSession, model);
 		
 		return "jungPages/TrainerClassListPage";
 	}
 	@RequestMapping(value="Tag2.leo", method=RequestMethod.GET)
-	public String Tag2(@RequestParam("농구") String 농구, Model model) {
+	public String Tag2(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("농구", 농구);
+		model.addAttribute("request", request);
 		Tag2Command tag2Command = ctx.getBean("tag2Command", Tag2Command.class);
 		tag2Command.execute(sqlSession, model);
 		
 		return "jungPages/TrainerClassListPage";
 	}
 	@RequestMapping(value="Tag3.leo", method=RequestMethod.GET)
-	public String Tag3(@RequestParam("볼링") String 볼링, Model model) {
+	public String Tag3(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("볼링", 볼링);
+		model.addAttribute("request", request);
 		Tag3Command tag3Command = ctx.getBean("tag3Command", Tag3Command.class);
 		tag3Command.execute(sqlSession, model);
 		
 		return "jungPages/TrainerClassListPage";
 	}
 	@RequestMapping(value="Tag4.leo", method=RequestMethod.GET)
-	public String Tag4(@RequestParam("크로스핏") String 크로스핏, Model model) {
+	public String Tag4(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("크로스핏", 크로스핏);
+		model.addAttribute("request", request);
 		Tag4Command tag4Command = ctx.getBean("tag4Command", Tag4Command.class);
 		tag4Command.execute(sqlSession, model);
 		
 		return "jungPages/TrainerClassListPage";
 	}
 	@RequestMapping(value="Tag5.leo", method=RequestMethod.GET)
-	public String Tag5(@RequestParam("스피닝") String 스피닝, Model model) {
+	public String Tag5(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("스피닝", 스피닝);
+		model.addAttribute("request", request);
 		Tag5Command tag5Command = ctx.getBean("tag5Command", Tag5Command.class);
 		tag5Command.execute(sqlSession, model);
 		
 		return "jungPages/TrainerClassListPage";
 	}
 	@RequestMapping(value="Tag6.leo", method=RequestMethod.GET)
-	public String Tag6(@RequestParam("댄스") String 댄스, Model model) {
+	public String Tag6(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("댄스", 댄스);
+		model.addAttribute("request", request);
 		Tag6Command tag6Command = ctx.getBean("tag6Command", Tag6Command.class);
 		tag6Command.execute(sqlSession, model);
 		
 		return "jungPages/TrainerClassListPage";
 	}
 	@RequestMapping(value="Tag7.leo", method=RequestMethod.GET)
-	public String Tag7(@RequestParam("요가") String 요가, Model model) {
+	public String Tag7(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("요가", 요가);
+		model.addAttribute("request", request);
 		Tag7Command tag7Command = ctx.getBean("tag7Command", Tag7Command.class);
 		tag7Command.execute(sqlSession, model);
 		
 		return "jungPages/TrainerClassListPage";
 	}
 	@RequestMapping(value="Tag8.leo", method=RequestMethod.GET)
-	public String Tag8(@RequestParam("명상") String 명상, Model model) {
+	public String Tag8(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("명상", 명상);
+		model.addAttribute("request", request);
 		Tag8Command tag8Command = ctx.getBean("tag8Command", Tag8Command.class);
 		tag8Command.execute(sqlSession, model);
 		
