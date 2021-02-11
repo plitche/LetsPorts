@@ -21,14 +21,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			FULL OUTER JOIN MEETING M
 				ON S.SCRAP_REFERER_NO = M.MEETING_NO
 			FULL OUTER JOIN PHOTO P
-				ON S.SCRAP_USER_NO = P.USER_NO
+				ON M.MEETING_NO = P.PHOTO_REFERER_NO
 		WHERE S.USER_NO = #{param1}
 		AND S.SCRAP_SEPARATOR = 1
 	</select>
 	
-	<insert id="WishClassInsert" parameterType="com.koreait.project.jungho.dto.WishClassListDto">
-		INSERT INTO VALUES
-		(SCRAP_SEQ.NEXTVAL, #{user_no}, 1, #{scrap_referer_no}, #{scrap_user_no}, #{end_gather_date}, SYSDATE)
+	<insert id="WishClassInsert">
+		INSERT INTO SCRAP VALUES
+		(SCRAP_SEQ.NEXTVAL, #{param1}, 1, #{param2}, #{param3}, #{param4}, SYSDATE)
 	</insert>
+	
+	<delete id="WishClassDelete" parameterType="int">
+		DELETE
+		FROM SCRAP
+		WHERE SCRAP_REFERER_NO = #{param1}
+		AND S.SCRAP_SEPARATOR = 1
+	</delete>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper>
