@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.koreait.project.yongsoo.dao.CommonQnADao">
 	
-	<select id="getQnAList" resultType="com.koreait.project.yongsoo.dto.QnATemDto">
+	<select id="getQnAList" resultType="com.koreait.project.yongsoo.dto.BoardQnATemDto">
  		SELECT *
 		  FROM (SELECT ROWNUM RN, B1.*
 		          FROM (SELECT *
@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE BOARD_QNA_TITLE LIKE '%'||#{searchKeyword}||'%'
 		    OR BOARD_QNA_CONTENT LIKE '%'||#{searchKeyword}||'%'
 	</select>
-	<select id="getQnAListByKeyword1" resultType="com.koreait.project.yongsoo.dto.QnATemDto">
+	<select id="getQnAListByKeyword1" resultType="com.koreait.project.yongsoo.dto.BoardQnATemDto">
 		SELECT *
 		  FROM (SELECT ROWNUM RN, B1.*
 		          FROM (SELECT *
@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM BOARD_QNA
 		 WHERE BOARD_QNA_TITLE LIKE '%'||#{searchKeyword}||'%'
 	</select>
-	<select id="getQnAListByKeyword2" resultType="com.koreait.project.yongsoo.dto.QnATemDto">
+	<select id="getQnAListByKeyword2" resultType="com.koreait.project.yongsoo.dto.BoardQnATemDto">
 		SELECT *
 		  FROM (SELECT ROWNUM RN, B1.*
 		          FROM (SELECT *
@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    ON B.USER_NO = U.USER_NO
 		 WHERE U.USER_NICKNAME LIKE '%'||#{searchKeyword}||'%'
 	</select>
-	<select id="getQnAListByKeyword3" resultType="com.koreait.project.yongsoo.dto.QnATemDto">
+	<select id="getQnAListByKeyword3" resultType="com.koreait.project.yongsoo.dto.BoardQnATemDto">
 		SELECT *
 		  FROM (SELECT ROWNUM RN, B1.*
 		          FROM (SELECT *
@@ -83,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (BOARD_QNA_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, SYSDATE, 0, null, 0)
 	</insert>
 	
-	<select id="getUpdateQnAInfo" parameterType="int" resultType="com.koreait.project.yongsoo.dto.QnATemDto">
+	<select id="getUpdateQnAInfo" parameterType="int" resultType="com.koreait.project.yongsoo.dto.BoardQnATemDto">
 		SELECT *
 		  FROM BOARD_QNA B FULL OUTER JOIN USERS U
 		    ON B.USER_NO = U.USER_NO
