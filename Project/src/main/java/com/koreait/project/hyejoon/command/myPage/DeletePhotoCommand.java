@@ -35,6 +35,7 @@ public class DeletePhotoCommand implements CommonMapCommand {
 			map.put("result", false);
 		}
 		
+		// 세션에 저장
 		UsersDto loginUser = sqlSession.getMapper(UsersDao.class).getUserSession(user_no);
 		HttpSession session = request.getSession();
 		session.setAttribute("loginUser", loginUser);

@@ -1,22 +1,31 @@
 @charset "UTF-8";
-
 /* 마이페이지 전체 */
+
     a {
-		display: block;
+		display: inline-block;
 		text-decoration: none;
-		!important
 	}
+
+	.myPageHeader {
+		display: flex;
+		padding: 10px;
+	}
+	.myPageInfo {
+		margin-left: 20px;
+	}
+	
+/* 마이페이지 탭바 */
 	.interestBtns {
 		display: flex;
 	}
-	.interestBtns> a {
+	.interestBtns a {
 		margin-right: 50px;
 		text-align: center;
 	}
-	.tabBars {
+	.myPagetabBars {
 		position: absolute;
 	}
-	.tabBars> a {
+	.myPagetabBars a {
 		text-align: center;
 		width: 160px;
 		height: 40px;
@@ -25,11 +34,11 @@
 		border-left: 1px solid black;
 		border-right: 1px solid black;
 	}
-	.tabBars ul {
+	.myPagetabBars ul {
 		margin: 0;
 		padding: 0;
 	}
-	.tabBars ul > li {
+	.myPagetabBars ul > li {
 		float: left;
 		margin: 0;
 		padding: 0;
@@ -83,7 +92,6 @@
     }
 
 /* 파일 업로드 */
-
 .userImage {
 	overflow: hidden;
 	width: 200px;
@@ -102,10 +110,18 @@
 
 #fileBtn {
 	position: absolute;
-	z-index: 5;
+	z-index: 999;
 	left: 100%;
 	top: 100%;
 	transform: translate(-115%, -115%);
+	display: block;
+}
+#deleteFileBtn {
+	position: absolute;
+	z-index: 999;
+	left: 100%;
+	top: 100%;
+	transform: translate(-20%, -115%);
 	display: block;
 }
 
@@ -115,4 +131,13 @@
 	font-size: 20px;
 	border: 1px solid black;
 	border-radius: 5px;
+}
+
+#deleteFileBtn {
+	position: absolute;
+	z-index: 999;
+	left: 100%;
+	top: 20%;
+	transform: translate(-115%, -175%);
+	display: block;
 }
