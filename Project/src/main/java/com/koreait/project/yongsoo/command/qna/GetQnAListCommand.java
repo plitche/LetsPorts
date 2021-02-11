@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import com.koreait.project.common.CommonVoidCommand;
 import com.koreait.project.yongsoo.command.paging.Paging;
 import com.koreait.project.yongsoo.dao.CommonQnADao;
-import com.koreait.project.yongsoo.dto.QnATemDto;
+import com.koreait.project.yongsoo.dto.BoardQnATemDto;
 
 public class GetQnAListCommand implements CommonVoidCommand {
 
@@ -44,7 +44,7 @@ public class GetQnAListCommand implements CommonVoidCommand {
 		int beginRecord = (page - 1) * recordPerPage + 1;
 		int endRecord = beginRecord + recordPerPage - 1;
 		
-		List<QnATemDto> qnaList = null;
+		List<BoardQnATemDto> qnaList = null;
 		String paging = null;
 		
 		if (searchCategory==0 || searchKeyword==null) {

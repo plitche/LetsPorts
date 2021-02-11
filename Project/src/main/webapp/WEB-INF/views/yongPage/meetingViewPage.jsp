@@ -373,19 +373,36 @@
 		<a href="#"> 관심 모임으로 등록하기 </a>
 	</div>
 	<div id="meetingInfo">
-		<div id="meetingDetail">
-			<p>모임일 : ${meetingDto.meeting_date}</p>
-			<p>지역 : ${meetingDto.location1_name} ${meetingDto.location2_name} </p>
-			<p>총 모집 인원 : ${meetingDto.meeting_max}</p>
-			<p>최소 모집 인원 : ${meetingDto.meeting_min}</p>
-			<p>현재 신청 인원 : ???</p>
-			<p>준비물 : 
-				<c:forEach var="list" items="${materialList}">
-			  		${list.materials_name} &nbsp;
-		    	</c:forEach>
-			</p>
-			<input type="hidden" id="locationLatLng" value="${meetingDto.detail_location}" />
-			<div id="map" style="width:500px;height:400px;"></div>
+		<div id="leftSide">
+			<div id="meetingDetail">
+				<div class="subTitle">소셜링 소개</div>
+				<div class="title">자세한 정보를 알려드릴게요</div>
+				<p>모임일 : ${meetingDto.meeting_date}</p>
+				<p>지역 : ${meetingDto.location1_name} ${meetingDto.location2_name} </p>
+				<p>총 모집 인원 : ${meetingDto.meeting_max}</p>
+				<p>최소 모집 인원 : ${meetingDto.meeting_min}</p>
+				
+				<div class="subTitle">준비사항</div>
+				<div class="title">함께 준비하면 좋아요</div>
+				<p>준비물 : 
+					<c:forEach var="list" items="${materialList}">
+				  		${list.materials_name} &nbsp;
+			    	</c:forEach>
+				</p>
+			</div>
+			
+			<div class="subTitle">안내사항</div>
+			<div class="title">어떤 소셜링인가요?</div>
+			<div id="meetingContent">
+				<div>상세 내용 : ${meetingDto.meeting_content}</div>
+			</div>
+		</div>
+		
+		<div id="rightSide">
+			<div id="mainImg">
+				<img alt="${meetingDto.photo_filename}" src="resources/storage/${meetingDto.photo_filename}">
+			</div>
+			<div id="map" style="width:100%;height:400px;"></div>
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74162e293be31e9dc5e8e7b8c8e0be9c"></script>
 			<script>
 				var container = document.getElementById('map');
@@ -403,24 +420,18 @@
 				
 				// 마커가 표시될 위치입니다 
 				var markerPosition  = new kakao.maps.LatLng(lat, lng); 
-
+	
 				// 마커를 생성합니다
 				var marker = new kakao.maps.Marker({
 				    position: markerPosition
 				});
-
+	
 				// 마커가 지도 위에 표시되도록 설정합니다
 				marker.setMap(map);
 			</script>
-			
-		</div>
-		<div id="mainImg">
-			<img alt="${meetingDto.photo_filename}" src="resources/storage/${meetingDto.photo_filename}">
 		</div>
 	</div>
-	<div id="meetingContent">
-		<pre>상세 내용 : ${meetingDto.meeting_content}</pre>
-	</div>
+
 </div>
 
 <p style="font-weight: 800; font-size: 1.5rem; margin-top: 20px;">작성자 정보</p>

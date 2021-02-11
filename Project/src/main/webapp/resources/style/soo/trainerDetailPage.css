@@ -193,7 +193,7 @@
 	background: #fff;
 	border: 2px black solid;
 	margin: 0 auto;
-	padding: 40px;
+	padding: 20px;
 }
 #modal .modal_layer {
 	position: fixed;
@@ -204,8 +204,11 @@
 	background:rgba(0, 0, 0, 0.5);
 	z-index: -1;
 }
+.modal_title {
+	margin-bottom: 15px;
+}
 .modal_title > div {
-	text-align: center;	
+	text-align: center;
 }
 .modal_title > div:nth-child(1) {
 	font-size: 1.5rem;
@@ -218,6 +221,7 @@
 }
 #content, #title {
 	width: 400px;
+	margin: 10px 0;
 }
 #content {
 	height: 300px;
@@ -230,6 +234,16 @@
 	margin-right: 195px;
 	margin-left: 10px;
 }
+#modal input[type="button"] {
+	padding: 6px;
+}
+#modal input[type="button"]:hover {
+	color: orangered;
+}
+#modal input[type="text"] {
+	padding: 10px;
+	border: 1px solid;
+}
 .modal_content {
 	text-align: right;
 }
@@ -237,11 +251,6 @@
 	margin-bottom: 5px;
 	border: none;
 	background: none;
-}
-#modal input {
-	border: 1.5px solid;
-	margin-top: 10px;
-	padding: 10px;
 }
 
 /* 트레이너 리뷰 modal파트 css */
@@ -255,6 +264,9 @@
 }
 #modalDetail textarea {
 	border: 1px solid;
+}
+#modalDetail {
+	padding: 0 30px;
 }
 .reviewHeader {
 	display: flex;
@@ -336,5 +348,78 @@
 	color: white;
 	font-weight: bold;
 }
+.questionContent {
+	margin-top: 10px;
+	text-align: left;
+}
+.questionContent > div:nth-child(1) {
+	font-size: 16px;
+	font-weight: bold;
+	color: #000;
+	padding-bottom: 5px;
+}
+.questionContent > div:nth-child(2) {
+	border-top: 2px solid #000;
+	padding: 12px 10px;
+	min-height: 100px;
+	margin-bottom: 10px;
+}
+.questionContent > div:nth-child(3) {
+	float: left;
+}
+.questionContent > div:nth-child(4) {
+	float: right;
+}
+.questionContent > div {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.questionContent > input {
+	clear: both;
+	float: right;
+	border: none;
+	background: #000;
+	color: #fff;
+	margin: 20px 0 12px;
+}
+#qnaAnswer {
+	clear: both;
+	margin-top: 75px;
+}
+#qnaAnswer textarea {
+	border: 1px solid #dfdfdf;
+	padding: 12px;
+}
+#answerBtn {
+	padding: 6px;
+	background: #000;
+	color: #fff;
+	font-weight: bold;
+	width: 100px;
+	margin: 20px 0 0 84%;
+}
+#trainerAnswer {
+	clear: both;
+	margin-top: 40px;
+	border-top: 2px solid #000;
+	padding: 16px 0 0 0;
+}
+#trainerAnswer > h4 {
+	font-weight: bold;
+	color: orangered;
+}
+#answerContent {
+	padding: 6px;
+	min-height: 100px;
+	margin-bottom: 10px;
+}
+
+#trainerAnswer > div:nth-child(3) {
+	float: right;
+	margin-bottom: 20px;
+}
+
+
+
 
 
