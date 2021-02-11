@@ -24,8 +24,18 @@
 <body>
 	<div>${dto.no}</div>
 	<div>${dto.user_no}</div>
+	<form method="post" id="insertForm" action="insertBoardTest.wooki">
+		<input type="hidden" name="user_no" id="user_no" value="${loginUser.user_no}" />
+	</form>
 	<div id="content">
 		${dto.content}
 	</div>
+	<i class="far fa-plus-square btn" onclick="fn_addContent()"></i>
+	<label>
+		<input style="display: none" type="file" id="uploadFile" name="uploadFile" accept="image/*" />
+		<i class="far fa-images btn"></i>
+	</label>
+	<br/>
+	<input type="button" value="게시글 작성" onclick="fn_submit()" />
 </body>
 </html>
