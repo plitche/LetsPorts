@@ -1,14 +1,9 @@
 @CHARSET "UTF-8";
 
-#textEditor {
-	width: 650px;
-	margin: 50px auto;
-}
-
 div[contenteditable="true"] {
-	width: 600px;
+	width: 850px;
 	padding: 10px 3px;
-	font-size: 20px;
+	font-size: 16px;
 	margin-right: 5px;
 }
 
@@ -21,7 +16,7 @@ div[contenteditable="true"] {
 }
 
 #content img {
-	width: 600px;
+	width: 850px;
 	padding: 3px 3px;
 	display: block;
 	margin-right: 5px;

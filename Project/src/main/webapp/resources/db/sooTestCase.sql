@@ -39,7 +39,7 @@ INSERT INTO MEETING_PARTICIPANTS VALUES (8, 2, 33, SYSDATE, 1, null);
 INSERT INTO REVIEW values (5, 10, 4.0, 5, '꾀 괜찮았어요', SYSDATE, 0, 11);
 INSERT INTO REVIEW values (6, 10, 5.0, 5, '너무 좋았어요', SYSDATE, 0, 12);
 
-
+select * from users;
 select * from meeting
 select * from MATERIALS
 select * from TRAINER_QNA

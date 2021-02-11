@@ -512,36 +512,43 @@
 				if (responseObj.result) {
 					if (responseObj.answer) {
 						$('#modal').attr("style", "display:block");
+						$('.modal_title').empty();
+						$('.modal_title')
+						.append( $('<div>').text('답변 작성이 완료된 질문입니다^^') )
+						.append( $('<div>').text('질문을 통해서 더 많은 정보를 확인하세요.') )
+						
 						$('#modalDetail').empty();
-						$('<div>')
-						.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
-						.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
-						.append( $('<p>').html('질문 내용: ' + responseObj.qna.trainer_qna_content) )
-						.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
-						.append( $('<p>').html('답변 내용: '+ responseObj.qna.trainer_qna_answered) )
-						.append( $('<p>').html('답변 작성일: '+ responseObj.qna.answered_date) )
+						$('<div>').addClass('questionContent')
+						.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
+						.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
+						.append( $('<div>').text('질문자: ' + responseObj.qna.user_nickname) )
+						.append( $('<div>').text('작성일: ' + responseObj.qna.created_at) )
+						.append( $('<div id="trainerAnswer">')
+							.append( $('<h4>').text('${trainerTemDto.user_nickname}의 답변') )
+							.append( $('<div id="answerContent">').text(responseObj.qna.trainer_qna_answered) )
+							.append( $('<div>').text('답변 작성일: '+ responseObj.qna.answered_date) )		
+						)
 						.appendTo('#modalDetail');
 					} else {
 						if ('${loginUser.user_no}' == ${trainerTemDto.user_no}) {
 							$('#modal').attr("style", "display:block");
+							$('.modal_title').empty();
 							$('#modalDetail').empty();
-							$('<div>')
-							.append( $('<p>').html('작성자: ' + responseObj.qna.question_user_no) )
-							.append( $('<p>').html('질문 제목: ' + responseObj.qna.trainer_qna_title) )
-							.append( $('<p>').html('질문 내용: ' + responseObj.qna.trainer_qna_content) )
-							.append( $('<p>').html('작성일: ' + responseObj.qna.created_at) )
+							$('<div>').addClass('questionContent')
+							.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
+							.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
+							.append( $('<div>').text('질문자: ' + responseObj.qna.user_nickname) )
+							.append( $('<div>').text('작성일: ' + responseObj.qna.created_at) )
 							.append( $('<input type="button" value="답변 작성하기" onclick="fn_openAnswer('+ trainer_qna_no +')">') )
 							.appendTo('#modalDetail');
 						} else {
 							$('#modal').attr("style", "display:block");
 							$('.modal_title').empty();
 							$('#modalDetail').empty();
-							$('<div>')
-							.append( $('<div>').text('질문 제목') )
+							$('<div>').addClass('questionContent')
 							.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
-							.append( $('<div>').text('질문 내용') )
 							.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
-							.append( $('<div>').text('작성자: ' + responseObj.qna.user_nickname) )
+							.append( $('<div>').text('질문자: ' + responseObj.qna.user_nickname) )
 							.append( $('<div>').text('작성일: ' + responseObj.qna.created_at) )
 							.appendTo('#modalDetail');
 						}
@@ -555,7 +562,8 @@
 	
 	// 질문 내용 클릭 후 modal창에서 답변 작성하기를 눌렀을 때 추가로 밑에 작성 란이 보이도록 하기위한 처리
 	function fn_openAnswer(trainer_qna_no) {
-		$('<div>')
+		$('.questoinContent input[type="button"]').hide();
+		$('<div id="qnaAnswer">')
 		.append ( $('<form>')
 			.append ( $('<textarea rows="10" cols="50" name="trainer_qna_answered" id="answerContent" >') )
 			.append ( $('<input type="button" id="answerBtn" value="답변작성완료" onclick="fn_writeAnswer(' + trainer_qna_no + ')" >') )	
@@ -565,29 +573,34 @@
 	
 	// 질문 답변 작성 완료 후 답변작성 완료를 누르면 작동할 ajax함수
 	function fn_writeAnswer(trainer_qna_no) {
-		
-		var trainer_qna_answered = $('textarea[name="trainer_qna_answered"]').val();
-		var sendObj = {
-			"trainer_qna_no": trainer_qna_no,
-			"trainer_qna_answered": trainer_qna_answered
-		};
-		
-		$.ajax({
-			url: 'writeAnswer.plitche',
-			type: 'post',
-			data: JSON.stringify(sendObj),
-			contentType: 'application/json; charset=utf-8',
-			dataType: 'json',
-			success: function (responseObj) {
-				if (responseObj.result) {
-					var index = $('input:hidden[name=' + trainer_qna_no + ']').val();
-					$('#qnaList tr:eq(' + index + ') td:eq(5)').text('답변완료');
-				} else {
-					alert('답변이 작성되지 않았습니다.');
-				}
-			},
-			error: function(){alert('답변 남기기 실패');}
-		});
+		if ($('#answerContent').text() == '') {
+			Swal.fire('작성된 답변 내용이 없습니다!', '답변 내용을 확인해주세요.', 'error');
+		} else {
+			var trainer_qna_answered = $('textarea[name="trainer_qna_answered"]').val();
+			var sendObj = {
+				"trainer_qna_no": trainer_qna_no,
+				"trainer_qna_answered": trainer_qna_answered
+			};
+			
+			$.ajax({
+				url: 'writeAnswer.plitche',
+				type: 'post',
+				data: JSON.stringify(sendObj),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				success: function (responseObj) {
+					if (responseObj.result) {
+						Swal.fire('답변이 작성되었습니다!', '친절한 답변 감사합니다.', 'success');
+						getTrainerQnAList();
+					} else {
+						alert('답변이 작성되지 않았습니다.');
+					}
+				},
+				error: function(){alert('답변 남기기 실패');}
+			});
+			
+			$('#modal').attr("style", "display:none");
+		}
 	}
 	
 	// ajax처리 후 modal창 닫아주는 함수

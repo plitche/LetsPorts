@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonVoidCommand;
 import com.koreait.project.yongsoo.dao.CommonQnADao;
-import com.koreait.project.yongsoo.dto.QnATemDto;
+import com.koreait.project.yongsoo.dto.BoardQnATemDto;
 
 public class GoQnAViewPageCommand implements CommonVoidCommand {
 
@@ -21,7 +21,7 @@ public class GoQnAViewPageCommand implements CommonVoidCommand {
 		int board_qna_no = Integer.parseInt(request.getParameter("board_qna_no"));
 		
 		CommonQnADao qnaDao = sqlSession.getMapper(CommonQnADao.class);
-		QnATemDto qnaTemDto = qnaDao.getUpdateQnAInfo(board_qna_no);
+		BoardQnATemDto qnaTemDto = qnaDao.getUpdateQnAInfo(board_qna_no);
 		
 		model.addAttribute("qnaTemDto", qnaTemDto);
 		model.addAttribute("page", request.getParameter("page"));
