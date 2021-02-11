@@ -139,7 +139,7 @@ function uploadFile(){
 	
 	<!-- 각각 페이지 따로 만들 것! -->
 	<div class="interestBtns">
-		<a href="#"><i class="fas fa-heart fa-lg"></i><br/>관심모임</a>
+		<a href="WishClassListPage.leo?user_no=${loginUser.user_no}" ><i class="fas fa-heart fa-lg"></i><br/>관심모임</a>
 		<a href="#"><i class="fas fa-id-badge fa-lg"></i><br/>관심 트레이너</a>
 		<a href="#"><i class="far fa-file-alt fa-lg"></i><br/>관심 노하우</a>
 	</div>
