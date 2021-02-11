@@ -62,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<update id="updateAccount">
-		UPDATE USER
+		UPDATE USERS
 		   SET PASSWORD = #{param1},
 		   	   USER_NICKNAME = #{param2},
 		   	   LOCATION1_NO = #{param3}
@@ -73,4 +73,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM USERS
 		 WHERE USER_NO = #{user_no}
 	</delete>
+	<update id="userProfilePhotoUpdate">
+		UPDATE USERS
+		   SET PROFILE_PHOTO = #{param2}
+		 WHERE USER_NO = #{param1}
+	</update>
+	<update id="userProfilePhotoBlankUpdate">
+		UPDATE USERS
+		   SET PROFILE_PHOTO = NULL
+		 WHERE USER_NO = #{param1}
+	</update>
+	<select id="getUserSession" resultType="com.koreait.project.dto.UsersDto">
+		SELECT *
+		  FROM USERS
+		 WHERE USER_NO = #{param1}
+	</select>
 </mapper>

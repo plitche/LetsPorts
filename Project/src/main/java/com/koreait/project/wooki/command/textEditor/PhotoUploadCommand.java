@@ -1,22 +1,30 @@
-package com.koreait.project.wooki.command;
+package com.koreait.project.wooki.command.textEditor;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-public class TestCommand {
-	public Map<String, Object> test(MultipartHttpServletRequest multipartRequest, Model model) {
-		
+import com.koreait.project.common.CommonMapCommand;
+import com.koreait.project.wooki.dao.EditorDao;
+
+public class PhotoUploadCommand implements CommonMapCommand {
+	
+	@Override
+	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) model.asMap().get("multipartRequest");
 		// 1. multipartRequest에 저장된 첨부가 1개일 때는 getFile()을 씁니다.
-		MultipartFile file = multipartRequest.getFile("upload");
+		MultipartFile file = multipartRequest.getFile("uploadFile");
+		int user_no = Integer.parseInt(multipartRequest.getParameter("user_no"));
+		int temp_no = Integer.parseInt(multipartRequest.getParameter("temp_no"));
+		
 		Map<String, Object> map = new HashMap<>();
 
 		// 첨부를 했는지 검사
-		// 꺼낸 첨부가 있는지 검사
 		if(file != null && !file.isEmpty()) {
 			// MultipartFile file에서 첨부하는 파일명을 알아냅니다.
 			String originalFilename = file.getOriginalFilename();
@@ -46,6 +54,7 @@ public class TestCommand {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			sqlSession.getMapper(EditorDao.class).insertTempPhoto(temp_no, user_no, uploadFilename);
 			map.put("filename", uploadFilename);
 		}
 		

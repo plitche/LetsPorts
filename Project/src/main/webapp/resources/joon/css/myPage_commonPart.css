@@ -82,4 +82,37 @@
         z-index: 3;
     }
 
-/* 파일 업로드 버튼 설정 */
+/* 파일 업로드 */
+
+.userImage {
+	overflow: hidden;
+	width: 200px;
+	height: 300px;
+	position: relative;
+}
+
+.userImage img {
+	height: 300px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	
+}
+
+#fileBtn {
+	position: absolute;
+	z-index: 5;
+	left: 100%;
+	top: 100%;
+	transform: translate(-115%, -115%);
+	display: block;
+}
+
+.imageBtn {
+	display: inline-block;
+	padding: 5px;
+	font-size: 20px;
+	border: 1px solid black;
+	border-radius: 5px;
+}

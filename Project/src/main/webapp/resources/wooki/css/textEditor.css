@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+
+#textEditor {
+	width: 650px;
+	margin: 50px auto;
+}
+
+div[contenteditable="true"] {
+	width: 600px;
+	padding: 10px 3px;
+	font-size: 20px;
+	margin-right: 5px;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex i {
+	align-self: flex-end;
+}
+
+#content img {
+	width: 600px;
+	padding: 3px 3px;
+	display: block;
+	margin-right: 5px;
+}
+
+.btn {
+	display: inline-block;
+	padding: 5px 15px;
+	font-size: 20px;
+	border: 1px solid black;
+	border-radius: 5px;
+}

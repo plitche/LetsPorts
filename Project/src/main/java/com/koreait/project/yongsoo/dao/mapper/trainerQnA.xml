@@ -29,9 +29,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>	
 	
 	
-	<select id="showQnA" parameterType="int" resultType="com.koreait.project.dto.Trainer_qnaDto">
+	<select id="showQnA" parameterType="int" resultType="com.koreait.project.yongsoo.dto.QnATemDto">
 		SELECT *
-		  FROM TRAINER_QNA
+		  FROM TRAINER_QNA T FULL OUTER JOIN USERS U
+		  	ON T.QUESTION_USER_NO = U.USER_NO
 		 WHERE TRAINER_QNA_NO = #{trainer_qna_no}
 	</select>
 

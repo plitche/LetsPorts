@@ -19,7 +19,8 @@
 <link type="text/css" rel="stylesheet" href="resources/style/style.css" >
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <%-- CDN --%>
-<script defer src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" integrity="sha384-9/D4ECZvKMVEJ9Bhr3ZnUAF+Ahlagp1cyPC7h5yDlZdXs4DQ/vRftzfd+2uFUuqS" crossorigin="anonymous"></script>
+<!-- <script defer src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" integrity="sha384-9/D4ECZvKMVEJ9Bhr3ZnUAF+Ahlagp1cyPC7h5yDlZdXs4DQ/vRftzfd+2uFUuqS" crossorigin="anonymous"></script> -->
+<script src="https://kit.fontawesome.com/07b67006ce.js"></script>
 <%-- jQuery --%>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <%-- summbernote --%>
@@ -59,7 +60,7 @@
 					<li><a href="myPage_commonPart.hey" >마이페이지</a></li>
 					<li>
 						<a href="javascript:void(0)" >
-							<img alt="noticebell" src="../images/bell2.png"/>
+							<img alt="noticebell" src="resources/images/bell2.png" style="width:30px;"/>
 						</a>
 					</li>
 				</c:if>

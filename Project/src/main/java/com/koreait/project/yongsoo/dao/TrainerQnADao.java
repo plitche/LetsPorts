@@ -3,6 +3,7 @@ package com.koreait.project.yongsoo.dao;
 import java.util.List;
 
 import com.koreait.project.dto.Trainer_qnaDto;
+import com.koreait.project.yongsoo.dto.QnATemDto;
 
 public interface TrainerQnADao {
 
@@ -15,7 +16,7 @@ public interface TrainerQnADao {
 	public int insertQnAToTrainer(Trainer_qnaDto trainer_qnaDto);
 	
 	// 질문 제목, 내용 클릭시 해당 질문의 상세 내용을 가져오기 위한 메소드
-	public Trainer_qnaDto showQnA(int trainer_qna_no);
+	public QnATemDto showQnA(int trainer_qna_no);
 	
 	// 답변 완료 작성 시 update해주기 위한 메소드
 	public int writeAnswer(int trainer_qna_no, String trainer_qna_answered);

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- Spring에서 새로 배우는 스타일 -->
+<mapper namespace="com.koreait.project.wooki.dao.EditorDao">
+	
+	<insert id="insertTempBoard" parameterType="int">
+		insert into
+			temp_board
+		values
+			(temp_board_seq.nextval, #{param1}, sysdate)
+	</insert>
+	
+	<select id="selectTempBoard" parameterType="int" resultType="com.koreait.project.wooki.dto.TempBoardDto">
+		select
+			*
+		from
+			(select
+				rownum as rn, a.*
+			from
+				(select
+					*
+				from
+					temp_board
+				where
+					user_no = #{param1}
+				order by
+					created_at desc) a ) b
+		where
+			b.rn = 1
+	</select>
+	
+	<insert id="insertTempPhoto">
+		insert into
+			photo
+		values
+			(photo_seq.nextval, 3, #{param1}, #{param2}, #{param3}, sysdate, 0)
+	</insert>
+	
+	<delete id="deleteTempPhoto" parameterType="map">
+		delete from
+			photo
+		where
+			photo_filename in 
+			<foreach collection="array" index="index" item="filename" open="(" separator="," close=")">
+				#{filename}
+			</foreach>
+	</delete>
+	
+	<insert id="insertBoard" parameterType="com.koreait.project.wooki.dto.TestBoardDto">
+		insert into
+			test_board
+		values
+			(test_board_seq.nextval, #{user_no}, #{content})
+	</insert>
+	
+	<update id="updatePhoto" parameterType="com.koreait.project.wooki.dto.TestBoardDto">
+		update
+			photo
+		set
+			photo_referer_sep = 4,
+			photo_referer_no = (select
+									no
+								from
+									(select
+										rownum as rn, a.*
+									from
+										(select
+											*
+										from
+											test_board
+										where
+											user_no = #{user_no}
+										order by
+											no desc) a ) b
+								where
+									b.rn = 1)
+		where
+			photo_referer_sep = 3
+			and photo_referer_no = #{temp_no}
+	</update>
+	
+	<select id="view" resultType="com.koreait.project.wooki.dto.TestBoardDto">
+		select
+			*
+		from
+			test_board
+		where
+			no = #{param1}
+	</select>
+	
+</mapper>
