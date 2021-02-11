@@ -1,37 +1,40 @@
 package com.koreait.project.jungho.command.WishClassListCommand;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
-import com.koreait.project.common.CommonVoidCommand;
+import com.koreait.project.common.CommonMapCommand;
 import com.koreait.project.jungho.dao.WishClassListDao;
-import com.koreait.project.jungho.dto.WishClassListDto;
 
-public class WishClassListInsertCommand implements CommonVoidCommand {
+public class WishClassListInsertCommand implements CommonMapCommand {
 
 	@Override
-	public void execute(SqlSession sqlSession, Model model) {
+	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 
 		Map<String, Object> map = model.asMap();
-		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		WishClassListDao wishClassListDao = sqlSession.getMapper(WishClassListDao.class);
 		
-		int meeting_no = Integer.parseInt(request.getParameter("meeting_no"));
-		int user_no = Integer.parseInt(request.getParameter("user_no"));
-		int scrap_user_no = Integer.parseInt(request.getParameter("scrap_user_no"));
-		Date end_gather_date = Date.valueOf(request.getParameter("end_gather_date"));
-		WishClassListDto wishClassListDto = new WishClassListDto();
-		wishClassListDto.setMeeting_no(meeting_no);
-		wishClassListDto.setUser_no(user_no);
-		wishClassListDto.setEnd_gather_date(end_gather_date);
-		wishClassListDto.setScrap_user_no(scrap_user_no);
 		
-		wishClassListDao.WishClassInsert(wishClassListDto);
+		int scrap_referer_no = (int)map.get("scrap_referer_no");
+		int user_no = (int)map.get("user_no");
+		int scrap_user_no = (int)map.get("scrap_user_no");
+		Date end_gather_date = (Date)map.get("end_gather_date");
+		System.out.println(scrap_referer_no);
+		System.out.println(user_no);
+		System.out.println(scrap_user_no);
+		System.out.println(end_gather_date);
+	
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("WishClassListTotal", wishClassListDao.WishClassListTotal(scrap_referer_no));
+		
+		int results = wishClassListDao.WishClassInsert(user_no, scrap_referer_no, scrap_user_no, end_gather_date);
+		result.put("result", results);
+		
+		return result;
 		
 	}
 

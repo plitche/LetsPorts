@@ -121,46 +121,93 @@
     	   
 <!-- *********************************************************** 위시리스트 담기 시작점 ************************************************************ -->
     	   <script>
-    		
-    	   $(document).on('click', '.WishListBtn', function() {
-    		   
-    		   function fn_wishListInsert(f) {
-    			   f.action = 'WishClassInsert.leo';
-    			   f.submit();
-    		   }
-    		   
-    		   var meeting_no = '${trainerClassDto.meeting_no}';
-    		   
-    		   $.ajax({
-    			 url: 'WishClassListTotal.leo',
-    			 type: 'get',
-    			 data: 'meeting_no=' + meeting_no,
-    			 dataType: 'json',
-    			 success: function (responseObj) {
-    				$('.IfgoWish_message').html(responseObj.WishClassListTotal + '명이 위시리스트에 담았습니다.')
-    				$('#loveIcon').attr('stroke', '#FA5B4A');
-    				$('#loveIcon').attr('fill', '#FA5B4A');
- 	    		    $('.goWishList').html('위시리스트 추가됨');
-    			 },
-    		   error: function() {alert('실패임');}
-    		   });
-    	   });
+    	   
+    	   $(document).ready(function() {
+    			WishListInsert();
+    			WishListTotal();
+    			WishListDelete();
+    		});
     	
+    		function WishListInsert() {
+    			
+    			$('.WishListBtn').click(function(){
+	    		   var meeting_no = '${trainerClassDto.meeting_no}';
+	    		   var scrap_user_no = '${trainerClassDto.user_no}';
+	    		   var user_no = '${loginUser.user_no}';
+	    		   var end_gather_date = '${trainerClassDto.end_gather_date}';
+    		   	 
+	    		   $.ajax({
+	    			  url: 'WishClassInsert.leo',
+	    			  type: 'get',
+	    		      data: 'scrap_referer_no=' + meeting_no + '&scrap_user_no=' + scrap_user_no + '&user_no=' +user_no + '&end_gather_date=' + end_gather_date,
+    		    	  dataType: 'json',
+ 	    			  success: function (responseObj) {
+ 	    				if (responseObj.result > 0) {
+	 	    				$('#loveIcon').attr('stroke', '#FA5B4A');
+	 	    				$('#loveIcon').attr('fill', '#FA5B4A');
+	 	 	    		    $('.goWishList').html('위시리스트 추가됨');
+	 	 	    		 	 WishListTotal();
+ 	    				} else {
+ 	    					alert('찜리스트 삽입에 실패하였습니다.');
+ 	    				}
+ 	    			  },
+ 	    			  error: function(){alert('실패');}
+	    	  	   });
+	    		   
+    	  		});
+    		}
+    		
+    				
+    			function WishListDelete() {
+		    		$('.WishListBtn').click(function(){
+		    			 var meeting_no = '${trainerClassDto.meeting_no}';
+		    			 $.ajax({
+				  			  url: 'WishClassDelete.leo',
+				  			  type: 'get',
+				  		      data: 'meeting_no=' + meeting_no,
+						      dataType: 'json',
+				   			  success: function (responseObj) {
+				   				  if (responseObj.result > 0) {
+				   					$('#loveIcon').attr('stroke', '#CED4DA');
+			 	    				$('#loveIcon').attr('fill', 'none');
+			 	 	    		    $('.goWishList').html('위시리스트에 담기');
+			 	 	    		  	WishListTotal();
+				   				  }
+				   			  },
+				   			  error: function(){alert('실패');}
+				  	  	   });
+	    			});
+    			}
+    		
+    		function WishListTotal() {
+	    			 var meeting_no = '${trainerClassDto.meeting_no}';
+		    		$.ajax({
+		  			  url: 'WishClassTotal.leo',
+		  			  type: 'get',
+		  		      data: 'meeting_no=' + meeting_no,
+				    	  dataType: 'json',
+		   			  success: function (responseObj) {
+			    				$('.IfgoWish_message').html(responseObj.WishClassListTotal + '명이 위시리스트에 담았습니다.')
+		   			  },
+		   			  error: function(){alert('실패');}
+		  	  	   });
+    		}
+    		
     	   </script>
     
 			   <!-- 버튼들(수정, 삭제, 등록) -->
-			   
 				   <div class="Btns1" style="display:flex;">
 				   
 						   <div><input type="button" value="클래스 신청" onclick="fn_TrainerClassApply(this.form)" id="ClassApplyBtn" /></div>
 						   <!-- 모달창 띄우는 버튼 -->
 						   <div class="OfferWishListBtn_Box">
 						   		<!-- hidden으로 보내는 것들 -->
-						   		 <input type="hidden" name="meeting_no" value="${trainerClassDto.meeting_no}" />
+						   		<input type="hidden" name="scrap_referer_no" value="${trainerClassDto.meeting_no}" />
 						   		 <input type="hidden" name="scrap_user_no" value="${trainerClassDto.user_no}" />
 						   		 <input type="hidden" name="user_no" value="${loginUser.user_no}" />
 						   		 <input type="hidden" name="end_gather_date" value="${trainerClassDto.end_gather_date}" />
-						   		<button type="button" class="WishListBtn" onclick="fn_wishListInsert(this.form)">
+						   		
+						   		<button type="button" class="WishListBtn" >
 							   		<svg class="WishIcon-module__container--cAypQ" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 							   			<path id="loveIcon" fill="none" fill-rule="evenodd" stroke="#CED4DA" stroke-width="1.25" d="M15.876 4.625c1.205 0 2.41.46 3.33 1.379.918.92 1.378 2.124 1.378 3.33 0 1.204-.46 2.41-1.379 3.329h0l-7.1 7.1-7.101-7.1c-.92-.92-1.379-2.125-1.379-3.33s.46-2.41 1.379-3.329c.92-.92 2.124-1.379 3.33-1.379 1.204 0 2.41.46 3.329 1.379.161.162.309.332.442.51.133-.178.28-.349.442-.51.919-.92 2.124-1.379 3.329-1.379z"></path>
 							   		</svg>
@@ -178,8 +225,7 @@
 						   <div><input type="button" value="삭제" onclick="fn_TrainerClassViewDelete(this.form)" id="ClassDeleteBtn" /></div>
 				   
 				   </div>
-			   
-			   </form>
+</form>
 			   
 			   <!-- 모달창 버튼 누를 시 열리는 내용들 -->
 			   <div id="modal_background"></div>
