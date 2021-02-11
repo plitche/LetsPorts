@@ -1,17 +1,7 @@
-// <!-- 모달창 만들기 위함 -->
-    window.onload = function() {
- 
-    function onClick() {
-        document.querySelector('.modal_wrap').style.display ='block';
-        document.querySelector('.black_bg').style.display ='block';
-    }   
-    function offClick() {
-        document.querySelector('.modal_wrap').style.display ='none';
-        document.querySelector('.black_bg').style.display ='none';
-    }
- 
-    document.getElementById('modal_btn').addEventListener('click', onClick);
-    document.querySelector('.modal_close').addEventListener('click', offClick);
- 
-};
+// 탭바
 
+// 모임 - 내가 주최하는 모임(수락 거절), 예정된 모임, 지난 모임
+// 모임 수락 거절
+// 게시물 - 내가 남긴 게시물 뿌려주기
+// 리뷰 - 내가 쓴 리뷰, 내게 달린 리뷰, 조원들에 대한 평가
+// 조원들에 대한 평가 - 
