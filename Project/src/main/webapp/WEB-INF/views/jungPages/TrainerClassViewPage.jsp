@@ -115,28 +115,71 @@
 						   location.href = '';  // 클래스 신청했을 때 넘어가는 경로
 					   }
 				   });
-	    		   
 	    	   }
-	    	
     	   
     	   </script>
     	   
-    	   
+<!-- *********************************************************** 위시리스트 담기 시작점 ************************************************************ -->
+    	   <script>
+    		
+    	   $(document).on('click', '.WishListBtn', function() {
+    		   
+    		   function fn_wishListInsert(f) {
+    			   f.action = 'WishClassInsert.leo';
+    			   f.submit();
+    		   }
+    		   
+    		   var meeting_no = '${trainerClassDto.meeting_no}';
+    		   
+    		   $.ajax({
+    			 url: 'WishClassListTotal.leo',
+    			 type: 'get',
+    			 data: 'meeting_no=' + meeting_no,
+    			 dataType: 'json',
+    			 success: function (responseObj) {
+    				$('.IfgoWish_message').html(responseObj.WishClassListTotal + '명이 위시리스트에 담았습니다.')
+    				$('#loveIcon').attr('stroke', '#FA5B4A');
+    				$('#loveIcon').attr('fill', '#FA5B4A');
+ 	    		    $('.goWishList').html('위시리스트 추가됨');
+    			 },
+    		   error: function() {alert('실패임');}
+    		   });
+    	   });
+    	
+    	   </script>
+    
 			   <!-- 버튼들(수정, 삭제, 등록) -->
-			   <div class="Btns1">
 			   
-					   <input type="button" value="클래스 신청" onclick="fn_TrainerClassApply(this.form)" id="ClassApplyBtn" />
-					   <!-- 모달창 띄우는 버튼 -->
-					   <input type="button" value="클래스 질문하기" id="modal-open-btn" class="ClassQuestionBtn" />
-					   <input type="button" value="클래스 목록"  onclick="fn_TrainerClassList()"/>
-					   <input type="button" value="수정" onclick="fn_TrainerClassViewUpdatePage(this.form)" id="ClassUpdateBtn" />
-					   <input type="button" value="삭제" onclick="fn_TrainerClassViewDelete(this.form)" id="ClassDeleteBtn" />
+				   <div class="Btns1" style="display:flex;">
+				   
+						   <div><input type="button" value="클래스 신청" onclick="fn_TrainerClassApply(this.form)" id="ClassApplyBtn" /></div>
+						   <!-- 모달창 띄우는 버튼 -->
+						   <div class="OfferWishListBtn_Box">
+						   		<!-- hidden으로 보내는 것들 -->
+						   		 <input type="hidden" name="meeting_no" value="${trainerClassDto.meeting_no}" />
+						   		 <input type="hidden" name="scrap_user_no" value="${trainerClassDto.user_no}" />
+						   		 <input type="hidden" name="user_no" value="${loginUser.user_no}" />
+						   		 <input type="hidden" name="end_gather_date" value="${trainerClassDto.end_gather_date}" />
+						   		<button type="button" class="WishListBtn" onclick="fn_wishListInsert(this.form)">
+							   		<svg class="WishIcon-module__container--cAypQ" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+							   			<path id="loveIcon" fill="none" fill-rule="evenodd" stroke="#CED4DA" stroke-width="1.25" d="M15.876 4.625c1.205 0 2.41.46 3.33 1.379.918.92 1.378 2.124 1.378 3.33 0 1.204-.46 2.41-1.379 3.329h0l-7.1 7.1-7.101-7.1c-.92-.92-1.379-2.125-1.379-3.33s.46-2.41 1.379-3.329c.92-.92 2.124-1.379 3.33-1.379 1.204 0 2.41.46 3.329 1.379.161.162.309.332.442.51.133-.178.28-.349.442-.51.919-.92 2.124-1.379 3.329-1.379z"></path>
+							   		</svg>
+							   		<span class="goWishList">위시리스트에 담기</span>
+						   		</button>
+						   		<p class="IfgoWish_message"></p>
+						   	</div>
+<!-- *********************************************************** 위시리스트 담기 마감 ************************************************************ -->
 			   
-			   </div>
 			   
+							<!-- 이것또한 버튼들 -->			   
+						   <div><input type="button" value="클래스 질문하기" id="modal-open-btn" class="ClassQuestionBtn" /></div>
+						   <div><input type="button" value="클래스 목록"  onclick="fn_TrainerClassList()"/></div>
+						   <div><input type="button" value="수정" onclick="fn_TrainerClassViewUpdatePage(this.form)" id="ClassUpdateBtn" /></div>
+						   <div><input type="button" value="삭제" onclick="fn_TrainerClassViewDelete(this.form)" id="ClassDeleteBtn" /></div>
+				   
+				   </div>
 			   
-			   
-			   
+			   </form>
 			   
 			   <!-- 모달창 버튼 누를 시 열리는 내용들 -->
 			   <div id="modal_background"></div>
@@ -185,12 +228,9 @@
  		</a>
   	 </div>
     
-    
-    
-    
-    
     <br/><br/><br/><br/><br/>
-  
+  	
+  	<!-- 관련트레이너 클래스 리스트 뿌려주는 곳 -->
   	<h3>관련 트레이너 클래스</h3>
     <br/>
     <div class="relatedClass_all">
@@ -199,8 +239,6 @@
     </div>
     
     <script>
-		
-    	
     	
     
     	// 관련리스트 뿌려졌을때 관련 리스트로 가는 법
@@ -259,25 +297,7 @@
     	}
     
     </script>
-    
-    
-    <script>
-    
-    	// 아마 버려질 스크립트 일듯....
-    	//	모달창에서 댓글을 달면 뜨는 리스트
-    	
-    	// 페이지 로드 이벤트
-    	/*
-		$(document).ready(function(){
-			questionList();
-			questionInsert();
-			questionView();
-			questionUpdate();
-		});
-    	*/
-    </script>
 
-	
 	<script>
 	
 			//모달창 만들어주는 함수

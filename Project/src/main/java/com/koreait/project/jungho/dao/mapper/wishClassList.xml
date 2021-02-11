@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- Spring에서 새로 배우는 스타일 -->
+<mapper namespace="com.koreait.project.jungho.dao.WishClassListDao">
+
+	<select id="WishClassListTotal" resultType="int" parameterType="int">
+		SELECT COUNT(*)
+		FROM SCRAP
+		WHERE SCRAP_REFERER_NO = #{param1}
+		AND SCRAP_SEPARATOR = 1
+	</select>
+	
+	<select id="WishClassListList" resultType="com.koreait.project.jungho.dto.TrainerClassDto" parameterType="int">
+		SELECT *
+		FROM SCRAP S
+			FULL OUTER JOIN USERS U 
+				ON S.SCRAP_USER_NO = U.USER_NO
+			FULL OUTER JOIN MEETING M
+				ON S.SCRAP_REFERER_NO = M.MEETING_NO
+			FULL OUTER JOIN PHOTO P
+				ON S.SCRAP_USER_NO = P.USER_NO
+		WHERE S.USER_NO = #{param1}
+		AND S.SCRAP_SEPARATOR = 1
+	</select>
+	
+	<insert id="WishClassInsert" parameterType="com.koreait.project.jungho.dto.WishClassListDto">
+		INSERT INTO VALUES
+		(SCRAP_SEQ.NEXTVAL, #{user_no}, 1, #{scrap_referer_no}, #{scrap_user_no}, #{end_gather_date}, SYSDATE)
+	</insert>
+
+</mapper>
