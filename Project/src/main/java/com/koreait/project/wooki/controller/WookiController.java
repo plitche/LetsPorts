@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.wooki.command.AdminLoginCommand;
 import com.koreait.project.wooki.command.CheckUserCommand;
+import com.koreait.project.wooki.command.InsertIsReviewedCommand;
 import com.koreait.project.wooki.command.admin.AdminListCommand;
 import com.koreait.project.wooki.command.admin.UpdateAdminUserCommand;
 import com.koreait.project.wooki.command.admin.UpdateNormalUserCommand;
@@ -89,6 +90,7 @@ public class WookiController {
 	private TQnAOnHideToggleCommand tQnAOnHideToggleCommand = ctx.getBean("tQnAOnHideToggleCommand", TQnAOnHideToggleCommand.class);
 	private PhotoListCommand photoListCommand = ctx.getBean("photoListCommand", PhotoListCommand.class);
 	private PhotoOnHideToggleCommand photoOnHideToggleCommand = ctx.getBean("photoOnHideToggleCommand", PhotoOnHideToggleCommand.class);
+	private InsertIsReviewedCommand insertIsReviewedCommand = ctx.getBean("insertIsReviewedCommand", InsertIsReviewedCommand.class);
 	
 	@GetMapping(value="adminPage.wooki")
 	public String adminPage() {
@@ -352,5 +354,11 @@ public class WookiController {
 		model.addAttribute("photo_no", photo_no);
 		model.addAttribute("on_hide", on_hide);
 		return photoOnHideToggleCommand.execute(sqlSession, model);
+	}
+	
+	@GetMapping(value="insertIsReviewed.wooki")
+	public String insertIsReviewed(Model model) {
+		insertIsReviewedCommand.execute(sqlSession, model);
+		return "redirect:/";
 	}
 }

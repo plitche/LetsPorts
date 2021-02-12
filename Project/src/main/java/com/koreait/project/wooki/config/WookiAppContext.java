@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.koreait.project.wooki.command.AdminLoginCommand;
 import com.koreait.project.wooki.command.CheckUserCommand;
+import com.koreait.project.wooki.command.InsertIsReviewedCommand;
 import com.koreait.project.wooki.command.admin.AdminListCommand;
 import com.koreait.project.wooki.command.admin.UpdateAdminUserCommand;
 import com.koreait.project.wooki.command.admin.UpdateNormalUserCommand;
@@ -172,5 +173,10 @@ public class WookiAppContext {
 	@Bean
 	public PhotoOnHideToggleCommand photoOnHideToggleCommand() {
 		return new PhotoOnHideToggleCommand();
+	}
+	
+	@Bean
+	public InsertIsReviewedCommand insertIsReviewedCommand() {
+		return new InsertIsReviewedCommand();
 	}
 }
