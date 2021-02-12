@@ -1111,7 +1111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							where
 								meeting.is_progress = 0
 								<![CDATA[and meeting.meeting_min > mp.count]]>
-								<![CDATA[and to_char(end_gather_date, 'yyyymmdd') < to_char(sysdate, 'yyyymmdd'))]]>
+								<![CDATA[and to_char(meeting_date - 1, 'yyyymmdd') < to_char(sysdate, 'yyyymmdd'))]]>
 	</update>
 
 </mapper>
