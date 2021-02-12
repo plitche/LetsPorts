@@ -9,6 +9,7 @@ import com.koreait.project.wooki.dto.ReviewDto;
 import com.koreait.project.wooki.dto.Trainer_infoDto;
 import com.koreait.project.wooki.dto.Trainer_qnaDto;
 import com.koreait.project.wooki.dto.UsersDto;
+import com.koreait.project.wooki.dto.is_reviewedDto;
 
 public interface WookiDao {
 	public UsersDto adminLogin(UsersDto usersDto);
@@ -101,4 +102,12 @@ public interface WookiDao {
 	public List<PhotoDto> photoListFilterQuery(int beginRecord, int endRecord, int photoSep, String columnName, String query);
 	// 사진 숨김, 보이기
 	public int photoOnHideToggle(int photo_no, int on_hide);
+	// 리뷰작성 대상 유저 리스트
+	public List<is_reviewedDto> selectReviewTargetUser();
+	// 리뷰작성 대상 테이블 인서트
+	public int insertIsReviewed(List<is_reviewedDto> list);
+	// 미팅 is_progress 상태 업데이트(1)
+	public int updateMeetingIsProgress1();
+	// 미팅 is_progress 상태 업데이트(2)
+	public int updateMeetingIsProgress2();
 }

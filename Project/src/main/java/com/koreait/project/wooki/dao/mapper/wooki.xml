@@ -1017,4 +1017,101 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			photo_no = #{param1}
 	</update>
 	
+	<select id="selectReviewTargetUser" resultType="com.koreait.project.wooki.dto.is_reviewedDto">
+		select
+			a.meeting_no as meeting_no,
+			a.user_no as target_user_no,
+			mp.user_no as writer_user_no
+		from
+			(select
+				meeting.meeting_no, meeting.user_no
+			from
+				meeting
+			join
+				(select
+					meeting_no, count(user_no) as count
+				from
+					meeting_participants
+				where
+					status = 1
+				group by
+					meeting_no) mp on meeting.meeting_no = mp.meeting_no
+			join
+				users on meeting.user_no = users.user_no
+				and users.user_separator = 1
+			where
+				meeting.is_progress = 0
+				<![CDATA[and meeting.meeting_min <= mp.count]]>
+				<![CDATA[and to_char(meeting_date, 'yyyymmdd') <= to_char(sysdate, 'yyyymmdd')]]>) a
+		join
+			meeting_participants mp on a.meeting_no = mp.meeting_no
+			and mp.status = 1
+		where
+			a.user_no != mp.user_no
+	</select>
+	
+	<insert id="insertIsReviewed" parameterType="java.util.List">
+		{call
+	        declare
+	        begin
+				<foreach item="item" index="index" collection="list">
+					insert into
+						is_reviewed
+					values
+						(is_reviewed_seq.nextval, ${item.meeting_no}, ${item.target_user_no}, ${item.writer_user_no}, 0);
+				</foreach>
+	        end
+    	}
+	</insert>
+	
+	<update id="updateMeetingIsProgress1">
+		update
+			meeting
+		set
+			is_progress = 1
+		where
+			meeting_no in (select
+								meeting.meeting_no
+							from
+								meeting
+							join
+								(select
+									meeting_no, count(user_no) as count
+								from
+									meeting_participants
+								where
+									status = 1
+								group by
+									meeting_no) mp on meeting.meeting_no = mp.meeting_no
+							where
+								meeting.is_progress = 0
+								<![CDATA[and meeting.meeting_min <= mp.count]]>
+								<![CDATA[and to_char(meeting_date, 'yyyymmdd') <= to_char(sysdate, 'yyyymmdd'))]]>
+	</update>
+	
+	<update id="updateMeetingIsProgress2">
+		update
+			meeting
+		set
+			is_progress = 2
+		where
+			meeting_no in (select
+								meeting.meeting_no
+							from
+								meeting
+							join
+								(select
+									meeting_no, count(user_no) as count
+								from
+									meeting_participants
+								where
+									status = 1
+								group by
+									meeting_no) mp on meeting.meeting_no = mp.meeting_no
+							where
+								meeting.is_progress = 0
+								<![CDATA[and meeting.meeting_min > mp.count]]>
+								<![CDATA[and to_char(end_gather_date, 'yyyymmdd') < to_char(sysdate, 'yyyymmdd'))]]>
+	</update>
+
 </mapper>

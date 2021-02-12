@@ -92,11 +92,13 @@ public class WookiController {
 	private PhotoOnHideToggleCommand photoOnHideToggleCommand = ctx.getBean("photoOnHideToggleCommand", PhotoOnHideToggleCommand.class);
 	private InsertIsReviewedCommand insertIsReviewedCommand = ctx.getBean("insertIsReviewedCommand", InsertIsReviewedCommand.class);
 	
+	// 어드민 로그인 페이지 이동
 	@GetMapping(value="adminPage.wooki")
 	public String adminPage() {
 		return "wookiPages/adminLogin";
 	}
 	
+	// 어드민 로그인 세션저장
 	@PostMapping(value="adminLogin.wooki")
 	public String adminLogin(UsersDto usersDto, HttpServletRequest request, RedirectAttributes redirect, Model model) {
 		model.addAttribute("redirect", redirect);
@@ -106,6 +108,7 @@ public class WookiController {
 		return "redirect:adminPage.wooki";
 	}
 	
+	// 어드민 로그아웃
 	@GetMapping(value="adminLogout.wooki")
 	public String adminLogout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -113,11 +116,13 @@ public class WookiController {
 		return "redirect:adminPage.wooki";
 	}
 	
+	// 어드민 관리 페이지 접속
 	@GetMapping(value="adminIndex.wooki")
 	public String adminIndex() {
 		return "wookiPages/adminIndex";
 	}
 	
+	// 회원 리스트 불러오기
 	@GetMapping(value="userList.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> userList(@RequestParam("page") int page, Model model) {
@@ -125,6 +130,7 @@ public class WookiController {
 		return userListCommand.execute(sqlSession, model);
 	}
 	
+	// 검색조건에 맞는 회원리스트 불러오기
 	@GetMapping(value="filterUserList.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> filterUserList(
@@ -136,6 +142,7 @@ public class WookiController {
 		return filterUserListCommand.execute(sqlSession, model);
 	}
 	
+	// 이메일변경 - 요청한 이메일 중복체크
 	@GetMapping(value="changeEmailIsPossible.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> changeEmailIsPossible(@RequestParam("email") String email, Model model) {
@@ -143,6 +150,7 @@ public class WookiController {
 		return changeEmailIsPossibleCommand.execute(sqlSession, model);
 	}
 	
+	// 이메일 업데이트
 	@PutMapping(value="changeEmail.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> changeEmail(@RequestBody UsersDto usersDto, Model model) {
@@ -150,6 +158,7 @@ public class WookiController {
 		return changeEmailCommand.execute(sqlSession, model);
 	}
 	
+	// 임시비밀번호 발송
 	@PutMapping(value="sendTempPass.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> sendTempPass(@RequestBody UsersDto usersDto, Model model) {
@@ -158,12 +167,14 @@ public class WookiController {
 		return sendTempPassCommand.execute(sqlSession, model);
 	}
 	
+	// 관리자 회원 리스트
 	@GetMapping(value="adminList.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> adminList(Model model) {
 		return adminListCommand.execute(sqlSession, model);
 	}
 	
+	// 관리자회원 -> 일반회원 업데이트
 	@PutMapping(value="updateNormalUser/{user_no}.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> updateNormalUser(@PathVariable("user_no") int user_no, Model model) {
@@ -171,6 +182,7 @@ public class WookiController {
 		return updateNormalUserCommand.execute(sqlSession, model);
 	}
 	
+	// 어드민유저 관리 - 입력받은 유저 존재여부 체크
 	@GetMapping(value="checkUser.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> checkUser(@RequestParam("user_no") int user_no, Model model) {
@@ -178,6 +190,7 @@ public class WookiController {
 		return checkUserCommand.execute(sqlSession, model);
 	}
 	
+	// 일반유저 -> 관리자회원 업데이트
 	@PutMapping(value="updateAdminUser/{user_no}.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> updateAdminUser(@PathVariable("user_no") int user_no, Model model) {
@@ -185,6 +198,7 @@ public class WookiController {
 		return updateAdminUserCommand.execute(sqlSession, model);
 	}
 	
+	// 회언탈퇴
 	@DeleteMapping(value="deleteUser/{user_no}.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> deleteUser(
@@ -196,6 +210,7 @@ public class WookiController {
 		return deleteUserCommand.execute(sqlSession, model);
 	}
 	
+	// 트레이너 리스트
 	@GetMapping(value="trainerUserList.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> trainerUserList(@RequestParam("page") int page, Model model) {
@@ -203,6 +218,7 @@ public class WookiController {
 		return trainerUserListCommand.execute(sqlSession, model);
 	}
 	
+	// 검색조건에 해당하는 트레이너 리스트
 	@GetMapping(value="filterTrainerUserList.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> filterTrainerUserList(
@@ -214,6 +230,7 @@ public class WookiController {
 		return filterTrainerUserListCommand.execute(sqlSession, model);
 	}
 	
+	// 트레이너 가입링크 이메일 발송
 	@GetMapping(value="addTrainerSendEmail.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> addTrainerSendEmail(@RequestParam("user_no") int user_no, Model model) {
@@ -222,6 +239,7 @@ public class WookiController {
 		return addTrainerSendEmailCommand.execute(sqlSession, model);
 	}
 	
+	// 트레이너 -> 일반회원 전환
 	@DeleteMapping(value="deleteTrainerInfo/{user_no}.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> deleteTrainerInfo(
@@ -233,6 +251,7 @@ public class WookiController {
 		return deleteTrainerInfoCommand.execute(sqlSession, model);
 	}
 	
+	// 게시글 리스트(노하우, 질답, 미팅)
 	@GetMapping(value="boardsList.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> boardsList(HttpServletRequest request, Model model) {
@@ -240,6 +259,7 @@ public class WookiController {
 		return boardsListCommand.execute(sqlSession, model);
 	}
 
+	// 게시글 숨김, 보이기
 	@PutMapping(value="boardsOnHideToggle/{board_no}/{board_sep}/{on_hide}.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> boardsOnHideToggle(
@@ -253,6 +273,7 @@ public class WookiController {
 		return boardsOnHideToggleCommand.execute(sqlSession, model);
 	}
 	
+	// 게시글삭제
 	@DeleteMapping(value="boardDelete/{board_no}/{board_sep}.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> boardDelete(
@@ -266,6 +287,7 @@ public class WookiController {
 		return boardDeleteCommand.execute(sqlSession, model);
 	}
 	
+	// 댓글리스트
 	@GetMapping(value="commentsList.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> commentsList(HttpServletRequest request, Model model) {
@@ -273,6 +295,7 @@ public class WookiController {
 		return commentsListCommand.execute(sqlSession, model);
 	}
 	
+	// 댓글 숨기기
 	@PutMapping(value="commentsOnHideToggle/{comment_no}/{on_hide}.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> commentsOnHideToggle(
@@ -284,6 +307,7 @@ public class WookiController {
 		return commentsOnHideToggleCommand.execute(sqlSession, model);
 	}
 	
+	// 댓글 삭제
 	@DeleteMapping(value="commentDelete/{comment_no}.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> commentDelete(
@@ -293,6 +317,7 @@ public class WookiController {
 		return commentDeleteCommand.execute(sqlSession, model);
 	}
 	
+	// 리뷰 리스트
 	@GetMapping(value="reivewList.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> reivewList(HttpServletRequest request, Model model) {
@@ -300,6 +325,7 @@ public class WookiController {
 		return reivewListCommand.execute(sqlSession, model);
 	}
 	
+	// 리뷰 숨기기
 	@PutMapping(value="reviewOnHideToggle/{review_no}/{on_hide}.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> reviewOnHideToggle(
@@ -311,6 +337,7 @@ public class WookiController {
 		return reviewOnHideToggleCommand.execute(sqlSession, model);
 	}
 	
+	// 트레이너 질문과 답변리스트
 	@GetMapping(value="tQnAList.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> tQnAList(HttpServletRequest request, Model model) {
@@ -318,6 +345,7 @@ public class WookiController {
 		return tQnAListCommand.execute(sqlSession, model);
 	}
 
+	// 트레이너 질문과 답변게시판 트레이너 답변 업데이트
 	@PutMapping(value="tAnswerdUpdate.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> tAnswerdUpdate(
@@ -327,6 +355,7 @@ public class WookiController {
 		return tAnswerdUpdateCommand.execute(sqlSession, model);
 	}
 	
+	// 트레이너 질답 숨기기 및 보이기
 	@PutMapping(value="tQnAOnHideToggle/{trainer_qna_no}/{on_hide}.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> tQnAOnHideToggle(
@@ -338,6 +367,7 @@ public class WookiController {
 		return tQnAOnHideToggleCommand.execute(sqlSession, model);
 	}
 	
+	// 사진 리스트
 	@GetMapping(value="photoList.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> photoList(HttpServletRequest request, Model model) {
@@ -345,6 +375,7 @@ public class WookiController {
 		return photoListCommand.execute(sqlSession, model);
 	}
 	
+	// 사진 숨기기 및 보이기
 	@PutMapping(value="photoOnHideToggle/{photo_no}/{on_hide}.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> photoOnHideToggle(
@@ -356,6 +387,7 @@ public class WookiController {
 		return photoOnHideToggleCommand.execute(sqlSession, model);
 	}
 	
+	// is_reviewed 테이블에 대상유저 추가 + 모임 진행상태 업데이트
 	@GetMapping(value="insertIsReviewed.wooki")
 	public String insertIsReviewed(Model model) {
 		insertIsReviewedCommand.execute(sqlSession, model);
