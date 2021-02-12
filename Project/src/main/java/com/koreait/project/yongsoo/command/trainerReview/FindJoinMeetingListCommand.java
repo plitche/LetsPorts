@@ -32,6 +32,12 @@ public class FindJoinMeetingListCommand implements CommonMapCommand {
 			result.put("joinMeetingList", joinMeetingList);
 		} else {
 			result.put("result", false);
+			if (trainerReviewDao.findAlreadyRevied(target_user_no, writer_user_no)>0) {
+				result.put("status", true);
+			} else {
+				result.put("status", false);
+			}
+			
 		}
 		
 		return result;

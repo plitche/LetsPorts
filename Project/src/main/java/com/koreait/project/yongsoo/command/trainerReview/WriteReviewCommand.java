@@ -17,9 +17,13 @@ public class WriteReviewCommand implements CommonMapCommand {
 
 		Map<String, Object> map = model.asMap();
 		ReviewDto reviewDto = (ReviewDto)map.get("reviewDto");
+		int meeting_no = reviewDto.getMeeting_no();
+		int target_user_no = reviewDto.getTarget_user_no();
+		int writer_user_no = reviewDto.getWriter_user_no();
 		
 		TrainerReviewDao trainerReviewDao = sqlSession.getMapper(TrainerReviewDao.class);
 		int result = trainerReviewDao.wrtieReview(reviewDto);
+		trainerReviewDao.updateIsReviewedStatus(meeting_no, target_user_no, writer_user_no);
 		
 		Map<String, Object> writeReviewResult = new HashMap<String, Object>();
 		if (result > 0) {

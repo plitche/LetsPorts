@@ -284,7 +284,11 @@
 							)
 							$('#modal').attr("style", "display:block");
 						} else {
-							swal.fire('리뷰를 작성할 수 없습니다.', '트레이너와 함께 한 모임이 없습니다. 다양한 활동 후 많은 리뷰를 남겨주세요!^^', 'error')
+							if(responseObj.status) {
+								swal.fire('리뷰를 작성할 수 없습니다.', '이미 해당 트레이너와 함께한 모든 모임에 리뷰를 작성하셨습니다!^^', 'info')
+							} else {
+								swal.fire('리뷰를 작성할 수 없습니다.', '트레이너와 함께 한 모임이 없습니다. 다양한 활동 후 많은 리뷰를 남겨주세요!^^', 'error')
+							}
 						}
 					},
 					error: function(){alert('리뷰 버튼 클릭시 ajax 실패');}	

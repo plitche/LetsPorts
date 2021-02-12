@@ -29,6 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="findJoinMeetingList" resultType="com.koreait.project.dto.MeetingDto">
+		<!-- 
 		SELECT * 
 		  FROM MEETING
 		 WHERE USER_NO = ${param1}
@@ -40,6 +41,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   					        FROM REVIEW
 		   					       WHERE TARGET_USER_NO = #{param1}
 		   					         AND WRITER_USER_NO = #{param2})
+         -->
+         SELECT *
+           FROM MEETING
+          WHERE USER_NO = #{param1}
+            AND MEETING_NO IN (SELECT MEETING_NO
+                                 FROM IS_REVIEWED
+                                WHERE TARGET_USER_NO = #{param1}
+                                  AND WRITER_USER_NO = #{param2}
+                                  AND STATUS = 0)
+	</select>
+	
+	<select id="findAlreadyRevied" resultType="int">
+		 SELECT COUNT(*)
+           FROM MEETING
+          WHERE USER_NO = #{param1}
+            AND MEETING_NO IN (SELECT MEETING_NO
+                                 FROM IS_REVIEWED
+                                WHERE TARGET_USER_NO = #{param1}
+                                  AND WRITER_USER_NO = #{param2}
+                                  AND STATUS != 0)
 	</select>
 	
 	
@@ -47,6 +68,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO REVIEW
 		VALUES (REVIEW_SEQ.NEXTVAL, #{target_user_no}, #{score}, #{meeting_no}, #{content}, SYSDATE, 0, #{writer_user_no})
 	</insert>
+	<update id="updateIsReviewedStatus">
+		UPDATE IS_REVIEWED
+		   SET STATUS = 2
+		 WHERE MEETING_NO = #{param1}
+		   AND TARGET_USER_NO = #{param2}
+		   AND WRITER_USER_NO = #{param3}
+	</update>
 	
 	<select id="getAllReviewContent" parameterType="int" resultType="String">
 		SELECT CONTENT
