@@ -176,7 +176,6 @@ CREATE TABLE scrap (
     user_no             NUMBER  REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     scrap_separator     NUMBER  NOT NULL, 
     scrap_referer_no    NUMBER  NULL, 
-    scrap_user_no		NUMBER  REFERENCES users(user_no) ON DELETE CASCADE NOT NULL,
     end_gather_date     DATE    NULL, 
     created_at          DATE    NOT NULL
 );

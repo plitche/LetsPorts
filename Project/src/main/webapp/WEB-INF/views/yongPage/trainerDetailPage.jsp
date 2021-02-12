@@ -207,6 +207,8 @@
 				} else {
 					$('#totalReview').empty();
 					$('#totalReview').text(responseObj.reviewCount);
+					$('#reviewListWrap').text('작성된 리뷰 목록이 없습니다. 첫번째 리뷰 작성자가 되어주세요.^^')
+					.css('text-align', 'center').css('padding-left', '11%').css('font-weight', 'bold');
 				}
 			},
 			error: function(){alert('리뷰 가져오기 ajax 실패');}
@@ -686,7 +688,7 @@ ${trainerTemDto.profile}
 	
 	<div id="QnAList" class="conBox">
 	<input type="button" id="openQnAModal" class="TrainerDetailBtn" value="질문 등록하기">
-		<div id="currentPage" style="text-align: center;"></div>
+		<div id="currentPage" style="text-align: center; padding-left: 12%; font-weight: bold;"></div>
 		<div id="trainerQnAList">
 			<table id="questionList">
 				<colgroup>

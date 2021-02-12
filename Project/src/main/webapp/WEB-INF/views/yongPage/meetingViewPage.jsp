@@ -470,7 +470,7 @@
 	<div id="meetingBody">
 		<div id="leftSide">
 			<div id="meetingDetail">
-				<div class="subTitle">소셜링 소개</div>
+				<div class="subTitle" style="margin-top: auto;">소셜링 소개</div>
 				<div class="title">자세한 정보를 알려드릴게요</div>
 				<div class="info_row">
 					<i class="fas fa-user-friends"></i>
@@ -481,8 +481,8 @@
 					<span>약속일 : ${meetingDto.meeting_date2}</span>
 				</div>
 				<div class="info_row">
-					<i class="far fa-calendar-alt"></i>
-					<span>모집 시작: ${meetingDto.start_gather_date2} ~ 모집 마감: ${meetingDto.end_gather_date2}</span>
+					<i class="fas fa-hourglass-half"></i>
+					<span>모집 기간: ${meetingDto.start_gather_date2} ~ ${meetingDto.end_gather_date2}</span>
 				</div>
 				<div class="info_row">
 					<i class="fas fa-map-marked-alt"></i>
@@ -534,11 +534,12 @@
 				</script>
 				<div class="subTitle">준비사항</div>
 				<div class="title">함께 준비하면 좋아요</div>
-				<div class="info_row">준비물 : 
+				<i class="fas fa-american-sign-language-interpreting"></i>
+				<span class="info_row">준비물 : 
 					<c:forEach var="list" items="${materialList}">
 				  		${list.materials_name} &nbsp;
 			    	</c:forEach>
-				</div>
+				</span>
 			</div>
 		</div>
 		<div id="rightSide">
@@ -588,7 +589,9 @@
 			<span>${trainerTemDto.employment}</span>
 		</div>
 		<div>
-			<span>관심분야</span>		
+			<c:forEach var="interestList" items="${interestList}">
+				<span>${interestList}</span>
+			</c:forEach>
 		</div>
 		<div>${trainerTemDto.user_message}</div>
 	</c:if>
