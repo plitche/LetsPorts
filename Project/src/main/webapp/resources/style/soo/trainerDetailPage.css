@@ -61,8 +61,7 @@
 #tab ul li:hover, #tab ul li.on {
 	background: #000;
 	color: white;
-	border-bottom: 3px solid Yellow;
-	box-shadow: 3px 2px 2px yellow; 
+	border-bottom: 3px solid orangered;
 }
 #tab .conBox {
 	width: 100%;
@@ -417,8 +416,5 @@
 	float: right;
 	margin-bottom: 20px;
 }
-
-
-
 
 

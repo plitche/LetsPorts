@@ -19,7 +19,9 @@
 	letter-spacing: -.72px;
 	color: #242424;
 }
-
+#meetingDetail > div:nth-child(1) {
+	margin-top: none;
+}
 
 /* 모임 정보 관련 css */
 #meeting {
@@ -41,7 +43,7 @@
 }
 #meetingBody img {
 	width: 100%;
-	height: 400px;
+	height: 413px;
 }
 #leftSide {
 	width: 50%;

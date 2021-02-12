@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 		      FROM COMMENTS
 		 		      WHERE COMMENT_REFERER_NO = #{param1}
 		 		        AND COMMENT_REFERER_SEP = 2
+		 		        AND ON_HIDE = 0
 		 		      ORDER BY COMMENT_NO DESC) C1 
 		 	   ) C2
 		       FULL OUTER JOIN USERS U
@@ -25,6 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM COMMENTS
 		 WHERE COMMENT_REFERER_NO = #{meeting_no}
 		   AND COMMENT_REFERER_SEP = 2
+		   AND ON_HIDE = 0
 	</select>
 	
 	
