@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        FROM (SELECT *
 		        	  FROM TRAINER_QNA
 		        	  WHERE TRAINER_USER_NO = #{param2}
+		        	    AND ON_HIDE = 0
 		              ORDER BY TRAINER_QNA_NO DESC) T1
 		       )
 		 WHERE RN BETWEEN (#{param1}*10-9) AND (#{param1}*10)
@@ -19,6 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*)
 		  FROM TRAINER_QNA
 		 WHERE TRAINER_USER_NO = #{user_no}
+		   AND ON_HIDE = 0
 	</select>
 	
 	
