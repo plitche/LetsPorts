@@ -78,6 +78,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM MEETING
 		 WHERE USER_NO = #{user_no}
 	</select>
+	<insert id="joinToMyMeeting">
+		INSERT INTO MEETING_PARTICIPANTS
+		VALUES (MEETING_PARTICIPANTS_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE, 0, NULL)
+	</insert>
 	<insert id="insertPhotoOfMeeting">
 		INSERT INTO PHOTO
 		VALUES (photo_seq.NEXTVAL, 2, #{param1}, #{param2}, #{param3}, SYSDATE, 0)

@@ -27,6 +27,8 @@ public interface TrainerMeetingDao {
 	public int createMeeting(CreateNewMeetingDto createNewMeetingDto);
 	// 새로 생성된 모임의 모임번호를 가져오기 위한 메소드
 	public int findMeetingNo(int user_no);
+	// 모임 작성자 본인은 바로 모임 참가자 테이블에 insert해주기 위한 메소드
+	public void joinToMyMeeting(int meeting_no, int user_no);
 	// 모임 생성할 때 첨부한 파일을 저장하기위한 메소드
 	public int insertPhotoOfMeeting(int meeting_no, int user_no, String photo_filename);
 	// 새로 생성된 모임번호와 준비물을 저장하기 위한 메소드
