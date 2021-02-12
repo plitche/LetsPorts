@@ -167,14 +167,15 @@
 	padding-top: 30px;
 }
 #otherMeeting {
-	display: flex;
 	margin-bottom: 20px;
+	white-space: nowrap;
+	overflow-x: scroll;
 }
 #otherMeeting > a {
+	display: inline-block;
 	width: 25%;
 	text-decoration: none;
 	color: inherit;	
-	float: left;
 	margin: 10px 10px;
 	background: #fff;
 	transition: 0.2s ease;
@@ -242,13 +243,14 @@
 
 /* 다른 호스트의 같은 종목 모임 */
 #otherHostMeeting {
-	display: flex;
+	white-space: nowrap;
+	overflow-x: scroll;
 }
 #otherHostMeeting > a {
+	display: inline-block;
 	width: 25%;
 	text-decoration: none;
 	color: inherit;	
-	float: left;
 	margin: 10px 10px;
 	background: #fff;
 	transition: 0.2s ease;
