@@ -1,5 +1,6 @@
 package com.koreait.project.yongsoo.command.qna;
 
+import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,10 @@ public class GoQnAViewPageCommand implements CommonVoidCommand {
 		
 		CommonQnADao qnaDao = sqlSession.getMapper(CommonQnADao.class);
 		BoardQnATemDto qnaTemDto = qnaDao.getUpdateQnAInfo(board_qna_no);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd(E) HH:mm");
+		qnaTemDto.setCreated_at2(format.format(qnaTemDto.getCreated_at()));
+		
 		
 		model.addAttribute("qnaTemDto", qnaTemDto);
 		model.addAttribute("page", request.getParameter("page"));

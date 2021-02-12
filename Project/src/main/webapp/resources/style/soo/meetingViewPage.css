@@ -4,150 +4,332 @@
 * {
 	box-sizing: border-box;	
 }
+.subTitle {
+	margin-bottom: 10px;
+	font-size: 14px;
+	color: #ea5a45;
+	letter-spacing: -.33px;
+	margin-top: 30px;
+	font-weight: bold;
+}
+.title {
+	margin-bottom: 5px;
+	font-size: 25px;
+	font-weight: 700;
+	letter-spacing: -.72px;
+	color: #242424;
+}
+
 
 /* 모임 정보 관련 css */
 #meeting {
-	border-bottom: 2px dashed silver;
+	border-bottom: 2px solid #ebebeb;
 }
 #meetingHeader {
 	margin-top: 100px;
-	border-bottom: 2px dashed silver;
+	border-bottom: 2px solid #ebebeb;
 	text-align: right;
 }
 #meetingTitle {
-	font-size: 2rem;
-	font-weight: 800;
+	font-size: 3rem;
+	font-weight: bold;
 	text-align: center;
 }
-#meetingInfo {
+#meetingBody {
 	display: flex;
 	margin-top: 30px;
 }
-#meetingInfo img {
+#meetingBody img {
 	width: 100%;
 	height: 400px;
 }
 #leftSide {
-	width: 40%;
+	width: 50%;
 	margin-right: 10%;
 }
 #rightSide {
 	width: 50%;
 }
 
+
 #meetingDetail {
 	width: 70%;
+}
+.info_row {
+	width: 120%;
+	padding: 0px;
+	margin-bottom: 10px;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.63;
+	letter-spacing: -.6px;
+	color: #383535;
+}
+.info_row > span {
+	margin-left: 5px;
 }
 #mainImg {
 	width: 100%;
 	height: 40%;
-	
-}
-#mainImg img {
-	width: 100%;
 }
 #meetingContent {
+	line-height: 1.5;
+	text-align: left;
+	color:  #212529;
 	margin-bottom: 30px;
+}
+.btns {
+	text-align: right;
+	margin-bottom: 15px;
+}
+.btns > input {
+	text-align: center;
+	padding: 13px 0;
+	border-radius: 999px;
+	background-color: #e73e26;
+	color: #fff;
+	height: 40px;
+	font-weight: 700;
+	line-height: 15px;
+	width: 70px;
 }
 
 
 /* 호스트 관련 css */
 #host {
-	display: flex;
+	padding-bottom: 50px;
+	padding: 24px 20px 20px;
+	border-radius: 16px;
+	border: 1px solid #dbdbdb;
+	width: 40%;
+	margin-bottom: 60px;
 }
-#hostHeader {
-	width: 70%;
-}
-#hostWrap {
+#infoHost {
 	display: flex;
 }
 #hostImage {
-	width:10%;
-	border: 1px solid;
-	margin: 0 20px 10px 0;
+	padding-right: 8px;
+	margin-bottom: 8px;
 }
-#host {
-	padding-bottom: 50px;
-	border-bottom: 2px dashed silver;
+#hostImage img{
+	width: 80px;
+	height: 80px;
+	border-radius: 40px;
 }
-.btns {
-	height: auto;
-	margin-top: auto;
-	margin-left: auto;
+#infoHost > div:nth-child(2) {
+	margin-top: 24px;
 }
-
-/* 다른 모임 리스트 flex용 */
-.otherMeeting {
-	display: flex;
-	flex-direction: column;
-	padding-bottom: 30px;
-	border-bottom: 2px dashed silver;
+#infoHost > div:nth-child(2) > div:nth-child(1) {
+	font-size: 10px;
+	font-weight: 400;
+	line-height: 1.2;
+	letter-spacing: -.2px;
+	color: #999696;
+	margin-bottom: 4px;
 }
-.otherMeeting img {
-	width: 100%;
-	height: 100%;
-	border-radius: 15%;
+#hostNick {
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 1.33;
+	letter-spacing: -.4px;
+	color: #080606;
+	margin-bottom: 4px;
+}
+#host > div:nth-child(2) > span,
+#host > div:nth-child(3) > span {
+	padding: 6px 8px;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 1.5;
+	letter-spacing: -.4px;
+	border-radius: 4px;
+	color: #383535;
+	background: #f4f4f4;
+	margin: 0 8px 8px 0;
+	white-space: nowrap;
+}
+#host > div:nth-child(3) {
+	margin: 10px 0;	
+}
+#host > div:nth-child(4) {
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.57;
+	color: #383535;
+	margin-bottom: 10px;
 }
 
 /* 이 호스트의 다른 인기 모임 */
-#otherMeeting {
-	margin-bottom: 50px;
-	touch-action: pan-y;
-	display: flex;
-	flex-wrap: nowrap;
-	overflow: auto;
+.newMeetings {
+	border-top: 2px solid #ebebeb;
+	padding-top: 30px;
 }
-#otherMeeting a {
+#otherMeeting {
+	display: flex;
+	margin-bottom: 20px;
+}
+#otherMeeting > a {
+	width: 25%;
 	text-decoration: none;
 	color: inherit;	
 	float: left;
+	margin: 10px 10px;
+	background: #fff;
+	transition: 0.2s ease;
+}
+#otherMeeting > a:hover {
+	transform: scale(1.05, 1.05);
 }
 #otherMeeting .trainerMeeting {
-	border: dashed red;
-	border-radius: 10%;
-	width: 250px;
+	width: 100%;
 	height: auto;
-	margin: 10px 10px;
+	border-radius: 16px;
+	border: 1px solid #f1f1f1;
 }
-.trainerMeeting div {
-	height: 100px;
+.trainerMeeting > div:nth-child(1) {
+	height: 120px;
 	text-align: center;
 	line-height: 100px;
-	border: 1px solid black;
-	border-radius: 15%;
+}
+.trainerMeeting > div > img {
+	width: 100%;
+	height: 100%;
+	border-radius: 16px 16px 0 0;
+}
+.meetingContent  {
+	padding: 13px;
+}
+.meetingContent > div:nth-child(1) {
+	font-size: 16px;
+	width: 100%;
+	font-weight: 700;
+	color: #383535;
+	line-height: 1.5rem;
+	height: 3em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.meetingContent > div:nth-child(2) {
+	display: flex;
+}
+.meetingContent > div:nth-child(2) > div {
+	border: 1px solid #f1f1f1;
+	display: inline-block;
+	font-weight: 400;
+	color: #383535;
+	border-radius: 12px;
+	background-color: #f4f4f4;
+	padding: 0 8px;
+	margin: 4px 8px 0 8px;
+}
+.writerInfo {
+	border-top: .5px solid #dbdbdb;
+	padding-top: 10px;
+}
+.writerInfo img {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+.writerInfo > span:nth-child(2) {
+	font-size: 14px;
+	line-height: 40px;
+	font-weight: 700;
 }
 
 /* 다른 호스트의 같은 종목 모임 */
 #otherHostMeeting {
-	margin-bottom: 50px;
-	margin-bottom: 50px;
-	touch-action: pan-y;
 	display: flex;
-	flex-wrap: nowrap;
-	overflow: auto;	
 }
-#otherHostMeeting a {
+#otherHostMeeting > a {
+	width: 25%;
 	text-decoration: none;
 	color: inherit;	
 	float: left;
+	margin: 10px 10px;
+	background: #fff;
+	transition: 0.2s ease;
+}
+#otherHostMeeting > a:hover {
+	transform: scale(1.05, 1.05);
 }
 #otherHostMeeting .trainerMeeting {
-	border: dashed red;
-	border-radius: 10%;
-	width: 250px;
+	width: 100%;
 	height: auto;
-	margin: 10px 10px;
+	border-radius: 16px;
+	border: 1px solid #f1f1f1;
 }
-.trainerMeeting div {
-	height: 100px;
+.trainerMeeting > div:nth-child(1) {
+	height: 120px;
 	text-align: center;
 	line-height: 100px;
-	border: 1px solid black;
-	border-radius: 15%;
 }
+.trainerMeeting > div > img {
+	width: 100%;
+	height: 100%;
+	border-radius: 16px 16px 0 0;
+}
+.meetingContent  {
+	padding: 13px;
+}
+.meetingContent > div:nth-child(1) {
+	font-size: 16px;
+	width: 100%;
+	font-weight: 700;
+	color: #383535;
+	line-height: 1.5rem;
+	height: 3em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.meetingContent > div:nth-child(2) {
+	display: flex;
+}
+.meetingContent > div:nth-child(2) > div {
+	border: 1px solid #f1f1f1;
+	display: inline-block;
+	font-weight: 400;
+	color: #383535;
+	border-radius: 12px;
+	background-color: #f4f4f4;
+	padding: 0 8px;
+	margin: 4px 8px 0 8px;
+}
+.writerInfo {
+	border-top: .5px solid #dbdbdb;
+	padding-top: 10px;
+}
+.writerInfo img {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+.writerInfo > span:nth-child(2) {
+	font-size: 14px;
+	line-height: 40px;
+	font-weight: 700;
+}
+
+
 
 
 /* 댓글 css */
+#comment {
+	margin-top: 50px;
+}
+#commentHeader {
+	display: flex;
+}
+#commentHeader > div {
+	font-size: 1.5rem;
+}
+#commentContent {
+	border-top: 2px solid #000;
+	padding-top: 30px;
+	margin-top: 10px;
+}
 .comment-container {
 	display: flex;
 }
@@ -159,13 +341,25 @@
 .profile {
 	width: 6%;
 }
+.profile > img {
+	border: none;
+	border-radius: 50%;	
+}
 .comment-content {
-	width: 90%;
+	width: 88%;
 	margin-bottom: 15px;
 }
+.comment-content > p:nth-child(1) {
+	font-weight: 900;
+	font-size: 1.5rem;
+	margin-bottom: 5px;
+}
+.comment-content > p:nth-child(3) {
+	margin-top: 5px;
+	color: gray;
+}
 .comment-btn {
-	width: 10%;
-	display: flex;
+	width: 15%;
 	flex-direction: column;
 	width: auto;
 }
@@ -175,28 +369,46 @@
 .comment-btn a {
 	text-decoration: none;
 	color: inherit;
-	display: none;
 }
 .comment-btn a:hover {
-	color: gold;	
+	color: blue;	
+}
+.editComment {
+	display: flex;
+	flex-direction: column;
+}
+.btnClass {
+	padding: 3px;
+	text-decoration: none;
 }
 
-/* 뎃글 작성 div창 css */
-#writeComment textarea {
-	border: none;
-	width: 100%;
-	height: auto;
-}
 #writeComment {
-	border: 1px solid black;
-	width: 100%;
-	height: auto;
-	padding: 5px;
+	padding: 12px;
+	border: 1px solid #d7d7d7;
+	min-height: 130px;
 }
-#writeComment p {
-	font-weight: 700;
-	font-size: 1.2rem;
-}	
+#writeComment textarea {
+	width: 100%;
+	border: none;
+	height: 50px;
+	overflow: auto;
+	outline: none;
+}
+#writeComment input {
+	float: right;
+	color: darkgray;
+	padding: 5px;
+	border: none;
+	background: none;
+}
+#commentPaging {
+	text-align: center;
+	margin: 30px 0;
+}
+#commentPaging a {
+	color: #000;
+}
+	
 	
 /* modal창을 위한 css */
 #modal {
@@ -257,11 +469,4 @@
 	margin-top: 10px;
 	padding: 10px;
 }
-	
-	
-	
-	
-	
-	
-	
-	
+

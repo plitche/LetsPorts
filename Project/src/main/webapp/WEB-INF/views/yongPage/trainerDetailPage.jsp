@@ -49,7 +49,7 @@
 						.append( $('<div>').text(meeting.exercise_name) )
 						.append( $('<div>').text(meeting.meeting_min +'명 ~ ' + meeting.meeting_max+'명') )
 					 )
-					.append( $('<div>').html('<i class="fas fa-map-marker-alt"></i> '+meeting.location1_name + ' ' + meeting.location2_name + '∙' + meeting.meeting_date) )
+					.append( $('<div>').html('<i class="fas fa-map-marker-alt"></i> '+meeting.location1_name + ' ' + meeting.location2_name + ' ∙ ' + meeting.meeting_date2) )
 					.append( $('<div class="writerInfo">')
 						.append( $('<span>').html('<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}" />') )
 						.append( $('<span>').text(meeting.user_nickname) )
@@ -146,7 +146,7 @@
 				.append( $('<div class="reviewContent reviewContent' + review.review_no + 'nth">').html('<a href="#" onclick="fn_showAllReviewContent(' + review.review_no + '); return false;">' + review.content + '</a>') )
 				.append( $('<div class="reviewFooter">')
 					.append( $('<div>').text('to ${trainerTemDto.user_nickname}') )
-					.append( $('<div>').html('작성일: ' + review.created_at) )
+					.append( $('<div>').html('작성일: ' + review.created_at2) )
 				)
 			)
 		});
@@ -350,26 +350,26 @@
 	
 	var qnaPageNo = 1;
 	// 해당 트레이너에게 달린 질문 data를 append하는 서브함수
-	function trainerQnAListTable(list, trainerInfo) {
+	function trainerQnAListTable(list, trainerInfo, totalQnACount) {
 		$('#qnaList').empty();
 		$('#currentPage').empty();
 		$('#currentPage').text('현재 ' +  qnaPageNo  + ' 페이지');
 		$.each(list, function(idx, qna){
 			if (qna.is_answered==0) {
 				$('<tr>')
-				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
+				.append( $('<td name="qnA_no">').html( totalQnACount-((qnaPageNo-1)*10 + idx) ) )
 				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
 				.append( $('<td>').html(trainerInfo.user_nickname) )
-				.append( $('<td>').html(qna.created_at) )
+				.append( $('<td>').html(qna.created_at2) )
 				.append( $('<input type="hidden" name="' + qna.trainer_qna_no + '" value="' + idx + '"/>') )
 				.append( $('<td name="isAnswered">').addClass('isAnswered').html('미답변') )
 				.appendTo('#qnaList');
 			} else {
 				$('<tr>')
-				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
+				.append( $('<td name="qnA_no">').html( totalQnACount-((qnaPageNo-1)*10 + idx) ) )
 				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
 				.append( $('<td>').html(trainerInfo.user_nickname) )
-				.append( $('<td>').html(qna.created_at) )
+				.append( $('<td>').html(qna.created_at2) )
 				.append( $('<td name="isAnswered">').addClass('isAnswered').html('답변완료') )
 				.appendTo('#qnaList');
 			}
@@ -389,7 +389,7 @@
 					$('#totalQnA').empty();
 					$('#totalQnA').text(responseObj.totalQnACount);
 					
-					trainerQnAListTable(responseObj.qnaList, responseObj.trainerTemDto);
+					trainerQnAListTable(responseObj.qnaList, responseObj.trainerTemDto, responseObj.totalQnACount);
 					
 					var qnaPagingHtml = '<a href="#" onclick="preQnAPage(); return false;"> 이전 </a>';
 					for(let i=1; i<=Math.ceil(responseObj.totalQnACount/10); i++) {
@@ -522,11 +522,11 @@
 						.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
 						.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
 						.append( $('<div>').text('질문자: ' + responseObj.qna.user_nickname) )
-						.append( $('<div>').text('작성일: ' + responseObj.qna.created_at) )
+						.append( $('<div>').text('작성일: ' + responseObj.qna.created_at2) )
 						.append( $('<div id="trainerAnswer">')
 							.append( $('<h4>').text('${trainerTemDto.user_nickname}의 답변') )
 							.append( $('<div id="answerContent">').text(responseObj.qna.trainer_qna_answered) )
-							.append( $('<div>').text('답변 작성일: '+ responseObj.qna.answered_date) )		
+							.append( $('<div>').text('답변일: '+ responseObj.qna.answered_date2) )		
 						)
 						.appendTo('#modalDetail');
 					} else {
@@ -538,7 +538,7 @@
 							.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
 							.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
 							.append( $('<div>').text('질문자: ' + responseObj.qna.user_nickname) )
-							.append( $('<div>').text('작성일: ' + responseObj.qna.created_at) )
+							.append( $('<div>').text('작성일: ' + responseObj.qna.created_at2) )
 							.append( $('<input type="button" value="답변 작성하기" onclick="fn_openAnswer('+ trainer_qna_no +')">') )
 							.appendTo('#modalDetail');
 						} else {
@@ -549,10 +549,9 @@
 							.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
 							.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
 							.append( $('<div>').text('질문자: ' + responseObj.qna.user_nickname) )
-							.append( $('<div>').text('작성일: ' + responseObj.qna.created_at) )
+							.append( $('<div>').text('작성일: ' + responseObj.qna.created_at2) )
 							.appendTo('#modalDetail');
 						}
-						
 					}
 				}
 			},
@@ -562,7 +561,7 @@
 	
 	// 질문 내용 클릭 후 modal창에서 답변 작성하기를 눌렀을 때 추가로 밑에 작성 란이 보이도록 하기위한 처리
 	function fn_openAnswer(trainer_qna_no) {
-		$('.questoinContent input[type="button"]').hide();
+		$('.questionContent input[type="button"]').hide();
 		$('<div id="qnaAnswer">')
 		.append ( $('<form>')
 			.append ( $('<textarea rows="10" cols="50" name="trainer_qna_answered" id="answerContent" >') )
@@ -573,7 +572,7 @@
 	
 	// 질문 답변 작성 완료 후 답변작성 완료를 누르면 작동할 ajax함수
 	function fn_writeAnswer(trainer_qna_no) {
-		if ($('#answerContent').text() == '') {
+		if ($('#answerContent').val() == '') {
 			Swal.fire('작성된 답변 내용이 없습니다!', '답변 내용을 확인해주세요.', 'error');
 		} else {
 			var trainer_qna_answered = $('textarea[name="trainer_qna_answered"]').val();

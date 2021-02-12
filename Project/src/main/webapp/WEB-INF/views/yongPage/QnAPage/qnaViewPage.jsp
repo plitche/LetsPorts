@@ -103,7 +103,7 @@
 			if ('${loginUser.user_no}' == qnaComment.user_no) {
 				$('#commentContent')
 				.append( $('<div class="comment-container" >')
-					.append( $('<div class="profile">').html('<img alt="프로필" src="">') )
+						.append( $('<div class="profile">').html('<img alt="'+qnaComment.profile_photo+'" src="resources/storage/'+qnaComment.profile_photo+'">') )
 					.append( $('<div class="comment-content">')
 						.append( $('<p>').html(qnaComment.user_nickname) )
 						.append( $('<p class="'+qnaComment.comment_no+'nthComment">').html(qnaComment.comment_content) )
@@ -119,11 +119,11 @@
 			} else {
 				$('#commentContent')
 				.append( $('<div class="comment-container">')
-					.append( $('<div class="profile">').html('<img alt="프로필" src="">') )
+					.append( $('<div class="profile">').html('<img alt="'+qnaComment.profile_photo+'" src="resources/storage/'+qnaComment.profile_photo+'">') )
 					.append( $('<div class="comment-content">')
 						.append( $('<p>').html(qnaComment.user_nickname) )
 						.append( $('<p>').html(qnaComment.comment_content) )
-						.append( $('<p>').html(qnaComment.created_at) )
+						.append( $('<p>').html(qnaComment.created_at2) )
 					)
 				);
 			}
@@ -231,10 +231,13 @@
 		$('.'+qnaComment_no+'nthComment').empty();
 		$('.'+qnaComment_no+'nthComment')
 		.append( $('<input type="text" name="changeContent" value="'+commentContent+'" >') );
+		// 수정하고자 하는 댓글 input에 포커스 주기
+		$('input[name="changeContent"]').focus();
 		
 		$('.'+qnaComment_no+'nthBtn').empty();
 		$('.'+qnaComment_no+'nthBtn')
-		.append( $('<a href="#" class="btnClass" onclick="fn_updateCommentDone(' + qnaComment_no + '); return false;" >').html('수정완료') );
+		.append( $('<a href="#" class="btnClass" onclick="fn_updateCommentDone(' + qnaComment_no + '); return false;" >').html('수정완료') )
+		.append( $('<a href="#" class="btnClass" onclick="getQnACommentList(); return false;" >').html('수정취소') );
 	}
 	
 	/* 댓글 수정 완료 버튼 클릭시 작동할 ajax함수 */
@@ -325,7 +328,7 @@
 	<colgroup>
 		<col width="100">
 		<col width="*">
-		<col width="100">
+		<col width="170">
 	</colgroup>
 	<thead>
 		<tr>
@@ -334,7 +337,9 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td rowspan="2">사진</td>
+			<td rowspan="2">
+				<img alt="${qnaTemDto.profile_photo}" src="resources/storage/${qnaTemDto.profile_photo}">
+			</td>
 			<td>
 				<c:if test="${qnaTemDto.user_separator eq 0}">관리자</c:if>
 				<c:if test="${qnaTemDto.user_separator eq 1}">트레이너</c:if>
@@ -349,7 +354,7 @@
 		</tr>
 		<tr>
 			<td>${qnaTemDto.user_nickname}</td>
-			<td>${qnaTemDto.created_at}</td>
+			<td>${qnaTemDto.created_at2}</td>
 		</tr>
 		<tr>
 			<td colspan="3">${qnaTemDto.board_qna_content}</td>
@@ -363,7 +368,6 @@
 		<div style="font-weight: 800; margin: 0 10px;">댓글</div>
 		<div id="totalCommentCount"></div>
 		<div style="margin-left: 87%"><i class="fas fa-link fa-2x"></i></div>
-		
 	</div>
 	<div id="commentContent"></div>
 	<div id="commentPaging"></div>

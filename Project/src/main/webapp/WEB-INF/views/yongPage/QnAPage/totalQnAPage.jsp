@@ -109,7 +109,7 @@
 					</c:if>
 					<td><a href="goQnAViewPage.plitche?board_qna_no=${list.board_qna_no}&page=${page}">${list.board_qna_title}</a></td>
 					<td>${list.user_nickname}</td>
-					<td>${list.created_at}</td>
+					<td>${list.created_at2}</td>
 				</tr>
 			</c:forEach>
 		</c:if>

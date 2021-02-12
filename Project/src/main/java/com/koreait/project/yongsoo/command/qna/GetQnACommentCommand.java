@@ -1,5 +1,6 @@
 package com.koreait.project.yongsoo.command.qna;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,12 @@ public class GetQnACommentCommand implements CommonMapCommand {
 		
 		CommonQnADao commonQnADao = sqlSession.getMapper(CommonQnADao.class);
 		List<CommentTemDto> qnaCommentList = commonQnADao.getQnACommnetList(qnaNo, commentPageNo);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd(E) HH:mm:ss");
+		for(int i=0; i<qnaCommentList.size(); i++) {
+			qnaCommentList.get(i).setCreated_at2(format.format(qnaCommentList.get(i).getCreated_at()));
+		}
+		
 		int commentCount = commonQnADao.getQnACommentCount(qnaNo);
 		
 		Map<String, Object> result = new HashMap<String, Object>();

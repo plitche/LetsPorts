@@ -115,6 +115,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 	    FROM (SELECT *
 		 		      FROM COMMENTS
 		 		      WHERE COMMENT_REFERER_NO = #{param1}
+		 		        AND COMMENT_REFERER_SEP = 1
 		 		      ORDER BY COMMENT_NO DESC) C1 
 		 	   ) C2
 		       FULL OUTER JOIN USERS U
@@ -125,6 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*)
 		  FROM COMMENTS
 		 WHERE COMMENT_REFERER_NO = #{qnaNo}
+		   AND COMMENT_REFERER_SEP = 1
 	</select>
 	
 	<insert id="addQnACommnet" parameterType="com.koreait.project.dto.CommentsDto">

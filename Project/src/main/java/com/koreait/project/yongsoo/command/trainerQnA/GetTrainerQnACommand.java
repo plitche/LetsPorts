@@ -1,5 +1,7 @@
 package com.koreait.project.yongsoo.command.trainerQnA;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,25 @@ public class GetTrainerQnACommand implements CommonMapCommand {
 		
 		TrainerQnADao trainerQnADao = sqlSession.getMapper(TrainerQnADao.class);
 		List<Trainer_qnaDto> qnalist = trainerQnADao.getTrainerQnAList(page_no, user_no); 
+		
+		SimpleDateFormat year = new SimpleDateFormat("yyyy");
+		SimpleDateFormat month = new SimpleDateFormat("MM");
+		SimpleDateFormat day = new SimpleDateFormat("dd");
+		
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+		
+		for(int i=0; i<qnalist.size(); i++) {
+			if(Integer.parseInt(year.format(qnalist.get(i).getCreated_at())) == Integer.parseInt(year.format(now)) &&
+			   Integer.parseInt(month.format(qnalist.get(i).getCreated_at())) == Integer.parseInt(month.format(now)) && 
+			   Integer.parseInt(day.format(qnalist.get(i).getCreated_at())) == Integer.parseInt(day.format(now))) {
+				SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+				qnalist.get(i).setCreated_at2(format.format(qnalist.get(i).getCreated_at()));
+			} else {
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				qnalist.get(i).setCreated_at2(format.format(qnalist.get(i).getCreated_at()));
+			}
+		}
+		
 		int totalQnACount = trainerQnADao.TrainerQnACount(user_no);
 		
 		TrainerDao trainerDao = sqlSession.getMapper(TrainerDao.class);

@@ -1,5 +1,7 @@
 package com.koreait.project.yongsoo.command.trainerMeeting;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,13 @@ public class GetTrainerMeetingListCommand implements CommonMapCommand {
 		
 		// 모임 리스트
 		List<MeetingTemDto> meetingList = trainerMeetingDao.findMeetings(page_no, user_no);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd(E)");
+		for(int i=0; i<meetingList.size(); i++) {
+			meetingList.get(i).setMeeting_date2(format.format(meetingList.get(i).getMeeting_date()));
+			meetingList.get(i).setStart_gather_date2(format.format(meetingList.get(i).getStart_gather_date()));
+			meetingList.get(i).setEnd_gather_date2(format.format(meetingList.get(i).getEnd_gather_date()));
+		}
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		if (meetingList.size()>0) {

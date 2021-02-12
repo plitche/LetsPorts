@@ -1,6 +1,6 @@
 package com.koreait.project.yongsoo.dto;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +18,7 @@ public class ReviewTemDto {
 	private int score;
 	private int meeting_no;
 	private String content;
-	private Date created_at;
+	private Timestamp created_at;
 	private int on_hide;
 	private int writer_user_no;
 	
@@ -31,4 +31,6 @@ public class ReviewTemDto {
 	private String location2_name;
 	
 	private String exercise_name;
+	
+	private String created_at2;
 }
