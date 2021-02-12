@@ -21,12 +21,15 @@ public interface TrainerMeetingDao {
 	public List<MaterialsDto> findMaterialsInfo(int meeting_no);
 	// 3. 모임 개설자(게시글 작성자)의 data를 유저 테이블/트레이너 테이블에서 가져오기
 	public TrainerTemDto findUserInfo(int user_no);
-	
+	// 4. 모임 개설자의 관심 종목을 가져오기 위한 메소드
+	public List<String> getUserInterest(int user_no);
 	
 	// 트레이너 모임 개설 페이지에서 meeting테이블에 insert를 하기위한 메소드
 	public int createMeeting(CreateNewMeetingDto createNewMeetingDto);
 	// 새로 생성된 모임의 모임번호를 가져오기 위한 메소드
 	public int findMeetingNo(int user_no);
+	// 모임 작성자 본인은 바로 모임 참가자 테이블에 insert해주기 위한 메소드
+	public void joinToMyMeeting(int meeting_no, int user_no);
 	// 모임 생성할 때 첨부한 파일을 저장하기위한 메소드
 	public int insertPhotoOfMeeting(int meeting_no, int user_no, String photo_filename);
 	// 새로 생성된 모임번호와 준비물을 저장하기 위한 메소드

@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        FROM (SELECT *
 		              FROM MEETING
 		              WHERE USER_NO = #{param2}
+		                AND ON_HIDE = 0
 		              ORDER BY MEETING_NO DESC) M1
 		        ) M2 
 		  	    FULL OUTER JOIN USERS U 
@@ -29,6 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*)
 		  FROM MEETING
 		 WHERE USER_NO = #{user_no}
+		   AND ON_HIDE = 0
 	</select>
 
 
@@ -63,9 +65,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM TRAINER_INFO
 		 WHERE USER_NO = #{user_no}
 	</select>
-
+	<select id="getUserInterest" parameterType="int" resultType="String">
+		SELECT E.EXERCISE_NAME
+		  FROM USER_INTEREST U FULL OUTER JOIN EXERCISE E
+		    ON U.EXERCISE_NO = E.EXERCISE_NO
+		 WHERE U.USER_NO = #{user_no}
+	</select>
  	
-	<insert id="createMeeting" parameterType="com.koreait.project.yongsoo.dto.CreateNewMeetingDto">
+	<insert id="createMeeting" parameterType="String">
 		INSERT INTO MEETING
 		VALUES (MEETING_SEQ.NEXTVAL, #{user_no}, #{meeting_max}, #{meeting_min}, #{exercise_no},
 		    	SYSDATE, #{start_gather_date}, #{end_gather_date}, #{meeting_date}, #{location1_no},
@@ -76,6 +83,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM MEETING
 		 WHERE USER_NO = #{user_no}
 	</select>
+	<insert id="joinToMyMeeting">
+		INSERT INTO MEETING_PARTICIPANTS
+		VALUES (MEETING_PARTICIPANTS_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE, 0, NULL)
+	</insert>
 	<insert id="insertPhotoOfMeeting">
 		INSERT INTO PHOTO
 		VALUES (photo_seq.NEXTVAL, 2, #{param1}, #{param2}, #{param3}, SYSDATE, 0)
@@ -96,6 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		         ON M.meeting_no = P.photo_referer_no
  		 WHERE M.USER_NO = #{param1}
 		   AND M.MEETING_NO != #{param2} 
+		   AND M.ON_HIDE = 0
 	</select>
 
  	
@@ -109,6 +121,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		         ON M.meeting_no = P.photo_referer_no
 		 WHERE M.USER_NO != #{param1}
 		   AND M.EXERCISE_NO = #{param2}
+		   AND M.ON_HIDE = 0
 	</select>
 
  		

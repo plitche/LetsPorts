@@ -49,12 +49,15 @@ public class CreateMeetingCommand{
 		createNewMeetingDto.setDetail_location(detail_location);
 		
 		// 데이터 저장
-		// MEETING테이블에 insert하기위한 메소드 호출
+		// meeting테이블에 insert하기위한 메소드 호출
 		trainerMeetingDao.createMeeting(createNewMeetingDto);
-
 		
 		// 새로 생성된 모임 번호를 가져오기위한 메소드 호출
 		int meeting_no = trainerMeetingDao.findMeetingNo(user_no);
+		
+		// meeting테이블에 insert후 작성자 본인은 바로 모임 참가자 테이블에 insert해주기 위한 메소드호출
+		trainerMeetingDao.joinToMyMeeting(meeting_no, user_no);
+		
 		// 새로 생성된 모임번호와 준비물을 저장하기 위한 메소드 호출
 		for (int i=0; i<materialList.length; i++) {
 			String material = materialList[i];

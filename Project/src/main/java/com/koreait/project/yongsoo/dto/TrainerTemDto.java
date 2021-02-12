@@ -25,4 +25,5 @@ public class TrainerTemDto {
 	private Double score;
 	private int reviews;
 	
+	private String[] exercise_name;
 }
