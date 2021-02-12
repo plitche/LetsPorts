@@ -398,7 +398,6 @@
     			f.action = '';
     			f.submit();
     		}
-
 	</script>
 	
 	

@@ -1,5 +1,6 @@
 package com.koreait.project.yongsoo.command.trainerMeeting;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,12 @@ public class GetOtherHostMeetingCommand implements CommonMapCommand {
 
 		TrainerMeetingDao trainerMeetingDao = sqlSession.getMapper(TrainerMeetingDao.class);
 		List<MeetingTemDto> list = trainerMeetingDao.getOtherHostMeeting(user_no, exercise_no);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd(E)");
+		for(int i=0; i<list.size(); i++) {
+			list.get(i).setMeeting_date2(format.format(list.get(i).getMeeting_date()));
+		}
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		if (list.size()>0) {

@@ -41,8 +41,31 @@ h3 {
 #qnaDetail tbody tr:nth-child(3) p {
 	min-height: 300px;
 }
-
-
+#qnaDetail tbody tr:nth-child(1) img {
+	width: 100%;
+	border-radius: 50px;
+	padding: 10px;
+}
+#qnaDetail tbody tr:nth-child(1) td:nth-child(3) {
+	text-align: center;
+	font-weight: 700;
+}
+#qnaDetail tbody tr:nth-child(1) td:nth-child(2) {
+	font-size: 10px;
+	font-weight: 400;
+	line-height: 1.2;
+	color: #999696;
+	margin-bottom: 4px;
+	padding-top: 30px;
+}
+#qnaDetail tbody tr:nth-child(2) td:nth-child(1) {
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 1.33;
+	color: #080606;
+	margin-bottom: 4px;
+	padding-bottom: 20px;
+}
 #writerBtn {
 	float: left;
 	margin-bottom: auto;
@@ -80,8 +103,12 @@ h3 {
 .profile {
 	width: 6%;
 }
+.profile img {
+	border: none;
+	border-radius: 50%;
+}
 .comment-content {
-	width: 90%;
+	width: 88%;
 	margin-bottom: 15px;
 }
 .comment-content > p:nth-child(1) {

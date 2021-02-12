@@ -1,5 +1,6 @@
 package com.koreait.project.yongsoo.command.trainerReview;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,12 @@ public class GetTrainerReviewListCommand implements CommonMapCommand {
 		
 		TrainerReviewDao trainerReviewDao = sqlSession.getMapper(TrainerReviewDao.class);
 		List<ReviewTemDto> reviewList = trainerReviewDao.getTrainerReviewList(user_no);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+		for(int i=0; i<reviewList.size(); i++) {
+			reviewList.get(i).setCreated_at2(format.format(reviewList.get(i).getCreated_at()));
+		}
+		
 		int reviewCount = trainerReviewDao.listCount(user_no);
 		
 		for(int i=0; i<reviewList.size(); i++) {

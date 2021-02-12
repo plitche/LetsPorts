@@ -1,5 +1,6 @@
 package com.koreait.project.yongsoo.command.trainerMeeting;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +24,13 @@ public class GoMeetingViewCommand implements CommonVoidCommand {
 		TrainerMeetingDao trainerMeetingDao = sqlSession.getMapper(TrainerMeetingDao.class);
 		
 		CreateNewMeetingDto createNewMeetingDto = trainerMeetingDao.findMeetingInfo(meeting_no); // 1번
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd(E)");
+		createNewMeetingDto.setMeeting_date2(format.format(createNewMeetingDto.getMeeting_date()));
+		createNewMeetingDto.setStart_gather_date2(format.format(createNewMeetingDto.getStart_gather_date()));
+		createNewMeetingDto.setEnd_gather_date2(format.format(createNewMeetingDto.getEnd_gather_date()));
+		
 		int user_no = createNewMeetingDto.getUser_no();
-
+		
 		List<MaterialsDto> materialList = trainerMeetingDao.findMaterialsInfo(meeting_no); // 2번
 		
 		TrainerTemDto trainerTemDto = trainerMeetingDao.findUserInfo(user_no);

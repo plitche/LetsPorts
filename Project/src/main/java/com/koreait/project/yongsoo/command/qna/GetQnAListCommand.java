@@ -1,5 +1,7 @@
 package com.koreait.project.yongsoo.command.qna;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -73,6 +75,23 @@ public class GetQnAListCommand implements CommonVoidCommand {
 			paging = Paging.getPaging("goQnAPage.plitche?searchCategory="+searchCategory+"&searchKeyword="+searchKeyword, totalRecord, recordPerPage, page);
 		}
 		
+		SimpleDateFormat year = new SimpleDateFormat("yyyy");
+		SimpleDateFormat month = new SimpleDateFormat("MM");
+		SimpleDateFormat day = new SimpleDateFormat("dd");
+		
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+		
+		for(int i=0; i<qnaList.size(); i++) {
+			if(Integer.parseInt(year.format(qnaList.get(i).getCreated_at())) == Integer.parseInt(year.format(now)) &&
+			   Integer.parseInt(month.format(qnaList.get(i).getCreated_at())) == Integer.parseInt(month.format(now)) && 
+			   Integer.parseInt(day.format(qnaList.get(i).getCreated_at())) == Integer.parseInt(day.format(now))) {
+				SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+				qnaList.get(i).setCreated_at2(format.format(qnaList.get(i).getCreated_at()));
+			} else {
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				qnaList.get(i).setCreated_at2(format.format(qnaList.get(i).getCreated_at()));
+			}
+		}
 		
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("paging", paging);

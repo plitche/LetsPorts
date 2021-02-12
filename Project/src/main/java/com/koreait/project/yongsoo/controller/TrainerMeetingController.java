@@ -37,8 +37,8 @@ public class TrainerMeetingController {
 					produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getTrainerMeetingList(@PathVariable("user_no") int user_no,
-													 @PathVariable("meetingPageNo") int meetingPageNo
-													 , Model model) {
+													 @PathVariable("meetingPageNo") int meetingPageNo,
+													 Model model) {
 		model.addAttribute("user_no", user_no);
 		model.addAttribute("meetingPageNo", meetingPageNo);
 		GetTrainerMeetingListCommand getTrainerMeetingListCommand = ctx.getBean("getTrainerMeetingListCommand", GetTrainerMeetingListCommand.class);

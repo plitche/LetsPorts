@@ -28,11 +28,14 @@ public class CommentController {
 	private AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(SooAppContext.class);
 	
 	// 모임 View페이지로 이동 시 자동으로 해당 모임 게시글에 달린 뎃글 list를 가져오기위한 메소드
-	@RequestMapping(value="getCommentList.plitche/{meeting_no}", method=RequestMethod.GET, 
+	@RequestMapping(value="getCommentList.plitche/{meeting_no}/commentPageNo/{commentPageNo}", method=RequestMethod.GET, 
 					produces="application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> getCommentList(@PathVariable("meeting_no") int meeting_no, Model model) {
+	public Map<String, Object> getCommentList(@PathVariable("meeting_no") int meeting_no, 
+											  @PathVariable("commentPageNo") int commentPageNo,
+											  Model model) {
 		model.addAttribute("meeting_no", meeting_no);
+		model.addAttribute("commentPageNo", commentPageNo);
 		GetCommentListCommand getCommentListCommand = ctx.getBean("getCommentListCommand", GetCommentListCommand.class);
 		return getCommentListCommand.execute(sqlSession, model);
 	}

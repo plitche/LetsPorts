@@ -8,6 +8,7 @@
 	<jsp:param value="모임 VIEW 페이지" name="title"/>
 </jsp:include>
 
+<script src="https://kit.fontawesome.com/6b75fdce2b.js" crossorigin="anonymous"></script>
 <!-- sweetalert -->
 <script>
 	/* 로그인 alert을 위한 function */
@@ -27,7 +28,7 @@
 						});
 					}
 </script>
-<!-- 이 호스트의 다른 모임 list ajax-->
+<!-- 이 호스트의 다른 모임 list function-->
 <script>
 	/* 페이지 로드 */
 	$(document).ready(function() {
@@ -40,12 +41,19 @@
 		$.each(list, function(idx, meeting){
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
-			.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
-			.append( $('<p>').html(meeting.meeting_title) )
-			.append( $('<p>').html('모임 주제: ' + meeting.exercise_name) )
-			.append( $('<p>').html('최소: ' + meeting.meeting_min + '명 / 최대: ' + meeting.meeting_max + '명')  )
-			.append( $('<p>').html('일시: ' + meeting.meeting_date) )
-			.append( $('<p>').html('작성자: ' + meeting.user_nickname) )
+				.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
+				.append( $('<div class="meetingContent">')
+					.append( $('<div>').text(meeting.meeting_title) )
+					.append( $('<div>')
+						.append( $('<div>').text(meeting.exercise_name) )
+						.append( $('<div>').text(meeting.meeting_min +'명 ~ ' + meeting.meeting_max+'명') )
+					 )
+					.append( $('<div>').html('<i class="fas fa-map-marker-alt"></i> '+meeting.location1_name + ' ' + meeting.location2_name + ' ∙ ' + meeting.meeting_date2) )
+					.append( $('<div class="writerInfo">')
+						.append( $('<span>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/'+meeting.profile_photo+'" />') )
+						.append( $('<span>').text(meeting.user_nickname) )
+					)
+				)
 			)
 			.appendTo('#otherMeeting');
 		});
@@ -99,12 +107,19 @@
 		$.each(list, function(idx, meeting){
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
-			.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
-			.append( $('<p>').html(meeting.meeting_title) )
-			.append( $('<p>').html('모임 주제: ' + meeting.exercise_name) )
-			.append( $('<p>').html('최소: ' + meeting.meeting_min + '명 / 최대: ' + meeting.meeting_max + '명')  )
-			.append( $('<p>').html('일시: ' + meeting.meeting_date) )
-			.append( $('<p>').html('작성자: ' + meeting.user_nickname) )
+				.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
+				.append( $('<div class="meetingContent">')
+					.append( $('<div>').text(meeting.meeting_title) )
+					.append( $('<div>')
+						.append( $('<div>').text(meeting.exercise_name) )
+						.append( $('<div>').text(meeting.meeting_min +'명 ~ ' + meeting.meeting_max+'명') )
+					 )
+					.append( $('<div>').html('<i class="fas fa-map-marker-alt"></i> '+meeting.location1_name + ' ' + meeting.location2_name + ' ∙ ' + meeting.meeting_date2) )
+					.append( $('<div class="writerInfo">')
+						.append( $('<span>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/'+meeting.profile_photo+'" />') )
+						.append( $('<span>').text(meeting.user_nickname) )
+					)
+				)
 			)
 			.appendTo('#otherHostMeeting');
 		});
@@ -152,60 +167,97 @@
 		showBtns()
 	});	
 	
-	// 가져온 뎃글 목록을 직접 append처리 해주기 위한 서브 함수
+	var commentPageNo = 1;
+	// 가져온 댓글 목록을 직접 append처리 해주기 위한 서브 함수
 	function commentListTable(list) {
 		$('#commentContent').empty();
 		$.each(list, function(idx, comment){
 			if ('${loginUser.user_no}' == comment.user_no) {
-				$('<div class="comment-container">')
-				.append( $('<div class="profile">').html('<img alt="프로필" src="">') )
-				.append( $('<div class="comment-content">')
-					.append( $('<p>').html('닉네임: ' + comment.user_nickname) )
-					.append( $('<p>').html('내용: ' + comment.comment_content) )
-					.append( $('<p>').html('작성일: ' + comment.created_at) )
-				)
-				.append( $('<div class="comment-btn">').html('<input type="button" class="btnsBtn" value="[버튼]" />')
-					.append( $('<a href="#" class="btnClass" onclick="fn_commentUpdate(' + comment.comment_no + '); return false;" >').html('수정') )
-					.append( $('<a href="#" class="btnClass" onclick="fn_deleteComment(' + comment.comment_no + '); return false;" >').html('삭제') )		
-				)
-				.appendTo('#commentContent');
+				$('#commentContent')
+				.append( $('<div class="comment-container" >')
+					.append( $('<div class="profile">').html('<img alt="'+comment.profile_photo+'" src="resources/storage/'+comment.profile_photo+'">') )
+					.append( $('<div class="comment-content">')
+						.append( $('<p>').html(comment.user_nickname) )
+						.append( $('<p class="'+comment.comment_no+'nthComment">').html(comment.comment_content) )
+						.append( $('<p>').html(comment.created_at) )
+					)
+					.append( $('<div class="comment-btn">')
+						.append( $('<div class="'+comment.comment_no+'nthBtn">').addClass('editComment')
+							.append( $('<a href="#" class="btnClass" onclick="fn_updateComment(' + comment.comment_no + '); return false;" >').html('수정') )
+							.append( $('<a href="#" class="btnClass" onclick="fn_deleteComment(' + comment.comment_no + '); return false;" >').html('삭제') )
+						)
+					)		
+				);
 			} else {
-				$('<div class="comment-container">')
-				.append( $('<div class="profile">').html('<img alt="프로필" src="">') )
-				.append( $('<div class="comment-content">')
-					.append( $('<p>').html('닉네임: ' + comment.user_nickname) )
-					.append( $('<p>').html('내용: ' + comment.comment_content) )
-					.append( $('<p>').html('작성일: ' + comment.created_at) )
-				)
-				.appendTo('#commentContent');
+				$('#commentContent')
+				.append( $('<div class="comment-container">')
+					.append( $('<div class="profile">').html('<img alt="'+comment.profile_photo+'" src="resources/storage/'+comment.profile_photo+'">') )
+					.append( $('<div class="comment-content">')
+						.append( $('<p>').html(comment.user_nickname) )
+						.append( $('<p>').html(comment.comment_content) )
+						.append( $('<p>').html(comment.created_at2) )
+					)
+				);
 			}
 		});
 	}	
 	
-	// 모임 View페이지로 이동시 자동으로 뎃글 목록을 가져올 ajax함수
+	// 모임 View페이지로 이동시 자동으로 댓글 목록을 가져올 ajax함수
 	function getCommentList() {
 		var meeting_no = ${meetingDto.meeting_no};
 		
 		$.ajax ({
-			url: 'getCommentList.plitche/'+ meeting_no,
+			url: 'getCommentList.plitche/'+meeting_no+'/commentPageNo/'+commentPageNo,
 			type: 'get',
 			dataType :'json',
 			success: function(responseObj) {
 				if(responseObj.result) {
-					commentListTable(responseObj.commentList);	
+					$('#totalCommentCount').empty();
+					$('#totalCommentCount').html(responseObj.commentCount + '개');
+					
+					commentListTable(responseObj.commentList);
+					
+					var commentPagingHtml = '<a href="#" onclick="preCommentPage(); return false;"> 이전 <a/>';
+					for (let i=1; i<=Math.ceil(responseObj.commentCount/10); i++) {
+						commentPagingHtml += '<a href="#" onclick="changeCommentPage(' + i + '); return false;">' + i + '</a>';
+					}
+					commentPagingHtml += '<a href="#" onclick="nextCommentPage(' + Math.ceil(responseObj.commentCount/10) + '); return false;"> 다음 <a/>';
+					
+					$('#commentPaging').empty();
+					$('#commentPaging').html(commentPagingHtml);
 				} else {
 					$('#commentContent').empty();
-					$('<tr>')
-					.append( $('<td colspan="6">').html('작성된 comment가 없습니다. 첫번째 뎃글을 작성해주세요.') )
-					.appendTo('#commentContent');
+					$('#commentContent')
+					.append( $('<div>').html('작성된 comment가 없습니다. 첫번째 댓글을 작성해주세요.') );	
 				}
 			},
 			error: function(){alert('실패');}
 		});
 	};
 
+	/* 댓글 페이지 숫자 클릭시 처리할 function */
+	function changeCommentPage(goCommentPage_no) {
+		commentPageNo = goCommentPage_no;
+		getCommentList();
+	}
+	
+	/* 댓글 페이지 이전 클릭시 처리할 function */
+	function preCommentPage() {
+		if (commentPageNo != 1) {
+			commentPageNo -= 1;
+		}
+		getCommentList();
+	}
+	
+	/* 댓글 페이지 다음 클릭시 처리할 function */
+	function nextCommentPage(lastCommentPage) {
+		if (commentPageNo != lastCommentPage) {
+			commentPageNo += 1;
+		}
+		getCommentList();
+	}
 
-	// 뎃글 작성 완료 버튼 클릭시 작동할 ajax함수
+	// 댓글 작성 완료 버튼 클릭시 작동할 ajax함수
 	function addComment() {
 		$('#addComment').click(function(){
 			if ( '${loginUser.user_no}' == '' ) {
@@ -230,11 +282,11 @@
 					contentType: 'application/json; charset=utf-8',
 					success: function(responseObj) {
 						if(responseObj.result) {
-							alert('새로운 뎃글이 작성되었습니다.');
+							alert('새로운 댓글이 작성되었습니다.');
 							getCommentList();
 							document.getElementById("comment_content").value='';
 						} else {
-							alert('뎃글이 작성되지 않았습니다.');
+							alert('댓글이 작성되지 않았습니다.');
 						}
 					},
 					error: function(){alert('실패');}
@@ -254,7 +306,49 @@
 		});
 	}
 	
-	// 뎃글 삭제 버튼을 눌렸을때 작동할 ajax함수
+	// 댓글 수정 버튼을 눌렸을 때 내용을 input으로 바꿔줄 function
+	function fn_updateComment(comment_no) {
+		var commentContent = $('p[class="'+comment_no+'nthComment"]').text();
+		$('.'+comment_no+'nthComment').empty();
+		$('.'+comment_no+'nthComment')
+		.append( $('<input type="text" name="changeContent" value="'+commentContent+'" >') );
+		// 수정하고자 하는 댓글 input에 포커스 주기
+		$('input[name="changeContent"]').focus();
+		
+		$('.'+comment_no+'nthBtn').empty();
+		$('.'+comment_no+'nthBtn')
+		.append( $('<a href="#" class="btnClass" onclick="fn_updateCommentDone(' + comment_no + '); return false;" >').html('수정완료') )
+		.append( $('<a href="#" class="btnClass" onclick="getCommentList(); return false;" >').html('수정취소') );
+	}
+	
+	/* 댓글 수정 완료 버튼 클릭시 작동할 ajax함수 */
+	function fn_updateCommentDone(comment_no) {
+		var comment_content = $('input[name="changeContent"').val();
+		var sendObj = {
+			"comment_no": comment_no,
+			"comment_content": comment_content
+		};
+	
+		$.ajax({
+			url: 'updateQnAComment.plitche',
+			type: 'post',
+			data: JSON.stringify(sendObj),
+			contentType: 'application/json; charset=utf-8',
+			dataType: 'json',
+			success: function(responseObj) {
+				if(responseObj.result) {
+					Swal.fire('댓글 수정이 완료되었습니다.', '더 많은 댓글 달아주실꺼죠!?^^', 'success');
+					getCommentList();
+				} else {
+					alert('댓글이 수정되지 않았습니다.');
+				}
+			},
+			error: function(){alert('실패');}
+		});
+		
+	}
+	
+	// 댓글 삭제 버튼을 눌렸을때 작동할 ajax함수
 	function fn_deleteComment(comment_no) {
 		swal.fire({
 			title: '작성한 댓글이 삭제됩니다.', 	text: '정말 삭제하시겠습니까?',
@@ -312,6 +406,7 @@
 				loginAlert();
 			} else {
 				$('#qnaDetail').empty();
+				$('#qnaDetail').css('width', '400px');
 				$('<form>')
 				.append( $('<input type="text" id="title" name="trainer_qna_title" placeholder="제목을 입력하세요."/>') )
 				.append( $('<input type="text" id="content" name="trainer_qna_content" placeholder="질문내용을 입력하세요."/>')  )
@@ -369,121 +464,159 @@
 
 <div id="meeting">
 	<div id="meetingHeader">
-		<p id="meetingTitle"> ${meetingDto.meeting_title} </p>
+		<p id="meetingTitle"> &lt; ${meetingDto.meeting_title} &gt; </p>
 		<a href="#"> 관심 모임으로 등록하기 </a>
 	</div>
-	<div id="meetingInfo">
+	<div id="meetingBody">
 		<div id="leftSide">
 			<div id="meetingDetail">
 				<div class="subTitle">소셜링 소개</div>
 				<div class="title">자세한 정보를 알려드릴게요</div>
-				<p>모임일 : ${meetingDto.meeting_date}</p>
-				<p>지역 : ${meetingDto.location1_name} ${meetingDto.location2_name} </p>
-				<p>총 모집 인원 : ${meetingDto.meeting_max}</p>
-				<p>최소 모집 인원 : ${meetingDto.meeting_min}</p>
+				<div class="info_row">
+					<i class="fas fa-user-friends"></i>
+					<span>최소 ${meetingDto.meeting_min}명 ~ 최대 ${meetingDto.meeting_max}명</span>
+				</div>
+				<div class="info_row">
+					<i class="far fa-calendar-alt"></i>
+					<span>약속일 : ${meetingDto.meeting_date2}</span>
+				</div>
+				<div class="info_row">
+					<i class="far fa-calendar-alt"></i>
+					<span>모집 시작: ${meetingDto.start_gather_date2} ~ 모집 마감: ${meetingDto.end_gather_date2}</span>
+				</div>
+				<div class="info_row">
+					<i class="fas fa-map-marked-alt"></i>
+					<span>${meetingDto.location1_name} ${meetingDto.location2_name}</span>
+				</div>
+				<div id="map" style="width:500px;height:200px;"></div>
+				<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74162e293be31e9dc5e8e7b8c8e0be9c"></script>
+				<script>
+					var detailLocation = '${meetingDto.detail_location}';
+					var locationIdx = detailLocation.indexOf('/');
+					var lat = detailLocation.substring(0, locationIdx);
+					var lng = detailLocation.substring(locationIdx+1);
+					
+					var container = document.getElementById('map');
+					var options = {
+						center: new kakao.maps.LatLng(lat, lng),
+						level: 4
+					};
+					
+					var map = new kakao.maps.Map(container, options);
+					
+					// 마커가 표시될 위치입니다 
+					var markerPosition  = new kakao.maps.LatLng(lat, lng); 
 				
+					// 마커를 생성합니다
+					var marker = new kakao.maps.Marker({
+					    position: markerPosition
+					});
+				
+					// 마커가 지도 위에 표시되도록 설정합니다
+					marker.setMap(map);
+					
+					function relayout() {    
+					    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+					    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+					    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+					    map.relayout();
+					}
+					// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+				    var mapTypeControl = new kakao.maps.MapTypeControl();
+	
+				    // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+				    // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+				    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+	
+				    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+				    var zoomControl = new kakao.maps.ZoomControl();
+				    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+				</script>
 				<div class="subTitle">준비사항</div>
 				<div class="title">함께 준비하면 좋아요</div>
-				<p>준비물 : 
+				<div class="info_row">준비물 : 
 					<c:forEach var="list" items="${materialList}">
 				  		${list.materials_name} &nbsp;
 			    	</c:forEach>
-				</p>
-			</div>
-			
-			<div class="subTitle">안내사항</div>
-			<div class="title">어떤 소셜링인가요?</div>
-			<div id="meetingContent">
-				<div>상세 내용 : ${meetingDto.meeting_content}</div>
+				</div>
 			</div>
 		</div>
-		
 		<div id="rightSide">
 			<div id="mainImg">
 				<img alt="${meetingDto.photo_filename}" src="resources/storage/${meetingDto.photo_filename}">
 			</div>
-			<div id="map" style="width:100%;height:400px;"></div>
-			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74162e293be31e9dc5e8e7b8c8e0be9c"></script>
-			<script>
-				var container = document.getElementById('map');
-				var detailLocation = '${meetingDto.detail_location}';
-				const locationIdx = detailLocation.indexOf('/');
-				var lat = detailLocation.substring(0, locationIdx);
-				var lng = detailLocation.substring(locationIdx+1);
-				
-				var options = {
-					center: new kakao.maps.LatLng(lat, lng),
-					level: 4
-				};
-				
-				var map = new kakao.maps.Map(container, options);
-				
-				// 마커가 표시될 위치입니다 
-				var markerPosition  = new kakao.maps.LatLng(lat, lng); 
-	
-				// 마커를 생성합니다
-				var marker = new kakao.maps.Marker({
-				    position: markerPosition
-				});
-	
-				// 마커가 지도 위에 표시되도록 설정합니다
-				marker.setMap(map);
-			</script>
 		</div>
 	</div>
 
+	<div class="meetingfooter">
+		<div class="subTitle">안내사항</div>
+		<div class="title">어떤 소셜링인가요?</div>
+		<div id="meetingContent">
+			<div>${meetingDto.meeting_content}</div>
+		</div>
+		<div class="btns">
+			<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
+				<input type="button" value="수정하기" />
+				<input type="button" value="삭제하기" />
+			</c:if>
+			<c:if test="${loginUser.user_no ne trainerTemDto.user_no}">
+				<input type="button" value="신청하기" id="applyMeeting" />
+				<input type="button" value="질문하기" id="questionToTrainer"/>
+			</c:if>
+		</div>
+	</div>
 </div>
 
-<p style="font-weight: 800; font-size: 1.5rem; margin-top: 20px;">작성자 정보</p>
+<div class="subTitle">호스트소개</div>
+<div class="title">우리 반갑게 만나요!</div>
 <div id="host">
 	<c:if test="${trainerTemDto.user_separator eq 0}"> <!-- 모임 작성자가 일반 유져일 떄 -->
 		
 	</c:if>
 	<c:if test="${trainerTemDto.user_separator eq 1}"> <!-- 모임 작성자가 트레이너 일 때 -->
-		<div id="hostHeader">
-			<div id="hostWrap">
-				<div id="hostImage">
-					<img alt="작성자사진" src="">
-				</div>
-				<div id="hostDetail">
-					<p>닉네임 : ${trainerTemDto.user_nickname}</p>
-					<p>이름 : ${trainerTemDto.trainer_name}</p>
-				</div>
+		<div id="infoHost">
+			<div id="hostImage">
+				<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}">
 			</div>
-			<p>한줄메세지 : ${trainerTemDto.user_message} </p>
-			<p>활동 센터 : ${trainerTemDto.employment}</p>
-			<p>활동 지역 : ${trainerTemDto.location1_name} ${trainerTemDto.location2_name}</p>
+			<div>
+				<div>트레이너</div>
+				<div id="hostNick">${trainerTemDto.user_nickname}[${trainerTemDto.trainer_name}]</div>
+			</div>
 		</div>
+		<div>
+			<span>${trainerTemDto.location1_name} ${trainerTemDto.location2_name}</span>
+			<span>${trainerTemDto.employment}</span>
+		</div>
+		<div>
+			<span>관심분야</span>		
+		</div>
+		<div>${trainerTemDto.user_message}</div>
 	</c:if>
-	<div class="btns">
-		<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
-			<input type="button" value="수정하기" />
-			<input type="button" value="삭제하기" />
-		</c:if>
-		<c:if test="${loginUser.user_no ne trainerTemDto.user_no}">
-			<input type="button" value="신청하기" id="applyMeeting" />
-			<input type="button" value="트레이너에게 질문하기" id="questionToTrainer"/>
-		</c:if>
-	</div>
 </div>
 
-<div class="otherMeeting">
-	<p style="font-weight: 800; font-size: 1.5rem; margin-top: 20px;">이 호스트의 다른 인기 모임</p>
-	<div id="otherMeeting"></div>
-	
-	<p style="font-weight: 800; font-size: 1.5rem; margin-top: 20px;">이런 소셜링은 어때요?</p>
-	<div id="otherHostMeeting"></div>
-</div>
+<div class="subTitle newMeetings">이런 소셜링은 어때요?</div>
+<div class="title">현재 호스트와 다양한 모임을!</div>
+<div id="otherMeeting"></div>
+
+<div class="subTitle newMeetings">이런 소셜링은 어때요?</div>
+<div class="title">새로운 사람과 같은 운동을!</div>
+<div id="otherHostMeeting"></div>
 
 <div id="comment"> 
-	<p style="font-weight: 800; font-size: 1.5rem; margin-top: 20px;">댓글</p>
+	<div id="commentHeader">
+		<span style="color: black"><i class="far fa-comment-dots fa-2x"></i></span>
+		<div style="font-weight: 800; margin: 0 10px;">댓글</div>
+		<div id="totalCommentCount"></div>
+		<div style="margin-left: 87%"><i class="fas fa-link fa-2x"></i></div>
+	</div>
 	<div id="commentContent"></div>
+	<div id="commentPaging"></div>
 	<form>
 		<div id="writeComment">
-			<p>${loginUser.user_nickname}</p>
-			<textarea rows="5" cols="100" id="comment_content" name="comment_content" placeholder="내용을 입력하시오"></textarea><br/>
+			<p style="font-weight: bold; font-size: 1.5rem;">${loginUser.user_nickname}</p>
+			<textarea rows="5" cols="100" id="comment_content" name="comment_content" placeholder="댓글을 남겨보세요"></textarea><br/>
+			<input type="button" value="작성완료" id="addComment"/>
 		</div>
-		<input type="button" value="작성완료" id="addComment"/>
 	</form>
 </div>
 
@@ -503,9 +636,7 @@
 	});
 </script>
 
+
+ 
 <%@ include file="../template/footer.jsp" %>
-
-
-
-
 
