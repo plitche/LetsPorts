@@ -190,7 +190,7 @@ $(document).on('click', '#updateMsgBtn', function(){
 			<input type="button" value="수정하기" id="updateMsgBtn" />
 		</div>
 	</div>
-<<<<<<< HEAD
+
 	
 
 	<!-- 각각 페이지 따로 만들 것! -->
@@ -200,8 +200,7 @@ $(document).on('click', '#updateMsgBtn', function(){
 		<a href="#"><i class="far fa-file-alt fa-lg"></i><br/>관심 노하우</a>
 	</div>
 
-=======
->>>>>>> ae9cef1eb48f566da0d0821ecac5dfe0c24b1ca1
+
 </div>
 		
 
