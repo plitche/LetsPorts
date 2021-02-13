@@ -73,11 +73,15 @@
 </script>
 
 <div class="qnaTitle"> Total Question & Answer </div>
-<p id="newQnA"><input type="button" value="새 질문 등록하기" id="writeQnABtn" /></p>
+
+<p id="newQnA">
+	<a href="" >전체 보기</a> / <a href="" >해결 완료</a> / <a href="" >미 해결</a>
+	<input type="button" value="새 질문 등록하기" id="writeQnABtn" />
+</p>
 <table id="userQnA">
 	<colgroup>
 		<col width="60">
-		<col width="90">
+		<col width="100">
 		<col width="*">
 		<col width="100">
 		<col width="110">
@@ -102,10 +106,10 @@
 				<tr>
 					<td>${totalRecord-((page-1) * recordPerPage + k.index)}</td>
 					<c:if test="${list.is_resolved eq 0}">
-						<td style="color:pink;">미해결</td>
+						<td style="color:orangered;">미 해결</td>
 					</c:if>
 					<c:if test="${list.is_resolved eq 1}">
-						<td style="color:green;">해결완료</td>
+						<td style="color:green;">해결 완료</td>
 					</c:if>
 					<td><a href="goQnAViewPage.plitche?board_qna_no=${list.board_qna_no}&page=${page}">${list.board_qna_title}</a></td>
 					<td>${list.user_nickname}</td>
