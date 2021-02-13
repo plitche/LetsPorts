@@ -29,8 +29,8 @@ public interface CommonQnADao {
 	// 질문 작성 완료 했을 때 insert하기 위한 메소드
 	public int writeQnA(String board_qna_title, String board_qna_content, int user_no);
 	
-	// 질문 뷰페이지에서 수정하기 버튼 클릭시 수정할 질문의 정보를 가져오기 위한 메소드 
 	// 질문 제목 클릭시 해당 질문에 대한 정보를 가져오기 위한 메소드
+	// 질문 뷰페이지에서 수정하기 버튼 클릭시 수정할 질문의 정보를 가져오기 위한 메소드
 	public BoardQnATemDto getUpdateQnAInfo(int board_qna_no);
 	
 	// 질문 수정 시 update를 해주기위해 작동할 메소드

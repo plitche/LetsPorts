@@ -26,12 +26,12 @@ import com.koreait.project.yongsoo.command.qna.DeleteQnACommentCommand;
 import com.koreait.project.yongsoo.command.qna.GetQnACommentCommand;
 import com.koreait.project.yongsoo.command.qna.GetQnAListCommand;
 import com.koreait.project.yongsoo.command.qna.GoQnAViewPageCommand;
+import com.koreait.project.yongsoo.command.qna.GoUpdateQnAPageCommand;
 import com.koreait.project.yongsoo.command.qna.SolveQnACommend;
 import com.koreait.project.yongsoo.command.qna.UpdateQnACommand;
 import com.koreait.project.yongsoo.command.qna.UpdateQnACommentContentCommand;
 import com.koreait.project.yongsoo.command.qna.WriteQnACommand;
 import com.koreait.project.yongsoo.config.SooAppContext;
-import com.koreait.project.yongsoo.dto.QnATemDto;
 
 @Controller
 public class QnAController {
@@ -77,8 +77,11 @@ public class QnAController {
 	}
 	
 	// 질문 view페이지에서 수정하기 클릭 시 update 페이지로 이동하기 위한 메소드
-	@RequestMapping(value="goUpdateQnAPage.plitche", method=RequestMethod.POST)
-	public String goUpdateQnAPage(@ModelAttribute("qnaTemDto") QnATemDto qnaTemDto) {
+	@RequestMapping(value="goUpdateQnAPage.plitche", method=RequestMethod.GET)
+	public String goUpdateQnAPage(@ModelAttribute("board_qna_no") int board_qna_no, Model model) {
+		model.addAttribute("board_qna_no", board_qna_no);
+		GoUpdateQnAPageCommand goUpdateQnAPageCommand = ctx.getBean("goUpdateQnAPageCommand", GoUpdateQnAPageCommand.class);
+		goUpdateQnAPageCommand.execute(sqlSession, model);
 		return "yongPage/QnAPage/qnaUpdatePage";
 	}
 	

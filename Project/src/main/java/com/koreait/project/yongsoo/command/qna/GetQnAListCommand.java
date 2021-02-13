@@ -22,7 +22,7 @@ public class GetQnAListCommand implements CommonVoidCommand {
 
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
-		
+
 		// 검색관련 name null이 아닐 때만 가져오기
 		int searchCategory = 0;
 		if (request.getParameter("searchCategory") != null) {

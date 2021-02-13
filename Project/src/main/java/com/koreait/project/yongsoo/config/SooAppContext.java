@@ -12,6 +12,7 @@ import com.koreait.project.yongsoo.command.qna.DeleteQnACommentCommand;
 import com.koreait.project.yongsoo.command.qna.GetQnACommentCommand;
 import com.koreait.project.yongsoo.command.qna.GetQnAListCommand;
 import com.koreait.project.yongsoo.command.qna.GoQnAViewPageCommand;
+import com.koreait.project.yongsoo.command.qna.GoUpdateQnAPageCommand;
 import com.koreait.project.yongsoo.command.qna.SolveQnACommend;
 import com.koreait.project.yongsoo.command.qna.UpdateQnACommand;
 import com.koreait.project.yongsoo.command.qna.UpdateQnACommentContentCommand;
@@ -181,6 +182,11 @@ public class SooAppContext {
 	@Bean
 	public SolveQnACommend solveQnACommend() {
 		return new SolveQnACommend();
+	}
+	
+	@Bean
+	public GoUpdateQnAPageCommand goUpdateQnAPageCommand() {
+		return new GoUpdateQnAPageCommand();
 	}
 	
 }
