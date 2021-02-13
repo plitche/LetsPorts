@@ -21,7 +21,7 @@ public class UserListCommand implements CommonMapCommand {
 		Map<String, Object> map = model.asMap();
 		
 		int totalRecord = wookiDao.totalRecord();
-		int recordPerPage = 5;
+		int recordPerPage = 10;
 		int page = (int) map.get("page");
 		int beginRecord = (page - 1) * recordPerPage + 1;
 		int endRecord = beginRecord + recordPerPage - 1;

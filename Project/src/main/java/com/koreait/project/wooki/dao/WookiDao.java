@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.koreait.project.wooki.dto.BoardsDto;
 import com.koreait.project.wooki.dto.CommentsDto;
+import com.koreait.project.wooki.dto.CreateUserCountDto;
 import com.koreait.project.wooki.dto.PhotoDto;
 import com.koreait.project.wooki.dto.ReviewDto;
 import com.koreait.project.wooki.dto.Trainer_infoDto;
@@ -110,4 +111,8 @@ public interface WookiDao {
 	public int updateMeetingIsProgress1();
 	// 미팅 is_progress 상태 업데이트(2)
 	public int updateMeetingIsProgress2();
+	// 최근30일 일별회원수
+	public List<CreateUserCountDto> dailyCreateUserCount();
+	//  30일전 누적회원수
+	public int beforeTotalUser();
 }

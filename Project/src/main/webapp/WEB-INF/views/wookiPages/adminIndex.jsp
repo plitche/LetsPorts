@@ -6,16 +6,20 @@
 <meta charset="UTF-8" />
 <title>어드민 페이지</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- jquery, fontawesome -->
+<!-- jquery, fontawesome, Chart -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://kit.fontawesome.com/07b67006ce.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+
+<%-- font --%>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
 <!-- css파일 및 js파일 -->
 <link rel="stylesheet" href="resources/wooki/css/common.css">
 <script src="resources/wooki/js/common.js"></script>
 <script>
 	$(document).ready(function() {
-		//fn_adminCheck(${loginUser.user_separator});
+		fn_adminCheck(${loginUser.user_separator});
 		fn_selectBtn();
 		fn_main();
 		fn_openChangeEmailModal();
@@ -28,6 +32,7 @@
 		fn_checkTrainerUser();
 		fn_updateAdminUser();
 		fn_deleteUser();
+		fn_deleteTrainerUser();
 		fn_addTrainerSendEamil();
 		fn_closeAddTrainerModal();
 		fn_boardFilterAdd();
@@ -78,24 +83,24 @@
 	<div>
 		<div class="top-container space-between w1000 center top0 padding20">
 			<div id="logo">
-				<a href="adminIndex.wooki"><img src="resources/images/silhouette.png"></a>
+				<a href="adminIndex.wooki"><img src="resources/images/mainLogo.JPG">Let'sProts</a>
 			</div>
-			<div id="logoTitle">LestPorts Admin Page</div>
-			<div>
+			<div id="logoTitle">Admin Page</div>
+			<div id="logoutBtnBox">
 				<input type="button" value="로그아웃" onclick="fn_logout()" />
 			</div>
 		</div>
 		<hr/>
 		<div class="nav-container flex w1000 center top0 navbar">
 			<div class="nav-btn main" id="select-nav">메인페이지</div>
-			<div class="nav-btn user">회원관리</div>
-			<div class="nav-btn admin">관리자등록</div>
-			<div class="nav-btn trainer">트레이너관리</div>
-			<div class="nav-btn board">게시글관리</div>
-			<div class="nav-btn comment">댓글관리</div>
-			<div class="nav-btn review">리뷰관리</div>
+			<div class="nav-btn user">회원</div>
+			<div class="nav-btn admin">어드민권한</div>
+			<div class="nav-btn trainer">트레이너</div>
+			<div class="nav-btn board">게시글</div>
+			<div class="nav-btn comment">댓글</div>
+			<div class="nav-btn review">리뷰</div>
 			<div class="nav-btn trainer_qna">트레이너Q&amp;A</div>
-			<div class="nav-btn photo">사진관리</div>
+			<div class="nav-btn photo">사진</div>
 		</div>
 		<hr/>
 		<div class="content-container w1000 scroll center top0 padding20"></div>

@@ -18,7 +18,7 @@ public class TrainerUserListCommand implements CommonMapCommand {
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 		WookiDao wookiDao = sqlSession.getMapper(WookiDao.class);
 		int totalRecord = wookiDao.totalTrainerRecord();
-		int recordPerPage = 5;
+		int recordPerPage = 10;
 		int page = (int) model.asMap().get("page");
 		int beginRecord = (page - 1) * recordPerPage + 1;
 		int endRecord = beginRecord + recordPerPage - 1;

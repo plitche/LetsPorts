@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.wooki.command.AdminLoginCommand;
 import com.koreait.project.wooki.command.CheckUserCommand;
+import com.koreait.project.wooki.command.SelectChartDataCommand;
 import com.koreait.project.wooki.command.InsertIsReviewedCommand;
 import com.koreait.project.wooki.command.admin.AdminListCommand;
 import com.koreait.project.wooki.command.admin.UpdateAdminUserCommand;
@@ -91,6 +92,7 @@ public class WookiController {
 	private PhotoListCommand photoListCommand = ctx.getBean("photoListCommand", PhotoListCommand.class);
 	private PhotoOnHideToggleCommand photoOnHideToggleCommand = ctx.getBean("photoOnHideToggleCommand", PhotoOnHideToggleCommand.class);
 	private InsertIsReviewedCommand insertIsReviewedCommand = ctx.getBean("insertIsReviewedCommand", InsertIsReviewedCommand.class);
+	private SelectChartDataCommand selectChartDataCommand = ctx.getBean("selectChartDataCommand", SelectChartDataCommand.class);
 	
 	// 어드민 로그인 페이지 이동
 	@GetMapping(value="adminPage.wooki")
@@ -392,5 +394,12 @@ public class WookiController {
 	public String insertIsReviewed(Model model) {
 		insertIsReviewedCommand.execute(sqlSession, model);
 		return "redirect:/";
+	}
+	
+	// 메인 차트 데이터
+	@GetMapping(value="selectChartData.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> selectChartData(Model model) {
+		return selectChartDataCommand.execute(sqlSession, model);
 	}
 }

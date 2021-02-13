@@ -21,14 +21,30 @@
 	
 </head>
 <body>
-	<div class="container border center">
-        로그인<br/><br/>
+	<div class="container loginBox">
+        <h2>로그인</h2>
         <form action="adminLogin.wooki" method="post">
-            아이디<br/>
-            <input type="text" name="email" id="email"><br/><br/>
-            비밀번호<br/>
-            <input type="password" name="password" id="password"><br/><br/>
-			<input type="button" value="로그인하기" id="loginBtn" onclick="fn_login(this.form)">
+        	<table>
+        		<tbody>
+        			<tr>
+        				<td>아이디</td>
+        				<td>
+				            <input type="text" name="email" id="email">
+        				</td>
+        			</tr>
+        			<tr>
+        				<td>비밀번호</td>
+        				<td>
+				            <input type="password" name="password" id="password">
+        				</td>
+        			</tr>
+        			<tr>
+        				<td colspan="2">
+							<input type="button" value="로그인하기" id="loginBtn" onclick="fn_login(this.form)">
+        				</td>
+        			</tr>
+        		</tbody>
+        	</table>
         </form>
 	</div>
 </body>

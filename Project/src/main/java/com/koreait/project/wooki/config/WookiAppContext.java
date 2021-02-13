@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.koreait.project.wooki.command.AdminLoginCommand;
 import com.koreait.project.wooki.command.CheckUserCommand;
+import com.koreait.project.wooki.command.SelectChartDataCommand;
 import com.koreait.project.wooki.command.InsertIsReviewedCommand;
 import com.koreait.project.wooki.command.admin.AdminListCommand;
 import com.koreait.project.wooki.command.admin.UpdateAdminUserCommand;
@@ -178,5 +179,10 @@ public class WookiAppContext {
 	@Bean
 	public InsertIsReviewedCommand insertIsReviewedCommand() {
 		return new InsertIsReviewedCommand();
+	}
+	
+	@Bean
+	public SelectChartDataCommand selectChartDataCommand() {
+		return new SelectChartDataCommand();
 	}
 }
