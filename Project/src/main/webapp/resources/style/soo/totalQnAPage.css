@@ -10,8 +10,10 @@
 	display: flex;
 }
 
-#newQnA {
-	text-align: right;
+
+#newQnA a {
+	margin: 5px;
+	text-decoration: none;
 }
 #newQnA input {
 	border: none;
@@ -19,6 +21,7 @@
 	color: white;
 	border-radius: 10%;
 	padding: 5px;
+	margin-left: 67%;
 }
 #userQnA {
 	width: 100%;
