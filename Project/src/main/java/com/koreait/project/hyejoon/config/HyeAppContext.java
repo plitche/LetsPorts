@@ -7,6 +7,7 @@ import com.koreait.project.hyejoon.command.login.SendTempPwCommand;
 import com.koreait.project.hyejoon.command.login.UserCheckCommand;
 import com.koreait.project.hyejoon.command.login.UsersLoginCommand;
 import com.koreait.project.hyejoon.command.myPage.DeletePhotoCommand;
+import com.koreait.project.hyejoon.command.myPage.UpdateMsgCommand;
 import com.koreait.project.hyejoon.command.myPage.UploadProfilePhotoCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailAuthCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailCheckCommand;
@@ -76,6 +77,10 @@ public class HyeAppContext {
 	@Bean
 	public DeletePhotoCommand deletePhotoCommand() {
 		return new DeletePhotoCommand();
+	}
+	@Bean
+	public UpdateMsgCommand updateMsgCommand() {
+		return new UpdateMsgCommand();
 	}
 	
 }

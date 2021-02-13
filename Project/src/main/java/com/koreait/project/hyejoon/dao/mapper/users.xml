@@ -88,4 +88,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM USERS
 		 WHERE USER_NO = #{param1}
 	</select>
+	<update id="updateMsg">
+		UPDATE USERS
+		   SET USER_MESSAGE = #{param2}
+		 WHERE USER_NO = #{param1}
+	</update>
 </mapper>
