@@ -49,7 +49,7 @@
 						.append( $('<div>').text(meeting.exercise_name) )
 						.append( $('<div>').text(meeting.meeting_min +'명 ~ ' + meeting.meeting_max+'명') )
 					 )
-					.append( $('<div>').html('<i class="fas fa-map-marker-alt"></i> '+meeting.location1_name + ' ' + meeting.location2_name + '∙' + meeting.meeting_date) )
+					.append( $('<div>').html('<i class="fas fa-map-marker-alt"></i> '+meeting.location1_name + ' ' + meeting.location2_name + ' ∙ ' + meeting.meeting_date2) )
 					.append( $('<div class="writerInfo">')
 						.append( $('<span>').html('<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}" />') )
 						.append( $('<span>').text(meeting.user_nickname) )
@@ -130,23 +130,37 @@
 		foldReviews();
 		fn_writeReview();
 		closeReviewModal();
+		starClick();
 	});
 	
 	/* 리뷰 리스트를 만들어주는 function */
-	function reivewListTable(list) {
+	function reivewListTable(list, reviewCount) {
 		$('#reviewListWrap').empty();
 		$.each(list, function(idx, review) {
+			var star = '<span class="starResult">';
+			for (let i=0; i<review.score; i++) {
+				star += '<i class="fas fa-star fa-1.5x"></i>'; 
+			}
+			star += '</span><span>';
+			for (let i=0; i<5-review.score; i++) {
+				star += '<i class="fas fa-star fa-1.5x"></i>';
+			}
+			star += '</span>';
+			
 			$('#reviewListWrap')
 			.append( $('<div class="eachReview review' + idx + 'nth" >' )
-				.append( $('<div class="reviewHeader">') 
-					.append( $('<div>').html('작성자: ' + review.user_nickname) )
-					.append( $('<div>').html('평점: ' + review.score) )
+				.append( $('<div class="reviewHeader">').html('<img alt="'+review.profile_photo+'" src="resources/storage/'+review.profile_photo+'" />')
+					.append( $('<div>')
+						.append( $('<span>').text(review.user_nickname) )
+						.append( $('<span>').html(star) )
+						.append( $('<span>').text(reviewCount-idx) )
+						.append( $('<div>').text(review.meeting_title + ' / ' + review.exercise_name + ' / ' + review.location1_name + ' ' + review.location2_name) )
+					)
 				)
-				.append( $('<div>').html(review.meeting_title + ' / ' + review.exercise_name + ' / ' + review.location1_name + ' ' + review.location2_name) )
 				.append( $('<div class="reviewContent reviewContent' + review.review_no + 'nth">').html('<a href="#" onclick="fn_showAllReviewContent(' + review.review_no + '); return false;">' + review.content + '</a>') )
 				.append( $('<div class="reviewFooter">')
-					.append( $('<div>').text('to ${trainerTemDto.user_nickname}') )
-					.append( $('<div>').html('작성일: ' + review.created_at) )
+					.append( $('<div>').text('with ${trainerTemDto.user_nickname} 트레이너') )
+					.append( $('<div>').html(review.created_at2) )
 				)
 			)
 		});
@@ -162,7 +176,7 @@
 				if (responseObj.result) {
 					$('.reviewContent'+review_no+'nth').empty();
 					$('.reviewContent'+review_no+'nth')
-					.append( $('<a href="#" onclick="fn_shortReviewContent(' + review_no + '); return false;">').html(responseObj.allReviewContent) )
+					.append( $('<a href="#" onclick="fn_shortReviewContent(' + review_no + '); return false;">'+responseObj.allReviewContent+'</a>') )
 				}
 			},
 			error: function(){alert('리뷰 내용 전체 가져오기 ajax 실패');}
@@ -176,9 +190,11 @@
 			type: 'get',
 			dataType: 'json',
 			success: function(responseObj) {
-				$('.reviewContent'+review_no+'nth').empty();
-				$('.reviewContent'+review_no+'nth')
-				.append( $('<a href="#" onclick="fn_showAllReviewContent(' + review_no + '); return false;">').html(responseObj.shortReviewContent) )	
+				if (responseObj.result) {
+					$('.reviewContent'+review_no+'nth').empty();
+					$('.reviewContent'+review_no+'nth')
+					.append( $('<a href="#" onclick="fn_showAllReviewContent(' + review_no + '); return false;">' + responseObj.shortReviewContent + '</a>') )	
+				}
 			},
 			error: function(){alert('리뷰 내용 다시 줄이기 ajax 실패');}
 		});
@@ -197,16 +213,17 @@
 					$('#totalReview').empty();
 					$('#totalReview').text(responseObj.reviewCount);
 					
-					reivewListTable(responseObj.reviewList);
+					reivewListTable(responseObj.reviewList, responseObj.reviewCount);
 					
 					if(responseObj.reviewCount > 5) {
-						$('#reviewShowCutBtn')
-						.append('<input type="button" value="더보기" id="showMoreReviews" />')
-						.append('<div id="foldBtn">');
+						$('#reviewShowBtn').empty();
+						$('#reviewShowBtn').html('<i class="fas fa-caret-down fa-3x"></i>');
 					}
 				} else {
 					$('#totalReview').empty();
 					$('#totalReview').text(responseObj.reviewCount);
+					$('#reviewListWrap').text('작성된 리뷰 목록이 없습니다. 첫번째 리뷰 작성자가 되어주세요.^^')
+					.css('text-align', 'center').css('padding-left', '11%').css('font-weight', 'bold');
 				}
 			},
 			error: function(){alert('리뷰 가져오기 ajax 실패');}
@@ -216,33 +233,33 @@
 	/* 더 보기 버튼을 클릭할 때 마다 none처리된 리뷰들을 보여주는 함수 */
 	var reviewIndex = 5;
 	function showMoreReviews() {
-		$(document).on('click', '#showMoreReviews', function() {
-			var totalReviewCount = $('#totalReviewCount').text();
+		$(document).on('click', '#reviewShowBtn', function() {
+			var totalReview = $('#totalReview').text();
 			for (let i=0; i<5; i++) {
 				$('.review'+(reviewIndex+i)+'nth').css('display', 'block');
 			}
 			reviewIndex += 5;
-			
-			if (Math.ceil(totalReviewCount/5) == reviewIndex/5) {
-				$('#showMoreReviews').hide();
+
+			if (Math.ceil(totalReview/5) == reviewIndex/5) {
+				$('#reviewShowBtn').hide();
 			}
 			
-			$('#foldBtn').empty();
-			$('#foldBtn')
-			.append('<input type="button" value="접기" id="foldReviews" />');
+			$('#reviewCutBtn').empty();
+			$('#reviewCutBtn').html('<i class="fas fa-sort-up fa-3x"></i>');
 		});
 	}
 	
 	/* 접기 버튼 클릭시 리뷰 5개만 표기해주고 나머지 다 접기 */
 	function foldReviews() {
-		$(document).on('click', '#foldReviews', function() {
+		$(document).on('click', '#reviewCutBtn', function() {
 			$('.review4nth').nextAll().css('display', 'none');
-			$('#showMoreReviews').show();
-			$('#foldBtn').empty();
+			$('#reviewShowBtn').show();
+			$('#reviewCutBtn').empty();
 			reviewIndex = 5;
 		});
 	}
 	
+	var starScore = 0;
 	/* 리뷰 등록하기 버튼 클릭시 리뷰를 작성할 수 있는 모달창을 띄워주기 위한 함수 */
 	function openReviewPopUp() {
 		$('#openReviewModal').click(function() {
@@ -265,26 +282,37 @@
 					success: function (responseObj) {
 						
 						var reviewSelectHtml = '<select name="meeting_no">';
-						$.each(responseObj.joinMeetingList, function(idx, meeting){
-							reviewSelectHtml += '<option value="' + meeting.meeting_no + '">' + meeting.meeting_title + '</option>';
+						reviewSelectHtml += '<option value="">모임 선택</option>';
+						$.each(responseObj.joinMeetingList, function(idx, meeting) {
+							reviewSelectHtml += '<option value="' + meeting.meeting_no + '">' + (idx+1) + '. ' + meeting.meeting_title + '</option>';
 						});
 						reviewSelectHtml += '</select>';
+						
+						var star = '<div id="star_grade">';
+						for (let i=1; i<=5; i++) {
+							star += '<a href="#" onclick="fn_score('+i+'); return false;" ><i class="fas fa-star fa-2x"></i></a>'; 
+						}
+						star += '</div>';
 						
 						if(responseObj.result) {
 							$('#modalDetail').empty();
 							$('#modalDetail')
-							.append( $('<div>').html('작성자 : ${loginUser.user_nickname}') )
+							.append( $('<div>').html('Writer : ${loginUser.user_nickname}') )
 							.append( $('<form>')
 								.append( $('<div>')
 									.append(reviewSelectHtml)
-									.append( $('<input type="text" name="score" placeholder="평점 입력">') )
+									.append(star)
 								)
 								.append( $('<textarea rows="10" cols="50" name="content" placeholder="리뷰 내용을 작성하세요.">') )
 								.append( $('<input type="button" id="writeReview" value="작성완료"/>') )
 							)
 							$('#modal').attr("style", "display:block");
 						} else {
-							swal.fire('리뷰를 작성할 수 없습니다.', '트레이너와 함께 한 모임이 없습니다. 다양한 활동 후 많은 리뷰를 남겨주세요!^^', 'error')
+							if(responseObj.status) {
+								swal.fire('리뷰를 작성할 수 없습니다.', '이미 해당 트레이너와 함께한 모든 모임에 리뷰를 작성하셨습니다!^^', 'info')
+							} else {
+								swal.fire('리뷰를 작성할 수 없습니다.', '트레이너와 함께 한 모임이 없습니다. 다양한 활동 후 많은 리뷰를 남겨주세요!^^', 'error')
+							}
 						}
 					},
 					error: function(){alert('리뷰 버튼 클릭시 ajax 실패');}	
@@ -293,11 +321,23 @@
 		});
 	}
 	
+	/* 별을 클릭한 만큼 값을 전해주기 위한 메소드 */
+	function starClick() {
+		$(document).on('click', '#star_grade a', function() {
+	        $(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
+	        $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+	        return false;
+	    });
+	}
+    function fn_score(i) {
+    	starScore = i;
+    }
+    
 	/* 작성완료를 눌럿을 때 실행 될 함수 */
 	function fn_writeReview() {
 		$(document).on('click', '#writeReview', function() {
 			var meeting_no =  $('select[name="meeting_no"]').val();
-			var score = $('input[name="score"]').val();
+			var score = starScore;
 			var content = $('textarea[name="content"]').val();
 			var trainer_user_no = ${trainerTemDto.user_no};
 			var login_user_no = '${loginUser.user_no}';
@@ -318,6 +358,7 @@
 				dataType: 'json',
 				success: function(responseObj) {
 					if (responseObj.result) {
+						Swal.fire('리뷰가 등록되었습니다!', '소중한 리뷰는 트레이너에게 힘이되요!', 'success');
 						getReviewList();
 					} else {
 						alert('리뷰작성 insert 실패');
@@ -350,27 +391,27 @@
 	
 	var qnaPageNo = 1;
 	// 해당 트레이너에게 달린 질문 data를 append하는 서브함수
-	function trainerQnAListTable(list, trainerInfo) {
+	function trainerQnAListTable(list, trainerInfo, totalQnACount) {
 		$('#qnaList').empty();
 		$('#currentPage').empty();
 		$('#currentPage').text('현재 ' +  qnaPageNo  + ' 페이지');
 		$.each(list, function(idx, qna){
 			if (qna.is_answered==0) {
 				$('<tr>')
-				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
+				.append( $('<td name="qnA_no">').html( totalQnACount-((qnaPageNo-1)*10 + idx) ) )
 				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
 				.append( $('<td>').html(trainerInfo.user_nickname) )
-				.append( $('<td>').html(qna.created_at) )
+				.append( $('<td>').html(qna.created_at2) )
 				.append( $('<input type="hidden" name="' + qna.trainer_qna_no + '" value="' + idx + '"/>') )
-				.append( $('<td name="isAnswered">').addClass('isAnswered').html('미답변') )
+				.append( $('<td name="isAnswered">').addClass('isAnswered').html('미답변').css('color', 'orangered').css('font-weight', 'bold') )
 				.appendTo('#qnaList');
 			} else {
 				$('<tr>')
-				.append( $('<td name="qnA_no">').html(qna.trainer_qna_no) )
+				.append( $('<td name="qnA_no">').html( totalQnACount-((qnaPageNo-1)*10 + idx) ) )
 				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
 				.append( $('<td>').html(trainerInfo.user_nickname) )
-				.append( $('<td>').html(qna.created_at) )
-				.append( $('<td name="isAnswered">').addClass('isAnswered').html('답변완료') )
+				.append( $('<td>').html(qna.created_at2) )
+				.append( $('<td name="isAnswered">').addClass('isAnswered').html('답변완료').css('color', 'darkblue').css('font-weight', 'bold') )
 				.appendTo('#qnaList');
 			}
 		});
@@ -389,7 +430,7 @@
 					$('#totalQnA').empty();
 					$('#totalQnA').text(responseObj.totalQnACount);
 					
-					trainerQnAListTable(responseObj.qnaList, responseObj.trainerTemDto);
+					trainerQnAListTable(responseObj.qnaList, responseObj.trainerTemDto, responseObj.totalQnACount);
 					
 					var qnaPagingHtml = '<a href="#" onclick="preQnAPage(); return false;"> 이전 </a>';
 					for(let i=1; i<=Math.ceil(responseObj.totalQnACount/10); i++) {
@@ -522,11 +563,11 @@
 						.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
 						.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
 						.append( $('<div>').text('질문자: ' + responseObj.qna.user_nickname) )
-						.append( $('<div>').text('작성일: ' + responseObj.qna.created_at) )
+						.append( $('<div>').text('작성일: ' + responseObj.qna.created_at2) )
 						.append( $('<div id="trainerAnswer">')
 							.append( $('<h4>').text('${trainerTemDto.user_nickname}의 답변') )
 							.append( $('<div id="answerContent">').text(responseObj.qna.trainer_qna_answered) )
-							.append( $('<div>').text('답변 작성일: '+ responseObj.qna.answered_date) )		
+							.append( $('<div>').text('답변일: '+ responseObj.qna.answered_date2) )		
 						)
 						.appendTo('#modalDetail');
 					} else {
@@ -538,7 +579,7 @@
 							.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
 							.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
 							.append( $('<div>').text('질문자: ' + responseObj.qna.user_nickname) )
-							.append( $('<div>').text('작성일: ' + responseObj.qna.created_at) )
+							.append( $('<div>').text('작성일: ' + responseObj.qna.created_at2) )
 							.append( $('<input type="button" value="답변 작성하기" onclick="fn_openAnswer('+ trainer_qna_no +')">') )
 							.appendTo('#modalDetail');
 						} else {
@@ -549,10 +590,9 @@
 							.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
 							.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
 							.append( $('<div>').text('질문자: ' + responseObj.qna.user_nickname) )
-							.append( $('<div>').text('작성일: ' + responseObj.qna.created_at) )
+							.append( $('<div>').text('작성일: ' + responseObj.qna.created_at2) )
 							.appendTo('#modalDetail');
 						}
-						
 					}
 				}
 			},
@@ -562,7 +602,7 @@
 	
 	// 질문 내용 클릭 후 modal창에서 답변 작성하기를 눌렀을 때 추가로 밑에 작성 란이 보이도록 하기위한 처리
 	function fn_openAnswer(trainer_qna_no) {
-		$('.questoinContent input[type="button"]').hide();
+		$('.questionContent input[type="button"]').hide();
 		$('<div id="qnaAnswer">')
 		.append ( $('<form>')
 			.append ( $('<textarea rows="10" cols="50" name="trainer_qna_answered" id="answerContent" >') )
@@ -573,7 +613,7 @@
 	
 	// 질문 답변 작성 완료 후 답변작성 완료를 누르면 작동할 ajax함수
 	function fn_writeAnswer(trainer_qna_no) {
-		if ($('#answerContent').text() == '') {
+		if ($('#answerContent').val() == '') {
 			Swal.fire('작성된 답변 내용이 없습니다!', '답변 내용을 확인해주세요.', 'error');
 		} else {
 			var trainer_qna_answered = $('textarea[name="trainer_qna_answered"]').val();
@@ -719,7 +759,6 @@ ${trainerTemDto.profile}
 	</div>
 </div>
 
-
 <div id="tab">
 	<ul>
 		<li data-id="meetingList" class="on">
@@ -747,13 +786,16 @@ ${trainerTemDto.profile}
 		<input type="button" id="openReviewModal" class="TrainerDetailBtn" value="리뷰 작성하기">
 		<div id="trainerReviewList">
 			<div id="reviewListWrap"></div>
-			<div id="reviewShowCutBtn"></div>
+			<div style="text-align: center; margin-top: 20px;">
+				<span id="reviewShowBtn"></span>
+				<span id="reviewCutBtn"></span>
+			</div>
 		</div>
 	</div>
 	
 	<div id="QnAList" class="conBox">
 	<input type="button" id="openQnAModal" class="TrainerDetailBtn" value="질문 등록하기">
-		<div id="currentPage" style="text-align: center;"></div>
+		<div id="currentPage" style="text-align: center; padding-left: 12%; font-weight: bold;"></div>
 		<div id="trainerQnAList">
 			<table id="questionList">
 				<colgroup>
@@ -826,7 +868,6 @@ ${trainerTemDto.profile}
 	}   
 	 */
 </script>
-
 
 
 <%@ include file="../template/footer.jsp" %>

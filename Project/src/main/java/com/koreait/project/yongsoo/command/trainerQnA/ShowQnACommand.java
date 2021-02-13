@@ -1,5 +1,6 @@
 package com.koreait.project.yongsoo.command.trainerQnA;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,9 +23,13 @@ public class ShowQnACommand implements CommonMapCommand {
 		QnATemDto qnaTemDto = trainerQnADao.showQnA(trainer_qna_no);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy:MM:dd(E) HH:mm");
+		
 		if (qnaTemDto!=null) {
+			qnaTemDto.setCreated_at2(format.format(qnaTemDto.getCreated_at()));
 			if(qnaTemDto.getIs_answered()==1) {	// 답변 아직 0
 				result.put("answer", true);
+				qnaTemDto.setAnswered_date2(format.format(qnaTemDto.getAnswered_date()));
 			} else {
 				result.put("answer", false);
 			}

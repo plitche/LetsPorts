@@ -1,5 +1,6 @@
 package com.koreait.project.yongsoo.command.meetingComment;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,9 +19,17 @@ public class GetCommentListCommand implements CommonMapCommand {
 
 		Map<String, Object> map = model.asMap();
 		int meeting_no = (int)map.get("meeting_no");
+		int commentPageNo = (int)map.get("commentPageNo");
 		
 		MeetingCommentDao commentDao = sqlSession.getMapper(MeetingCommentDao.class);
-		List<CommentTemDto> commentList = commentDao.getCommentList(meeting_no);
+		List<CommentTemDto> commentList = commentDao.getCommentList(meeting_no, commentPageNo);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd(E) HH:mm:ss");
+		for(int i=0; i<commentList.size(); i++) {
+			commentList.get(i).setCreated_at2(format.format(commentList.get(i).getCreated_at()));
+		}
+		
+		int commentCount = commentDao.getCommentCount(meeting_no);
 
 		Map<String, Object> result = new HashMap<String, Object>(); 
 		
@@ -30,6 +39,8 @@ public class GetCommentListCommand implements CommonMapCommand {
 		} else {
 			result.put("result", false);
 		}
+		result.put("commentCount", commentCount);
+		
 		return result;
 	}
 

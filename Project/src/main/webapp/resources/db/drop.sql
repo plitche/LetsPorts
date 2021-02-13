@@ -1,3 +1,4 @@
+DROP TABLE temp_board;
 DROP TABLE is_reviewed;
 DROP TABLE materials;
 DROP TABLE user_interest;
@@ -35,4 +36,4 @@ DROP SEQUENCE alarm_seq;
 DROP SEQUENCE user_interest_seq;
 DROP SEQUENCE materials_seq;
 DROP SEQUENCE is_reviewed_seq;
-
+DROP SEQUENCE temp_board_seq;

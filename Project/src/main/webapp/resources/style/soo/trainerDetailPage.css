@@ -38,11 +38,12 @@
 
 /* 하단 탭형식 css */
 #tab {
-	width: 90%;
+	width: 100%;
 	height: auto;
 	overflow: hidden;
 	margin: 20px auto;
-	padding: 10px 0 20px 30px;
+	padding: 10px 0 20px 40px;
+	background: #F8F9FB;
 }
 #tab ul {
 	padding: 0;
@@ -66,8 +67,7 @@
 #tab ul li:hover, #tab ul li.on {
 	background: #000;
 	color: white;
-	border-bottom: 3px solid Yellow;
-	box-shadow: 3px 2px 2px yellow; 
+	border-bottom: 3px solid orangered;
 }
 #tab .conBox {
 	width: 100%;
@@ -158,7 +158,6 @@
 	margin: 0 5px;
 	font-size: 15px;
 }
-
 .writerInfo {
 	border-top: .5px solid #dbdbdb;
 	padding-top: 10px;
@@ -260,35 +259,104 @@
 
 /* 트레이너 리뷰 modal파트 css */
 #trainerReviewList {
-	padding: 20px;
+	width: 96%;
+	margin-top: 55px;
 }
 .eachReview {
-	padding: 20px;
-	border: 3px solid limegreen;
-	border-radius: 5%;
+	box-shadow: rgb(117 117 117 / 25%) 0px 2px 3px;
+	border-radius: 20px;
+	padding: 26px 35px;
+	background: white;
+	margin-top: 20px;
+	
 }
 #modalDetail textarea {
 	border: 1px solid;
+	padding: 12px;
+	margin-bottom: 13px;
 }
 #modalDetail {
 	padding: 0 30px;
 }
+#modalDetail select {
+	width: 45%;
+	height: 42px;
+	border: 1px solid;
+	margin-right: 27px;
+	padding-left: 7px;
+}
+#modalDetail > form > div {
+	display: flex;
+	margin-bottom: 15px;
+}
+#modalDetail > div:nth-child(1) {
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 140%;
+	color: rgb(27, 28, 29);
+	margin-bottom: 10px;
+	text-align: left;
+}
+#writeReview {
+	border: none;
+	background: black;
+	color: white;
+	font-weight: bold;
+	width: 100px;
+	border-radius: 5%;
+	margin-left: 75%;
+}
 .reviewHeader {
 	display: flex;
 }
-.reviewHeader > div:nth-child(1) {
-	font-weight: 900;
-	font-size: 2rem;
-	margin-right: 50px;
+.reviewHeader > div {
+	width: 100%;
+}
+.reviewHeader > div i {
+	font-size: 20px;
+}
+.reviewHeader > div > span:nth-child(1) {
+	font-weight: bold;
+	font-size: 20px;
+	color: rgb(27, 28, 29);
+	margin: 0 10px;
+}
+.reviewHeader > div > div {
+	font-weight: normal;
+	font-size: 1.4rem;
+	color: rgb(96, 96, 101);
+	margin: 6px 0 0 10px;
+}
+.reviewHeader img {
+	width: 60px;
+	height: 60px;
+	border-radius: 25%;
+}
+.reviewHeader > div > span:nth-child(3) {
+	font-size: 16px;
+	margin-left: 74%;
+	border: 1px solid;
+	padding: 3px;
+	border-radius: 29%;
+	font-weight: bold;
 }
 .reviewContent {
-	margin: 15px 0px;
+	margin: 15px 0px 20px 0;
+}
+.reviewContent > a {
+	color: #000;
+	font-size: 1.6rem;
 }
 .reviewFooter > div:nth-child(1) {
 	float: left;
+	font-weight: 500;
+	font-size: 16px;
+	color: #000;
 }
 .reviewFooter > div:nth-child(2) {
 	float: right;
+	font-size: 80%;
+	font-weight: 400;
 }
 
 /* 리뷰 더보기 버튼 css */
@@ -424,7 +492,27 @@
 	margin-bottom: 20px;
 }
 
+#star_grade {
+	margin-top: 5px;
+}
+#star_grade a{
+    text-decoration: none;
+    color: gray;
+    margin-left: 2px;
+}
+#star_grade a.on{
+    color: orangered;
+}
+.starResult {
+	color: orangered;
+}
 
-
-
-
+#reviewShowBtn, #reviewCutBtn{
+	cursor: pointer;
+	text-align: center;
+	margin: 0 5px;
+	color: orangered;
+}
+#reviewCutBtn {
+	vertical-align: middle;
+}

@@ -7,12 +7,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 <!-- 		SELECT C.comment_no, C.comment_referer_sep, C.comment_referer_no, C.user_no, C.comment_content,
 			   C.created_at, C.on_hide, U.user_nickname -->
-	<select id="getCommentList" parameterType="int" resultType="com.koreait.project.yongsoo.dto.CommentTemDto">
+	<select id="getCommentList" resultType="com.koreait.project.yongsoo.dto.CommentTemDto">
 		SELECT *
-		  FROM COMMENTS C FULL OUTER JOIN USERS U
-		    ON C.USER_NO = U.USER_NO
-		 WHERE COMMENT_REFERER_NO = #{meeting_no}
+		  FROM (SELECT C1.*, ROWNUM RN
+		 	    FROM (SELECT *
+		 		      FROM COMMENTS
+		 		      WHERE COMMENT_REFERER_NO = #{param1}
+		 		        AND COMMENT_REFERER_SEP = 2
+		 		        AND ON_HIDE = 0
+		 		      ORDER BY COMMENT_NO DESC) C1 
+		 	   ) C2
+		       FULL OUTER JOIN USERS U
+		 	   ON C2.USER_NO = U.USER_NO
+		 WHERE RN BETWEEN (#{param2}*10-9) AND (#{param2}*10)
 	</select>
+	<select id="getCommentCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM COMMENTS
+		 WHERE COMMENT_REFERER_NO = #{meeting_no}
+		   AND COMMENT_REFERER_SEP = 2
+		   AND ON_HIDE = 0
+	</select>
+	
 	
 	<insert id="addComment" parameterType="com.koreait.project.dto.CommentsDto">
 		INSERT INTO COMMENTS

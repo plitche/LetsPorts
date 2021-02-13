@@ -1,10 +1,50 @@
-DROP TABLE temp_board;
+INSERT INTO meeting VALUES (10, 39, 6, 3, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-09', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (11, 40, 4, 3, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-10', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (12, 38, 4, 4, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-14', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (13, 39, 6, 5, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-08', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (14, 40, 8, 4, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-20', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (15, 38, 8, 6, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-06', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 3, '개인사유취소', 0, NULL, 0);
+INSERT INTO meeting VALUES (16, 39, 8, 6, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-08', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (17, 40, 8, 4, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-17', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (18, 38, 5, 5, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-08', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 39, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 4, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 5, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 6, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 7, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 8, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 11, 40, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 11, 2, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 11, 3, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 12, 38, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 12, 10, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 12, 11, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 12, 12, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 13, 39, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 14, 40, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 14, 13, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 14, 14, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 15, 38, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 15, 15, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 39, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 16, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 17, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 18, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 19, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 20, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 17, 40, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 17, 21, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 38, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 22, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 23, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 24, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 25, SYSDATE, 1, NULL);
+
 DROP TABLE test_board;
-DROP SEQUENCE temp_board_seq;
 DROP SEQUENCE test_board_seq;
 
 
-
+DROP TABLE temp_board;
 DROP TABLE is_reviewed;
 DROP TABLE materials;
 DROP TABLE user_interest;
@@ -42,6 +82,7 @@ DROP SEQUENCE alarm_seq;
 DROP SEQUENCE user_interest_seq;
 DROP SEQUENCE materials_seq;
 DROP SEQUENCE is_reviewed_seq;
+DROP SEQUENCE temp_board_seq;
 
 -- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
 -- SEQUENCE들
@@ -121,6 +162,11 @@ INCREMENT BY 1
 NOCACHE;
 
 CREATE SEQUENCE is_reviewed_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE temp_board_seq
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
@@ -221,7 +267,6 @@ CREATE TABLE scrap (
     user_no             NUMBER  REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     scrap_separator     NUMBER  NOT NULL, 
     scrap_referer_no    NUMBER  NOT NULL, 
-    scrap_user_no		NUMBER  REFERENCES users(user_no) ON DELETE CASCADE NOT NULL,
     end_gather_date     DATE    NULL, 
     created_at          DATE    NOT NULL
 );
@@ -342,7 +387,12 @@ CREATE TABLE is_reviewed (
     status            NUMBER    NOT NULL
 );
 
-
+-- 임시 게시글 번호 테이블
+CREATE TABLE temp_board (
+	temp_no		NUMBER		PRIMARY KEY,
+	user_no		NUMBER		REFERENCES users(user_no) ON DELETE CASCADE NOT NULL,
+	created_at	DATE		NOT NULL
+);
 
 
 
@@ -358,20 +408,6 @@ CREATE SEQUENCE test_board_seq
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
-
--- 텍스트 에디터용
-CREATE SEQUENCE temp_board_seq
-START WITH 1
-INCREMENT BY 1
-NOCACHE;
-
-CREATE TABLE temp_board (
-	temp_no		NUMBER		PRIMARY KEY,
-	user_no		NUMBER		REFERENCES users(user_no) ON DELETE CASCADE NOT NULL,
-	created_at	DATE		NOT NULL
-);
-
-
 
 
 

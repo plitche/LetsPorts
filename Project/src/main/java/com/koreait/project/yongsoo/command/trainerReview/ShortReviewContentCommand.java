@@ -21,7 +21,9 @@ public class ShortReviewContentCommand implements CommonMapCommand {
 		String allReviewContent = trainerReviewDao.getAllReviewContent(review_no);
 		String shortReviewContent=null;
 		if (allReviewContent.length()>150) {
-			 shortReviewContent = allReviewContent.substring(0, 150)+"...";
+			shortReviewContent = allReviewContent.substring(0, 150)+"...";
+		} else {
+			shortReviewContent = allReviewContent;
 		}
 		
 		Map<String, Object> result = new HashMap<String, Object>();

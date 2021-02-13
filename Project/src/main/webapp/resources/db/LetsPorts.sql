@@ -80,6 +80,11 @@ START WITH 1
 INCREMENT BY 1
 NOCACHE;
 
+CREATE SEQUENCE temp_board_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
 -- location1 Table Create SQL
 CREATE TABLE location1 (
     location1_no      NUMBER          PRIMARY KEY, 
@@ -294,4 +299,11 @@ CREATE TABLE is_reviewed (
     target_user_no    NUMBER    REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     writer_user_no    NUMBER    REFERENCES users(user_no) ON DELETE CASCADE NOT NULL, 
     status            NUMBER    NOT NULL
+);
+
+-- 임시 게시글 번호 테이블
+CREATE TABLE temp_board (
+	temp_no		NUMBER		PRIMARY KEY,
+	user_no		NUMBER		REFERENCES users(user_no) ON DELETE CASCADE NOT NULL,
+	created_at	DATE		NOT NULL
 );

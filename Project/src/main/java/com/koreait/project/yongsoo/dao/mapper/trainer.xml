@@ -11,10 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM USERS U FULL OUTER JOIN TRAINER_INFO T
 		    ON U.USER_NO = T.USER_NO
 		 WHERE U.user_separator = 1
+		   AND U.DISABLE != 1
 	</select>
 	<select id="trainerScore" parameterType="int" resultType="Double">
 		SELECT AVG(SCORE)
-		  FROM REVIEW
+		  FROM REVIEW 
 		 WHERE TARGET_USER_NO = #{user_no}
 	</select>
 	<select id="reviewCount" parameterType="int" resultType="Integer">

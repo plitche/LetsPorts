@@ -27,4 +27,5 @@ public class TrainerTemDto {
 	private int scrap_referer_no;
 	private String exercise_name;
 	
+	private String[] exercise_name;
 }

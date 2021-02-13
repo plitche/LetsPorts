@@ -1,7 +1,7 @@
 package com.koreait.project.yongsoo.command.trainerMeeting;
 
 import java.io.File;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,9 +23,9 @@ public class CreateMeetingCommand{
 		int user_no = Integer.parseInt(multipartRequest.getParameter("user_no"));
 		String meeting_title = multipartRequest.getParameter("meeting_title");
 		String meeting_content = multipartRequest.getParameter("meeting_content");
-		Date meeting_date = Date.valueOf(multipartRequest.getParameter("meeting_date"));
-		Date start_gather_date = Date.valueOf(multipartRequest.getParameter("start_gather_date"));
-		Date end_gather_date = Date.valueOf(multipartRequest.getParameter("end_gather_date"));
+		Timestamp meeting_date = Timestamp.valueOf(multipartRequest.getParameter("meeting_date"));
+		Timestamp start_gather_date = Timestamp.valueOf(multipartRequest.getParameter("start_gather_date"));
+		Timestamp end_gather_date = Timestamp.valueOf(multipartRequest.getParameter("end_gather_date"));
 		int meeting_max = Integer.parseInt(multipartRequest.getParameter("meeting_max"));
 		int meeting_min = Integer.parseInt(multipartRequest.getParameter("meeting_min"));
 		int exercise_no = Integer.parseInt(multipartRequest.getParameter("exercise_no"));
@@ -49,12 +49,15 @@ public class CreateMeetingCommand{
 		createNewMeetingDto.setDetail_location(detail_location);
 		
 		// 데이터 저장
-		// MEETING테이블에 insert하기위한 메소드 호출
+		// meeting테이블에 insert하기위한 메소드 호출
 		trainerMeetingDao.createMeeting(createNewMeetingDto);
-
 		
 		// 새로 생성된 모임 번호를 가져오기위한 메소드 호출
 		int meeting_no = trainerMeetingDao.findMeetingNo(user_no);
+		
+		// meeting테이블에 insert후 작성자 본인은 바로 모임 참가자 테이블에 insert해주기 위한 메소드호출
+		trainerMeetingDao.joinToMyMeeting(meeting_no, user_no);
+		
 		// 새로 생성된 모임번호와 준비물을 저장하기 위한 메소드 호출
 		for (int i=0; i<materialList.length; i++) {
 			String material = materialList[i];

@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		          FROM (SELECT *
 		                  FROM BOARD_QNA
 		                 WHERE BOARD_QNA_NO IS NOT NULL
+		                   AND ON_HIDE = 0
 		                 ORDER BY BOARD_QNA_NO DESC) B1) B2 
       		   FULL OUTER JOIN USERS U
 		       ON B2.USER_NO = U.USER_NO
@@ -19,13 +20,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getQnACount" resultType="int">
 		SELECT COUNT(*)
 		  FROM BOARD_QNA
+		 WHERE ON_HIDE = 0
 	</select>
 	
 	<select id="getQnACount1" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		  FROM BOARD_QNA
-		 WHERE BOARD_QNA_TITLE LIKE '%'||#{searchKeyword}||'%'
-		    OR BOARD_QNA_CONTENT LIKE '%'||#{searchKeyword}||'%'
+		 WHERE ON_HIDE = 0
+		   AND (BOARD_QNA_TITLE LIKE '%'||#{searchKeyword}||'%'
+		    OR BOARD_QNA_CONTENT LIKE '%'||#{searchKeyword}||'%')
 	</select>
 	<select id="getQnAListByKeyword1" resultType="com.koreait.project.yongsoo.dto.BoardQnATemDto">
 		SELECT *
@@ -33,6 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		          FROM (SELECT *
 		                  FROM BOARD_QNA
 		                 WHERE BOARD_QNA_NO IS NOT NULL
+		                   AND ON_HIDE = 0
 		                 ORDER BY BOARD_QNA_NO DESC) B1) B2 
       		   FULL OUTER JOIN USERS U
 		       ON B2.USER_NO = U.USER_NO
@@ -45,6 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*)
 		  FROM BOARD_QNA
 		 WHERE BOARD_QNA_TITLE LIKE '%'||#{searchKeyword}||'%'
+		   AND ON_HIDE = 0
 	</select>
 	<select id="getQnAListByKeyword2" resultType="com.koreait.project.yongsoo.dto.BoardQnATemDto">
 		SELECT *
@@ -52,6 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		          FROM (SELECT *
 		                  FROM BOARD_QNA
 		                 WHERE BOARD_QNA_NO IS NOT NULL
+		                   AND ON_HIDE = 0
 		                 ORDER BY BOARD_QNA_NO DESC) B1) B2 
       		   FULL OUTER JOIN USERS U
 		       ON B2.USER_NO = U.USER_NO
@@ -64,6 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM BOARD_QNA B JOIN USERS U
 		    ON B.USER_NO = U.USER_NO
 		 WHERE U.USER_NICKNAME LIKE '%'||#{searchKeyword}||'%'
+		   AND ON_HIDE = 0
 	</select>
 	<select id="getQnAListByKeyword3" resultType="com.koreait.project.yongsoo.dto.BoardQnATemDto">
 		SELECT *
@@ -71,6 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		          FROM (SELECT *
 		                  FROM BOARD_QNA
 		                 WHERE BOARD_QNA_NO IS NOT NULL
+		                   AND ON_HIDE = 0
 		                 ORDER BY BOARD_QNA_NO DESC) B1) B2 
       		   FULL OUTER JOIN USERS U
 		       ON B2.USER_NO = U.USER_NO
@@ -115,6 +123,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 	    FROM (SELECT *
 		 		      FROM COMMENTS
 		 		      WHERE COMMENT_REFERER_NO = #{param1}
+		 		        AND COMMENT_REFERER_SEP = 1
+		 		        AND ON_HIDE = 0
 		 		      ORDER BY COMMENT_NO DESC) C1 
 		 	   ) C2
 		       FULL OUTER JOIN USERS U
@@ -125,6 +135,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*)
 		  FROM COMMENTS
 		 WHERE COMMENT_REFERER_NO = #{qnaNo}
+		   AND COMMENT_REFERER_SEP = 1
+		   AND ON_HIDE = 0
 	</select>
 	
 	<insert id="addQnACommnet" parameterType="com.koreait.project.dto.CommentsDto">

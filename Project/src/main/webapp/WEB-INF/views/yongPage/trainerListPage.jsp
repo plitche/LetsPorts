@@ -54,7 +54,7 @@
 						<img alt="${trainer.profile_photo}" src="resources/storage/${trainer.profile_photo}" >
 					</div>
 					<div class="trainer-info">
-						<div>이름 : ${trainer.trainer_name}</div>
+						<div>${trainer.trainer_name}</div>
 						<div>${trainer.user_nickname}</div>
 						<div>
 							<c:if test="${trainer.score eq 0.0}">

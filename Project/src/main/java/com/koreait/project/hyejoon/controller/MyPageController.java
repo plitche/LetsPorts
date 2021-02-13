@@ -60,6 +60,7 @@ public class MyPageController {
 		return uploadProfilePhotoCommand.execute(sqlSession, model);
 	}
 
+	// 파일 삭제
 	@PutMapping(value="deletePhoto/{user_no}/{filename}.hey", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> deletePhoto(
