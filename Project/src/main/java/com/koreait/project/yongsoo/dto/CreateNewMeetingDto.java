@@ -1,6 +1,6 @@
 package com.koreait.project.yongsoo.dto;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,9 +17,9 @@ public class CreateNewMeetingDto {
 	private int user_no;
 	private String meeting_title;
 	private String meeting_content;
-	private Timestamp meeting_date;
-	private Timestamp start_gather_date;
-	private Timestamp end_gather_date;
+	private Date meeting_date;
+	private Date start_gather_date;
+	private Date end_gather_date;
 	private int meeting_max;
 	private int meeting_min;
 	private int exercise_no;

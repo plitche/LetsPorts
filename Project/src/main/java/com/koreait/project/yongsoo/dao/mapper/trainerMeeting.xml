@@ -71,6 +71,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    ON U.EXERCISE_NO = E.EXERCISE_NO
 		 WHERE U.USER_NO = #{user_no}
 	</select>
+
+ 	
+ 	<select id="isInWishList" resultType="int">
+ 		SELECT COUNT(*)
+ 		  FROM SCRAP
+ 		 WHERE USER_NO = #{param1}
+ 		   AND SCRAP_REFERER_NO = #{param2}
+ 	</select>
+ 	
+ 	<select id="getEndGatherDate" parameterType="int" resultType="java.sql.Date">
+ 		SELECT END_GATHER_DATE
+ 		  FROM MEETING
+ 		 WHERE MEETING_NO = #{scrap_referer_no}
+ 	</select>
+ 	
+ 	<insert id="insertScrap">
+ 		INSERT INTO SCRAP
+ 		VALUES (SCRAP_SEQ.NEXTVAL, #{param1}, 2, #{param2}, #{param3}, SYSDATE) 		
+ 	</insert>
+ 	
  	
 	<insert id="createMeeting" parameterType="String">
 		INSERT INTO MEETING

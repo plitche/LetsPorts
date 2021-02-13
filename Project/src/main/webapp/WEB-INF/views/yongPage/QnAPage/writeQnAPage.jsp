@@ -58,14 +58,14 @@
 </pre>
 <div id="qnaContent">
 	<span>질문 상세 내용</span>
+	<div style="color: darkgray;">텍스트를 입력하시려면 하단의 +버튼, 이미지를 첨부하시려면 사진버튼을 클릭해주세요~!</div>
+	<div id="content" style="border: 1px solid #d8d8d8;"></div>
+	<br/>
 	<i class="far fa-plus-square btn" onclick="fn_addContent()"></i>
 	<label>
 		<input style="display: none" type="file" id="uploadFile" name="uploadFile" accept="image/*" />
 		<i class="far fa-images btn"></i>
 	</label>
-	<div style="text-align: right; color: darkgray;">텍스트를 입력하시려면 +버튼, 이미지를 첨부하시려면 사진버튼을 클릭해주세요~!</div>
-	<div id="content" style="border: 1px solid #d8d8d8;"></div>
-	<br/>
 	<input type="button" id="doneBtn" value="질문 작성완료" onclick="fn_writeQnA(this.form)" />
 </div>
 
