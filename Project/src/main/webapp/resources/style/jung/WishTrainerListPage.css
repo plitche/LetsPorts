@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+.WishTrainerListBox {
+	width: 250px;
+	height: 250px;
+	background: white;
+	border: 0.5px solid #e7e7e7;
+	margin-right: 20px;
+	float: left;
+	margin-top:20px; 
+	border-radius: 20px;
+	padding: 15px;
+}
+
+#WishTrainerProfile {
+	background: lightgray;
+	border-radius: 100px;
+	width: 60px;
+	height: 60px;
+}
+
+#WishTrainerPhoto_Name {
+	display: flex;
+	align-items: center;
+}
+
+#MeetingClassPhoto > img {
+	width: 100%;
+    height: 100%;
+    border-radius: 16px 16px 0 0;
+}
+
+#location1 {
+	height: 20px;
+	background: #efefef;
+	border-radius: 15px;
+	padding:4px;
+}    
+
+#location2 {
+	padding:4px;
+	background: #efefef;
+	height: 20px;
+	border-radius: 15px;
+}    
+
+#exercise_name {
+	height: 20px;
+	background: #efefef;
+	border-radius: 15px;
+	padding:4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

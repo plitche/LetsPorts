@@ -2,49 +2,66 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="../template/header.jsp" />
 <link type="text/css" rel="stylesheet" href="resources/style/jung/TrainerClassInsertPage.css" >
+<!-- jquery, fontawesome -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://kit.fontawesome.com/07b67006ce.js"></script>
+        
+<!-- css파일 및 js파일 -->
+<link rel="stylesheet" href="resources/wooki/css/textEditor.css">
+<script src="resources/wooki/js/textEditor.js"></script>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        fn_insertTempBoard($('#user_no').val());
+        divToBr();
+        deleteContent();
+        fn_filesend();
+    });
+</script>
 
-<form action="TrainerClassInsert.leo"  method="post" enctype="multipart/form-data">
 
 	<div class="TrainerClassInsert_all">
+		<form action="TrainerClassInsert.leo"  method="post" enctype="multipart/form-data">
 	
+			<span style="font-size:14px; font-weight: 900; width: 300px; height: 100px; background: #2ed8b6;">새로운 모임 만들기</span>
+			<div style="width: 1000px; height: 0.5px; background: black; margin:25px 0px;"></div>
 			<div>
 			
-				<div>클래스명</div>
-				<div><input type="text" name="meeting_title"/></div>
+				<span id="classname">클래스명</span>
+				<div class="classname"><input type="text" name="meeting_title" placeholder="ex) 여의도에서 사이클타요!" style="font-size: 12px;"/></div>
 				
 			</div>
 			<div>
 			
-				<div>모임일</div>
-				<div><input type="date" name="meeting_date"/></div>
+				<span id="meetingdate">모임일</span>
+				<span class="meetingdate"><input type="date" name="meeting_date"  style="font-size: 12px;"/></span>
 				
 			</div>
 			<div>
 			
-				<div>모집기간</div>
-				<div id="TrainerClassGatherDate">
+				<span class="TrainerClassGatherDate">모집기간</span>
+				<span>
 				
-					<div><input type="date" name="start_gather_date"/></div>
-					<div><input type="date" name="end_gather_date"/></div>
+					<span id="TrainerClassGatherDate1"><input type="date" name="start_gather_date" style="font-size: 12px;"/></span>
+					~<span id="TrainerClassGatherDate2"><input type="date" name="end_gather_date" style="font-size: 12px;"/></span>
 				
-				</div>
+				</span>
 			
 			</div>
 			<div>
 			
-				<div>참여인원</div>
-				<div id="gather_MinAndMax">
-					<div>모집최소<input type="text" name="meeting_min"/></div>
-					<div>모집최대<input type="text" name="meeting_max"/></div>
-				</div>
+				<span id="gather_MinAndMax">참여인원</span>
+				<span>
+					<span id="gather_MinAndMax1">최소<input type="text" name="meeting_min" style="font-size: 12px;"/></span>
+					<span  id="gather_MinAndMax2">최대<input type="text" name="meeting_max" style="font-size: 12px;"/></span>
+				</span>
 			
 			</div>
 			<div>
 			
-				<div>운동종목</div>
-				<div>
-					<select name="exercise_no">
+				<span id="exercise_name">운동종목</span>
+				<span id="exercise_name1">
+					<select name="exercise_no" style="font-size: 12px;">
 						<option value="">운동종목</option>
 						<option value="0">족구</option>
 						<option value="1">축구</option>
@@ -56,12 +73,12 @@
 						<option value="7">요가</option>
 						<option value="8">명상</option>
 					</select>
-				</div>
+				</span>
 			
 			</div>
 			<div>
-				<div>모임장소</div>
-				<select name="location1_no" id="location1">
+				<span id="meeting_location">모임장소</span>
+				<select name="location1_no" id="location1" style="font-size: 12px;">
 					<option value="">시도</option>
 					<option value="0">서울특별시</option>
 					<option value="1">인천광역시</option>
@@ -73,41 +90,96 @@
 			</div>
 			<div>
 			
-				<div>상세주소</div>
-				<div><input type="text" name="detail_location"/></div>
+				<span id="detail_location">상세주소</span>
+				<span  id="detail_location1"><input type="text" name="detail_location" placeholder="ex) 경기도 서울시 여의방로 호수공원 제1주차장" style="font-size: 12px;"/></span>
 			
 			</div>
+			<input type="hidden" id="detailLocation" name="detail_location"/>			
+			<div id="map" style="width:500px;height:400px;"></div>
+			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74162e293be31e9dc5e8e7b8c8e0be9c"></script>
+			<script>
+				var container = document.getElementById('map');
+				var options = {
+					center: new kakao.maps.LatLng(37.567301, 126.978946),
+					level: 9
+				};
+		
+				var map = new kakao.maps.Map(container, options);
+				
+				// 지도를 클릭한 위치에 표출할 마커입니다
+				var marker = new kakao.maps.Marker({ 
+				    // 지도 중심좌표에 마커를 생성합니다 
+				    position: map.getCenter() 
+				}); 
+				// 지도에 마커를 표시합니다
+				marker.setMap(map);
+
+				// 지도에 클릭 이벤트를 등록합니다
+				// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+				kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+				    
+				    // 클릭한 위도, 경도 정보를 가져옵니다 
+				    var latlng = mouseEvent.latLng; 
+				    
+				    // 마커 위치를 클릭한 위치로 옮깁니다
+				    marker.setPosition(latlng);
+				    
+				    var lat = latlng.getLat();
+				    var lng = latlng.getLng();
+				    var detailLocation = lat + '/' + lng;
+				    $('#detailLocation').val(detailLocation);
+				    
+				});
+			</script>
+			
 			<div>
 			
-				<div>준비물</div>
+				<span id="detail_location">준비물</span>
 				<span class="materials">
-				
+					
 					<img alt="추가" src="resources/images/jung/add.png" class="plusBtn">
 					
 				</span>
 				
 			</div>
 			
+			<div class="coverPhoto_all">
+				<span  id="coverPhoto_title">커버사진</span>
+				 <span class="st_team_logo input_search_ic">
+					 
+					 <input type="file" id="coverPhoto" class="upload-hidden" style="font-size: 12px;">
+                 </span>
+            </div>
+            
+            <script>
+            </script>
+			
 			<div>
 			
-				<div>커버사진</div>
-				<div><input type="file" name="coverphoto" /></div>	
-			
-			</div>
-			
-			<div>
-			
-				<div>상세내용</div>
-				<div><textarea rows="10" cols="100" name="meeting_content"  id="summernote"></textarea></div>
-			
+				<div id="detail_content">상세내용</div>
+				<form method="post" id="insertForm" action="">
+					    <input type="hidden" name="temp_no" id="temp_no" />
+					    <input type="hidden" name="user_no" id="user_no" value="${loginUser.user_no}" />
+				</form>
+					<div id="content"></div>
+					<i class="far fa-plus-square btn" onclick="fn_addContent()"></i>
+					<label>
+					    <input style="display: none" type="file" id="uploadFile" name="uploadFile" accept="image/*" />
+					    <i class="far fa-images btn"></i>
+					</label>
+					<input type="button" value="게시글 작성"  onclick="fn_submit()" />
+					
+					
+					<div id="submit_Btns">
+						<input type="hidden" name="user_no" value="${loginUser.user_no}"/>
+						<button id="submit_Btn">작성</button><input type="button" value="취소" id="cancel_Btn" onclick="location.href='TrainerClassListPage.leo'"/>
+					</div>
+								
 			</div>
 	
-	</div>
-	
-	<input type="hidden" name="user_no" value="${loginUser.user_no}"/>
-	<button>작성</button><input type="button" value="취소" onclick="location.href='TrainerClassListPage.leo'"/>
 		
 </form>
+	</div>
 
 <script>
 	// 섬머 노트를 위한 스크립트
@@ -217,7 +289,7 @@ $(document).ready(function () {
 <script>
 
 	$(document).on('click', '.plusBtn', function(){
-		$('<div>').addClass('material_content')
+		$('<span>').addClass('material_content')
 		.append($('<input type="text" name="materials_name" id="materials_box" placeholder="어떤게 필요할까요?"/>'))
 		.append($('<input type="button" value="삭제" id="DeleteBtn"/>'))
 		.appendTo('.materials');
@@ -225,8 +297,8 @@ $(document).ready(function () {
 	
 	
 	$(document).on('click', '#DeleteBtn', function() {
-		$(this).parent('div').find('input:text[name="materials_name"]').hide();
-		$(this).parent('div').find('input:button[value="삭제"]').hide();
+		$(this).parent('span').find('input:text[name="materials_name"]').remove();
+		$(this).parent('span').find('input:button[value="삭제"]').remove();
 	});
 	
 	
