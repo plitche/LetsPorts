@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.dto.UsersDto;
 import com.koreait.project.hyejoon.command.myPage.DeletePhotoCommand;
+import com.koreait.project.hyejoon.command.myPage.UpdateMsgCommand;
 import com.koreait.project.hyejoon.command.myPage.UploadProfilePhotoCommand;
 import com.koreait.project.hyejoon.command.signUp.NickCheckCommand;
 import com.koreait.project.hyejoon.command.userAccount.DeleteAccountCommand;
@@ -41,12 +42,20 @@ public class MyPageController {
 	private DeleteAccountCommand deleteAccountCommand = ctx.getBean("deleteAccountCommand", DeleteAccountCommand.class);
 	private UploadProfilePhotoCommand uploadProfilePhotoCommand = ctx.getBean("uploadProfilePhotoCommand", UploadProfilePhotoCommand.class);
 	private DeletePhotoCommand deletePhotoCommand = ctx.getBean("deletePhotoCommand", DeletePhotoCommand.class);
+	private UpdateMsgCommand updateMsgCommand = ctx.getBean("updateMsgCommand", UpdateMsgCommand.class);
+	
 	
 	/***** 단순 이동 *****/
 	// header페이지에서 '마이페이지' 버튼 클릭시 마이 페이지로 이동한다.
 	@RequestMapping(value="myPage_commonPart.hey")
 	public String myPage() {
 		return "hyePages/myPage_commonPart";
+	}
+	
+	// 트레이너 회원가입 페이지
+	@RequestMapping(value="trainerSignUp.hey")
+	public String trainerSignUp() {
+		return "hyePages/trainerSignUp";
 	}
 	
 	
@@ -73,6 +82,16 @@ public class MyPageController {
 		model.addAttribute("user_no", user_no);
 		return deletePhotoCommand.execute(sqlSession, model);
 	}
+	
+	// 상태메세지 수정
+	@RequestMapping(value="updateMsg.hey", method=RequestMethod.POST, produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> updateMsg(@RequestBody UsersDto usersDto, Model model){
+		model.addAttribute("user_no", usersDto.getUser_no());
+		model.addAttribute("user_message", usersDto.getUser_message());
+		return updateMsgCommand.execute(sqlSession, model);
+	}
+	
 	
 	// 회원 정보 보여주기
 	@RequestMapping(value="userUpdateView.hey", method=RequestMethod.GET)
