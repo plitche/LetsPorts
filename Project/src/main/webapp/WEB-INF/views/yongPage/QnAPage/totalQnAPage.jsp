@@ -62,6 +62,10 @@
 <!-- 키워드 검색 관련 처리 script -->
 <script>
 	function fn_search(f) {
+		if($('select[name="searchCategory"]').val() == '') {
+			Swal.fire('검색 조건을 선택해주세요!', '', 'info');
+			return;
+		}
 		if ($('#search').val()=='') {
 			Swal.fire('검색어를 입력해주세요!', '', 'info');
 			return;
@@ -69,15 +73,26 @@
 		f.action='goQnAPage.plitche';
 		f.submit();
 	}
-
+</script>
+<!-- 해결 완료 여부에 따른 필더링 script -->
+<script>
+	function fn_filter(what) {
+		location.href='goQnAPage.plitche?filter_no='+what;
+	}
 </script>
 
 <div class="qnaTitle"> Total Question & Answer </div>
-<p id="newQnA"><input type="button" value="새 질문 등록하기" id="writeQnABtn" /></p>
+
+<p id="newQnA">
+	<a href="#" onclick="fn_filter(2); return false;">전체 보기</a> 
+	/ <a href="#" onclick="fn_filter(1); return false;">해결 완료</a> 
+	/ <a href="#" onclick="fn_filter(0); return false;">미 해결</a>
+	<input type="button" value="새 질문 등록하기" id="writeQnABtn" />
+</p>
 <table id="userQnA">
 	<colgroup>
 		<col width="60">
-		<col width="90">
+		<col width="100">
 		<col width="*">
 		<col width="100">
 		<col width="110">
@@ -102,10 +117,10 @@
 				<tr>
 					<td>${totalRecord-((page-1) * recordPerPage + k.index)}</td>
 					<c:if test="${list.is_resolved eq 0}">
-						<td style="color:pink;">미해결</td>
+						<td style="color:orangered;">미 해결</td>
 					</c:if>
 					<c:if test="${list.is_resolved eq 1}">
-						<td style="color:green;">해결완료</td>
+						<td style="color:green;">해결 완료</td>
 					</c:if>
 					<td><a href="goQnAViewPage.plitche?board_qna_no=${list.board_qna_no}&page=${page}">${list.board_qna_title}</a></td>
 					<td>${list.user_nickname}</td>

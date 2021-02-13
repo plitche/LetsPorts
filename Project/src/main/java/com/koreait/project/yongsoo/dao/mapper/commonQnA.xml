@@ -5,6 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.koreait.project.yongsoo.dao.CommonQnADao">
 	
+	<select id="getQnACount" resultType="int">
+		SELECT COUNT(*)
+		  FROM BOARD_QNA
+		 WHERE ON_HIDE = 0
+	</select>
 	<select id="getQnAList" resultType="com.koreait.project.yongsoo.dto.BoardQnATemDto">
  		SELECT *
 		  FROM (SELECT ROWNUM RN, B1.*
@@ -17,10 +22,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       ON B2.USER_NO = U.USER_NO
 		 WHERE B2.RN BETWEEN #{param1} AND #{param2}
 	</select>
-	<select id="getQnACount" resultType="int">
+	
+	<select id="getIsSolvedQnACount" resultType="int">
 		SELECT COUNT(*)
 		  FROM BOARD_QNA
 		 WHERE ON_HIDE = 0
+		   AND IS_RESOLVED = #{is_solved}
+	</select>
+	<select id="getIsSolvedQnAList" resultType="com.koreait.project.yongsoo.dto.BoardQnATemDto">
+ 		SELECT *
+		  FROM (SELECT ROWNUM RN, B1.*
+		          FROM (SELECT *
+		                  FROM BOARD_QNA
+		                 WHERE BOARD_QNA_NO IS NOT NULL
+		                   AND ON_HIDE = 0
+		                   AND IS_RESOLVED = #{param1}
+		                 ORDER BY BOARD_QNA_NO DESC) B1) B2 
+      		   FULL OUTER JOIN USERS U
+		       ON B2.USER_NO = U.USER_NO
+		 WHERE B2.RN BETWEEN #{param2} AND #{param3}
 	</select>
 	
 	<select id="getQnACount1" parameterType="String" resultType="int">
@@ -90,6 +110,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO BOARD_QNA
 		VALUES (BOARD_QNA_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, SYSDATE, 0, null, 0)
 	</insert>
+	<select id="lastQnANo" parameterType="int" resultType="int">
+		SELECT MAX(BOARD_QNA_NO)
+		  FROM BOARD_QNA
+		 WHERE USER_NO = #{user_no}
+	</select>
+	<update id="updatePhotoTable">
+		UPDATE PHOTO
+		   SET PHOTO_REFERER_SEP = 1,
+		       PHOTO_REFERER_NO = #{param1}
+		 WHERE PHOTO_REFERER_NO = #{param2}
+	</update>
 	
 	<select id="getUpdateQnAInfo" parameterType="int" resultType="com.koreait.project.yongsoo.dto.BoardQnATemDto">
 		SELECT *
