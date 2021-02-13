@@ -4,6 +4,8 @@ INSERT INTO USERS values (10, 'user10@xxx.xxx', '1111', 1, SYSDATE, SYSDATE, 1, 
 INSERT INTO USERS values (11, 'user11@xxx.xxx', '1111', 1, SYSDATE, SYSDATE, 2, 2, 0, 'naver', '근육걸', '잘부탁드려요', 'profile11', 2000, 12, 31, 1, 1);
 INSERT INTO USERS values (12, 'user12@xxx.xxx', '1111', 2, SYSDATE, SYSDATE, 3, 3, 0, 'naver', '헬스맨', '잘부탁드려요', 'profile12', 2000, 12, 31, 2, 1);
 INSERT INTO USERS values (13, 'user13@xxx.xxx', '1111', 2, SYSDATE, SYSDATE, 3, 3, 0, 'naver', '술맨', '잘부탁드려요', 'profile12', 2000, 12, 31, 2, 1);
+INSERT INTO USERS values (14, 'user14@xxx.xxx', '1111', 1, SYSDATE, SYSDATE, 3, 3, 0, 'naver', '천형', '잘부탁드려요', 'trainer5', 2000, 12, 31, 2, 1);
+INSERT INTO USERS values (15, 'user15@xxx.xxx', '1111', 1, SYSDATE, SYSDATE, 3, 3, 0, 'naver', '다이너마이트', '잘부탁드려요', 'trainer6', 2000, 12, 31, 2, 1);
 
 -- 클래스 생성 
 INSERT INTO MEETING values (1, 11, 10, 6, 0, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '족구합시다.', '족구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
@@ -22,78 +24,23 @@ INSERT INTO MEETING values (14, 13, 12, 10, 2, SYSDATE, SYSDATE, SYSDATE, SYSDAT
 INSERT INTO MEETING values (15, 12, 12, 10, 2, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
 INSERT INTO MEETING values (16, 13, 12, 10, 4, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
 INSERT INTO MEETING values (17, 12, 12, 10, 5, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (18, 13, 12, 10, 6, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (19, 12, 12, 10, 2, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (20, 10, 12, 10, 3, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (21, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (22, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (23, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (24, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (25, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (26, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (27, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (28, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (29, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (30, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (31, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (32, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (33, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (34, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (35, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (36, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (37, 10, 12, 10, 1, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 1, 1, '축구합시다.', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
+
+-- 트레이너 상세정보 3개
+INSERT INTO TRAINER_INFO values (1, 10, 3, '김종석', '트레이너자격증', '신촌센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
+INSERT INTO TRAINER_INFO values (2, 11, 4, '김보현', '트레이너자격증', '홍대센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
+INSERT INTO TRAINER_INFO values (3, 12, 5, '박찬소', '트레이너자격증', '합정센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
+INSERT INTO TRAINER_INFO values (4, 13, 6, '김나현', '트레이너자격증', '강남센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
+INSERT INTO TRAINER_INFO values (5, 14, 7, '천현정', '트레이너자격증', '고양센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
+INSERT INTO TRAINER_INFO values (6, 15, 8, '이병헌', '트레이너자격증', '영등포센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
 
 
-insert into scrap values (1, 6, 1, 9, 7, SYSDATE, SYSDATE);
-
+select * from users;
 delete from scrap;
+delete from users;
+insert into scrap values (1, )
 
-SELECT COUNT(*)
-		FROM SCRAP
-		WHERE SCRAP_REFERER_NO = 6
-		AND SCRAP_SEPARATOR = 1
-
-SELECT * FROM SCRAP;
-SELECT * FROM USERS;
-
-DELETE FROM MEETING;
-SELECT * FROM MEETING;
-SELECT * FROM EXERCISE;
-SELECT * FROM PHOTO;
-
-
-SELECT COUNT(*)
-			FROM MEETING M, EXERCISE E
-			WHERE M.EXERCISE_NO = E.EXERCISE_NO
-			AND (E.EXERCISE_NAME LIKE '%축구%'
-			OR M.MEETING_TITLE LIKE '%축구%');
-
-
-SELECT COUNT(*)
-		 FROM MEETING M, USERS U
-		WHERE M.USER_NO = U.USER_NO
-		   AND U.USER_SEPARATOR = 1
-
-SELECT *
-		FROM SCRAP S
-			FULL OUTER JOIN USERS U 
-				ON S.SCRAP_USER_NO = U.USER_NO
-			FULL OUTER JOIN MEETING M
-				ON S.SCRAP_REFERER_NO = M.MEETING_NO
-			FULL OUTER JOIN PHOTO P
-				ON M.MEETING_NO = P.PHOTO_REFERER_NO
-WHERE S.USER_NO = 6
-			AND S.SCRAP_SEPARATOR = 1
-
-
-
-SELECT COUNT(*)
-		FROM SCRAP
-		WHERE SCRAP_REFERER_NO = 16
-		AND SCRAP_SEPARATOR = 1
-		
-		   
-		   
+insert into scrap values(1, 1, 1, 4, null, SYSDATE);
+insert into scrap values(2, 2, 1, 3, null, SYSDATE);
 		   
 							     
 							     

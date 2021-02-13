@@ -24,6 +24,8 @@ public class TrainerTemDto {
 	private String location2_name;
 	private Double score;
 	private int reviews;
+	private int scrap_referer_no;
+	private String exercise_name;
 	
 	private String[] exercise_name;
 }

@@ -62,7 +62,7 @@
 	border:none;
 	width: 35px;
 	height: 35px;
-	background: black;
+	background: #2fd0a4;
 	color: white;	
 }
 
@@ -75,30 +75,25 @@
 }
 
 #Query > input[type="text"] {
-	width: 300px;
-	height: 35px;
-	border: 0.1px solid #c7c7c7;
+	width: 400px;
+	height: 40px;
+	border-radius: 40px;
+	text-align: inherit;
+	border: 0.1px solid #dee2e6;
 }
 #Query > input[type="text"]:hover {
-	width: 300px;
-	height: 35px;
-	border: 0.1px solid #303030;
+	
 }
 
 #Query {
 	padding-top: 10px;
 }
 
-#Tag {
-	display: flex;
-}
-
 #Tag_name {
 	margin-right: 120px;
-	font-size: 14px;
+	font-size: 16px;
 	height: 20px;
 	line-height: 20px;
-	width: 90px;
 	height: 35px;
 	border: none;
 	line-height: 35px;
@@ -108,29 +103,37 @@
 
 #Tag > #Tag_content > input {
 	margin-left: 3px;
-	border:0.1px solid #c7c7c7;
+	border:0.1px solid #dee2e6;
 	background: white;
-	color: #c7c7c7;
-	width: 90px;
-	height: 35px;
-	border-radius: 30px;
+	box-shadow: #dee2e6 0px 0px 0px 0.2px inset;
+	color: #637181;
+	width: 112px;
+	height: 45px;
+	border-radius: 40px;
 	font-size: 14px;
+}
+
+#Tag_content {
+	margin-top: 20px;
 }
 
 #Tag > #Tag_content > input:hover {
-	border:0.1px solid #303030;
-	background: white;
-	color: #303030;
-	width: 90px;
-	height: 35px;
-	border-radius: 30px;
+	background: #f8f9fa;
+	width: 112px;
+	height: 45px;
+	border-radius: 40px;
 	font-size: 14px;
 }
 
+#Tag {
+	margin-top: 20px;
+}
+
 #line1{
+	margin-top: 30px;
 	width: 1080px;
-	background: #303030;
-	height: 1px;
+	background: #d2d8dd;
+	height: 0.5px;
 	border: none;
 }
 
@@ -150,7 +153,7 @@
 /* 모달관련 css */
 
 #modal_btn {
-	margin-left: 640px;
+	margin-left: 540px;
 	height: 45px;
 	width: 100px;
 	background: white;

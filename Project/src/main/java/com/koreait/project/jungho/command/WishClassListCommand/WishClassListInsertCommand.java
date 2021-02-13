@@ -21,17 +21,13 @@ public class WishClassListInsertCommand implements CommonMapCommand {
 		
 		int scrap_referer_no = (int)map.get("scrap_referer_no");
 		int user_no = (int)map.get("user_no");
-		int scrap_user_no = (int)map.get("scrap_user_no");
 		Date end_gather_date = (Date)map.get("end_gather_date");
-		System.out.println(scrap_referer_no);
-		System.out.println(user_no);
-		System.out.println(scrap_user_no);
-		System.out.println(end_gather_date);
+		
 	
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("WishClassListTotal", wishClassListDao.WishClassListTotal(scrap_referer_no));
 		
-		int results = wishClassListDao.WishClassInsert(user_no, scrap_referer_no, scrap_user_no, end_gather_date);
+		int results = wishClassListDao.WishClassInsert(user_no, scrap_referer_no, end_gather_date);
 		result.put("result", results);
 		
 		return result;

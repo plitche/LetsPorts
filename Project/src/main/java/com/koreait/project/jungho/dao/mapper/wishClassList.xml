@@ -10,32 +10,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*)
 		FROM SCRAP
 		WHERE SCRAP_REFERER_NO = #{param1}
-		AND SCRAP_SEPARATOR = 1
+		AND SCRAP_SEPARATOR = 2
 	</select>
 	
 	<select id="WishClassListList" resultType="com.koreait.project.jungho.dto.TrainerClassDto" parameterType="int">
 		SELECT *
 		FROM SCRAP S
 			FULL OUTER JOIN USERS U 
-				ON S.SCRAP_USER_NO = U.USER_NO
+				ON S.USER_NO = U.USER_NO
 			FULL OUTER JOIN MEETING M
 				ON S.SCRAP_REFERER_NO = M.MEETING_NO
 			FULL OUTER JOIN PHOTO P
 				ON M.MEETING_NO = P.PHOTO_REFERER_NO
 		WHERE S.USER_NO = #{param1}
-		AND S.SCRAP_SEPARATOR = 1
+		AND S.SCRAP_SEPARATOR = 2
 	</select>
 	
 	<insert id="WishClassInsert">
 		INSERT INTO SCRAP VALUES
-		(SCRAP_SEQ.NEXTVAL, #{param1}, 1, #{param2}, #{param3}, #{param4}, SYSDATE)
+		(SCRAP_SEQ.NEXTVAL, #{param1}, 2, #{param2}, #{param3}, SYSDATE)
 	</insert>
 	
 	<delete id="WishClassDelete" parameterType="int">
 		DELETE
 		FROM SCRAP
 		WHERE SCRAP_REFERER_NO = #{param1}
-		AND S.SCRAP_SEPARATOR = 1
 	</delete>
 
 
