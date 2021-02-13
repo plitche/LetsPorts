@@ -51,7 +51,7 @@ function fn_selectBtn() {
 	});
 }
 
-//공통 - timestamp 날짜형식으로 변경 이벤트
+//공통 - timestamp 날짜 + 시간 형식으로 변경 이벤트
 function fn_stampToDate(timestamp) {
 	let d = new Date(timestamp);
 	let result = `${d.getFullYear()}-`;
@@ -66,12 +66,97 @@ function fn_stampToDate(timestamp) {
 	return result;
 }
 
-// 회원관리 - 메인페이지 선택 메소드
+//공통 - timestamp 날짜 형식으로 변경 이벤트
+function fn_stampToDate2(timestamp) {
+	let d = new Date(timestamp);
+	let result = `${d.getFullYear()}-`;
+	if(d.getMonth() < 10) {result += 0;}
+	result += `${(d.getMonth() + 1)}-`;
+	if(d.getDate() < 10) {result += 0;}
+	result += `${d.getDate()}`;
+	return result;
+}
+
+// 메인 - 메인페이지 선택 메소드
 function fn_main() {
+	let chart = `
+	<div style="width:100%">
+		<div>
+			<canvas id="canvas" height="600" width="960"></canvas>
+		</div>
+	</div>`;
 	$('.content-container').empty();
 	$('.content-container')
-	.append('<h1>어드민 전용 페이지 입니다</h1>')
-	.append('<p>환영합니다</p>');
+	.append('<h2></h2>')
+	.append(chart);
+	fn_selectChartData();
+}
+
+// 메인 - 회원 차트, 누적회원 차트
+function fn_selectChartData() {
+	let chartLabels = [];
+	let chartData = [];
+	let chartAccumulateData = [];
+	let chart;
+	$.ajax({
+		url: 'selectChartData.wooki',
+		type: 'get',
+		dataType: 'json',
+		success: function(obj) {
+			$.each(obj.list, function(idx, users) {
+				chartLabels.push(fn_stampToDate2(users.created_at));
+				chartData.push(users.count);
+			});
+			for(let i = 0; i < chartData.length; i++) {
+				if(i == 0) {
+					chartAccumulateData[i] = obj.beforeTotalUser + chartData[i];
+				} else {
+					chartAccumulateData[i] = chartAccumulateData[i-1] + chartData[i];
+				}
+			}
+			chart = {
+				labels: chartLabels,
+				datasets: [{
+					label: '가입자 수',
+			        borderWidth : '1', // 테두리 및 선굵기
+			        backgroundColor: 'rgba(99, 201, 126, 0.2)', // 상단 라벨 및 채우기
+			        borderColor: 'rgba(99, 201, 126, 1)', // 테두리
+			        lineTension: 0.1,	// 그래프 연결선 장력
+					data : chartData
+				},
+				{
+					label: '누적 가입자 수',
+					borderWidth : '1', // 테두리 및 선굵기
+			        backgroundColor: 'rgba(132, 184, 232, 0.2)', // 상단 라벨 및 채우기
+			        borderColor: 'rgba(132, 184, 232, 1)', // 테두리
+			        lineTension: 0.1,	// 그래프 연결선 장력
+					data : chartAccumulateData
+				}]
+			}
+		},
+		error: function() {
+			alert('실패');
+		}
+	});
+	setTimeout(() => {
+		fn_createChart(chart);
+	}, 500);
+}
+
+function fn_createChart(data) {
+	let ctx = document.getElementById('canvas').getContext('2d');
+	Chart.Line(ctx, {
+		data : data,
+		options :{
+			scales : {
+				yAxes : [{
+					ticks :{
+						beginAtZero : true
+					}
+				}]
+			}
+		}
+	});
 }
 
 // 회원관리 - 일반회원 메뉴 실행 메소드
@@ -96,10 +181,11 @@ function fn_user(p) {
 // 회원관리 - 유저 검색 만드는 함수
 function userFilter(text_filter, search, user_separator) {
 	$('.content-container').empty();
-	$('.content-container').append('<h1>회원 관리</h1>');
-	$('<form>')
+	$('.content-container').append('<h2>회원 관리</h2>');
+	$('<form id="userFilter">').appendTo('.content-container');
+	$('<table style="width: auto;">')
 	.append($('<tbody id="filterBox">'))
-	.appendTo('.content-container');
+	.appendTo('#userFilter');
 	
 	$('<tr>')
 	.append($('<td>').html('<select name="text_filter" id="text_filter"><option value="email">이메일</option><option value="user_nickname">닉네임</option><option value="user_no">유저번호</option></select>'))
@@ -384,9 +470,9 @@ function fn_deleteUser() {
 function fn_addAdminPage() {
 	$('.content-container').empty();
 	let string = `
-	<h1>관리자추가</h1>
-    <div class="flex">
-	    <div class="scroll">
+	<h2>어드민계정 추가/제거</h2>
+    <div class="flex scroll">
+	    <div style="height: 600px;">
 		    <table style="width: 500px;">
 			    <thead>
 				    <tr>
@@ -398,10 +484,32 @@ function fn_addAdminPage() {
 				<tbody id="adminList"></tbody>
 		    </table>
 	    </div>
-	    <div class="seachUser">
-		    <span>유저번호</span><input type="text" name="admin_target_no" id="admin_target_no" /><br/>
-		    <span>유저닉네임</span><span id="admin_target_nickname"></span><br/>
-		    <input type="button" value="어드민추가" id="btn_updateAdminUser" />
+	    <div class="searchUser">
+	    	<table style="width: auto;">
+	    		<tbody>
+	    			<tr>
+						<td>
+							<span>유저번호</span>
+						</td>
+	    				<td>
+							<input type="text" name="admin_target_no" id="admin_target_no" />
+	    				</td>
+					<tr/>
+					<tr>
+						<td>
+							<span>유저닉네임</span>
+						</td>
+	    				<td>
+							<span id="admin_target_nickname"></span>
+	    				</td>
+	    			</tr>
+	    			<tr>
+						<td colspan="2">
+							<input type="button" value="어드민추가" id="btn_updateAdminUser" />
+						</td>
+					</tr>
+	    		</tbody>
+	    	</table>
 	    </div>
     </div>`
 	$('.content-container').html(string);
@@ -469,12 +577,10 @@ function fn_checkAdminUser() {
 		let target_no = $('#admin_target_no').val();
 		if(target_no == '') {
 			alert('유저번호를 입력해주세요.');
-			$('#admin_target_no').focus();
 			return;
 		} else if(isNaN(target_no)) {
 			alert('유저번호는 숫자로 구성되어 있습니다.');
 			$('#admin_target_no').val('');
-			$('#admin_target_no').focus();
 			return;
 		}
 		$.ajax({
@@ -553,12 +659,13 @@ function fn_trainerUser(p) {
 // 트레이너 - 트레이너 검색탭 만드는 함수
 function trainerUserFilter(text_filter, search, user_separator) {
 	$('.content-container').empty();
-	$('.content-container').append('<h1>트레이너 관리</h1>');
+	$('.content-container').append('<h2>트레이너 관리</h1>');
 	$('.content-container').append('<div class="space-between" id="trainer-container">');
 	
-	$('<form>')
+	$('<form id="trainerFilter">').appendTo('#trainer-container');
+	$('<table style="width: auto;">')
 	.append($('<tbody id="filterBox">'))
-	.appendTo('#trainer-container');
+	.appendTo('#trainerFilter');
 	
 	$('<div>').html('<input type="button" value="트레이너추가하기" onclick="fn_openAddTrainerModal()" />')
 	.appendTo('#trainer-container');
@@ -741,7 +848,7 @@ function fn_closeAddTrainerModal() {
 }
 
 // 트레이너 - 일반회원 전환 메소드
-function fn_deleteUser() {
+function fn_deleteTrainerUser() {
 	$('body').on('click', '#deleteTrainerInfo', function() {
 		if(!confirm('전환하시겠습니까?')) {
 			return;
@@ -776,10 +883,10 @@ function fn_deleteUser() {
 function fn_boardsPage() {
 	$('.content-container').empty();
 	let string = `
-	<h1>게시글관리</h1>
+	<h2>게시글관리</h2>
 	<div>
 		<form id="filterBox">
-			<table>
+			<table style="width: auto;">
 				<tbody id="filterQuery">
 					<tr>
 						<td>게시글종류</td>
@@ -993,10 +1100,10 @@ function fn_boardDelete() {
 function fn_commentsPage() {
 	$('.content-container').empty();
 	let string = `
-	<h1>댓글관리</h1>
+	<h2>댓글관리</h2>
 	<div>
 		<form id="filterBox">
-			<table>
+			<table style="width: auto;">
 				<tbody id="filterQuery">
 					<tr>
 						<td>게시글종류</td>
@@ -1209,10 +1316,10 @@ function fn_commentDelete() {
 function fn_reviewPage() {
 	$('.content-container').empty();
 	let string = `
-	<h1>리뷰관리</h1>
+	<h2>리뷰관리</h2>
 	<div>
 		<form id="filterBox">
-			<table>
+			<table style="width: auto;">
 				<tbody id="filterQuery">
 					<tr>
 						<td>테이블명칭</td>
@@ -1379,10 +1486,10 @@ function fn_reviewOnHideToggle() {
 function fn_tQnAPage() {
 	$('.content-container').empty();
 	let string = `
-	<h1>트레이너 QNA 관리</h1>
+	<h2>트레이너 QNA 관리</h2>
 	<div>
 		<form id="filterBox">
-			<table>
+			<table style="width: auto;">
 				<tbody id="filterQuery">
 					<tr>
 						<td>검색조건</td>
@@ -1603,10 +1710,10 @@ function fn_tQnAOnHideToggle() {
 function fn_photoPage() {
 	$('.content-container').empty();
 	let string = `
-	<h1>사진 관리</h1>
+	<h2>사진 관리</h2>
 	<div>
 		<form id="filterBox">
-			<table>
+			<table style="width: auto;">
 				<tbody id="filterQuery">
 					<tr>
 						<td>검색조건</td>

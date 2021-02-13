@@ -28,7 +28,7 @@ public class FilterUserListCommand implements CommonMapCommand {
 		String user_separator = request.getParameter("user_separator");
 		
 		int totalRecord = wookiDao.filterTotalRecord(text_filter, search, user_separator);
-		int recordPerPage = 5;
+		int recordPerPage = 10;
 		int page = (int) map.get("page");
 		int beginRecord = (page - 1) * recordPerPage + 1;
 		int endRecord = beginRecord + recordPerPage - 1;
