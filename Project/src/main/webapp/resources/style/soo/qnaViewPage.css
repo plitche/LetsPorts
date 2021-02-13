@@ -66,6 +66,9 @@ h3 {
 	margin-bottom: 4px;
 	padding-bottom: 20px;
 }
+.flex img {
+	width: 100%;
+}
 #writerBtn {
 	float: left;
 	margin-bottom: auto;

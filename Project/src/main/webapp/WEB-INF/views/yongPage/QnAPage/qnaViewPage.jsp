@@ -1,16 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link type="text/css" rel="stylesheet" href="resources/style/soo/qnaViewPage.css" >
 <!DOCTYPE html>
+
+<!-- jquery, fontawesome -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://kit.fontawesome.com/07b67006ce.js"></script>
+<!-- css파일 및 js파일 -->
+<link rel="stylesheet" href="resources/wooki/css/textEditor.css">
+<!-- fontawesome -->
+<script src="https://kit.fontawesome.com/6b75fdce2b.js" crossorigin="anonymous"></script>
+<link type="text/css" rel="stylesheet" href="resources/style/soo/qnaViewPage.css" >
 
 <jsp:include page="../../template/header.jsp">
 	<jsp:param value="질문 상세페이지" name="title"/>
 </jsp:include>
 
-<!-- fontawesome -->
-<script src="https://kit.fontawesome.com/6b75fdce2b.js" crossorigin="anonymous"></script>
-<!-- sweetalert -->
+<!-- 로그인 sweetalert -->
 <script>
 	/* 로그인 alert을 위한 function */
 	var loginAlert = function() {
@@ -29,15 +35,24 @@
 						});
 					}
 </script>
+<!-- updatePage에서 수정완료를 클릭하고 수정완료 성공시 나타날 sweetalert -->
+<script>
+	var updateResult = '${updateResult}';
+	if (updateResult) {
+		Swal.fire('질문이 수정되었습니다.', '댓글이 작성되기 전에 내용을 다시한번 확인해주세요.^^', 'success');
+	}
+</script>
 <!-- 수정하기 / 삭제하기 클릭시 처리할 script -->
 <script>
-	/* 수정하기 버튼 클릭시 작동할 function */
-	function fn_goUpdateQnA(f) {
-		f.action='goUpdateQnAPage.plitche';
-		f.submit();
+	/* 수정하기 버튼 클릭 시 작동할 function */
+	function fn_goUpdate() {
+		Swal.fire('수정 페이지로 이동합니다.', '질문 내용을 꼼꼼히 확인해주세요!', 'info').then((result)=> {
+			location.href='goUpdateQnAPage.plitche?board_qna_no='+${qnaTemDto.board_qna_no};
+		});
 	}
 	
-	/* 삭제하기 버튼 클릭시 작동할 function */
+	
+	/* 삭제하기 버튼 클릭 시 작동할 function */
 	function fn_deleteQnA() {
 		swal.fire({
 			title: '작성한 질문이 삭제됩니다.', 	text: '정말 삭제하시겠습니까?',
@@ -49,13 +64,6 @@
 				location.href='deleteQnA.plitche?board_qna_no='+${qnaTemDto.board_qna_no};	
 			}
 		});
-	}
-</script>
-<!-- updatePage에서 수정완료를 클릭하고 수정완료 성공시 나타날 sweetalert -->
-<script>
-	var updateResult = '${updateResult}';
-	if (updateResult) {
-		Swal.fire('질문이 수정되었습니다.', '댓글이 작성되기 전에 내용을 다시한번 확인해주세요.^^', 'success');
 	}
 </script>
 <!-- 해결 완료 클릭 시 처리할 script -->
@@ -294,6 +302,13 @@
 		});
 	}
 </script>
+<!-- 텍스트 에디터 관련 script -->
+<script>
+	$(document).ready(function() {
+		$('div[contenteditable="true"]').attr('contenteditable', 'false');
+		$('.btn').hide();
+	})
+</script>
 
 <c:if test="${qnaTemDto.is_resolved eq 1}">
 	<h3>해결 완료된 질문입니다!! 많은 정보를 얻어가세요.^^</h3>
@@ -302,16 +317,10 @@
 	<h3>아직 해결되지 않은 질문입니다!! 빠른 해결에 도움을 주세요.^^</h3>
 </c:if>
 
-
 <c:if test="${loginUser.user_no ne null}">
 	<c:if test="${qnaTemDto.user_no eq loginUser.user_no}">
-		<form method="post" id="writerBtn">
-			<input type="hidden" name="user_nickname" value="${qnaTemDto.user_nickname}" />
-			<input type="hidden" name="board_qna_no" value="${qnaTemDto.board_qna_no}" />
-			<input type="hidden" name="board_qna_title" value="${qnaTemDto.board_qna_title}" />
-			<input type="hidden" name="board_qna_content" value="${qnaTemDto.board_qna_content}" />
-			
-			<input type="button" value="수정하기" onclick="fn_goUpdateQnA(this.form)" />
+		<form id="writerBtn">
+			<input type="button" value="수정하기" onclick="fn_goUpdate()" />
 			<c:if test="${qnaTemDto.is_resolved eq 0}">
 				<input type="button" id="solveBtn" value="해결완료" onclick="fn_solveQnA(${qnaTemDto.board_qna_no})" />
 			</c:if>
