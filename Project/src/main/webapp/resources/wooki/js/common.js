@@ -386,23 +386,23 @@ function fn_addAdminPage() {
 	let string = `
 	<h1>관리자추가</h1>
     <div class="flex">
-    <div class="scroll">
-    <table style="width: 400px;">
-    <thead>
-    <tr>
-    <th>유저번호</th>
-    <th>닉네임</th>
-    <th>비고</th>
-    </tr>
-    </thead>
-    <tbody id="adminList"></tbody>
-    </table>
-    </div>
-    <div>
-    <span>유저번호</span><input type="text" name="admin_target_no" id="admin_target_no" /><br/>
-    <span>유저닉네임</span><span id="admin_target_nickname"></span><br/>
-    <input type="button" value="어드민추가" id="btn_updateAdminUser" />
-    </div>
+	    <div class="scroll">
+		    <table style="width: 500px;">
+			    <thead>
+				    <tr>
+					    <th>유저번호</th>
+					    <th>닉네임</th>
+					    <th>비고</th>
+				    </tr>
+			    </thead>
+				<tbody id="adminList"></tbody>
+		    </table>
+	    </div>
+	    <div class="seachUser">
+		    <span>유저번호</span><input type="text" name="admin_target_no" id="admin_target_no" /><br/>
+		    <span>유저닉네임</span><span id="admin_target_nickname"></span><br/>
+		    <input type="button" value="어드민추가" id="btn_updateAdminUser" />
+	    </div>
     </div>`
 	$('.content-container').html(string);
 	fn_adminList();
@@ -604,7 +604,7 @@ function fn_filterTrainerUserList(p) {
 
 // 트레이너 - 유저리스트 테이블 만드는 함수
 function trainerUserList(list, paging, totalRecord, recordPerPage, page) {
-	$('<table style="width: 1000px;">')
+	$('<table>')
 	.append($('<thead id="title">'))
 	.append($('<tbody id="list">'))
 	.append($('<tfoot class="paging">'))
@@ -796,7 +796,7 @@ function fn_boardsPage() {
 			</table>
 		</form>
 	</div>
-	<table style="width: 1000px;">
+	<table>
 		<thead id="title">
 			<tr>
 				<th>번호</th>
@@ -1013,7 +1013,7 @@ function fn_commentsPage() {
 			</table>
 		</form>
 	</div>
-	<table style="width: 1000px;">
+	<table>
 		<thead id="title">
 			<tr>
 				<th>번호</th>
@@ -1231,7 +1231,7 @@ function fn_reviewPage() {
 			</table>
 		</form>
 	</div>
-	<table style="width: 1000px;">
+	<table>
 		<thead id="title">
 			<tr>
 				<th>번호</th>
@@ -1399,7 +1399,7 @@ function fn_tQnAPage() {
 			</table>
 		</form>
 	</div>
-	<table style="width: 1000px;">
+	<table>
 		<thead id="title">
 			<tr>
 				<th>번호</th>
@@ -1624,7 +1624,7 @@ function fn_photoPage() {
 			</table>
 		</form>
 	</div>
-	<table style="width: 1000px;">
+	<table>
 		<thead id="title">
 			<tr>
 				<th>번호</th>
