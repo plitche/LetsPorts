@@ -50,20 +50,28 @@
 		location.href='ExerciseMateList.leo';
 	});
 
-	
-	
 
 </script>
 
-<br/>
 
 <form method="get">
 		<div class="filter_content">
-			<br/><br/>	
 			<div class="QueryAndTag">
 				<div id="Query">
-					<input type="text" name="search_content" placeholder="검색어를 입력하세요"/>
-					<input type="button" value="검색" onclick="fn_SearchClass(this.form)" />
+					<input type="text" name="search_content" placeholder="원하는 모임을 찾아보세요"/>
+					<button onclick="fn_SearchClass(this.form)" aria-expanded="false" type="button" data-testid="structured-search-input-search-button">
+						<div class="_1hb5o3s">
+							<div class="_14lk9e14">
+							<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="fill:lightgray;height:16px;width:16px;stroke:currentColor;stroke-width:4;overflow:visible" >
+							<g fill="none">
+							<path d="m13 24c6.0751322 0 11-4.9248678 11-11 0-6.07513225-4.9248678-11-11-11-6.07513225 0-11 4.92486775-11 11 0 6.0751322 4.92486775 11 11 11zm8-3 9 9">
+							
+							</path>
+							</g>
+							</svg>
+							</div>
+						</div>
+					</button>
 				</div>
 			</div>
 			<button type='button' id="modal_btn">모임유형 ▼</button>
@@ -91,77 +99,84 @@
 	</div>	
 	
 
-
-	
 	<div id="line1"></div>
 	
 	<br/>
 	
 	<!-- 필터링 부분 처리 -->
 	<c:if test="${Lists eq 0}">
-		<div>
-			<h3 id="catagory_title">모든모임</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+		<script type="text/javascript">
+			$('#modal_btn').html('모든모임 ▼');
+		</script>
+		<div class="meeting_filter_alert">
+			<h3 id="catagory_title" style="display: inline; font-weight: 900;">모든모임</h3><h4 id="catagory_count" style="display: inline; margin-left:10px;">${totalRecord}개가 있습니다.</h4>
 		</div>
 	</c:if>
 	<c:if test="${Lists eq 1}">
-		<div>
-			<h3 id="catagory_title">트레이너모임</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+	<script type="text/javascript">
+		$('#modal_btn').html('트레이너 ▼');
+	</script>
+		<div class="meeting_filter_alert">
+			<h3 id="catagory_title">트레이너</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
 		</div>
 	</c:if>
 	<c:if test="${Lists eq 2}">
-		<div>
-			<h3 id="catagory_title">운동메이트모임</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
+	<script type="text/javascript">
+			$('#modal_btn').html('운동메이트 ▼');
+	</script>
+		<div class="meeting_filter_alert">
+			<h3 id="catagory_title">운동메이트</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
 		</div>
 	</c:if>
 	<!-- 검색 부분 처리 -->
 	<c:if test="${Lists eq 3}">
-		<div>
+		<div class="meeting_filter_alert">
 			<h3 id="catagory_title">${searchContent}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
 		</div>
 	</c:if>
 	<!-- 태그 부분 처리 -->
 	<c:if test="${Lists eq 10}">
-		<div>
+		<div class="meeting_filter_alert">
 			<h3 id="catagory_title">${Tag0}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
 		</div>
 	</c:if>
 	<c:if test="${Lists eq 11}">
-		<div>
+		<div class="meeting_filter_alert">
 			<h3 id="catagory_title">${Tag1}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
 		</div>
 	</c:if>
 	<c:if test="${Lists eq 12}">
-		<div>
+		<div class="meeting_filter_alert">
 			<h3 id="catagory_title">${Tag2}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
 		</div>
 	</c:if>
 	<c:if test="${Lists eq 13}">
-		<div>
+		<div class="meeting_filter_alert">
 			<h3 id="catagory_title">${Tag3}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
 		</div>
 	</c:if>
 	<c:if test="${Lists eq 14}">
-		<div>
+		<div class="meeting_filter_alert">
 			<h3 id="catagory_title">${Tag4}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
 		</div>
 	</c:if>
 	<c:if test="${Lists eq 15}">
-		<div>
+		<div class="meeting_filter_alert">
 			<h3 id="catagory_title">${Tag5}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
 		</div>
 	</c:if>
 	<c:if test="${Lists eq 16}">
-		<div>
+		<div class="meeting_filter_alert">
 			<h3 id="catagory_title">${Tag6}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
 		</div>
 	</c:if>
 	<c:if test="${Lists eq 17}">
-		<div>
+		<div class="meeting_filter_alert">
 			<h3 id="catagory_title">${Tag7}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
 		</div>
 	</c:if>
 	<c:if test="${Lists eq 18}">
-		<div>
+		<div class="meeting_filter_alert">
 			<h3 id="catagory_title">${Tag8}</h3><h4 id="catagory_count">${totalRecord}개가 있습니다.</h4>
 		</div>
 	</c:if>
@@ -236,9 +251,16 @@
 			<a href="#" onclick="forMakeClassLogin()">
 				<div class="maketrainerClass">
 					
-						+ 클래스 개설<br/><br/>
-						클래스를 개설해 자신만의 운동을
-						사람들에게 가르쳐주세요.
+						<div style="font-size: 18px; font-weight: 900; margin-top: 45px;">운동 모임</div>
+						<div>
+							<ul style="padding:20px; " id="makeTrainerClassContent">
+								<li>모임을 개설해</li>
+								<li>다양한 사람들과 함께</li>
+								<li>운동을 즐겨보세요.</li>
+							</ul>
+						</div>
+						
+						<div id="MeetingplusIcon" style=""><i class="fas fa-plus" style="font-size: 24px;"></i></div>
 						
 				</div>
 			</a>
@@ -247,20 +269,24 @@
 		<c:forEach var="MeetingDto" items="${MeetingList}">
 			<a href="TrainerClassViewPage.leo?meeting_no=${MeetingDto.meeting_no}">
 				<div class="MeetingClass">
-					<div><img alt="${MeetingDto.photo_filename}" src="resources/storage/${MeetingDto.photo_filename}" style="width:250px; height:100px;"></div>
-					${MeetingDto.meeting_title}<br/><br/>
-					모임일 : ${MeetingDto.meeting_date}<br/>
-					운동 종목 : ${MeetingDto.exercise_name}<br/>
-					작성자 : ${MeetingDto.user_nickname}<br/>
-					조회수 ${MeetingDto.meeting_hit}<br/>
+					<div id="MeetingClassPhoto"><img alt="${MeetingDto.photo_filename}" src="resources/storage/${MeetingDto.photo_filename}" style="width:250px; height:100px;"></div>
+						<div style="padding:15px;">
+							<div style="font-weight: 900;">${MeetingDto.meeting_title}</div>
+							<div class="exercise_name">${MeetingDto.exercise_name}</div>
+							<div class="location"><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;${MeetingDto.location1_name} ${MeetingDto.location2_name} · ${MeetingDto.meeting_date}</div>
+							<div style="width:220px; height:0.3px; background: lightgray; margin: 10px 0px;"></div>
+							<div style="display: flex; align-items: center;">
+								<div style="width: 35px; height: 35px; border-radius: 100px; background: #c2c2c2;"><img alt="${MeetingDto.profile_photo}" src="resources/storage/${MeetingDto.profile_photo}"></div>
+								<div style="height: 20px; line-height: 20px; margin-left: 5px; font-size: 12px;">${MeetingDto.user_nickname}</div>
+								<div style="margin-left:110px; font-size: 12px; color: lightgray;"><i class="fas fa-eye" style="color: lightgray;"></i> ${MeetingDto.meeting_hit}</div>
+							</div>
+						</div>
 				</div>
 			</a>
 		</c:forEach>
 	
 	</div>
-	<div class="paging" style="width:100px; height: 30px; margin: auto;"  >
-		${paging}
-	</div>
+	<div class="paging" style="text-align: center; margin-top: 80px;">${paging}</div>
 </form>	
 
 <%@ include file="../template/footer.jsp" %>
