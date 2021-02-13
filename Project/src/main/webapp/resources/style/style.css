@@ -24,7 +24,7 @@ ul {
 
 .top-wrap {
 	width: 1080px;
-	margin: 10px auto;
+	margin: 0 auto;
 }
 .top-menu {
 	height: 60px;
@@ -42,7 +42,6 @@ ul {
 
 .top {
 	display: flex;
-	margin-left: 33%;
 }
 
 .top>li>a {
@@ -57,6 +56,7 @@ ul {
 
 .menu-bar {
 	display: flex;
+	margin-right: 32%;
 }
 
 .header {
@@ -97,8 +97,16 @@ ul {
 .introduce div:nth-child(1) span {
 	margin: -8px;
 }
-.introduce div:nth-child(1) span:nth-child(1):hover {color: blue; cursor: pointer;}
-
+.introduce div:nth-child(1) span:nth-child(1):hover {color: red;}
+.introduce div:nth-child(1) span:nth-child(2):hover {color: orangered;}
+.introduce div:nth-child(1) span:nth-child(3):hover {color: orange;}
+.introduce div:nth-child(1) span:nth-child(4):hover {color: yellow;}
+.introduce div:nth-child(1) span:nth-child(5):hover {color: limegreen;}
+.introduce div:nth-child(1) span:nth-child(6):hover {color: green;}
+.introduce div:nth-child(1) span:nth-child(7):hover {color: skyblue;}
+.introduce div:nth-child(1) span:nth-child(8):hover {color: blue;}
+.introduce div:nth-child(1) span:nth-child(9):hover {color: navy;}
+.introduce div:nth-child(1) span:nth-child(10):hover {color: purple;}
 
 .introduce div:nth-child(2) {
 	color: white;

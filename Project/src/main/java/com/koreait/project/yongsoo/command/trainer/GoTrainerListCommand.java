@@ -16,14 +16,17 @@ public class GoTrainerListCommand implements CommonVoidCommand {
 
 		TrainerDao trainerDao = sqlSession.getMapper(TrainerDao.class);
 		List<TrainerTemDto> trainerList = trainerDao.trainerList();
-
+		
+		
 		for (int i=0; i<trainerList.size(); i++) {
 			int user_no = trainerList.get(i).getUser_no();
 			
 			if (trainerDao.trainerScore(user_no)==null) {
 				trainerList.get(i).setScore(0.0);
 			} else {
-				trainerList.get(i).setScore(trainerDao.trainerScore(user_no));
+				double score = trainerDao.trainerScore(user_no);
+				score = Math.round(score*100);
+				trainerList.get(i).setScore(score/100);
 			}
 			
 			trainerList.get(i).setReviews(trainerDao.reviewCount(user_no));
