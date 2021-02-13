@@ -23,6 +23,12 @@ public class GetQnAListCommand implements CommonVoidCommand {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 
+		// 필터관련 클릭을 한 경우에 대한 처리
+		int filter_no = 2;
+		if (request.getParameter("filter_no") != null) {
+			filter_no = Integer.parseInt(request.getParameter("filter_no"));
+		}
+		
 		// 검색관련 name null이 아닐 때만 가져오기
 		int searchCategory = 0;
 		if (request.getParameter("searchCategory") != null) {
@@ -50,10 +56,17 @@ public class GetQnAListCommand implements CommonVoidCommand {
 		String paging = null;
 		
 		if (searchCategory==0 || searchKeyword==null) {
-			totalRecord = commonQnADao.getQnACount();
-			endRecord = endRecord < totalRecord ? endRecord : totalRecord;
-			qnaList = commonQnADao.getQnAList(beginRecord, endRecord);
-			paging = Paging.getPaging("goQnAPage.plitche", totalRecord, recordPerPage, page);
+			if (filter_no == 2) {
+				totalRecord = commonQnADao.getQnACount();
+				endRecord = endRecord < totalRecord ? endRecord : totalRecord;
+				qnaList = commonQnADao.getQnAList(beginRecord, endRecord);
+				paging = Paging.getPaging("goQnAPage.plitche", totalRecord, recordPerPage, page);
+			} else {
+				totalRecord = commonQnADao.getIsSolvedQnACount(filter_no);
+				endRecord = endRecord < totalRecord ? endRecord : totalRecord;
+				qnaList = commonQnADao.getIsSolvedQnAList(filter_no, beginRecord, endRecord);
+				paging = Paging.getPaging("goQnAPageWithFilter.plitche?filter_no="+filter_no, totalRecord, recordPerPage, page);
+			}
 		} else {
 			switch(searchCategory) {
 			case 1 : totalRecord = commonQnADao.getQnACount1(searchKeyword); 
@@ -70,7 +83,6 @@ public class GetQnAListCommand implements CommonVoidCommand {
 			endRecord = endRecord < totalRecord ? endRecord : totalRecord; 
 			qnaList = commonQnADao.getQnAListByKeyword3(beginRecord, endRecord, searchKeyword); 
 			break;
-			
 			}
 			paging = Paging.getPaging("goQnAPage.plitche?searchCategory="+searchCategory+"&searchKeyword="+searchKeyword, totalRecord, recordPerPage, page);
 		}

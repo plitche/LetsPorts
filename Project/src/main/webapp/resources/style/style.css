@@ -13,104 +13,100 @@ ul {
 }
 
 #logo {
-	display: block;
+	font-family: 'Dancing Script', cursive;
 	float: left;
-	width: 150px;
-	height: 150px;
+	font-size: 35px;
+	color: orangered;
+	padding: 12px;
+	text-decoration: none;
+	margin-left: 10px;
 }
 
 .top-wrap {
 	width: 1080px;
-	margin: 0 auto;
-	height: 250px;
+	margin: 10px auto;
+}
+.top-menu {
+	height: 60px;
+	width: 100%;
+	display: flex;
+}
+.top-menu > a > img {
+	width: 27px;
+	margin-bottom: 30px;
+	float: left;
+}
+.top-menu ul {
+	margin-top: 30px;
 }
 
 .top {
 	display: flex;
-	float: right;
+	margin-left: 33%;
 }
 
 .top>li>a {
 	display: inline-block;
-	width: 150px;
-	color: white;
 	font-weight: bold;
 	text-align: center;
-	height: 60px;
-	line-height: 60px;
 	text-decoration: none;
-}
-
-nav {
-	width: 1080px;
-	margin: 0 auto;
+	font-size: 16px;
+	margin: 0 10px;
+	color: black;
 }
 
 .menu-bar {
-	clear: both;
 	display: flex;
-	width: 1080px;
-	margin: 0 auto;
-	padding: 0 120px;
 }
 
 .header {
-	background-image: url("../images/jogging.png");
-	background-size: contain;
-	background-repeat: no-repeat;
-	height: 350px;
+	height: 450px;
 	width: 1080px;
 	margin: 0 auto;
 }
 
 .menu-bar>li>a {
 	display: inline-block;
-	width: 160px;
-	height: 60px;
-	line-height: 60px;
 	text-align: center;
 	font-weight: bold;
-	font-size: 20px;
-	color: black;
+	font-size: 16px;
 	text-decoration: none;
-}
-
-.menu-bar>li>a {
-	color: white;
+	color: black;
+	margin: 0 10px;
 }
 
 .menu-bar>li>a:nth-of-type(1) {
 	backgournd: #
 }
 
-.depth2 > li > a {
-	text-decoration: none;
-	color: silver;
-	font-size: 20px;
-	font-weight: 700;
-	height: 60px;
-	line-height: 60px;
+.imageWrap {
+	height: 350px;
+	margin-top: 10px;
+	background-image: url("../images/jogging.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	padding-top: 24.5%;
+	padding-left: 14%;
 }
-
-.depth2 > li {
-	text-align: center;
+.introduce div:nth-child(1) {
+	font-family: 'Black Han Sans', sans-serif;
+	font-size: 60px;
+	color: white;
+	line-height: 50px;
 }
-
-.depth2 {
-	z-index: 2;
-	padding:0px;
+.introduce div:nth-child(1) span {
+	margin: -8px;
 }
+.introduce div:nth-child(1) span:nth-child(1):hover {color: blue; cursor: pointer;}
 
-.depth2 > li {
-	visibility: hidden;
+
+.introduce div:nth-child(2) {
+	color: white;
 }
-
-.menu-bar>li:hover>.depth2>li {
-	visibility: visible
-}
-
-.depth2 > li > a:hover {
-	color: black;
+.introduce div:nth-child(2) span {
+	color: orange;	
+	font-weight: bold;
+	font-size: 18px;
 }
 
 .body-wrap {
@@ -139,6 +135,7 @@ nav {
 
 .footer-title {
 	grid-column: span 3;
+	font-family: 'Dancing Script', cursive;
 }
 
 .footer>div {

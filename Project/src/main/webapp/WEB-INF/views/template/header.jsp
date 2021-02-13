@@ -6,7 +6,7 @@
 	request.setCharacterEncoding("UTF-8");
 	String title = request.getParameter("title");
 	if (title == null || title.isEmpty()) {
-		title = "환영합니다";
+		title = "Let'sPorts Together!";
 	}
 	pageContext.setAttribute("title", title);
 %>
@@ -30,54 +30,64 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <%-- sweetalert --%>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+<%-- font --%>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<%-- favicon --%>
+<link rel="icon" href="resources/images/favicon.ico">
 
 <title>${title}</title>
 
 </head>
-
 <body>
 	<div class="header">
 		<div class="top-wrap" >
-			<a href="javascript:void(0)" ><img id="logo" alt="로고" src="resources/images/silhouette.png"></a>
-			<ul class="top">
-				<%-- 로그인 하지 않은 상태 --%>
-				<c:if test="${loginUser eq null}">
-					<li><a href="usersLoginPage.hey" >LOGIN</a></li>
-					<li><a href="usersLoginPage.hey" >마이페이지</a></li>
-					<li>
-						<a href="javascript:void(0)" >
-							<img alt="noticebell" src="resources/images/bell2.png" style="width:30px;"/>
-						</a>
-					</li>
-				</c:if>
-				<%-- 로그인 상태 --%>
-				<c:if test="${loginUser ne null}">
-					<li style="font-size:12px; font-weight:900;" ><a href="javascript:void(0)"></a>반갑습니다!</li>
-					<li><a href="usersLogout.hey" >LOGOUT</a></li>
-					<li><a href="myPage_commonPart.hey" >마이페이지</a></li>
-					<li>
-						<a href="javascript:void(0)" >
-							<img alt="noticebell" src="resources/images/bell2.png" style="width:30px;"/>
-						</a>
-					</li>
-				</c:if>
-			</ul>
+			<div class="top-menu">
+				<a href="http://localhost:9090/project/" id="logo">
+					<span>Let'sPorts</span>
+					<img alt="mainLogo" src="resources/images/mainLogo.JPG">
+				</a>
+				<ul class="menu-bar">
+					<li><a href="GoBoard_KnowHowList.limyeng">KnowHow</a></li>
+					<li><a href="TrainerClassListPage.leo" >Community</a></li>
+					<li><a href="goTrainerList.plitche" >Trainer</a></li>
+					<li><a href="goQnAPage.plitche" >Q&A</a></li>
+				</ul>
+				<ul class="top">
+					<%-- 로그인 하지 않은 상태 --%>
+					<c:if test="${loginUser eq null}">
+						<li><a href="usersLoginPage.hey" >Log In</a></li>
+						<li><a href="usersLoginPage.hey" >My Page</a></li>
+					</c:if>
+					<%-- 로그인 상태 --%>
+					<c:if test="${loginUser ne null}">
+						<li><a href="usersLogout.hey" >Log Out</a></li>
+						<li><a href="myPage_commonPart.hey" >My Page</a></li>
+					</c:if>
+				</ul>
+			</div>
+			<div class="imageWrap">
+				<div class="introduce">
+					<div>
+						<span>L</span>
+						<span>e</span>
+						<span>t</span>
+						<span>'</span>
+						<span>s</span>
+						<span>P</span>
+						<span>o</span>
+						<span>r</span>
+						<span>t</span>
+						<span>s</span>
+					</div>
+					<div>우리만의 다양한 <span>Let'sPorts</span>이야기를 만들어봐요!</div>
+				</div>
+			</div>
 		</div>
-		<nav>
-			<ul class="menu-bar">
-				<li><a href="javascript:void(0)" >ABOUT US</a></li>
-				<li>
-					<a href="GoBoard_KnowHowList.limyeng">노하우 게시판</a>
-				</li>
-				<li>
-					<a href="TrainerClassListPage.leo" >커뮤니티</a>
-				</li>
-				<li><a href="goTrainerList.plitche" >트레이너</a></li>
-				<li><a href="goQnAPage.plitche" >질의응답</a></li>
-			</ul>
-		</nav>
 	</div>
+	
 	<div class="body-wrap">
+	
+	
+	

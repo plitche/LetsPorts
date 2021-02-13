@@ -62,6 +62,10 @@
 <!-- 키워드 검색 관련 처리 script -->
 <script>
 	function fn_search(f) {
+		if($('select[name="searchCategory"]').val() == '') {
+			Swal.fire('검색 조건을 선택해주세요!', '', 'info');
+			return;
+		}
 		if ($('#search').val()=='') {
 			Swal.fire('검색어를 입력해주세요!', '', 'info');
 			return;
@@ -69,13 +73,20 @@
 		f.action='goQnAPage.plitche';
 		f.submit();
 	}
-
+</script>
+<!-- 해결 완료 여부에 따른 필더링 script -->
+<script>
+	function fn_filter(what) {
+		location.href='goQnAPage.plitche?filter_no='+what;
+	}
 </script>
 
 <div class="qnaTitle"> Total Question & Answer </div>
 
 <p id="newQnA">
-	<a href="" >전체 보기</a> / <a href="" >해결 완료</a> / <a href="" >미 해결</a>
+	<a href="#" onclick="fn_filter(2); return false;">전체 보기</a> 
+	/ <a href="#" onclick="fn_filter(1); return false;">해결 완료</a> 
+	/ <a href="#" onclick="fn_filter(0); return false;">미 해결</a>
 	<input type="button" value="새 질문 등록하기" id="writeQnABtn" />
 </p>
 <table id="userQnA">

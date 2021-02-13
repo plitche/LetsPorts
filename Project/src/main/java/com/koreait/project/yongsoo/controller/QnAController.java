@@ -41,6 +41,8 @@ public class QnAController {
 	private AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(SooAppContext.class);
 	
 	// 헤더의 질의응답 버튼을 클릭했을때 질문 리스트를 보여주기위한 메소드
+	// 검색어 관련된 내용 처리를 위한 메소드
+	// 필터링 선택 하였을 때 작동할 메소드
 	@RequestMapping(value="goQnAPage.plitche", method=RequestMethod.GET)
 	public String goQnAPage(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);

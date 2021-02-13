@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 </div>
 	<div class="footer">
-		<h1 class="footer-title">우리들의 운동 이야기</h1>
+		<h1 class="footer-title">Let's Sports</h1>
 		<div class="company">
 			Our Gym's Community<br/>
 			대표이사 : 권용수, 김영욱, 상혜준, 나정호, 임예원<br/>

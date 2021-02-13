@@ -24,6 +24,7 @@ public class UpdateQnACommand implements CommonVoidCommand {
 		int board_qna_no = Integer.parseInt(request.getParameter("board_qna_no"));
 		String board_qna_title = request.getParameter("board_qna_title");
 		String board_qna_content = request.getParameter("content");
+		int temp_no = Integer.parseInt(request.getParameter("temp_no"));
 
 		Board_qnaDto board_qnaDto = new Board_qnaDto();
 		board_qnaDto.setBoard_qna_no(board_qna_no);
@@ -32,8 +33,9 @@ public class UpdateQnACommand implements CommonVoidCommand {
 		
 		CommonQnADao commonQnADao = sqlSession.getMapper(CommonQnADao.class);
 		int updateResult = commonQnADao.updateQnA(board_qnaDto);
+		int updatePhotoTable = commonQnADao.updatePhotoTable(board_qna_no, temp_no);
 		
-		if (updateResult>0) {
+		if (updateResult>0 && updatePhotoTable>0) {
 			rttr.addFlashAttribute("updateResult", true);
 		} else {
 			rttr.addFlashAttribute("updateResult", false);

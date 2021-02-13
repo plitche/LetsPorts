@@ -53,8 +53,8 @@
    ■ 필독 사항
    - 자유 형식으로 질문 제목과 질문 내용을 작성해 주세요.
    - 질문 제목은 질문 내용을 간략하게 표현할 수 있게 작성해 주세요.
-   - 댓글이 작성되면 질문 수정과 삭제가 불가함으로 다시한번 꼼꼼히 작성해주세요.
-   - 댓글을 통해 궁금증이 해결되셨다면, 해결 완료 버튼을 통해 더이상 댓글을 받지 않을 수 있습니다. 
+   - 댓글을 통해 궁금증이 해결되셨다면, 해결 완료 버튼을 통해 더이상 댓글을 받지 않을 수 있습니다.
+   - 해결 완료를 하시면 수정과 삭제가 불가하오니 신중히 결정해 주세요. 
 </pre>
 <div id="qnaContent">
 	<span>질문 상세 내용</span>
@@ -63,6 +63,7 @@
 		<input style="display: none" type="file" id="uploadFile" name="uploadFile" accept="image/*" />
 		<i class="far fa-images btn"></i>
 	</label>
+	<div style="text-align: right; color: darkgray;">텍스트를 입력하시려면 +버튼, 이미지를 첨부하시려면 사진버튼을 클릭해주세요~!</div>
 	<div id="content" style="border: 1px solid #d8d8d8;"></div>
 	<br/>
 	<input type="button" id="doneBtn" value="질문 작성완료" onclick="fn_writeQnA(this.form)" />
