@@ -10,14 +10,19 @@
 }
 
 .center {
-    position: absolute;
+    position: relative;
     left: 50%;
     top: 50%;
 	transform: translate(-50%, -50%);
 }
 
+.top0 {
+	top: 0%;
+	transform: translate(-50%, 0%);
+}
+
 .container {
-	width: 1000px;
+	padding: 30px;
 }
 
 .space-between {
@@ -49,6 +54,7 @@
 
 table {
 	border-collapse: collapse;
+	width: 100%;
 }
 
 td, th {
@@ -118,4 +124,35 @@ span.disable {
 .fail {
 	color: crimson;
 	font-weight: bold;
+}
+
+#logo a {
+	text-decoration: none;
+}
+
+#logo img {
+	height: 100px;
+}
+
+#logoTitle {
+	line-height: 100px;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+hr {
+	color: silver;
+}
+
+.padding20 {
+	padding: 20px;
+}
+
+.navbar {
+	padding: 5px 20px;
+}
+
+.seachUser {
+    position: fixed;
+    left: 600px;
 }

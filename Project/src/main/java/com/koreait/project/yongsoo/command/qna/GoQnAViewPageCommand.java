@@ -27,7 +27,6 @@ public class GoQnAViewPageCommand implements CommonVoidCommand {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd(E) HH:mm");
 		qnaTemDto.setCreated_at2(format.format(qnaTemDto.getCreated_at()));
 		
-		
 		model.addAttribute("qnaTemDto", qnaTemDto);
 		model.addAttribute("page", request.getParameter("page"));
 		

@@ -75,14 +75,18 @@
 </script>
 </head>
 <body>
-	<div class="container">
-		<div class="top-container space-between w1000">
-			<div>LetsSports</div>
+	<div>
+		<div class="top-container space-between w1000 center top0 padding20">
+			<div id="logo">
+				<a href="adminIndex.wooki"><img src="resources/images/silhouette.png"></a>
+			</div>
+			<div id="logoTitle">LestPorts Admin Page</div>
 			<div>
 				<input type="button" value="로그아웃" onclick="fn_logout()" />
 			</div>
 		</div>
-		<div class="nav-container flex w1000">
+		<hr/>
+		<div class="nav-container flex w1000 center top0 navbar">
 			<div class="nav-btn main" id="select-nav">메인페이지</div>
 			<div class="nav-btn user">회원관리</div>
 			<div class="nav-btn admin">관리자등록</div>
@@ -93,7 +97,8 @@
 			<div class="nav-btn trainer_qna">트레이너Q&amp;A</div>
 			<div class="nav-btn photo">사진관리</div>
 		</div>
-		<div class="content-container w1000 scroll"></div>
+		<hr/>
+		<div class="content-container w1000 scroll center top0 padding20"></div>
 	</div>
 
 	<div class="black-background hide" id="change-email-modal">
