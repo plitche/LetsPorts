@@ -1,6 +1,9 @@
 @charset "UTF-8";
-
-#updateForm {
+h3 {
+	border-bottom: 2px solid;
+	padding-bottom: 20px;
+}
+#writeForm {
 	margin-top: 20px;
 	padding: 20px;
 }
@@ -18,6 +21,8 @@
 	width: 80%;
 	height: 40px;
 	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
 }
 
 #updateRefer {
@@ -29,16 +34,37 @@
 	margin: 20px auto;
 	width: 90%;
 }
-#qnaContent > div:nth-child(1) {
+#qnaContent > span:nth-child(1) {
 	font-size: 2.2rem;
 	font-weight: bold;
 	line-height: 40px;
+	margin-right: 72%;
 }
-#doneBtn {
+#qnaContent i {
+	vertical-align: sub;
+	font-size: 30px;
+}
+#qnaContent div > i {
+	vertical-align: sub;
+	font-size: 20px;
+	color: orangered;
+}
+#content {
+	border-radius: 5px;
+	min-height: 400px;
+	max-height: 800px;
+	overflow: scroll;
+	padding: 12px;
+}
+#doneBtn, #cancelBtn{
 	float: right;
 	border: none;
 	background: black;
 	color: white;
 	border-radius: 10%;
 	padding: 10px;
+	margin-left: 10px;
+}
+#doneBtn:hover, #cancelBtn:hover {
+	color: orangered;
 }

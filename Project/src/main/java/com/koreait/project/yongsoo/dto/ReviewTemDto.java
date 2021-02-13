@@ -27,6 +27,7 @@ public class ReviewTemDto {
 	private int location1_no;
 	private int location2_no;
 	
+	private String profile_photo;
 	private String location1_name;
 	private String location2_name;
 	

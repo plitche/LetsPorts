@@ -192,6 +192,18 @@ $(document).on('click', '#updateMsgBtn', function(){
 		</div>
 	</div>
 	
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+	<!-- 각각 페이지 따로 만들 것! -->
+	<div class="interestBtns">
+		<a href="WishClassListPage.leo?user_no=${loginUser.user_no}" ><i class="fas fa-heart fa-lg"></i><br/>관심모임</a>
+		<a href="WishTrainerListPage.leo?user_no=${loginUser.user_no}"><i class="fas fa-id-badge fa-lg"></i><br/>관심 트레이너</a>
+		<a href="#"><i class="far fa-file-alt fa-lg"></i><br/>관심 노하우</a>
+	</div>
+>>>>>>> 3b103290cfff58904779fdb1f8c6ac876f0e643f
+>>>>>>> 0b40cb7469db7b5cf1f4860333b53cfa20dc4c48
 </div>
 		
 

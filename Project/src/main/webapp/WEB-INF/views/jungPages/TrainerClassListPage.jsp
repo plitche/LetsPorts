@@ -79,10 +79,9 @@
 			</div>
 		</div>
 
-	<br/><br/>
 
 	<div id="Tag">
-		<div id="Tag_name">운동카테고리</div>
+		<div id="Tag_name">운동종목</div>
 		<div id="Tag_content">
 			<c:forEach var="Tags" items="${ClassTags}">
 				<input type="button" value="#${Tags.exercise_name}" onclick="Tag${Tags.exercise_no}(this.form)" />
@@ -93,7 +92,6 @@
 	
 
 
-	<br/><br/>
 	
 	<div id="line1"></div>
 	

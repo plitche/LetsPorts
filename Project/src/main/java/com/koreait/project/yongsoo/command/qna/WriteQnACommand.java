@@ -21,7 +21,7 @@ public class WriteQnACommand implements CommonVoidCommand {
 		RedirectAttributes rttr = (RedirectAttributes)map.get("rttr");
 		
 		String board_qna_title = request.getParameter("board_qna_title");
-		String board_qna_content = request.getParameter("board_qna_content");
+		String board_qna_content = request.getParameter("content");
 		int user_no = Integer.parseInt(request.getParameter("user_no"));
 		
 		CommonQnADao commonQnADao = sqlSession.getMapper(CommonQnADao.class);

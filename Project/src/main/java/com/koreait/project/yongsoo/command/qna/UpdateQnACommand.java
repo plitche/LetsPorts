@@ -23,7 +23,7 @@ public class UpdateQnACommand implements CommonVoidCommand {
 		
 		int board_qna_no = Integer.parseInt(request.getParameter("board_qna_no"));
 		String board_qna_title = request.getParameter("board_qna_title");
-		String board_qna_content = request.getParameter("board_qna_content");
+		String board_qna_content = request.getParameter("content");
 
 		Board_qnaDto board_qnaDto = new Board_qnaDto();
 		board_qnaDto.setBoard_qna_no(board_qna_no);
