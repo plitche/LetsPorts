@@ -23,11 +23,14 @@ public class WriteQnACommand implements CommonVoidCommand {
 		String board_qna_title = request.getParameter("board_qna_title");
 		String board_qna_content = request.getParameter("content");
 		int user_no = Integer.parseInt(request.getParameter("user_no"));
+		int temp_no = Integer.parseInt(request.getParameter("temp_no"));
 		
 		CommonQnADao commonQnADao = sqlSession.getMapper(CommonQnADao.class);
 		int writeQnAResult = commonQnADao.writeQnA(board_qna_title, board_qna_content, user_no);
+		int lastQnANo = commonQnADao.lastQnANo(user_no);
+		int updatePhotoTable = commonQnADao.updatePhotoTable(lastQnANo, temp_no);
 		
-		if (writeQnAResult>0) {
+		if (writeQnAResult>0 && updatePhotoTable>0) {
 			rttr.addFlashAttribute("writeQnAResult", true);
 		} else {
 			rttr.addFlashAttribute("writeQnAResult", false);

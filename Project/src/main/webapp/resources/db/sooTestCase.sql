@@ -101,7 +101,8 @@ select * from photo
 select * from review
 select * from BOARD_QNA
 select * from Meeting_participants
-select * from comments where comment_referer_no = 1 AND comment_referer_sep = 2
+select * from temp_board
+
 
 SELECT *
   FROM (SELECT T1.*, ROWNUM RN

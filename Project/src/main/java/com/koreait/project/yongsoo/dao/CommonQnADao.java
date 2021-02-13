@@ -12,6 +12,9 @@ public interface CommonQnADao {
 	// 전체 목록 보여주기위한 메소드
 	public int getQnACount();
 	public List<BoardQnATemDto> getQnAList(int beginRecord, int endRecord); 
+	// 해결 완료/미완료 에 따른 질문만 보여주기위한 메소드
+	public int getIsSolvedQnACount(int is_solved);
+	public List<BoardQnATemDto> getIsSolvedQnAList(int is_solved, int beginRecord, int endRecord);
 	
 	// 전체 목록 중 원하는 키워드를 포함할때 검색할 메소드
 	// 1. 제목 + 내용
@@ -28,6 +31,8 @@ public interface CommonQnADao {
 	
 	// 질문 작성 완료 했을 때 insert하기 위한 메소드
 	public int writeQnA(String board_qna_title, String board_qna_content, int user_no);
+	public int lastQnANo(int user_no);
+	public int updatePhotoTable(int lastQnANo, int temp_no);
 	
 	// 질문 제목 클릭시 해당 질문에 대한 정보를 가져오기 위한 메소드
 	// 질문 뷰페이지에서 수정하기 버튼 클릭시 수정할 질문의 정보를 가져오기 위한 메소드
