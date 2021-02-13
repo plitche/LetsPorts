@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- Spring에서 새로 배우는 스타일 -->
+<mapper namespace="com.koreait.project.jungho.dao.WishTrainerDao">
+
+	<select id="WishTrainerList" resultType="com.koreait.project.yongsoo.dto.TrainerTemDto" parameterType="int">
+		SELECT *
+		FROM SCRAP S
+			FULL OUTER JOIN USERS U
+				ON S.SCRAP_REFERER_NO = U.USER_NO
+			FULL OUTER JOIN TRAINER_INFO T
+				ON S.SCRAP_REFERER_NO = T.USER_NO
+			FULL OUTER JOIN USER_INTEREST I
+				ON S.SCRAP_REFERER_NO = I.USER_NO
+			FULL OUTER JOIN PHOTO P
+				ON S.SCRAP_REFERER_NO = P.USER_NO
+			FULL OUTER JOIN LOCATION1 L1
+				ON U.LOCATION1_NO = L1.LOCATION1_NO
+			FULL OUTER JOIN LOCATION2 L2
+				ON U.LOCATION2_NO = L2.LOCATION2_NO
+			FULL OUTER JOIN EXERCISE E
+				ON I.EXERCISE_NO = E.EXERCISE_NO
+		WHERE S.USER_NO = #{param1}
+	</select>	
+	
+	<insert id="WishTrainerInsert">
+		INSERT INTO SCRAP VALUES
+		(SCRAP_SEQ.NEXTVAL, #{param1}, 1, #{param2}, NULL, SYSDATE)
+	</insert>
+	
+	<select id="WishTrainerListTotal" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM SCRAP
+		WHERE SCRAP_REFERER_NO = #{param1}
+	</select>
+	
+	
+	
+</mapper>

@@ -14,7 +14,7 @@
 		
 	<c:forEach var="wishClassList" items="${WishClassList}">
 		<a href="TrainerClassViewPage.leo?meeting_no=${wishClassList.meeting_no}">
-			<div id="WishListBox" style="width: 250px; height: 300px; background: lightgray; margin-right: 20px;">
+			<div id="WishListBox" style="width: 250px; height: 300px; background: lightgray; margin-right: 20px; float:left; margin-top: 20px;">
 				<div><img alt="${wishClassList.photo_filename}" src="resources/storage/${wishClassList.photo_filename}" style="width:250px; height:100px;"></div>
 				${wishClassList.meeting_title}<br/><br/>
 				모임일 : ${wishClassList.meeting_date}<br/>
