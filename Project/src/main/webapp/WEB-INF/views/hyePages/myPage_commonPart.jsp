@@ -35,7 +35,7 @@ $(document).on("click", ".modal_close", function(){
 
 <!-- 정보 수정 확인 -->
 <script type="text/javascript">
-// 페이지
+// 페이지로드
 $(document).ready(function() {
 	goUsersInfoUpdate();
 	fileUpload();
@@ -114,10 +114,33 @@ function fileUpload(){
 	
 // 기본 사진으로 업뎃
 $(document).on('click', '#deleteFileBtn', function(){
-	if(confirm('사진을 삭제 하시겠습니까?')) {	// 왜 세번이나 알럿창이 뜨는가?
+	if(confirm('사진을 삭제 하시겠습니까?')) {	
 		fileDelete();
 	}
 });
+
+</script>
+
+<!-- 상태메세지 -->
+<script type="text/javascript">
+//상태메세지
+
+$(document).on('click', '#updateMsgBtn', function(){
+	$('#updateMsgBtn').attr('value', '수정완료');
+	$('#statusMsg').attr('readonly', false);
+    $('#statusMsg').on('keyup', function() {
+        $('#limitMsg').html("("+($('#statusMsg').val().length)+" / 20)");
+ 
+        if($(this).val().length > 40) {
+            $(this).val($(this).val().substring(0, 20));
+            $('#limitMsg').html("(20 / 20)");
+        }
+    });
+});
+
+</script>
+
+<script type="text/javascript">
 
 </script>
 
@@ -161,29 +184,21 @@ $(document).on('click', '#deleteFileBtn', function(){
 		</div>
 		<br/>
 		<br/>
-		<div class="statusMsg">
+		<div class="status">
 			상태 메세지<br/>
-			<textarea rows="3" cols="50" placeholder="상태 메세지를 입력해주세요.">${loginUser.user_message}</textarea>
+			<textarea rows="3" cols="50" id="statusMsg" placeholder="상태 메세지를 입력해주세요." readonly="readonly">${loginUser.user_message}</textarea><br/>
+			<div id="limitMsg"></div>			
 			<input type="button" value="수정하기" id="updateMsgBtn" />
 		</div>
 	</div>
 	
-<<<<<<< HEAD
-=======
-	<!-- 각각 페이지 따로 만들 것! -->
-	<div class="interestBtns">
-		<a href="WishClassListPage.leo?user_no=${loginUser.user_no}" ><i class="fas fa-heart fa-lg"></i><br/>관심모임</a>
-		<a href="#"><i class="fas fa-id-badge fa-lg"></i><br/>관심 트레이너</a>
-		<a href="#"><i class="far fa-file-alt fa-lg"></i><br/>관심 노하우</a>
-	</div>
->>>>>>> 3b103290cfff58904779fdb1f8c6ac876f0e643f
 </div>
 		
 
 <!-- 탭 이동 형식 -->
 <div class="myPagetabBars">
 	<ul>
-		<li><a href="#">모임</a></li>
+		<li><a href="#" >모임</a></li>
 		<li><a href="#">게시물</a></li>
 		<li><a href="#">리뷰관리</a></li>
 		<li><a href="#">질의응답</a></li>
