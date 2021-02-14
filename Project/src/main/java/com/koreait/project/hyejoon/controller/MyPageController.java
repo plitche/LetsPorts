@@ -23,6 +23,7 @@ import com.koreait.project.dto.UsersDto;
 import com.koreait.project.hyejoon.command.myPage.DeletePhotoCommand;
 import com.koreait.project.hyejoon.command.myPage.UpdateMsgCommand;
 import com.koreait.project.hyejoon.command.myPage.UploadProfilePhotoCommand;
+import com.koreait.project.hyejoon.command.myPage.ViewMeetingInfoCommand;
 import com.koreait.project.hyejoon.command.signUp.NickCheckCommand;
 import com.koreait.project.hyejoon.command.userAccount.DeleteAccountCommand;
 import com.koreait.project.hyejoon.command.userAccount.UpdateAccountCommand;
@@ -43,6 +44,7 @@ public class MyPageController {
 	private UploadProfilePhotoCommand uploadProfilePhotoCommand = ctx.getBean("uploadProfilePhotoCommand", UploadProfilePhotoCommand.class);
 	private DeletePhotoCommand deletePhotoCommand = ctx.getBean("deletePhotoCommand", DeletePhotoCommand.class);
 	private UpdateMsgCommand updateMsgCommand = ctx.getBean("updateMsgCommand", UpdateMsgCommand.class);
+	private ViewMeetingInfoCommand viewMeetingInfoCommand = ctx.getBean("viewMeetingInfoCommand", ViewMeetingInfoCommand.class);
 	
 	
 	/***** 단순 이동 *****/
@@ -128,4 +130,17 @@ public class MyPageController {
 		System.out.println("user_no: " + usersDto.getUser_no());
 		return deleteAccountCommand.execute(sqlSession, model);
 	}
+	
+	/**** 탭 ****/
+	// 내가 주최하는 모임 정보 가져오기
+	@RequestMapping(value="meetingInfo.hey", method=RequestMethod.POST, produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> meetingInfo(@RequestBody UsersDto usersDto, Model model){
+		model.addAttribute("user_no", usersDto.getUser_no());
+		return viewMeetingInfoCommand.execute(sqlSession, model);
+	}
+	
+	// 질의응답
+	
+	
 }

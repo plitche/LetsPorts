@@ -141,10 +141,8 @@ $(document).on('click', '#updateMsgBtn', function(){
 		if($('#updateMsgBtn').attr('value', '수정완료')) {
 			
 	       $(document).on('click', '#updateMsgBtn', function(){
-	    	   let user_no = '${loginUser.user_no}';
-	    	   
-	    	   console.log("유저넘버222 : "+user_no);
 	    	   let user_message = $('#statusMsg').val();
+	    	   let user_no = '${loginUser.user_no}';
 	    	   let obj = {"user_no" : user_no ,
 	    			   	   "user_message" : user_message};
 	    	   
@@ -176,7 +174,43 @@ $(document).on('click', '#updateMsgBtn', function(){
 <!-- 모임 -->
 <script type="text/javascript">
 	$(document).on('click', '#meeting', function(){
-		$('#makeMeetings').append('')
+ 	   let user_no = '${loginUser.user_no}';
+	   let obj = {"user_no" : user_no};
+		
+ 	   $.ajax({
+		  	url : "meetingInfo.hey",
+			type : "post",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			dataType : "json",
+	        success: function (data) {
+	        	console.log('성공');
+	        },
+	        error: function() {
+	        	Swal.fire('실패');
+	        }
+       });
+	});
+</script>
+
+<!-- 질의응답 -->
+<script type="text/javascript">
+	$(document).on('click', '#meeting', function(){
+		
+		$.ajax({
+		  	url : "meetingInfo.hey",
+			type : "post",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			dataType : "json",
+	        success: function (data) {
+	        	console.log('성공');
+	        	$('#barsBox').append('<table>')
+	        },
+	        error: function() {
+	        	Swal.fire('실패');
+	        }
+       });
 	});
 </script>
 
@@ -225,17 +259,6 @@ $(document).on('click', '#updateMsgBtn', function(){
 			<input type="button" value="수정하기" id="updateMsgBtn" />
 		</div>
 	</div>
-
-	
-
-	<!-- 각각 페이지 따로 만들 것! -->
-	<div class="interestBtns">
-		<a href="WishClassListPage.leo?user_no=${loginUser.user_no}" ><i class="fas fa-heart fa-lg"></i><br/>관심모임</a>
-		<a href="WishTrainerListPage.leo?user_no=${loginUser.user_no}"><i class="fas fa-id-badge fa-lg"></i><br/>관심 트레이너</a>
-		<a href="#"><i class="far fa-file-alt fa-lg"></i><br/>관심 노하우</a>
-	</div>
-
-
 </div>
 		
 
@@ -247,13 +270,14 @@ $(document).on('click', '#updateMsgBtn', function(){
 		<li><a href="#">리뷰관리</a></li>
 		<li><a id="Q&A" href="#">질의응답</a></li>
 	</ul>
-	<div id="barsBox1">
-	<!-- 모임 -->
-		<div id="makeMeeting">
+	<div id="barsBox">
+		<!-- 모임 -->
+		<!-- <div id="makeMeeting">
 			<div class="makeMeetings">
 				제목 : 
 				참여자 : (최대 / 최소)
-				참여희망자 : 
+				참여희망자 : 	명
+				삭제 , 수정
 			</div>
 		</div>
 		<div id="plannedMeeting">
@@ -261,11 +285,56 @@ $(document).on('click', '#updateMsgBtn', function(){
 		</div>
 		<div id="pastMeeting">
 			<div class="pastMeetings"></div>
-		</div>
+		</div> -->
+		<table id="userQnA">
+			<colgroup>
+				<col width="60">
+				<col width="100">
+				<col width="*">
+				<col width="100">
+				<col width="110">
+			</colgroup>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>IsSolved</th>
+					<th>Content</th>
+					<th>Nickname</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:if test="${empty qnaList}">
+					<tr>
+						<td colspan="5">등록된 질문이 없습니다.</td>
+					</tr>
+				</c:if>
+				<c:if test="${not empty qnaList}">
+					<c:forEach var="list" items="${qnaList}" varStatus="k">
+						<tr>
+							<td>${totalRecord-((page-1) * recordPerPage + k.index)}</td>
+							<c:if test="${list.is_resolved eq 0}">
+								<td style="color:orangered;">미 해결</td>
+							</c:if>
+							<c:if test="${list.is_resolved eq 1}">
+								<td style="color:green;">해결 완료</td>
+							</c:if>
+							<td><a href="goQnAViewPage.plitche?board_qna_no=${list.board_qna_no}&page=${page}">${list.board_qna_title}</a></td>
+							<td>${list.user_nickname}</td>
+							<td>${list.created_at2}</td>
+						</tr>
+					</c:forEach>
+				</c:if>
+			</tbody>
+			
+			<tfoot>
+				<tr>
+					<td colspan="5">${paging}</td>
+				</tr>	
+			</tfoot>
+		</table>
 	</div>
-	<div id="barsBox4">
-	<!-- 질의응답 -->
-	</div>
+
 </div>
 
 <%@ include file="../template/footer.jsp" %>
