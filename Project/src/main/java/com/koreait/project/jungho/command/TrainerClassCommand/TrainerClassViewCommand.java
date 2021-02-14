@@ -24,6 +24,10 @@ public class TrainerClassViewCommand implements CommonVoidCommand {
 		// 모임에 관련된 값들을 받아오고 trainerClassDto에 저장
 		TrainerClassDto trainerClassDto = trainerClassDao.trainerClassView(meeting_no);
 		
+		System.out.println(trainerClassDto.getMeeting_max());
+		System.out.println(trainerClassDto.getMeeting_min());
+		
+		
 		// 준비물에 관련된 값들을 받아오고 list에 저장
 		List<MaterialsDto> list = trainerClassDao.materialsView(meeting_no);
 		

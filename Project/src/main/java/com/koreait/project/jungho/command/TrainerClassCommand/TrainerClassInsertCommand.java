@@ -23,6 +23,7 @@ public class TrainerClassInsertCommand implements CommonVoidCommand {
 		TrainerClassDao trainerClassDao = sqlSession.getMapper(TrainerClassDao.class);
 		
 		int user_no = Integer.parseInt(multipartRequest.getParameter("user_no"));
+		int temp_no = Integer.parseInt(multipartRequest.getParameter("temp_no"));
 		String meeting_title = multipartRequest.getParameter("meeting_title");
 		Date meeting_date =  Date.valueOf(multipartRequest.getParameter("meeting_date"));
 		Date start_gather_date = Date.valueOf(multipartRequest.getParameter("start_gather_date"));
@@ -56,8 +57,12 @@ public class TrainerClassInsertCommand implements CommonVoidCommand {
 		// meeting 테이블에 값 삽입 작업 
 		trainerClassDao.trainerClassInsert(makeTrainerClassDto);
 		
+		
 		// 새로 삽입된 meeting_no의 숫자를 구하기 위한 처리 ( max(meeting_no) 로 최근에 생성된 번호 가져온다. )
 		int meeting_no = trainerClassDao.findNewMeetingNo(user_no);
+		
+		// 임시번호의 모임번호를 커버사진이 들어간 모임번호로 업데이트, 구분자를 2로 업데이트
+		trainerClassDao.updatePhotoTable(meeting_no, temp_no);
 		
 		// 여러개 입력된 준비물 리스트를 저장할 수 있도록 for문으로 처리
 		

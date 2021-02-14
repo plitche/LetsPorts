@@ -8,22 +8,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 전체 목록을 뿌려주는 list 쿼리문 -->
 	<select id="trainerClassList" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
-		SELECT * 
-		FROM (SELECT ROWNUM RN, B1.*
-			FROM (SELECT * FROM
-						MEETING M1
-					FULL OUTER JOIN EXERCISE E1
-						ON E1.EXERCISE_NO = M1.EXERCISE_NO
-					FULL OUTER JOIN USERS U
-						ON M1.USER_NO = U.USER_NO
-					FULL OUTER JOIN LOCATION1 L1
-						ON M1.LOCATION1_NO = L1.LOCATION1_NO
-					FULL OUTER JOIN LOCATION2 L2
-						ON M1.LOCATION2_NO = L2.LOCATION2_NO
-					FULL OUTER JOIN PHOTO P
-						ON M1.MEETING_NO = P.PHOTO_REFERER_NO
-						WHERE MEETING_NO IS NOT NULL) B1 ) B2
-		WHERE B2.RN BETWEEN #{param1} AND #{param2}
+		SELECT *
+        FROM (SELECT M1.*, ROWNUM RN
+              FROM (SELECT *
+                    FROM MEETING
+                      WHERE ON_HIDE = 0
+                    ORDER BY MEETING_DATE DESC) M1
+              ) M2 
+               FULL OUTER JOIN USERS U 
+              ON M2.USER_NO = U.USER_NO
+              FULL OUTER JOIN EXERCISE E
+              ON M2.EXERCISE_NO = E.EXERCISE_NO
+              FULL OUTER JOIN PHOTO P
+              ON M2.meeting_no = P.photo_referer_no
+              FULL OUTER JOIN LOCATION1 L1
+              ON M2.LOCATION1_NO = L1.LOCATION1_NO
+              FULL OUTER JOIN LOCATION2 L2
+              ON M2.LOCATION2_NO = L2.LOCATION2_NO
+       WHERE RN BETWEEN #{param1} AND #{param2}
+         AND P.PHOTO_REFERER_SEP = 4
 	</select>
 	<!-- 모든 클래스 갯수 가져오기 -->
 	<select id="allClassCount" resultType="int">
@@ -104,11 +107,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO PHOTO VALUES (PHOTO_SEQ.NEXTVAL, 4, #{param1}, #{param2}, #{param3}, SYSDATE, 0)
 	</insert>
 	
+	<update id="updatePhotoTable">
+		UPDATE PHOTO
+		SET PHOTO_REFERER_SEP = 2,
+		PHOTO_REFERER_NO = #{param1}
+		WHERE PHOTO_REFERER_NO = #{param2}
+		AND PHOTO_REFERER_SEP = 3
+	</update>
+	
 	<!-- 보여주기 페이지를 위해 값 가져가는 쿼리문 -->
 	<select id="trainerClassView" parameterType="int" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
 		SELECT *
 		FROM MEETING M
-		    JOIN LOCATION1 L1
+		   JOIN LOCATION1 L1
 		    	 ON M.LOCATION1_NO = L1.LOCATION1_NO
 			JOIN LOCATION2 L2
 				 ON M.LOCATION2_NO = L2.LOCATION2_NO
@@ -119,9 +130,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			JOIN PHOTO P
 				 ON M.MEETING_NO = P.PHOTO_REFERER_NO
 		WHERE M.MEETING_NO = #{param1}
-		AND P.PHOTO_REFERER_SEP = 4
+	    AND P.PHOTO_REFERER_SEP = 4
 	</select>
-	
+		
 	<!-- materials 테이블에 저장된 내용을 가져가는 쿼리문 -->
 	<select id="materialsView" resultType="com.koreait.project.dto.MaterialsDto" parameterType="int">
 		SELECT *
@@ -146,6 +157,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM MEETING
 		WHERE MEETING_NO = #{param1}
 	</delete>
+	
+	<select id="getTrainerClassUpdate" parameterType="int" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
+		SELECT * 
+		FROM MEETING M1
+					FULL OUTER JOIN EXERCISE E1
+						ON E1.EXERCISE_NO = M1.EXERCISE_NO
+					FULL OUTER JOIN USERS U
+						ON M1.USER_NO = U.USER_NO
+					FULL OUTER JOIN LOCATION1 L1
+						ON M1.LOCATION1_NO = L1.LOCATION1_NO
+					FULL OUTER JOIN LOCATION2 L2
+						ON M1.LOCATION2_NO = L2.LOCATION2_NO
+					FULL OUTER JOIN PHOTO P
+						ON M1.MEETING_NO = P.PHOTO_REFERER_NO
+		WHERE MEETING_NO = #{param1}
+	</select>
 	
 	<!-- 트레이너 클래스의 meeting테이블의 내용들을 수정하는 쿼리문 -->
 	<update id="trainerClassUpdate" parameterType="com.koreait.project.jungho.dto.MakeTrainerClassDto">

@@ -13,6 +13,7 @@ import com.koreait.project.jungho.command.TagCommand.Tag6Command;
 import com.koreait.project.jungho.command.TagCommand.Tag7Command;
 import com.koreait.project.jungho.command.TagCommand.Tag8Command;
 import com.koreait.project.jungho.command.TrainerClassCommand.ExerciseMateListCommand;
+import com.koreait.project.jungho.command.TrainerClassCommand.GetUpdateContentCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.RelatedClassCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.SearchClassCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassDeleteCommand;
@@ -54,6 +55,11 @@ public class JungAppContext {
 	@Bean
 	public TrainerClassDeleteCommand trainerClassDeleteCommand() {
 		return new TrainerClassDeleteCommand();
+	}
+	
+	@Bean
+	public GetUpdateContentCommand getUpdateContentCommand() {
+		return new GetUpdateContentCommand();
 	}
 	
 	@Bean

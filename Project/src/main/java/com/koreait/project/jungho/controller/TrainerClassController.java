@@ -28,6 +28,7 @@ import com.koreait.project.jungho.command.TagCommand.Tag6Command;
 import com.koreait.project.jungho.command.TagCommand.Tag7Command;
 import com.koreait.project.jungho.command.TagCommand.Tag8Command;
 import com.koreait.project.jungho.command.TrainerClassCommand.ExerciseMateListCommand;
+import com.koreait.project.jungho.command.TrainerClassCommand.GetUpdateContentCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.RelatedClassCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.SearchClassCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassDeleteCommand;
@@ -115,9 +116,11 @@ public class TrainerClassController {
 	}
 	
 	// view페이지에서 수정페이지로 넘어가는 역할
-	@RequestMapping(value="TrainerClassViewUpdatePage.leo", method=RequestMethod.POST)
-	public String TrainerClassViewUpdatePage(TrainerClassDto trainerClassDto, Model model) {
-		model.addAttribute("trainerClassDto", trainerClassDto);
+	@RequestMapping(value="TrainerClassViewUpdatePage.leo", method=RequestMethod.GET)
+	public String TrainerClassViewUpdatePage(@RequestParam("meeting_no") int meeting_no, Model model) {
+		model.addAttribute("meeting_no", meeting_no);
+		GetUpdateContentCommand getUpdateContentCommand = ctx.getBean("getUpdateContentCommand", GetUpdateContentCommand.class);
+		getUpdateContentCommand.execute(sqlSession, model);
 		return "jungPages/TrainerClassViewUpdatePage";
 	}
 	
@@ -125,7 +128,6 @@ public class TrainerClassController {
 	// 수정명령역할
 	@RequestMapping(value="TrainerClassViewUpdate.leo", method=RequestMethod.POST)
 	public String TrainerClassViewUpdate(MultipartHttpServletRequest multipartRequest, Model model) {
-		
 		model.addAttribute("multipartRequest", multipartRequest);
 		TrainerClassUpdateCommand trainerClassUpdateCommand = ctx.getBean("trainerClassUpdateCommand", TrainerClassUpdateCommand.class);
 		trainerClassUpdateCommand.execute(sqlSession, model);
