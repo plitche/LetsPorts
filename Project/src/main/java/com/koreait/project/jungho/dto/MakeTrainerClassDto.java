@@ -16,7 +16,7 @@ public class MakeTrainerClassDto {
 	private int meeting_no;
 	private int user_no;
 	private String meeting_title;
-	private String meeting_content;
+	private String content;
 	private Date meeting_date;
 	private Date start_gather_date;
 	private Date end_gather_date;

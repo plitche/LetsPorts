@@ -2,6 +2,19 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- jquery, fontawesome -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://kit.fontawesome.com/07b67006ce.js"></script>
+        
+<!-- css파일 및 js파일 -->
+<link rel="stylesheet" href="resources/wooki/css/textEditor.css">
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('div[contenteditable="true"]').attr('contenteditable', 'false');
+        $('.btn').hide();
+    });
+</script>
     
 <jsp:include page="../template/header.jsp" />
 <link type="text/css" rel="stylesheet" href="resources/style/jung/TrainerClassViewPage.css" >
@@ -29,9 +42,9 @@
     <form method="post">
     
     		<br/><br/><br/>
-    	   <div class="TrainerClassView_part1"> 
+    	   <div class="TrainerClassView_part1" style="width:1080px; heigth:auto;"> 
     	   
-		    	   <div class="TrainerClassInfo">
+		    	   <div class="TrainerClassInfo" >
 		    	   
 					   <h3>${trainerClassDto.meeting_title}</h3><br/><br/>
 					   모임일 : ${trainerClassDto.meeting_date}<br/><br/>
@@ -45,7 +58,10 @@
 						   	${materialsDto.materials_name}
 					   </c:forEach>
 					   <br/><br/>
-					   상세내용 : ${trainerClassDto.meeting_content}<br/><br/>
+					   <div>상세내용</div>
+					   <div id="content" >
+   							 ${trainerClassDto.meeting_content}
+						</div>
 		    	   
 		    	   </div>
 				   

@@ -171,48 +171,7 @@ $(document).on('click', '#updateMsgBtn', function(){
 
 </script>
 
-<!-- 모임 -->
-<script type="text/javascript">
-	$(document).on('click', '#meeting', function(){
- 	   let user_no = '${loginUser.user_no}';
-	   let obj = {"user_no" : user_no};
-		
- 	   $.ajax({
-		  	url : "meetingInfo.hey",
-			type : "post",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			dataType : "json",
-	        success: function (data) {
-	        	console.log('성공');
-	        },
-	        error: function() {
-	        	Swal.fire('실패');
-	        }
-       });
-	});
-</script>
 
-<!-- 질의응답 -->
-<script type="text/javascript">
-	$(document).on('click', '#meeting', function(){
-		
-		$.ajax({
-		  	url : "meetingInfo.hey",
-			type : "post",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			dataType : "json",
-	        success: function (data) {
-	        	console.log('성공');
-	        	$('#barsBox').append('<table>')
-	        },
-	        error: function() {
-	        	Swal.fire('실패');
-	        }
-       });
-	});
-</script>
 
 
 	<h3>마이페이지</h3>
@@ -235,7 +194,7 @@ $(document).on('click', '#updateMsgBtn', function(){
 		<h3>${loginUser.user_nickname}님</h3>
 			<!-- 모달 창으로 본인 인증 -->
 		<a href="#" id="modal_btn">정보 수정</a><br/>
-		별점<br/><br/><br/>
+		<br/><br/><br/>
 			<div class="black_bg"></div>
 			<div class="modal_wrap">
 				<p class="modal_close" ><a href="#">X</a></p>
@@ -250,7 +209,7 @@ $(document).on('click', '#updateMsgBtn', function(){
 		<div class="interestBtns">
 			<a href="WishClassListPage.leo?user_no=${loginUser.user_no}" ><i class="fas fa-heart fa-lg"></i><br/>관심모임</a>
 			<a href="WishTrainerListPage.leo?user_no=${loginUser.user_no}"><i class="fas fa-id-badge fa-lg"></i><br/>관심 트레이너</a>
-			<a href="#"><i class="far fa-file-alt fa-lg"></i><br/>관심 노하우</a>		</div>
+			<!-- <a href="#"><i class="far fa-file-alt fa-lg"></i><br/>관심 노하우</a> -->		</div>
 		<br/>
 		<div class="status">
 			상태 메세지<br/>
@@ -259,82 +218,32 @@ $(document).on('click', '#updateMsgBtn', function(){
 			<input type="button" value="수정하기" id="updateMsgBtn" />
 		</div>
 	</div>
+
 </div>
-		
+
+
+<script src="resources/joon/js/wookiClient.js"></script>
+<link type="text/css" rel="stylesheet" href="resources/joon/css/wookiClient.css" >
+<script>
+	$(document).ready(function() {
+		$('.preparingMeeting').click(function() {
+			fn_preparingMeetingForm();
+		});
+	});
+</script>
+
+<input type="hidden" name="user_no" id="user_no" value="${loginUser.user_no}" />
 
 <!-- 탭 이동 형식 -->
-<div class="myPagetabBars">
-	<ul>
-		<li><a id="meeting" href="#" >모임</a></li>
-		<li><a href="#">게시물</a></li>
-		<li><a href="#">리뷰관리</a></li>
-		<li><a id="Q&A" href="#">질의응답</a></li>
-	</ul>
-	<div id="barsBox">
-		<!-- 모임 -->
-		<!-- <div id="makeMeeting">
-			<div class="makeMeetings">
-				제목 : 
-				참여자 : (최대 / 최소)
-				참여희망자 : 	명
-				삭제 , 수정
-			</div>
-		</div>
-		<div id="plannedMeeting">
-			<div class="plannedMeetings"></div>
-		</div>
-		<div id="pastMeeting">
-			<div class="pastMeetings"></div>
-		</div> -->
-		<table id="userQnA">
-			<colgroup>
-				<col width="60">
-				<col width="100">
-				<col width="*">
-				<col width="100">
-				<col width="110">
-			</colgroup>
-			<thead>
-				<tr>
-					<th>No.</th>
-					<th>IsSolved</th>
-					<th>Content</th>
-					<th>Nickname</th>
-					<th>Date</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:if test="${empty qnaList}">
-					<tr>
-						<td colspan="5">등록된 질문이 없습니다.</td>
-					</tr>
-				</c:if>
-				<c:if test="${not empty qnaList}">
-					<c:forEach var="list" items="${qnaList}" varStatus="k">
-						<tr>
-							<td>${totalRecord-((page-1) * recordPerPage + k.index)}</td>
-							<c:if test="${list.is_resolved eq 0}">
-								<td style="color:orangered;">미 해결</td>
-							</c:if>
-							<c:if test="${list.is_resolved eq 1}">
-								<td style="color:green;">해결 완료</td>
-							</c:if>
-							<td><a href="goQnAViewPage.plitche?board_qna_no=${list.board_qna_no}&page=${page}">${list.board_qna_title}</a></td>
-							<td>${list.user_nickname}</td>
-							<td>${list.created_at2}</td>
-						</tr>
-					</c:forEach>
-				</c:if>
-			</tbody>
-			
-			<tfoot>
-				<tr>
-					<td colspan="5">${paging}</td>
-				</tr>	
-			</tfoot>
-		</table>
+<div id="contentContainer">
+	<div class="flex">
+		<div class="preparingMeeting">참여예정 모임</div>
+		<div class="pastMeeting">지난 모임</div>
+		<div class="meetingPar">모임 참여자 관리</div>
+		<div class="qna">질문과답변</div>
 	</div>
+	<div id="contentBox"></div>
+</div>	
 
-</div>
 
 <%@ include file="../template/footer.jsp" %>

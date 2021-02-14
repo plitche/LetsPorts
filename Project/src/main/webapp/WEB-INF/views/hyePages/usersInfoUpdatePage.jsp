@@ -15,15 +15,10 @@
 
 
 	$(document).ready(function(){
-		deleteAccount();
 		checkInterest();
 	});
 	
 	// 버튼 클릭 후 실행될 함수
-	function fn_backMyPage(f){
-		f.action = "myPage_commonPart.hey";
-		f.submit();	
-	}
 	function fn_updateAccount(f){
 		f.action = "updateAccount.hey";
 		f.submit();
@@ -34,34 +29,6 @@
 			$('input:checkbox[name="exercise_no"][value="' + userInterest.exercise_no + '"]').prop('checked', true);
 		});
 	}
-	
-	
-	// 회원 탈퇴
-	function deleteAccount(){
-		$('#deleteAccount').click(function(){
-			var user_no = '${loginUser.user_no}';
-			var obj = {"user_no" : user_no};
-			console.log(email);
-			
-			$.ajax({
-				url : "deleteAccount.hey",
-				type : "post",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				dataType : "json",
-				success : function(data) {
-					console.log('됐나?')
-					if (data.result == 1) {
-						alert('그동안 감사했습니다! 다음에 또 뵙길 바랍니다!');
-					}
-				},
-				error : function() {
-					console.log("실패");
-				}
-			});
-		});
-	}
-	
 
 </script>
 	<h3>회원정보 수정</h3>
@@ -83,14 +50,14 @@
 				<br />
 			</div>
 
-		<!-- 비밀번호 -->
+			<!-- 비밀번호 -->
 			<div class="form-group">
 				<label for="password">비밀번호 </label><br/>
 				<input type="password" class="form-control" id="password" name="password" /><br/>
 				<div class="check_font" id="pw_check"></div>
 			</div>
 			
-		<!-- 비밀번호 확인 -->
+			<!-- 비밀번호 확인 -->
 			<div class="form-group">
 				<label for="re_password">비밀번호 확인 </label><br/>
 				<input type="text" class="form-control" id="re_password" name="re_password" /><br/>
@@ -98,11 +65,13 @@
 			</div>
 			
 			<!-- 생년월일 -->
-			<div class="form-group">
-				<label for="password">생년월일</label><br/>
-				<span>${loginUser.birth_year}년 ${loginUser.birth_month}월 ${loginUser.birth_day}일</span>
-			</div>
-			<br/>
+			<c:if test="${loginUser.birth_year ne ''}">
+				<div class="form-group">
+					<label for="password">생년월일</label><br/>
+					<span>${loginUser.birth_year}년 ${loginUser.birth_month}월 ${loginUser.birth_day}일</span>
+				</div>
+				<br/>
+			</c:if>
 			
 			<!-- 주소 -->
 			<div class="form-group">
@@ -144,9 +113,8 @@
 			
 			</div>
 			<hr />
-			<input type="button" value="회원탈퇴" id="deleteAccount" /> 
 			<input type="button" value="수정완료" id="updateAccount" /> 
-			<input type="button" value="돌아가기" id="backMyPage" onclick="fn_backMyPage(this.form)" /> 
+			<input type="button" value="돌아가기" id="backMyPage" onclick="location.href='myPage_commonPart.hey'" /> 
 	
 		</form>
 	</div>

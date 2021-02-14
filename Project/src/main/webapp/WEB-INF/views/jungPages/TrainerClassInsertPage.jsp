@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <!DOCTYPE html>
 <jsp:include page="../template/header.jsp" />
 <link type="text/css" rel="stylesheet" href="resources/style/jung/TrainerClassInsertPage.css" >
 <!-- jquery, fontawesome -->
@@ -11,33 +12,43 @@
 <script src="resources/wooki/js/textEditor.js"></script>
 
 <script type="text/javascript">
+
     $(document).ready(function() {
         fn_insertTempBoard($('#user_no').val());
         divToBr();
         deleteContent();
         fn_filesend();
     });
+ 
+</script>
+
+<script>
+
+	function fn_TrainerClassInsert(f) {
+		fn_submit();
+	}
+
 </script>
 
 
 	<div class="TrainerClassInsert_all">
-		<form action="TrainerClassInsert.leo"  method="post" enctype="multipart/form-data">
+		<form action="TrainerClassInsert.leo"  id="insertForm" method="post" enctype="multipart/form-data">
 	
 			<span style="font-size:14px; font-weight: 900; width: 300px; height: 100px; background: #2ed8b6;">새로운 모임 만들기</span>
 			<div style="width: 1000px; height: 0.5px; background: black; margin:25px 0px;"></div>
-			<div>
-			
+			<div class="blank_bottom">
+			 
 				<span id="classname">클래스명</span>
 				<div class="classname"><input type="text" name="meeting_title" placeholder="ex) 여의도에서 사이클타요!" style="font-size: 12px;"/></div>
 				
 			</div>
-			<div>
+			<div class="blank_bottom">
 			
 				<span id="meetingdate">모임일</span>
 				<span class="meetingdate"><input type="date" name="meeting_date"  style="font-size: 12px;"/></span>
 				
 			</div>
-			<div>
+			<div class="blank_bottom">
 			
 				<span class="TrainerClassGatherDate">모집기간</span>
 				<span>
@@ -48,7 +59,7 @@
 				</span>
 			
 			</div>
-			<div>
+			<div class="blank_bottom">
 			
 				<span id="gather_MinAndMax">참여인원</span>
 				<span>
@@ -57,7 +68,7 @@
 				</span>
 			
 			</div>
-			<div>
+			<div class="blank_bottom">
 			
 				<span id="exercise_name">운동종목</span>
 				<span id="exercise_name1">
@@ -76,7 +87,7 @@
 				</span>
 			
 			</div>
-			<div>
+			<div class="blank_bottom">
 				<span id="meeting_location">모임장소</span>
 				<select name="location1_no" id="location1" style="font-size: 12px;">
 					<option value="">시도</option>
@@ -88,16 +99,20 @@
 					
 				</select>
 			</div>
-			<div>
-			
-				<span id="detail_location">상세주소</span>
-				<span  id="detail_location1"><input type="text" name="detail_location" placeholder="ex) 경기도 서울시 여의방로 호수공원 제1주차장" style="font-size: 12px;"/></span>
-			
+			<div style="display:flex;" class="blank_bottom">
+				<div>
+					<span id="detail_location">상세주소</span>
+					<span  id="detail_location1"><input type="text" name="detail_location" placeholder="ex) 경기도 서울시 여의방로 호수공원 제1주차장" style="font-size: 12px;"/></span>
+				</div>
+				<input type="hidden" id="detailLocation" name="detail_location"/>	
 			</div>
-			<input type="hidden" id="detailLocation" name="detail_location"/>			
-			<div id="map" style="width:500px;height:400px;"></div>
+
+			<div style="margin-left: 105px; font-style:10px;">정확한 위치를 위해 SPOT를 찍어주세요!</div>
+			<div id="map" style="width:500px;height:300px; margin-left: 105px; margin-bottom: 50px;"></div>
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74162e293be31e9dc5e8e7b8c8e0be9c"></script>
 			<script>
+				
+			
 				var container = document.getElementById('map');
 				var options = {
 					center: new kakao.maps.LatLng(37.567301, 126.978946),
@@ -132,7 +147,7 @@
 				});
 			</script>
 			
-			<div>
+			<div class="blank_bottom">
 			
 				<span id="detail_location">준비물</span>
 				<span class="materials">
@@ -143,36 +158,36 @@
 				
 			</div>
 			
-			<div class="coverPhoto_all">
+			<div class="coverPhoto_all" style="margin-bottom:25px;">
 				<span  id="coverPhoto_title">커버사진</span>
 				 <span class="st_team_logo input_search_ic">
 					 
-					 <input type="file" id="coverPhoto" class="upload-hidden" style="font-size: 12px;">
+					 <input type="file" id="coverPhoto" class="upload-hidden" name="coverphoto" style="font-size: 12px;">
                  </span>
             </div>
             
             <script>
             </script>
-			
-			<div>
+					<!-- hidden -->
+				    <input type="hidden" name="temp_no" id="temp_no" />
+				    <input type="hidden" name="user_no" id="user_no" value="${loginUser.user_no}" />
+			<div class="blank_bottom">
 			
 				<div id="detail_content">상세내용</div>
-				<form method="post" id="insertForm" action="">
-					    <input type="hidden" name="temp_no" id="temp_no" />
-					    <input type="hidden" name="user_no" id="user_no" value="${loginUser.user_no}" />
-				</form>
-					<div id="content"></div>
-					<i class="far fa-plus-square btn" onclick="fn_addContent()"></i>
-					<label>
-					    <input style="display: none" type="file" id="uploadFile" name="uploadFile" accept="image/*" />
-					    <i class="far fa-images btn"></i>
-					</label>
-					<input type="button" value="게시글 작성"  onclick="fn_submit()" />
-					
-					
+					<div style="margin-bottom:10px;">
+							<span>
+								<i class="far fa-plus-square btn" onclick="fn_addContent()"></i>
+								<label>
+								    <input style="display: none" type="file" id="uploadFile" name="uploadFile" accept="image/*" />
+								    <i class="far fa-images btn"></i>
+								</label>
+							</span>
+							<span style="float: right; color: darkgray;">텍스트를 입력하시려면 +버튼, 이미지를 첨부하시려면 사진버튼을 클릭해주세요~!</span>
+					</div>
+					<div id="content" style="border: 1px solid #d8d8d8;"></div>
 					<div id="submit_Btns">
-						<input type="hidden" name="user_no" value="${loginUser.user_no}"/>
-						<button id="submit_Btn">작성</button><input type="button" value="취소" id="cancel_Btn" onclick="location.href='TrainerClassListPage.leo'"/>
+						<input type="button"  id="submit_Btn" value="작성"  onclick="fn_TrainerClassInsert(this.form)" />
+						<input type="button" value="취소" id="cancel_Btn" onclick="location.href='TrainerClassListPage.leo'"/>
 					</div>
 								
 			</div>
@@ -290,7 +305,7 @@ $(document).ready(function () {
 
 	$(document).on('click', '.plusBtn', function(){
 		$('<span>').addClass('material_content')
-		.append($('<input type="text" name="materials_name" id="materials_box" placeholder="어떤게 필요할까요?"/>'))
+		.append($('<input type="text" name="materials_name" id="materials_box" placeholder="필요한 준비물?"/>'))
 		.append($('<input type="button" value="삭제" id="DeleteBtn"/>'))
 		.appendTo('.materials');
 	});
@@ -301,26 +316,8 @@ $(document).ready(function () {
 		$(this).parent('span').find('input:button[value="삭제"]').remove();
 	});
 	
-	
-	
-		
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
