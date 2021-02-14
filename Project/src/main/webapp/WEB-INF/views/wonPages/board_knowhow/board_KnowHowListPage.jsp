@@ -51,8 +51,8 @@
 		<h3>게시글 목록</h3>
 	
 	
-	<div class = "search" >
-		<input type = "text" name = "keyworld" id = "keyword" placeholder = "검색어를 입력하세요." />
+	<div class = "search">
+		<input type = "text" name = "keyworld" id = "keyworld" placeholder = "검색어를 입력하세요." />
 		<button type = "submit">검색</button>
 	</div><br/><br/>
 	

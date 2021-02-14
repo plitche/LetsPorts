@@ -46,6 +46,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE knowhow_no = #{param1}
 	</delete>
 	
+	<!-- 뷰페이지에 들어왔을때 조회수 증가 -->
+	<update id = "addhit" parameterType="int">
+		UPDATE BOARD_KNOWHOW
+		SET KNOWHOW_HIT = KNOWHOW_HIT + 1
+		WHERE knowhow_no = #{param1}
+	</update>
 	
 	
 </mapper>

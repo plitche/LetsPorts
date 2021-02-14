@@ -40,3 +40,65 @@
         height: 100%;
         z-index: 3;
     }
+    
+    /* 로그인 입력 폼 css*/
+
+	/*
+	* {
+		margin: 5px;
+		padding: 0px;
+		text-align: center;
+		text-decoration: none;
+		
+	}
+	
+	
+	body > h3 { 
+		font-size: 30px;
+		margin-bottom: 40px;
+	}
+	
+	
+	.login_text {
+		width: 200px;
+		top: 50%;
+		text-align: center;
+		height: 30px;
+		margin-bottom: 10px;
+		box-sizing: border-box;
+		
+	}
+	
+	
+	.login_btns {
+		display: inline-block;
+		width: 200px;
+		font-weight: 400;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: middle;
+		border: 1px solid black;
+		box-sizing: border-box;
+		height: 40px;
+		border-radius: 3px; 
+		font-weight: bold;		
+		background: silver;
+	}
+	
+	p > a {
+		color: #7B7B7B;
+		cursor: pointer;
+		text-decoration: underline;
+	}
+	
+	div a {
+		color: #7B7B7B;
+		cursor: pointer;
+		text-decoration: underline;
+	}
+	
+	div > input > login_btns {
+		backgound: #41617B;
+	}
+	
+	*/
