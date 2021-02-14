@@ -1,6 +1,5 @@
 package com.koreait.project.yongsoo.command.trainerMeeting;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;

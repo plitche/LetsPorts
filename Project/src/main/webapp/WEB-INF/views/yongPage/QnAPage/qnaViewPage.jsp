@@ -112,10 +112,17 @@
 	function qnaCommentListTable(list) {
 		$('#commentContent').empty();
 		$.each(list, function(idx, qnaComment){
+			var showProfile = null;
+			if (qnaComment.profile_photo == null) {
+				showProfile = $('<div class="profile">').html('<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">');
+			} else {
+				showProfile = $('<div class="profile">').html('<img alt="'+qnaComment.profile_photo+'" src="resources/storage/'+qnaComment.profile_photo+'">');		
+			}
+			
 			if ('${loginUser.user_no}' == qnaComment.user_no) {
 				$('#commentContent')
 				.append( $('<div class="comment-container" >')
-						.append( $('<div class="profile">').html('<img alt="'+qnaComment.profile_photo+'" src="resources/storage/'+qnaComment.profile_photo+'">') )
+					.append(showProfile)
 					.append( $('<div class="comment-content">')
 						.append( $('<p>').html(qnaComment.user_nickname) )
 						.append( $('<p class="'+qnaComment.comment_no+'nthComment">').html(qnaComment.comment_content) )
@@ -131,7 +138,7 @@
 			} else {
 				$('#commentContent')
 				.append( $('<div class="comment-container">')
-					.append( $('<div class="profile">').html('<img alt="'+qnaComment.profile_photo+'" src="resources/storage/'+qnaComment.profile_photo+'">') )
+					.append(showProfile)
 					.append( $('<div class="comment-content">')
 						.append( $('<p>').html(qnaComment.user_nickname) )
 						.append( $('<p>').html(qnaComment.comment_content) )
@@ -359,7 +366,12 @@
 	<tbody>
 		<tr>
 			<td rowspan="2">
-				<img alt="${qnaTemDto.profile_photo}" src="resources/storage/${qnaTemDto.profile_photo}">
+				<c:if test="${qnaTemDto.profile_photo ne null}">
+					<img alt="${qnaTemDto.profile_photo}" src="resources/storage/${qnaTemDto.profile_photo}">
+				</c:if>
+				<c:if test="${qnaTemDto.profile_photo eq null}">
+					<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">
+				</c:if>
 			</td>
 			<td>
 				<c:if test="${qnaTemDto.user_separator eq 0}">관리자</c:if>

@@ -95,7 +95,7 @@
 		<col width="60">
 		<col width="100">
 		<col width="*">
-		<col width="100">
+		<col width="150">
 		<col width="110">
 	</colgroup>
 	<thead>
@@ -123,7 +123,7 @@
 					<c:if test="${list.is_resolved eq 1}">
 						<td style="color:green;">해결 완료</td>
 					</c:if>
-					<td><a href="goQnAViewPage.plitche?board_qnapage_no=${list.board_qna_no}&page=${page}">${list.board_qna_title}</a></td>
+					<td><a href="goQnAViewPage.plitche?board_qna_no=${list.board_qna_no}&page=${page}">${list.board_qna_title}</a></td>
 					<td>${list.user_nickname}</td>
 					<td>${list.created_at2}</td>
 				</tr>

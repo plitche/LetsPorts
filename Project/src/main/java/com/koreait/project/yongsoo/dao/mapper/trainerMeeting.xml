@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		              FROM MEETING
 		              WHERE USER_NO = #{param2}
 		                AND ON_HIDE = 0
-		              ORDER BY MEETING_NO DESC) M1
+		              ORDER BY MEETING_DATE DESC) M1
 		        ) M2 
 		  	    FULL OUTER JOIN USERS U 
 		        ON M2.USER_NO = U.USER_NO
@@ -21,10 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        FULL OUTER JOIN PHOTO P
 		        ON M2.meeting_no = P.photo_referer_no
     		    FULL OUTER JOIN LOCATION1 L1
-		        ON U.LOCATION1_NO = L1.LOCATION1_NO
+		        ON M2.LOCATION1_NO = L1.LOCATION1_NO
 		        FULL OUTER JOIN LOCATION2 L2
-		        ON U.LOCATION2_NO = L2.LOCATION2_NO
+		        ON M2.LOCATION2_NO = L2.LOCATION2_NO
 		 WHERE RN BETWEEN (#{param1}*6-5) AND (#{param1}*6)
+		   AND P.PHOTO_REFERER_SEP = 4
 	</select>
 	<select id="totalMeetingCount" parameterType="int" resultType="int">
 		SELECT COUNT(*)
@@ -44,6 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		         FULL OUTER JOIN PHOTO P
 		         ON M.meeting_no = P.photo_referer_no
 		 WHERE M.MEETING_NO = #{meeting_no}
+		   AND P.PHOTO_REFERER_SEP = 4
 	</select>
 	<select id="findMaterialsInfo" parameterType="int" resultType="com.koreait.project.dto.MaterialsDto">
 		SELECT *
@@ -92,13 +94,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</insert>
  	
  	
-	<insert id="createMeeting" parameterType="String">
+	<insert id="createMeeting" parameterType="com.koreait.project.yongsoo.dto.CreateNewMeetingDto">
 		INSERT INTO MEETING
 		VALUES (MEETING_SEQ.NEXTVAL, #{user_no}, #{meeting_max}, #{meeting_min}, #{exercise_no},
 		    	SYSDATE, #{start_gather_date}, #{end_gather_date}, #{meeting_date}, #{location1_no},
 		    	#{location2_no}, #{meeting_title}, #{meeting_content}, 0, null, 0, #{detail_location}, 0)
 	</insert>
-	<select id="findMeetingNo" resultType="int">
+	<select id="findMeetingNo" resultType="int" parameterType="int">
 		SELECT MAX(MEETING_NO)
 		  FROM MEETING
 		 WHERE USER_NO = #{user_no}
@@ -109,7 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<insert id="insertPhotoOfMeeting">
 		INSERT INTO PHOTO
-		VALUES (photo_seq.NEXTVAL, 2, #{param1}, #{param2}, #{param3}, SYSDATE, 0)
+		VALUES (photo_seq.NEXTVAL, 4, #{param1}, #{param2}, #{param3}, SYSDATE, 0)
 	</insert>
 	<insert id="insertMaterialList">
 		INSERT INTO MATERIALS
@@ -121,13 +123,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		SELECT *
 		  FROM USERS U FULL OUTER JOIN MEETING M 
 		    ON M.USER_NO = U.USER_NO
-		       FULL OUTER JOIN EXERCISE E
-		  	   ON M.EXERCISE_NO = E.EXERCISE_NO
-		         FULL OUTER JOIN PHOTO P
-		         ON M.meeting_no = P.photo_referer_no
+		   FULL OUTER JOIN EXERCISE E
+		  	ON M.EXERCISE_NO = E.EXERCISE_NO
+		   FULL OUTER JOIN PHOTO P
+		    ON M.meeting_no = P.photo_referer_no
+  		   FULL OUTER JOIN LOCATION1 L1
+		    ON M.LOCATION1_NO = L1.LOCATION1_NO
+		   FULL OUTER JOIN LOCATION2 L2
+		    ON M.LOCATION2_NO = L2.LOCATION2_NO
  		 WHERE M.USER_NO = #{param1}
 		   AND M.MEETING_NO != #{param2} 
 		   AND M.ON_HIDE = 0
+		   AND P.PHOTO_REFERER_SEP = 4
+		   AND M.END_GATHER_DATE > SYSDATE
+		 ORDER BY END_GATHER_DATE
 	</select>
 
  	
@@ -135,13 +144,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		SELECT *
 		  FROM USERS U FULL OUTER JOIN MEETING M 
 		    ON M.USER_NO = U.USER_NO
-		       FULL OUTER JOIN EXERCISE E
-		       ON M.EXERCISE_NO = E.EXERCISE_NO
-    		     FULL OUTER JOIN PHOTO P
-		         ON M.meeting_no = P.photo_referer_no
+		  FULL OUTER JOIN EXERCISE E
+		    ON M.EXERCISE_NO = E.EXERCISE_NO
+    	  FULL OUTER JOIN PHOTO P
+		    ON M.meeting_no = P.photo_referer_no
+		  FULL OUTER JOIN LOCATION1 L1
+		    ON M.LOCATION1_NO = L1.LOCATION1_NO
+		  FULL OUTER JOIN LOCATION2 L2
+		    ON M.LOCATION2_NO = L2.LOCATION2_NO
 		 WHERE M.USER_NO != #{param1}
 		   AND M.EXERCISE_NO = #{param2}
 		   AND M.ON_HIDE = 0
+   		   AND P.PHOTO_REFERER_SEP = 4
+   		   AND M.END_GATHER_DATE > SYSDATE
+   		 ORDER BY END_GATHER_DATE
 	</select>
 
  		
