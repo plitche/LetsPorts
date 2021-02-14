@@ -43,7 +43,7 @@
     
     /* 로그인 입력 폼 css*/
 
-	/*
+	
 	* {
 		margin: 5px;
 		padding: 0px;
@@ -82,7 +82,7 @@
 		height: 40px;
 		border-radius: 3px; 
 		font-weight: bold;		
-		background: silver;
+		background: orange;
 	}
 	
 	p > a {
@@ -91,14 +91,38 @@
 		text-decoration: underline;
 	}
 	
-	div a {
+	div  a {
 		color: #7B7B7B;
 		cursor: pointer;
 		text-decoration: underline;
 	}
 	
-	div > input > login_btns {
+	div > input > .login_btns {
 		backgound: #41617B;
 	}
 	
-	*/
+	div > input > .login_btns1 {
+		background-color: rgb(65, 103, 178);
+		border: 0px;
+		font-size: 14px;
+		height: 48px;
+		width: 100%;
+	}
+	
+	div > input > login_btns2 {
+		width: 300px;
+		height: 44px;
+		border-radius: 5px;
+		margin-bottom: 8px;
+		font-size: 12px;
+		color: #4a4a4a;
+		background-color: #fff115;
+		box-shadow: 0 2px 1px 0 rgba(155, 155, 155, 0.5);
+		display: flex;
+
+
+		
+		
+	}
+	
+	
