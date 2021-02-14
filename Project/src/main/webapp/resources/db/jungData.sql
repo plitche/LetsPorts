@@ -33,16 +33,72 @@ INSERT INTO TRAINER_INFO values (4, 13, 6, '김나현', '트레이너자격증',
 INSERT INTO TRAINER_INFO values (5, 14, 7, '천현정', '트레이너자격증', '고양센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
 INSERT INTO TRAINER_INFO values (6, 15, 8, '이병헌', '트레이너자격증', '영등포센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
 
-
+select * from photo;
+select * from MEETING;
 select * from users;
 delete from scrap;
 delete from users;
 insert into scrap values (1, )
-
+DELETE FROM MEETING WHERE MEETING_NO BETWEEN 1 AND 15;
 insert into scrap values(1, 1, 1, 4, null, SYSDATE);
 insert into scrap values(2, 2, 1, 3, null, SYSDATE);
 		   
 							     
 							     
-
+SELECT *
+		FROM MEETING M
+		   JOIN LOCATION1 L1
+		    	 ON M.LOCATION1_NO = L1.LOCATION1_NO
+			JOIN LOCATION2 L2
+				 ON M.LOCATION2_NO = L2.LOCATION2_NO
+			JOIN EXERCISE E
+			 	 ON M.EXERCISE_NO = E.EXERCISE_NO
+			JOIN USERS U
+				 ON M.USER_NO = U.USER_NO
+			JOIN PHOTO P
+				 ON M.MEETING_NO = P.PHOTO_REFERER_NO
+		WHERE M.MEETING_NO = 10
+	    AND P.PHOTO_REFERER_SEP = 4
+	    
+	    
+	    SELECT * 
+		FROM (SELECT ROWNUM RN, B1.*
+			FROM (SELECT * FROM
+						MEETING M1
+					FULL OUTER JOIN EXERCISE E1
+						ON E1.EXERCISE_NO = M1.EXERCISE_NO
+					FULL OUTER JOIN USERS U
+						ON M1.USER_NO = U.USER_NO
+					FULL OUTER JOIN LOCATION1 L1
+						ON M1.LOCATION1_NO = L1.LOCATION1_NO
+					FULL OUTER JOIN LOCATION2 L2
+						ON M1.LOCATION2_NO = L2.LOCATION2_NO
+					FULL OUTER JOIN PHOTO P
+						ON M1.MEETING_NO = P.PHOTO_REFERER_NO
+						WHERE MEETING_NO IS NOT NULL) B1 ) B2
+		WHERE B2.RN BETWEEN 1 AND 100
+		AND PHOTO_REFERER_SEP = 4;
+		
+		
+		
+		
+		SELECT *
+        FROM (SELECT M1.*, ROWNUM RN
+              FROM (SELECT *
+                    FROM MEETING
+                      WHERE ON_HIDE = 0
+                    ORDER BY MEETING_DATE DESC) M1
+              ) M2 
+               FULL OUTER JOIN USERS U 
+              ON M2.USER_NO = U.USER_NO
+              FULL OUTER JOIN EXERCISE E
+              ON M2.EXERCISE_NO = E.EXERCISE_NO
+              FULL OUTER JOIN PHOTO P
+              ON M2.meeting_no = P.photo_referer_no
+              FULL OUTER JOIN LOCATION1 L1
+              ON M2.LOCATION1_NO = L1.LOCATION1_NO
+              FULL OUTER JOIN LOCATION2 L2
+              ON M2.LOCATION2_NO = L2.LOCATION2_NO
+       WHERE RN BETWEEN 1 AND 100
+         AND P.PHOTO_REFERER_SEP = 4
 

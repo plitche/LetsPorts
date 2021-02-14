@@ -39,9 +39,14 @@ public class TrainerClassUpdateCommand implements CommonVoidCommand {
 		String meeting_content = multipartRequest.getParameter("content");
 		String[] materialList = multipartRequest.getParameterValues("materials_name");
 		
+		System.out.println(meeting_title);
+		
+		System.out.println(meeting_no + "죽을래");
+		
 		MakeTrainerClassDto makeTrainerClassDto = new MakeTrainerClassDto();
 		
 		makeTrainerClassDto.setUser_no(user_no);
+		makeTrainerClassDto.setMeeting_no(meeting_no);
 		makeTrainerClassDto.setMeeting_title(meeting_title);
 		makeTrainerClassDto.setMeeting_date(meeting_date);
 		makeTrainerClassDto.setStart_gather_date(start_gather_date);
@@ -52,7 +57,9 @@ public class TrainerClassUpdateCommand implements CommonVoidCommand {
 		makeTrainerClassDto.setLocation1_no(location1_no);
 		makeTrainerClassDto.setLocation2_no(location2_no);
 		makeTrainerClassDto.setDetail_location(detail_location);
-		makeTrainerClassDto.setContent(meeting_content);
+		makeTrainerClassDto.setMeeting_content(meeting_content);
+		
+		System.out.println(makeTrainerClassDto.getMeeting_title());
 		
 		
 		// meeting 부분을 수정
