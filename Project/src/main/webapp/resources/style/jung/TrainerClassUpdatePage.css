@@ -1,17 +1,268 @@
 @charset "UTF-8";
 
-.TrainerClassUpdate_part1 {
-	display: flex;
-}
-.TrainerClassPhoto {
-	padding-left:300px;
-}
-
-.WishList {
-	padding-left:300px;
-	float: right;
+.TrainerClassInsert_all {
+	margin-top: 40px;
+	width: 1080px;
+	height: auto;
+	box-shadow: 0px 1px 5px 0 rgb(0 0 0 / 15%);
+	padding: 30px 40px;
 }
 
-.coverphotoUpdate {
-	padding-left: 300px;
+.blank_bottom {
+	margin-bottom:25px;
+}
+
+.plusBtn {
+	width: 25px;
+	height: 25px;
+}
+
+#DeleteBtn {
+	background: lightgray;
+	border: none;
+	width: 40px;
+	height: 26px;
+}
+
+.classname >  input {
+	margin-top: 10px;
+	border-width: 0px 0px 0.5px;
+	border-color: lightgray;
+	height: 35px;
+	width: 1000px;
+	padding: 0px 10px;
+}
+
+#classname {
+	margin-bottom:10px;
+	font-weight: 900;
+}
+
+#meetingdate {
+	font-weight: 900;
+	margin-bottom:10px;
+}
+
+.meetingdate > input {
+	margin-left: 65px;
+	border-width: 0px 0px 0.5px;
+	border-color: lightgray;
+	height: 35px;
+	width: 200px;
+}
+
+.TrainerClassGatherDate {
+	font-weight: 900;
+	margin-bottom:10px;
+}
+
+#TrainerClassGatherDate1 > input {
+	margin-left: 50px;
+	margin-right: 10px;
+	border-width: 0px 0px 0.5px;
+	border-color: lightgray;
+	height: 35px;
+	width: 200px;
+}
+
+#TrainerClassGatherDate2 > input {
+	margin-left: 10px;
+	border-width: 0px 0px 0.5px;
+	border-color: lightgray;
+	height: 35px;
+	width: 200px;	
+}
+
+#gather_MinAndMax {
+	font-weight: 900;
+	margin-bottom:10px;
+}
+
+#gather_MinAndMax1 {
+	margin-left: 50px;
+}
+
+#gather_MinAndMax2 {
+	margin-left: 5px;
+}
+
+#gather_MinAndMax1 > input {
+	
+	width: 30px;
+	height: 30px;
+	border-radius: 5px;
+	border: 0.5px solid lightgray;
+	margin-left: 5px;
+}
+
+#gather_MinAndMax2 > input {
+	width: 30px;
+	height: 30px;
+	border-radius: 5px;
+	border: 0.5px solid lightgray;
+	margin-left: 5px;
+}
+
+#exercise_name {
+	font-weight: 900;
+	margin-bottom:10px;
+}
+
+#exercise_name1 > select {
+	margin-left: 50px;
+	border-width: 0px 0px 0.5px;
+	border-color: lightgray;
+	height: 35px;
+	width: 200px;
+}
+
+#meeting_location {
+	font-weight: 900;
+	margin-bottom:10px;
+}
+
+#location1 {
+	margin-left: 50px;
+	border-width: 0px 0px 0.5px;
+	border-color: lightgray;
+	height: 35px;
+	width: 200px;
+}
+
+#location2 {
+	margin-left: 10px;
+	border-width: 0px 0px 0.5px;
+	border-color: lightgray;
+	height: 35px;
+	width: 200px;
+}
+
+#detail_location {
+	font-weight: 900;
+	margin-bottom:10px;
+}
+
+#detail_location1 > input {
+	margin-left: 50px;
+	border-width: 0px 0px 0.5px;
+	border-color: lightgray;
+	height: 35px;
+	width: 350px;
+}
+
+#detail_location {
+	font-weight: 900;
+	margin-bottom:10px;
+}
+
+.materials > img {
+	margin-left: 60px;
+}
+
+#materials_box {
+	margin-left: 10px;
+	border-width: 0px 0px 0.5px;
+	border-color: lightgray;
+	height: 35px;
+	width: 150px;
+}
+
+#DeleteBtn {
+	width: 50px;
+	height: 35px;
+	background: #d8d8d8;
+}
+
+#coverPhoto_title {
+	display: inline-block;
+	font-weight: 900;
+	margin-bottom:10px;
+}
+
+.default_bt plus_bt {
+	width: 100px;
+	height: 100px;
+	background: gray;
+}
+
+#coverPhoto {
+	display: inline-block;
+	margin-left: 45px;
+	border:none;
+}
+
+#coverPhoto_name {
+	font-weight: 900;
+	margin-bottom:10px;
+}
+
+.coverPhoto {
+	display: inline-block;
+    width: 100px;
+    height: 100px;
+    background: #eaeaea;
+    background-size: 100%;
+    background-image: url(/img/team_logo_default.png);
+    vertical-align: text-top;
+    background-repeat: no-repeat;
+    margin-left:45px;
+}
+
+#detail_content {
+	font-weight: 900;
+	margin-bottom:10px;
+}
+
+#submit_Btn, #cancel_Btn {
+	width: 90px;
+	height: 30px;
+	border-radius: 5px;
+	border: none;
+	line-height: 30px;
+}
+
+#submit_Btn {
+	background: #2ed8b6;
+	color: black;
+}
+
+#cancel_Btn {
+	margin-left: 5px;
+}
+
+#submit_Btns {
+	margin-top: 20px;
+	margin-left: 810px;
+}
+
+#content {
+	border-radius: 5px;
+	width: 1000px;
+	overflow: scroll;
+	padding: 12px;
+	min-height: 400px;
+	max-height: 1200px;
+}
+
+/* 지도 모달창 */
+*{margin:0; padding:0;}
+a.button{margin-left:10px; margin-top:10px; padding: 10px 10px; text-decoration:none; color:#fff; background:#000; }
+#modal{
+  top:0; left:0; 
+  background:rgba(0,0,0,0.3);
+}
+
+.modal-con .con{
+  font-size:15px; line-height:1.3;
+  padding: 30px;
+}
+.modal-con .close{
+  display:block;
+  width:30px; height:30px;
+  border-radius:50%; 
+  border: 3px solid #000;
+  text-align:center; line-height: 30px;
+  text-decoration:none;
+  color:#000; font-size:20px; font-weight: bold;
+  right:10px; top:10px;
 }

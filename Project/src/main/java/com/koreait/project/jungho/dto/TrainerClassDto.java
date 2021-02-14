@@ -39,5 +39,5 @@ public class TrainerClassDto {
 	private int meeting_hit;
 	private MultipartFile mainPhoto;
 	private String photo_filename;
-
+	private String content;
 }

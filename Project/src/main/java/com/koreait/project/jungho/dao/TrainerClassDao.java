@@ -23,6 +23,8 @@ public interface TrainerClassDao {
 	
 	public int trainerClassInsert(MakeTrainerClassDto makeTrainerClassDto);
 	
+	public int updatePhotoTable(int meeting_no, int temp_no);
+	
 	public int findNewMeetingNo(int user_no);
 	
 	public int materialsInsert(int meeting_no, String material);

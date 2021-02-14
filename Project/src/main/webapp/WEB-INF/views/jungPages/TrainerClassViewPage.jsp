@@ -39,7 +39,7 @@
 </script>
 
 
-    <form method="post">
+    <!--  <form method="post">-->
     
     		<br/><br/><br/>
     	   <div class="TrainerClassView_part1" style="width:1080px; heigth:auto;"> 
@@ -74,7 +74,7 @@
 				   
 				   </div>
 				   
-				   <!-- hidden -->
+				   <!-- hidden 
 				   <input type="hidden" name="photo_filename" value="${trainerClassDto.photo_filename}" />
 				   <input type="hidden" name="meeting_no" value="${trainerClassDto.meeting_no}" />
 				   <input type="hidden" name="meeting_title" value="${trainerClassDto.meeting_title}" />
@@ -390,16 +390,15 @@
     <script>
 			
     		// 해당 게시물 수정 (작성자 권한)
-			function fn_TrainerClassViewUpdatePage(f) {
-				f.action = 'TrainerClassViewUpdatePage.leo';
-				f.submit();
+			function fn_TrainerClassViewUpdatePage() {
+				location.href = 'TrainerClassViewUpdatePage.leo?meeting_no=' + ${trainerClassDto.meeting_no};
+			
 			}
 			
     		// 해당 게시물 삭제 (작성자 권한)
-			function fn_TrainerClassViewDelete(f) {
+			function fn_TrainerClassViewDelete() {
 				if (confirm('삭제하시겠습니까?')) {
-					f.action = 'TrainerClassViewDelete.leo';
-					f.submit();
+					location.href = 'TrainerClassViewDelete.leo?meeting_no=' + ${trainerClassDto.meeting_no};
 				}
 			}
     		
