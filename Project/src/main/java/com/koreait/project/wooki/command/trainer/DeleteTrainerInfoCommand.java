@@ -33,7 +33,7 @@ public class DeleteTrainerInfoCommand implements CommonMapCommand {
 			if(wookiDao.deleteTrainer(user_no) > 0) {
 				//정보 삭제성공시 트루값 반환 + 파일실제삭제
 				map.put("result", true);
-				String realPath = request.getServletContext().getRealPath("resources/storage");
+				String realPath = request.getServletContext().getRealPath("resources/storage/certificate");
 				File file = new File(realPath, filename);
 				if(file.exists()) {
 					file.delete();

@@ -76,5 +76,10 @@ public class UsersSignUpController {
 	}
 	
 	
+	// 트레이너 회원가입 페이지
+	@RequestMapping(value="trainerSignUp.hey")
+	public String trainerSignUp() {
+		return "hyePages/trainerSignUp";
+	}
 	
 }
