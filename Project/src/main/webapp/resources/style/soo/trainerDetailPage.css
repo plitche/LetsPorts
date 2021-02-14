@@ -61,14 +61,17 @@
 	text-align: center;
 	cursor: pointer;
 	font-weight: bold;
+	border: 1px solid gainsboro;
 	box-shadow: 3px 2px 2px darkgray;
 	border-bottom: 3px solid darkgray;
 }
-#tab ul li:hover, #tab ul li.on {
-	background: #000;
-	color: white;
+#tab ul li:hover {
 	border-bottom: 3px solid orangered;
 }
+ #tab ul li.on {
+ 	border-bottom: 3px solid orangered;
+ 	color: orangered;
+ }
 #tab .conBox {
 	width: 100%;
 	height: auto;
@@ -82,10 +85,16 @@
 
 /* 버튼들 css */
 .TrainerDetailBtn {
-	color: white;
-	background: #000;
+	color: #000;
+	background: #fff;
 	padding: 6px;
 	float: right;
+	border: 1px solid black;
+	border-radius: 5%;
+}
+.TrainerDetailBtn:hover{
+	color: orangered;
+	border: 1px solid orangered;
 }
 #openReviewModal, #openQnAModal {
 	margin-right: 4.5%;

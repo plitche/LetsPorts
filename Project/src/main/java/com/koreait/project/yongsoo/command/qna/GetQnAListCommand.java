@@ -65,7 +65,7 @@ public class GetQnAListCommand implements CommonVoidCommand {
 				totalRecord = commonQnADao.getIsSolvedQnACount(filter_no);
 				endRecord = endRecord < totalRecord ? endRecord : totalRecord;
 				qnaList = commonQnADao.getIsSolvedQnAList(filter_no, beginRecord, endRecord);
-				paging = Paging.getPaging("goQnAPageWithFilter.plitche?filter_no="+filter_no, totalRecord, recordPerPage, page);
+				paging = Paging.getPaging("goQnAPage.plitche?filter_no="+filter_no, totalRecord, recordPerPage, page);
 			}
 		} else {
 			switch(searchCategory) {

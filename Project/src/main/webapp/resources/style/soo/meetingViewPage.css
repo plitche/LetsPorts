@@ -87,15 +87,19 @@
 .btns > input {
 	text-align: center;
 	padding: 13px 0;
-	border-radius: 999px;
-	background-color: #e73e26;
-	color: #fff;
+	border-radius: 5%;
+	background-color: #fff;
+	color: #000;
 	height: 40px;
 	font-weight: 700;
 	line-height: 15px;
 	width: 70px;
+	border: 1px solid #000;
 }
-
+.btns > input:hover {
+	color: orangered;
+	border: 1px solid orangered;
+}
 
 /* 호스트 관련 css */
 #host {
@@ -473,4 +477,7 @@
 	margin-top: 10px;
 	padding: 10px;
 }
-
+#wishList a {
+	color: red;
+	text-decoration: none;
+}

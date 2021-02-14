@@ -84,11 +84,12 @@
 <div class="qnaTitle"> Total Question & Answer </div>
 
 <p id="newQnA">
-	<a href="#" onclick="fn_filter(2); return false;">전체 보기</a> 
-	/ <a href="#" onclick="fn_filter(1); return false;">해결 완료</a> 
-	/ <a href="#" onclick="fn_filter(0); return false;">미 해결</a>
+	<input type="button" onclick="fn_filter(2)" value="전체 보기"/> /
+	<input type="button" onclick="fn_filter(1)" value="해결 완료"/> /
+	<input type="button" onclick="fn_filter(0)" value="미 해결"/>
 	<input type="button" value="새 질문 등록하기" id="writeQnABtn" />
 </p>
+
 <table id="userQnA">
 	<colgroup>
 		<col width="60">
@@ -122,7 +123,7 @@
 					<c:if test="${list.is_resolved eq 1}">
 						<td style="color:green;">해결 완료</td>
 					</c:if>
-					<td><a href="goQnAViewPage.plitche?board_qna_no=${list.board_qna_no}&page=${page}">${list.board_qna_title}</a></td>
+					<td><a href="goQnAViewPage.plitche?board_qnapage_no=${list.board_qna_no}&page=${page}">${list.board_qna_title}</a></td>
 					<td>${list.user_nickname}</td>
 					<td>${list.created_at2}</td>
 				</tr>
@@ -149,8 +150,5 @@
 		<input id="searchBtn" type="button" value="검색" onclick="fn_search(this.form)" />
 	</p>
 </form>
-
-
-
 
 <%@ include file="../../template/footer.jsp" %>

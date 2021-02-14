@@ -124,24 +124,94 @@ $(document).on('click', '#deleteFileBtn', function(){
 <!-- 상태메세지 -->
 <script type="text/javascript">
 //상태메세지
-
+// db에는 바뀌나, 새로고침 후 바로 변경되지 않음.
 $(document).on('click', '#updateMsgBtn', function(){
 	$('#updateMsgBtn').attr('value', '수정완료');
 	$('#statusMsg').attr('readonly', false);
     $('#statusMsg').on('keyup', function() {
         $('#limitMsg').html("("+($('#statusMsg').val().length)+" / 20)");
- 
-        if($(this).val().length > 40) {
+ 	
+        // 남은 글자수 알려주는 칸
+        if($(this).val().length > 20) {
             $(this).val($(this).val().substring(0, 20));
             $('#limitMsg').html("(20 / 20)");
         }
+        
+	       // 수정완료 버튼으로 바뀐 뒤 ajax
+		if($('#updateMsgBtn').attr('value', '수정완료')) {
+			
+	       $(document).on('click', '#updateMsgBtn', function(){
+	    	   let user_message = $('#statusMsg').val();
+	    	   let user_no = '${loginUser.user_no}';
+	    	   let obj = {"user_no" : user_no ,
+	    			   	   "user_message" : user_message};
+	    	   
+	    	   $.ajax({
+	    		  	url : "updateMsg.hey",
+					type : "post",
+					data : JSON.stringify(obj),
+					contentType : "application/json",
+					dataType : "json",
+			        success: function (data) {
+			        	Swal.fire('수정 완료되었습니다.');
+			        	$('#updateMsgBtn').attr('value', '수정하기');
+			        	$('#limitMsg').hide();
+			        	$('#statusMsg').html('${loginUser.user_message}');
+			        	$('#statusMsg').attr('readonly', true);
+			        },
+			        error: function() {
+			        	Swal.fire('실패');
+			        }
+		        });
+	       });
+		}
+        
     });
 });
 
 </script>
 
+<!-- 모임 -->
 <script type="text/javascript">
+	$(document).on('click', '#meeting', function(){
+ 	   let user_no = '${loginUser.user_no}';
+	   let obj = {"user_no" : user_no};
+		
+ 	   $.ajax({
+		  	url : "meetingInfo.hey",
+			type : "post",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			dataType : "json",
+	        success: function (data) {
+	        	console.log('성공');
+	        },
+	        error: function() {
+	        	Swal.fire('실패');
+	        }
+       });
+	});
+</script>
 
+<!-- 질의응답 -->
+<script type="text/javascript">
+	$(document).on('click', '#meeting', function(){
+		
+		$.ajax({
+		  	url : "meetingInfo.hey",
+			type : "post",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			dataType : "json",
+	        success: function (data) {
+	        	console.log('성공');
+	        	$('#barsBox').append('<table>')
+	        },
+	        error: function() {
+	        	Swal.fire('실패');
+	        }
+       });
+	});
 </script>
 
 
@@ -182,10 +252,9 @@ $(document).on('click', '#updateMsgBtn', function(){
 			<a href="WishTrainerListPage.leo?user_no=${loginUser.user_no}"><i class="fas fa-id-badge fa-lg"></i><br/>관심 트레이너</a>
 			<a href="#"><i class="far fa-file-alt fa-lg"></i><br/>관심 노하우</a>		</div>
 		<br/>
-		<br/>
 		<div class="status">
 			상태 메세지<br/>
-			<textarea rows="3" cols="50" id="statusMsg" placeholder="상태 메세지를 입력해주세요." readonly="readonly">${loginUser.user_message}</textarea><br/>
+			<textarea rows="2" cols="50" id="statusMsg" placeholder="상태 메세지를 입력해주세요." readonly="readonly" style="resize: none">${loginUser.user_message}</textarea><br/>
 			<div id="limitMsg"></div>			
 			<input type="button" value="수정하기" id="updateMsgBtn" />
 		</div>
@@ -197,14 +266,76 @@ $(document).on('click', '#updateMsgBtn', function(){
 <!-- 탭 이동 형식 -->
 <div class="myPagetabBars">
 	<ul>
-		<li><a href="#" >모임</a></li>
+		<li><a id="meeting" href="#" >모임</a></li>
 		<li><a href="#">게시물</a></li>
 		<li><a href="#">리뷰관리</a></li>
-		<li><a href="#">질의응답</a></li>
+		<li><a id="Q&A" href="#">질의응답</a></li>
 	</ul>
-	<div class="barsBox">
-	<!-- 하,, 페이지 이동은 보기 좋지 않으므로 ajax 사용할 예정.. -->
+	<div id="barsBox">
+		<!-- 모임 -->
+		<!-- <div id="makeMeeting">
+			<div class="makeMeetings">
+				제목 : 
+				참여자 : (최대 / 최소)
+				참여희망자 : 	명
+				삭제 , 수정
+			</div>
+		</div>
+		<div id="plannedMeeting">
+			<div class="plannedMeetings"></div>
+		</div>
+		<div id="pastMeeting">
+			<div class="pastMeetings"></div>
+		</div> -->
+		<table id="userQnA">
+			<colgroup>
+				<col width="60">
+				<col width="100">
+				<col width="*">
+				<col width="100">
+				<col width="110">
+			</colgroup>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>IsSolved</th>
+					<th>Content</th>
+					<th>Nickname</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:if test="${empty qnaList}">
+					<tr>
+						<td colspan="5">등록된 질문이 없습니다.</td>
+					</tr>
+				</c:if>
+				<c:if test="${not empty qnaList}">
+					<c:forEach var="list" items="${qnaList}" varStatus="k">
+						<tr>
+							<td>${totalRecord-((page-1) * recordPerPage + k.index)}</td>
+							<c:if test="${list.is_resolved eq 0}">
+								<td style="color:orangered;">미 해결</td>
+							</c:if>
+							<c:if test="${list.is_resolved eq 1}">
+								<td style="color:green;">해결 완료</td>
+							</c:if>
+							<td><a href="goQnAViewPage.plitche?board_qna_no=${list.board_qna_no}&page=${page}">${list.board_qna_title}</a></td>
+							<td>${list.user_nickname}</td>
+							<td>${list.created_at2}</td>
+						</tr>
+					</c:forEach>
+				</c:if>
+			</tbody>
+			
+			<tfoot>
+				<tr>
+					<td colspan="5">${paging}</td>
+				</tr>	
+			</tfoot>
+		</table>
 	</div>
+
 </div>
 
 <%@ include file="../template/footer.jsp" %>

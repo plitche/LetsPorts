@@ -19,6 +19,7 @@ public class GoknowHowViewCommand implements CommonVoidCommand {
 		Map<String, Object> map = model.asMap();
 		int knowhow_no = (int)map.get("knowhow_no");
 		KnowHowDao knowHowDao = sqlSession.getMapper(KnowHowDao.class);
+		knowHowDao.addhit(knowhow_no);
 		Board_knowhowDto board_knowhowDto = knowHowDao.knowHowView(knowhow_no);
 		model.addAttribute("board_knowhowDto", board_knowhowDto);
 		

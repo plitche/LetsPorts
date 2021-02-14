@@ -84,8 +84,10 @@
 					$('#trainerMeetingFooter').html(meetingPagingHtml);
 					
 				} else {
-					$('<div>')
-					.append( $('<p>').html('등록된 모임 정보가 없습니다.') )
+					$('#totalMeeting').empty();
+					$('#totalMeeting').text('0');
+					
+					$('<div>').text('등록된 모임 정보가 없습니다.').css('text-align', 'center').css('margin-top', '20px').css('font-weight', 'bold')
 					.appendTo('#trainerMeetingList');
 				}
 			},
@@ -440,6 +442,9 @@
 					$('#qnaPaging').empty();
 					$('#qnaPaging').html(qnaPagingHtml);
 				} else {
+					$('#totalQnA').empty();
+					$('#totalQnA').text('0');
+					
 					$('<tr>')
 					.append( $('<td colspan="5">').html('등록된 질문이 없습니다. 첫 번째 질문을 등록해 주세요.') )
 					.appendTo('#qnaList');

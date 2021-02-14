@@ -22,7 +22,7 @@ public class FilterTrainerUserListCommand implements CommonMapCommand {
 		int search = (int) model.asMap().get("search");
 		
 		int totalRecord = wookiDao.filterTotalTrainerRecord(search);
-		int recordPerPage = 5;
+		int recordPerPage = 10;
 		int page = (int) model.asMap().get("page");
 		int beginRecord = (page - 1) * recordPerPage + 1;
 		int endRecord = beginRecord + recordPerPage - 1;

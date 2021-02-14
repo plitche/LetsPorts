@@ -1113,5 +1113,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 								<![CDATA[and meeting.meeting_min > mp.count]]>
 								<![CDATA[and to_char(meeting_date - 1, 'yyyymmdd') < to_char(sysdate, 'yyyymmdd'))]]>
 	</update>
+	
+	<select id="dailyCreateUserCount" resultType="com.koreait.project.wooki.dto.CreateUserCountDto">
+		select
+			day.created_at as created_at,
+			nvl(count.count, 0) as count
+		from
+			(select 
+				to_char(first_day + level - 1, 'yyyy-mm-dd') as created_at
+			from
+				(select
+					trunc(sysdate, 'mm') first_day
+				from
+					dual)
+				connect by
+					<![CDATA[first_day + level - 1 <= trunc(last_day(sysdate))]]>) day
+		left join
+			(select
+				to_char(created_at, 'yyyy-mm-dd') as created_at,
+				count(*) as count
+			from
+				users
+			group by
+				to_char(created_at, 'yyyy-mm-dd')) count on day.created_at = count.created_at
+		order by
+			day.created_at
+	</select>
+	
+	<select id="beforeTotalUser" resultType="int">
+		select
+			count(*)
+		from
+			users
+		where
+			<![CDATA[to_char(created_at, 'yyyymmdd') < to_char((select trunc(sysdate, 'mm') first_day from dual), 'yyyymmdd')]]>
+	</select>
 
 </mapper>

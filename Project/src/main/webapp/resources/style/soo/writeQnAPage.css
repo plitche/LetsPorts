@@ -24,7 +24,6 @@ h3 {
 	border-radius: 5px;
 	border: 1px solid #ccc;
 }
-
 #writeRefer {
 	padding: 10px;
 	margin: 20px auto;
@@ -51,19 +50,20 @@ h3 {
 }
 #content {
 	border-radius: 5px;
-	min-height: 400px;
-	max-height: 800px;
+	min-height: 300px;
+	max-height: 600px;
 	overflow: scroll;
 	padding: 12px;
 }
 #doneBtn {
 	float: right;
-	border: none;
-	background: black;
-	color: white;
-	border-radius: 10%;
+	border: 1px solid #000;
+	background: #fff;
+	color: #000;
+	border-radius: 5%;
 	padding: 10px;
 }
 #doneBtn:hover {
 	color: orangered;
+	border: 1px solid orangered;
 }
