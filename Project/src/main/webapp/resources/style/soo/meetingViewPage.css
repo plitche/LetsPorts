@@ -84,7 +84,7 @@
 	text-align: right;
 	margin-bottom: 15px;
 }
-.btns > input {
+.btns input {
 	text-align: center;
 	padding: 13px 0;
 	border-radius: 5%;
@@ -96,7 +96,7 @@
 	width: 70px;
 	border: 1px solid #000;
 }
-.btns > input:hover {
+.btns input:hover {
 	color: orangered;
 	border: 1px solid orangered;
 }
@@ -480,4 +480,7 @@
 #wishList a {
 	color: red;
 	text-decoration: none;
+}
+#wishList {
+	color: red;	
 }

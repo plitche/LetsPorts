@@ -39,6 +39,13 @@
 	function getOtherMeetingTable(list) {
 		$('#otherMeeting').empty();
 		$.each(list, function(idx, meeting){
+			var showProfile = null;
+			if (meeting.profile_photo == null) {
+				showProfile = $('<span>').html('<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">');
+			} else {
+				showProfile = $('<span>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/'+meeting.profile_photo+'">');		
+			}
+			
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
 				.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
@@ -50,7 +57,7 @@
 					 )
 					.append( $('<div>').html('<i class="fas fa-map-marker-alt"></i> '+meeting.location1_name + ' ' + meeting.location2_name + ' ∙ ' + meeting.meeting_date2) )
 					.append( $('<div class="writerInfo">')
-						.append( $('<span>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/'+meeting.profile_photo+'" />') )
+						.append(showProfile)
 						.append( $('<span>').text(meeting.user_nickname) )
 					)
 				)
@@ -119,6 +126,13 @@
 	function otherHostMeetingTable(list) {
 		$('#otherHostMeeting').empty();
 		$.each(list, function(idx, meeting){
+			var showProfile = null;
+			if (meeting.profile_photo == null) {
+				showProfile = $('<span>').html('<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">');
+			} else {
+				showProfile = $('<span>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/'+meeting.profile_photo+'">');		
+			}
+			
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
 				.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
@@ -130,7 +144,7 @@
 					 )
 					.append( $('<div>').html('<i class="fas fa-map-marker-alt"></i> '+meeting.location1_name + ' ' + meeting.location2_name + ' ∙ ' + meeting.meeting_date2) )
 					.append( $('<div class="writerInfo">')
-						.append( $('<span>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/'+meeting.profile_photo+'" />') )
+						.append(showProfile)
 						.append( $('<span>').text(meeting.user_nickname) )
 					)
 				)
@@ -184,16 +198,24 @@
 	var commentPageNo = 1;
 	// 가져온 댓글 목록을 직접 append처리 해주기 위한 서브 함수
 	function commentListTable(list) {
+		
 		$('#commentContent').empty();
 		$.each(list, function(idx, comment){
+			var showProfile = null;
+			if (comment.profile_photo == null) {
+				showProfile = $('<div class="profile">').html('<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">');
+			} else {
+				showProfile = $('<div class="profile">').html('<img alt="'+comment.profile_photo+'" src="resources/storage/'+comment.profile_photo+'">');		
+			}
+			
 			if ('${loginUser.user_no}' == comment.user_no) {
 				$('#commentContent')
 				.append( $('<div class="comment-container" >')
-					.append( $('<div class="profile">').html('<img alt="'+comment.profile_photo+'" src="resources/storage/'+comment.profile_photo+'">') )
+					.append(showProfile)
 					.append( $('<div class="comment-content">')
 						.append( $('<p>').html(comment.user_nickname) )
 						.append( $('<p class="'+comment.comment_no+'nthComment">').html(comment.comment_content) )
-						.append( $('<p>').html(comment.created_at) )
+						.append( $('<p>').html(comment.created_at2) )
 					)
 					.append( $('<div class="comment-btn">')
 						.append( $('<div class="'+comment.comment_no+'nthBtn">').addClass('editComment')
@@ -205,7 +227,7 @@
 			} else {
 				$('#commentContent')
 				.append( $('<div class="comment-container">')
-					.append( $('<div class="profile">').html('<img alt="'+comment.profile_photo+'" src="resources/storage/'+comment.profile_photo+'">') )
+					.append(showProfile)
 					.append( $('<div class="comment-content">')
 						.append( $('<p>').html(comment.user_nickname) )
 						.append( $('<p>').html(comment.comment_content) )
@@ -475,7 +497,7 @@
 	}
 
 </script>
-<!-- 위시 리스트 관련 script -->
+<!-- 관심 모임 관련 script -->
 <script>
 	/* 페이지 로드 이벤트 */
 	$(document).ready(function(){
@@ -483,12 +505,12 @@
 		fn_addToWishList();
 	});
 	
-	/* 모임 View페이지로 이동 시 위시 리스트에 저장된 모임인지 아닌지 판단하여 append해줄 부분 */
+	/* 모임 View페이지로 이동 시 스크랩 된 모임인지 아닌지 판단하여 append해줄 부분 */
 	function fn_isInWishList() {
 		if('${loginUser.user_no}' == '') {
 			$('#wishList')
 			.append( $('<a href="#" onclick="return false;" id="addScrapBtn">')
-			.html('<i class="far fa-heart"></i>위시 리스트에 저장하기<i class="far fa-heart"></i>') );
+			.html('<i class="far fa-heart"></i>관심모임 등록<i class="far fa-heart"></i>') );
 		} else {
 			var user_no = '${loginUser.user_no}';
 			var meeting_no = ${meetingDto.meeting_no};
@@ -498,11 +520,11 @@
 				dataType: 'json',
 				success: function(responseObj) {
 					if (responseObj.result) {
-						$('#wishList').html('<i class="fas fa-heart"></i>위시 리스트에 저장된 모임<i class="fas fa-heart"></i>');
+						$('#wishList').html('<i class="fas fa-heart"></i>관심 모임에 저장된 모임<i class="fas fa-heart"></i>');
 					} else {
 						$('#wishList')
 						.append( $('<a href="#" onclick="return false;" id="addScrapBtn">')
-						.html('<i class="far fa-heart"></i>위시 리스트에 저장하기<i class="far fa-heart"></i>') );
+						.html('<i class="far fa-heart"></i>관심모임 등록<i class="far fa-heart"></i>') );
 					}
 				},
 				error: function(){alert('실패');}
@@ -530,9 +552,9 @@
 					dataType: 'json',
 					success: function (responseObj) {
 						if (responseObj.result) {
-							Swal.fire('찜 리스트에 저장되었습니다!', '찜 목록은 마이페이지에서 확인하세요.', 'success');
-							$('#wishList').emtpy();
-							fn_isInWishList();
+							Swal.fire('관심 리스트에 저장되었습니다!', '관심 목록은 마이페이지에서 확인하세요.', 'success');
+							$('#wishList').empty();
+							$('#wishList').html('<i class="fas fa-heart"></i>관심 모임에 저장된 모임<i class="fas fa-heart"></i>');
 						} else {
 							alert('찜리스트 삽입에 실패하였습니다.');
 						}
@@ -660,7 +682,29 @@
 <div class="title">우리 반갑게 만나요!</div>
 <div id="host">
 	<c:if test="${trainerTemDto.user_separator eq 0}"> <!-- 모임 작성자가 일반 유져일 떄 -->
-		
+		<div id="infoHost">
+			<div id="hostImage">
+				<c:if test="${trainerTemDto.profile_photo ne null}">
+					<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}">
+				</c:if>
+				<c:if test="${trainerTemDto.profile_photo eq null}">
+					<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">
+				</c:if>
+			</div>
+			<div>
+				<div>Let'sPorts 회원</div>
+				<div id="hostNick">${trainerTemDto.user_nickname}</div>
+			</div>
+		</div>
+		<div>
+			<span>${trainerTemDto.location1_name} ${trainerTemDto.location2_name}</span>
+		</div>
+		<div>
+			<c:forEach var="interestList" items="${interestList}">
+				<span>${interestList}</span>
+			</c:forEach>
+		</div>
+		<div>${trainerTemDto.user_message}</div>
 	</c:if>
 	<c:if test="${trainerTemDto.user_separator eq 1}"> <!-- 모임 작성자가 트레이너 일 때 -->
 		<div id="infoHost">
@@ -668,7 +712,7 @@
 				<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}">
 			</div>
 			<div>
-				<div>트레이너</div>
+				<div>Let'sPorts 트레이너</div>
 				<div id="hostNick">${trainerTemDto.user_nickname}[${trainerTemDto.trainer_name}]</div>
 			</div>
 		</div>

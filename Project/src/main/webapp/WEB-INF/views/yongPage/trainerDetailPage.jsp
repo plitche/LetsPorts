@@ -40,7 +40,22 @@
 	function trainerMeetingListTable(list) {
 		$('#trainerMeetingList').empty();
 		$.each(list, function(idx, meeting){
-			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
+			var showProfile = null;
+			if ('${trainerTemDto.profile_photo}' == '') {
+				showProfile = $('<span>').html('<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">');
+			} else {
+				showProfile = $('<span>').html('<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}" />');		
+			}
+			
+			var now = new Date();
+			var doneCss = null;
+			if (meeting.end_gather_date < now) {
+				doneCss = 'filter: brightness(0.5)';
+			} else {
+				doneCss = 'filter: brightness(1.0)';
+			}
+
+			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;" style="'+doneCss+'">')
 			.append( $('<div>').addClass('trainerMeeting') 
 				.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
 				.append( $('<div class="meetingContent">')
@@ -51,7 +66,7 @@
 					 )
 					.append( $('<div>').html('<i class="fas fa-map-marker-alt"></i> '+meeting.location1_name + ' ' + meeting.location2_name + ' ∙ ' + meeting.meeting_date2) )
 					.append( $('<div class="writerInfo">')
-						.append( $('<span>').html('<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}" />') )
+						.append(showProfile)
 						.append( $('<span>').text(meeting.user_nickname) )
 					)
 				)
@@ -139,6 +154,13 @@
 	function reivewListTable(list, reviewCount) {
 		$('#reviewListWrap').empty();
 		$.each(list, function(idx, review) {
+			var showProfile = null;
+			if (review.profile_photo == null) {
+				showProfile = '<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">';
+			} else {
+				showProfile = '<img alt="'+review.profile_photo+'" src="resources/storage/'+review.profile_photo+'">';		
+			}
+			
 			var star = '<span class="starResult">';
 			for (let i=0; i<review.score; i++) {
 				star += '<i class="fas fa-star fa-1.5x"></i>'; 
@@ -151,7 +173,7 @@
 			
 			$('#reviewListWrap')
 			.append( $('<div class="eachReview review' + idx + 'nth" >' )
-				.append( $('<div class="reviewHeader">').html('<img alt="'+review.profile_photo+'" src="resources/storage/'+review.profile_photo+'" />')
+				.append( $('<div class="reviewHeader">').html(showProfile)
 					.append( $('<div>')
 						.append( $('<span>').text(review.user_nickname) )
 						.append( $('<span>').html(star) )
@@ -747,17 +769,7 @@
 		</div>
 		<pre style="background: none; border: none; padding-top: 20px;">
 ${trainerTemDto.profile}
-저는 예전엔 120kg이 나가는 운동의 운자도 모르던 친구였었습니다..! 
-지금의 모습이 되기까지 미친듯한 다이어트가 도움됐다기보단 운동을  즐기고 꾸준한 생활습관에서의 
-노력이 제모습들을 만들었다고 생각이 듭니다:)
-
-여러분 또한 버핏서울과 함께하며 운동이란 게 힘들고 어려운 게 아니라 충분히 즐겁고 내 삶의 일부가 될 
-수가 있다는 것을 느껴보셨으면 좋겠습니다. 우리가 함께 땀 흘리고 즐기다 보면 어느새 내가 꿈꾸던 모습들에
- 한 발자국 더 다가갈 수 있지 않을까 라는 생각이 듭니다!
-
-저 또한 옆에서 여러분들이 다치지 않고 재밌게 즐기실 수 있도록 최선을 다해 도와드리도록 하겠습니다!
-버핏서울 화이팅.!!
- 	 	</pre>
+		</pre>
 		<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
 			<input type="button" class="TrainerDetailBtn" value="새 프로그램 등록" onclick="location.href='goCreateMeetingPage.plitche'"/>
 		</c:if>	

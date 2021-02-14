@@ -20,7 +20,7 @@ public class GoMeetingViewCommand implements CommonVoidCommand {
 
 		Map<String, Object> map = model.asMap();
 		int meeting_no = (int)map.get("meeting_no");
-		
+
 		TrainerMeetingDao trainerMeetingDao = sqlSession.getMapper(TrainerMeetingDao.class);
 		
 		CreateNewMeetingDto createNewMeetingDto = trainerMeetingDao.findMeetingInfo(meeting_no); // 1번

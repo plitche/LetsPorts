@@ -22,7 +22,7 @@ public class IsInWishListCommand implements CommonMapCommand {
 		int wishResult = trainerMeetingDao.isInWishList(user_no, meeting_no);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+
 		if (wishResult>0) {
 			result.put("result", true);
 		} else {
