@@ -43,7 +43,6 @@
     
     /* 로그인 입력 폼 css*/
 
-	/*
 	* {
 		margin: 5px;
 		padding: 0px;
@@ -88,7 +87,7 @@
 	p > a {
 		color: #7B7B7B;
 		cursor: pointer;
-		text-decoration: underline;
+		text-decoration: none;
 	}
 	
 	div a {
@@ -101,4 +100,3 @@
 		backgound: #41617B;
 	}
 	
-	*/
