@@ -33,7 +33,7 @@ public class TrainerClassInsertCommand implements CommonVoidCommand {
 		int location1_no = Integer.parseInt(multipartRequest.getParameter("location1_no"));
 		int location2_no = Integer.parseInt(multipartRequest.getParameter("location2_no"));
 		String detail_location = multipartRequest.getParameter("detail_location");
-		String meeting_content = multipartRequest.getParameter("meeting_content");
+		String content = multipartRequest.getParameter("content");
 		String[] materialList = multipartRequest.getParameterValues("materials_name");
 		
 		MakeTrainerClassDto makeTrainerClassDto = new MakeTrainerClassDto();
@@ -49,7 +49,7 @@ public class TrainerClassInsertCommand implements CommonVoidCommand {
 		makeTrainerClassDto.setLocation1_no(location1_no);
 		makeTrainerClassDto.setLocation2_no(location2_no);
 		makeTrainerClassDto.setDetail_location(detail_location);
-		makeTrainerClassDto.setMeeting_content(meeting_content);
+		makeTrainerClassDto.setContent(content);
 		
 		
 		
@@ -67,10 +67,13 @@ public class TrainerClassInsertCommand implements CommonVoidCommand {
 			trainerClassDao.materialsInsert(meeting_no, material);
 		}
 		
+		
 		MultipartFile coverphoto = multipartRequest.getFile("coverphoto");
+		System.out.println(coverphoto.getOriginalFilename());
 		// 첨부를 했는지 검사
 		if (coverphoto != null && !coverphoto.isEmpty()) {
 					String originalFilename = coverphoto.getOriginalFilename();
+					System.out.println(originalFilename);
 					String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
 					String filename = originalFilename.substring(0, originalFilename.lastIndexOf("."));
 					String uploadFilename = filename +
@@ -91,7 +94,7 @@ public class TrainerClassInsertCommand implements CommonVoidCommand {
 					}
 					
 					trainerClassDao.insertPhoto(meeting_no, user_no, uploadFilename);
-					
+					System.out.println(uploadFilename);
 			
 		} else {
 			
@@ -99,7 +102,7 @@ public class TrainerClassInsertCommand implements CommonVoidCommand {
 			
 		}
 		
-
+		
 	}
 
 }
