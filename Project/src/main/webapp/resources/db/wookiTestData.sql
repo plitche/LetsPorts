@@ -40,6 +40,8 @@ INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 2
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 24, SYSDATE, 1, NULL);
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 25, SYSDATE, 1, NULL);
 
+
+	
 DROP TABLE test_board;
 DROP SEQUENCE test_board_seq;
 

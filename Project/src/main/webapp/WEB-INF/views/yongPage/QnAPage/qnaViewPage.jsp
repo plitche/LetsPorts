@@ -84,7 +84,11 @@
 						if(responseObj.result) {
 							Swal.fire('질문이 해결되었습니다.', '더 많은 정보들을 물어보세요!^^', 'success');
 							$('#writeComment').empty();
+							$('#writeComment').css('border', 'none');
 							$('#solveBtn').remove();
+							$('#deleteBtn').remove();
+							$('#updateBtn').remove();
+							$('#unsolved').text('[ 해결 완료 ]').css('color', 'green');
 						} else {
 							alert('해결완료가 안되었습니다.');
 						}
@@ -165,7 +169,7 @@
 					if (${qnaTemDto.is_resolved} == '0') {
 						$('#commentContent').empty();
 						$('#commentContent')
-						.append( $('<div>').html('작성된 comment가 없습니다. 첫번째 뎃글을 작성해주세요.') );	
+						.append( $('<div>').html('작성된 댓글이 없습니다.') );	
 					}
 				}
 			},
@@ -195,7 +199,7 @@
 		getQnACommentList();
 	}
 	
-	// 뎃글 작성 완료 버튼 클릭시 작동할 ajax함수
+	// 댓글 작성 완료 버튼 클릭시 작동할 ajax함수
 	function addQnAComment() {
 		$('#addComment').click(function(){
 			if ( '${loginUser.user_no}' == '' ) {
@@ -224,7 +228,7 @@
 							getQnACommentList();
 							document.getElementById("comment_content").value='';
 						} else {
-							alert('뎃글이 작성되지 않았습니다.');
+							alert('댓글이 작성되지 않았습니다.');
 						}
 					},
 					error: function(){alert('실패');}
@@ -320,11 +324,11 @@
 <c:if test="${loginUser.user_no ne null}">
 	<c:if test="${qnaTemDto.user_no eq loginUser.user_no}">
 		<form id="writerBtn">
-			<input type="button" value="수정하기" onclick="fn_goUpdate()" />
 			<c:if test="${qnaTemDto.is_resolved eq 0}">
 				<input type="button" id="solveBtn" value="해결완료" onclick="fn_solveQnA(${qnaTemDto.board_qna_no})" />
+				<input type="button" id="updateBtn" value="수정하기" onclick="fn_goUpdate()" />
+				<input type="button" id="deleteBtn" value="삭제하기" onclick="fn_deleteQnA()" />
 			</c:if>
-			<input type="button" value="삭제하기" onclick="fn_deleteQnA()" />
 		</form>
 	</c:if>		
 </c:if>
@@ -341,7 +345,15 @@
 	</colgroup>
 	<thead>
 		<tr>
-			<th colspan="3">${qnaTemDto.board_qna_title}</th>
+			<th colspan="3">
+				${qnaTemDto.board_qna_title}			
+				<c:if test="${qnaTemDto.is_resolved eq 1}">
+					<span style="color: green; font-size: 14px;">[ 해결 완료 ]</span>
+				</c:if>
+				<c:if test="${qnaTemDto.is_resolved eq 0}">
+					<span id="unsolved" style="color: red;  font-size: 14px;">[ 미 해결  ]</span>
+				</c:if>
+			</th>
 		</tr>	
 	</thead>
 	<tbody>
@@ -354,12 +366,6 @@
 				<c:if test="${qnaTemDto.user_separator eq 1}">트레이너</c:if>
 				<c:if test="${qnaTemDto.user_separator eq 2}">일반 회원</c:if>
 			</td>
-			<c:if test="${qnaTemDto.is_resolved eq 1}">
-				<td style="color: green;">해결 완료</td>
-			</c:if>
-			<c:if test="${qnaTemDto.is_resolved eq 0}">
-				<td style="color: red;">미 해결</td>
-			</c:if>
 		</tr>
 		<tr>
 			<td>${qnaTemDto.user_nickname}</td>

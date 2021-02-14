@@ -58,13 +58,14 @@ h3 {
 }
 #doneBtn, #cancelBtn{
 	float: right;
-	border: none;
-	background: black;
-	color: white;
-	border-radius: 10%;
+	border: 1px solid #000;
+	background: #fff;
+	color: #000;
+	border-radius: 5%;
 	padding: 10px;
 	margin-left: 10px;
 }
 #doneBtn:hover, #cancelBtn:hover {
 	color: orangered;
+	border: 1px solid orangered;
 }

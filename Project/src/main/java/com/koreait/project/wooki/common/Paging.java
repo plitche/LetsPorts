@@ -30,7 +30,7 @@ public class Paging {
 		*/
 		
 		// 페이지 5개를 한 블록에 배치
-		int pagePerBlock = 3;	// 한 블록당 페이지 5개
+		int pagePerBlock = 5;	// 한 블록당 페이지 5개
 		int beginPage = 0;		// 한 블록에 표시되는 시작 페이지의 번호
 		int endPage = 0;		// 한 블록에 표시되는 종료 페이지의 번호
 		beginPage = ((page - 1) / pagePerBlock) * pagePerBlock + 1;

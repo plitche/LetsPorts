@@ -89,10 +89,24 @@
 		
 	}
 
+	// 해당 게시물 삭제 (작성자 권한)
+	function fn_TrainerClassViewDelete(f) {
+		if (confirm('삭제하시겠습니까?')) {
+			if ('${fromWhere}' == 'trainer') {
+				f.action = 'TrainerClassDelete.plitche';
+				f.submit();
+			} else if ('${fromWhere}' == 'community') {
+				f.action = 'TrainerClassViewDelete.leo';
+				f.submit();
+			}
+		}
+	}
+	
 	/* 트레이너의 다른 모임 제목을 클릭하면 해당모임 View페이지로 이동할 함수 */
 	function fn_showMeeting(meeting_no) {
 		location.href = 'meetingViewPage.plitche?meeting_no='+meeting_no;
 	}
+	
 </script>
 <!-- 다른 호스트의 같은 운동 모임 list ajax -->
 <script>
@@ -228,7 +242,7 @@
 				} else {
 					$('#commentContent').empty();
 					$('#commentContent')
-					.append( $('<div>').html('작성된 comment가 없습니다. 첫번째 댓글을 작성해주세요.') );	
+					.append( $('<div>').html('작성된 댓글이 없습니다. 첫번째 댓글을 작성해주세요.') );	
 				}
 			},
 			error: function(){alert('실패');}
@@ -461,11 +475,81 @@
 	}
 
 </script>
+<!-- 위시 리스트 관련 script -->
+<script>
+	/* 페이지 로드 이벤트 */
+	$(document).ready(function(){
+		fn_isInWishList();
+		fn_addToWishList();
+	});
+	
+	/* 모임 View페이지로 이동 시 위시 리스트에 저장된 모임인지 아닌지 판단하여 append해줄 부분 */
+	function fn_isInWishList() {
+		if('${loginUser.user_no}' == '') {
+			$('#wishList')
+			.append( $('<a href="#" onclick="return false;" id="addScrapBtn">')
+			.html('<i class="far fa-heart"></i>위시 리스트에 저장하기<i class="far fa-heart"></i>') );
+		} else {
+			var user_no = '${loginUser.user_no}';
+			var meeting_no = ${meetingDto.meeting_no};
+			$.ajax({
+				url: 'isInWishList.plitche/'+ user_no +'/meeting_no/' + meeting_no,
+				type: 'get',
+				dataType: 'json',
+				success: function(responseObj) {
+					if (responseObj.result) {
+						$('#wishList').html('<i class="fas fa-heart"></i>위시 리스트에 저장된 모임<i class="fas fa-heart"></i>');
+					} else {
+						$('#wishList')
+						.append( $('<a href="#" onclick="return false;" id="addScrapBtn">')
+						.html('<i class="far fa-heart"></i>위시 리스트에 저장하기<i class="far fa-heart"></i>') );
+					}
+				},
+				error: function(){alert('실패');}
+			});
+		}
+	}
+	
+	function fn_addToWishList() {
+		$(document).on('click', '#addScrapBtn', function() {
+			if ('${loginUser.user_no}' == '') {
+				loginAlert();
+			} else {
+				var scrap_referer_no = ${meetingDto.meeting_no};
+				var user_no = ${meetingDto.user_no};
+				var sendObj = {
+		  			   "scrap_referer_no": scrap_referer_no,
+		  			   "user_no": user_no,
+		   	    }
+		   	   
+				$.ajax({
+					url: 'addToWishList.plitche',
+					type: 'post',
+					data: JSON.stringify(sendObj),
+					contentType: 'application/json; charset=utf-8',
+					dataType: 'json',
+					success: function (responseObj) {
+						if (responseObj.result) {
+							Swal.fire('찜 리스트에 저장되었습니다!', '찜 목록은 마이페이지에서 확인하세요.', 'success');
+							$('#wishList').emtpy();
+							fn_isInWishList();
+						} else {
+							alert('찜리스트 삽입에 실패하였습니다.');
+						}
+					},
+					error: function(){alert('실패');}
+				});		
+			}
+		});
+		
+	};
+	
+</script>
 
 <div id="meeting">
 	<div id="meetingHeader">
 		<p id="meetingTitle"> &lt; ${meetingDto.meeting_title} &gt; </p>
-		<a href="#"> 관심 모임으로 등록하기 </a>
+		<div id="wishList"></div>
 	</div>
 	<div id="meetingBody">
 		<div id="leftSide">
@@ -556,14 +640,18 @@
 			<div>${meetingDto.meeting_content}</div>
 		</div>
 		<div class="btns">
-			<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
-				<input type="button" value="수정하기" />
-				<input type="button" value="삭제하기" />
-			</c:if>
-			<c:if test="${loginUser.user_no ne trainerTemDto.user_no}">
-				<input type="button" value="신청하기" id="applyMeeting" />
-				<input type="button" value="질문하기" id="questionToTrainer"/>
-			</c:if>
+			<form method="post">
+				<input type="hidden" name="meeting_no" value="${meetingDto.meeting_no}" /> 
+				<input type="hidden" name="user_no" value="${trainerTemDto.user_no}" /> 
+				<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
+					<input type="button" value="수정하기" />
+					<input type="button" value="삭제하기" onclick="fn_TrainerClassViewDelete(this.form)" />
+				</c:if>
+				<c:if test="${loginUser.user_no ne trainerTemDto.user_no}">
+					<input type="button" value="신청하기" id="applyMeeting" />
+					<input type="button" value="질문하기" id="questionToTrainer"/>
+				</c:if>
+			</form>
 		</div>
 	</div>
 </div>

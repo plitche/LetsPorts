@@ -10,6 +10,7 @@
 
 .filter_content {
 	display: flex;
+	margin-top: 40px;
 }
 
 
@@ -23,17 +24,27 @@
 }
 
 .maketrainerClass {
+	border: 0.5px solid #e7e7e7;
 	float: left;
 	background: #f4f4f4;
 	width: 250px;
-	height:250px;
+	height:280px;
 	margin-right: 20px;
 	margin-top: 20px;
+	border-radius: 20px;
+	text-align: center;
+}
+
+#makeTrainerClassContent > li {
+	margin-top: 3px;
 }
 
 .MeetingClass_all {
-	width: 1080px;	
-	height: auto;
+	position: relative;
+    display: inline-block;
+    width: 100%;
+}
+*, ::after, ::before {
 }
 
 .MeetingClass_all > a {
@@ -41,13 +52,47 @@
 	color: black;
 }
 
+#MeetingClassPhoto  >img {
+	width: 100%;
+    height: 100%;
+    border-radius: 16px 16px 0 0;
+}
+
 .MeetingClass {
 	float: left;
-	background: #f4f4f4;
+	background: white;
+	border: 0.5px solid #e7e7e7;
 	width: 250px;
-	height:250px;
+	height:280px;
 	margin-right: 20px;
 	margin-top: 20px;
+	border-radius: 20px;
+}
+
+#MeetingplusIcon{
+	line-height: 50px;
+	text-align: center;
+	width: 45px;
+	height: 45px;
+	border-radius: 100px;
+	background: white;
+	margin: auto;
+}
+
+.exercise_name {
+	font-size: 10px;
+	width: 50px;
+	height: 25px;
+	padding:7px;
+	text-align: center;
+	border-radius: 30px;
+	margin-top: 25px;
+	background: #f0f0f0;
+}
+
+.location {
+	font-size: 10px;
+	margin-top: 10px;
 }
 
 .MeetingClass_all > a {
@@ -58,12 +103,24 @@
 	display: flex;
 }
 
-#Query > input[type="button"] {
+#Query > button {
 	border:none;
-	width: 35px;
-	height: 35px;
-	background: #2fd0a4;
+	width: 40px;
+	height: 40px;
+	margin-left:8px;
+	background: #2ed8b6;
 	color: white;	
+	border-radius: 100px;
+}
+
+#Query > button:hover {
+	border:none;
+	width: 40px;
+	height: 40px;
+	margin-left:8px;
+	color: white;
+	background: #1dd19b;
+	border-radius: 100px;
 }
 
 
@@ -75,22 +132,29 @@
 }
 
 #Query > input[type="text"] {
-	width: 400px;
+	width: 350px;
 	height: 40px;
+	padding-left:10px;
 	border-radius: 40px;
-	text-align: inherit;
-	border: 0.1px solid #dee2e6;
+	border: none;
+	margin-left: 10px;
 }
 #Query > input[type="text"]:hover {
 	
 }
 
 #Query {
-	padding-top: 10px;
+	border-radius: 40px;
+	padding: 5px;
+	
+	border:0.1px solid #dee2e6;
+	width: 425px;
+	height: 50px;
 }
 
 #Tag_name {
-	margin-right: 120px;
+	margin-top: 30px;
+	margin-right: 145px;
 	font-size: 16px;
 	height: 20px;
 	line-height: 20px;
@@ -107,33 +171,48 @@
 	background: white;
 	box-shadow: #dee2e6 0px 0px 0px 0.2px inset;
 	color: #637181;
-	width: 112px;
-	height: 45px;
+	width: 90px;
+	height: 35px;
 	border-radius: 40px;
 	font-size: 14px;
 }
 
+#catagory_title {
+	display: inline;
+	font-weight: 900;
+}
+
+#catagory_count{
+	display: inline;
+	margin-left: 10px;
+}
+
+.meeting_filter_alert {
+	margin-top:15px;
+}
+
+
 #Tag_content {
-	margin-top: 20px;
+	margin-top: 30px;
 }
 
 #Tag > #Tag_content > input:hover {
 	background: #f8f9fa;
-	width: 112px;
-	height: 45px;
+	width: 90px;
+	height: 35px;
 	border-radius: 40px;
 	font-size: 14px;
 }
 
 #Tag {
-	margin-top: 20px;
+	display: flex;
 }
 
 #line1{
 	margin-top: 30px;
 	width: 1080px;
-	background: #d2d8dd;
-	height: 0.5px;
+	background: #24e1a9;
+	height: 0.8px;
 	border: none;
 }
 
@@ -150,23 +229,26 @@
 	margin-left: 620px;
 }
 
+
+
 /* 모달관련 css */
 
 #modal_btn {
+	color:#24e1a9;
 	margin-left: 540px;
 	height: 45px;
-	width: 100px;
+	width: 120px;
 	background: white;
-	border: 0.1px solid black;
+	border: 0.1px solid #dee2e6;
 }
 
 .modal_wrap{
         display: none;
-        width: 180px;
-        height: 250px;
+        width: 150px;
+        height: 210px;
         position: absolute;
         top: 415px;
-        right: 23%;
+        right: 12%;
         margin:0;
         background:white;
         box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
@@ -177,10 +259,9 @@
    .black_bg{
        display: none;
        position: absolute;
-       content: "";
        width: 100%;
        height: 100%;
-       background-color:rgba(0, 0,0, 0.1);
+       background-color:rgba(0, 0,0, 0);
        top:0;
        left: 0;
        z-index: 1;
@@ -197,17 +278,17 @@
    #line {
    	margin-top: 10px;
    	margin-bottom: 15px;
-   	width: 150px;
+   	width: 120px;
    	height: 1px;
    	background: lightgray;
    }
    
    
    .catagory {
-   	margin-bottom: 8px;
-   	width: 150px;
-   	height: 50px;
-   	line-height: 50px;
+   	margin-bottom: 5px;
+   	width: 120px;
+   	height: 40px;
+   	line-height: 40px;
    }
    
    .catagory:hover {
@@ -216,7 +297,7 @@
    
    
    #model_title {
-   	font-size: 18px;
+   	font-size: 16px;
    	font-weight: 700;
    }
    

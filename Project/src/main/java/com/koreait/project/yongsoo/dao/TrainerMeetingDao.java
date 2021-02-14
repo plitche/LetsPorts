@@ -1,5 +1,6 @@
 package com.koreait.project.yongsoo.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.koreait.project.dto.MaterialsDto;
@@ -23,6 +24,14 @@ public interface TrainerMeetingDao {
 	public TrainerTemDto findUserInfo(int user_no);
 	// 4. 모임 개설자의 관심 종목을 가져오기 위한 메소드
 	public List<String> getUserInterest(int user_no);
+	
+	// 이동하는 모임이 이미 스크랩 한 모임인지 판단하기 위한 메소드
+	public int isInWishList(int user_no, int meeting_no);
+	
+	// 전달받은 모임 번호를 통해 end_gather_date를 구하는 메소드
+	public Date getEndGatherDate(int scrap_referer_no);
+	// 모임 view페이지에서 관심모임으로 등록하기 버튼 클릭 시 insert해주기 위한 메소드
+	public int insertScrap(int user_no, int scrap_referer_no, Date end_gather_date);
 	
 	// 트레이너 모임 개설 페이지에서 meeting테이블에 insert를 하기위한 메소드
 	public int createMeeting(CreateNewMeetingDto createNewMeetingDto);

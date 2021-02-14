@@ -37,7 +37,7 @@ public class BoardsListCommand implements CommonMapCommand {
 				totalRecord = wookiDao.totalBoardsRecordFilterQuery(boardSep, columnName, query);
 			}
 		}
-		int recordPerPage = 5;
+		int recordPerPage = 10;
 		int page = Integer.parseInt(request.getParameter("page"));
 		int beginRecord = (page - 1) * recordPerPage + 1;
 		int endRecord = beginRecord + recordPerPage - 1;

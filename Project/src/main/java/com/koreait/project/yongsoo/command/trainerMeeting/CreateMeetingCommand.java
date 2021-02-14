@@ -1,7 +1,7 @@
 package com.koreait.project.yongsoo.command.trainerMeeting;
 
 import java.io.File;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,9 +23,9 @@ public class CreateMeetingCommand{
 		int user_no = Integer.parseInt(multipartRequest.getParameter("user_no"));
 		String meeting_title = multipartRequest.getParameter("meeting_title");
 		String meeting_content = multipartRequest.getParameter("meeting_content");
-		Timestamp meeting_date = Timestamp.valueOf(multipartRequest.getParameter("meeting_date"));
-		Timestamp start_gather_date = Timestamp.valueOf(multipartRequest.getParameter("start_gather_date"));
-		Timestamp end_gather_date = Timestamp.valueOf(multipartRequest.getParameter("end_gather_date"));
+		Date meeting_date = Date.valueOf(multipartRequest.getParameter("meeting_date"));
+		Date start_gather_date = Date.valueOf(multipartRequest.getParameter("start_gather_date"));
+		Date end_gather_date = Date.valueOf(multipartRequest.getParameter("end_gather_date"));
 		int meeting_max = Integer.parseInt(multipartRequest.getParameter("meeting_max"));
 		int meeting_min = Integer.parseInt(multipartRequest.getParameter("meeting_min"));
 		int exercise_no = Integer.parseInt(multipartRequest.getParameter("exercise_no"));

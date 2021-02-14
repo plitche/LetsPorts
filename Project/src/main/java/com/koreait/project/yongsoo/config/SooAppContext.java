@@ -3,6 +3,8 @@ package com.koreait.project.yongsoo.config;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 
+import com.koreait.project.yongsoo.command.Scrap.InsertScrapCommand;
+import com.koreait.project.yongsoo.command.Scrap.IsInWishListCommand;
 import com.koreait.project.yongsoo.command.meetingComment.AddCommentCommand;
 import com.koreait.project.yongsoo.command.meetingComment.DeleteCommentCommand;
 import com.koreait.project.yongsoo.command.meetingComment.GetCommentListCommand;
@@ -187,6 +189,16 @@ public class SooAppContext {
 	@Bean
 	public GoUpdateQnAPageCommand goUpdateQnAPageCommand() {
 		return new GoUpdateQnAPageCommand();
+	}
+	
+	@Bean
+	public IsInWishListCommand isInWishListCommand() {
+		return new IsInWishListCommand();
+	}
+	
+	@Bean
+	public InsertScrapCommand insertScrapCommand() {
+		return new InsertScrapCommand();
 	}
 	
 }

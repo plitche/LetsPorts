@@ -31,4 +31,6 @@ public interface UsersDao {
 	
 	public UsersDto deleteAccount(int user_no);	// 회원 탈퇴
 	
+	public int updateMsg(int user_no, String user_message);	// 상태메세지 수정
+	
 }

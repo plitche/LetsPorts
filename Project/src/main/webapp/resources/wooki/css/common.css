@@ -31,7 +31,7 @@
 }
 
 .nav-container .nav-btn {
-    padding: 5px 10px;
+    padding: 5px 20px;
 }
 
 #select-nav {
@@ -57,20 +57,59 @@ table {
 	width: 100%;
 }
 
-td, th {
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
+td {
+	padding: 15px 0px;
+    border-bottom: 1px solid #d7d7d7;
+    margin: 0;
+    text-align: center;
+}
+
+#filterBox td {
+	padding: 5px;
+}
+
+#filterBox tr {
+	border: 1px solid rgba(216, 216, 216, 0.7);
+}
+
+table[style="width: auto;"], #trainer-container {
+	margin-bottom: 10px;
+}
+
+.content-container h2 {
+	margin-bottom: 10px;
+}
+
+input[type="button"] {
+	background: white;
+	font-weight: 600;
 	padding: 5px 10px;
-	text-align: center;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
+}
+
+input[type="button"]:hover {
+    color: coral;
+    font-weight: bold;
+    border: 1px solid coral;
 }
 
 th {
-	background: silver;
+	background-color: rgba(216, 216, 216, 0.5);
+	padding: 15px 0px;
+    font-weight: bold;
+    border-bottom: 1px solid #d7d7d7;
+    text-align: center;
 }
 
 tfoot.paging {
 	color: silver;
 	text-align: center;
+	font-size: 16px;
+}
+
+tfoot.paging td {
+	padding: 5px;
 }
 
 tfoot a {
@@ -128,20 +167,26 @@ span.disable {
 
 #logo a {
 	text-decoration: none;
+	color: orangered;
+	font-family: 'Dancing Script', cursive;
+	font-size: 31px;
+	line-height: 50px;
+	opacity: 0.7;
 }
 
 #logo img {
-	height: 100px;
+	height: 27px;
 }
 
 #logoTitle {
-	line-height: 100px;
+	line-height: 50px;
 	font-size: 30px;
 	font-weight: bold;
 }
 
 hr {
-	color: silver;
+	color: #ededed;
+	opacity: 0.4;
 }
 
 .padding20 {
@@ -150,9 +195,72 @@ hr {
 
 .navbar {
 	padding: 5px 20px;
+	font-size: 20px;
 }
 
-.seachUser {
+.searchUser {
     position: fixed;
     left: 600px;
+    top: 100px;
+    border: 1px solid rgba(216, 216, 216, 0.7);
+    padding: 20px;
+}
+
+.searchUser input[type="text"] {
+	border: none;
+	font-size: 16px;
+	text-align: center;
+}
+
+.searchUser input:focus {
+	outline: none;
+}
+
+.searchUser td {
+	padding: 10px;
+}
+
+#logoutBtnBox {
+	align-self: center;
+}
+
+#logoutBtnBox input {
+	align-self: center;
+	border-radius: 0px;
+}
+
+input[type="button"]:focus {
+	outline: none;
+}
+
+.black-background input[type="text"] {
+	align-self: center;
+	border: none;
+	font-size: 16px;
+	text-align: center;
+}
+
+.black-background input[type="text"]:focus {
+	outline: none;
+}
+
+.loginBox {
+	width: 300px;
+	border: 1px solid rgba(216, 216, 216, 0.7);
+	text-align: center;
+	position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, -50%);
+}
+
+.loginBox input[type="text"], .loginBox input[type="password"] {
+	align-self: center;
+	border: none;
+	font-size: 16px;
+	text-align: center;
+}
+
+.loginBox input[type="text"]:focus, .loginBox input[type="password"]:focus {
+	outline: none;
 }
