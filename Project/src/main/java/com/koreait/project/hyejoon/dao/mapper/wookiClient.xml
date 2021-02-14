@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.koreait.project.hyejoon.dao.WookiClientDao">
+	
+	<select id="preparingTotalRecord" resultType="int">
+		select
+			count(*)
+		from
+			meeting
+		join
+			(select
+				meeting_no as a
+			from
+				meeting_participants
+			where
+				status = 1
+				and user_no = #{param1}) a on meeting.meeting_no = a.a
+		where
+			meeting.is_progress = 0
+	</select>
+	
+	<select id="preparingMeetingList" parameterType="int" resultType="com.koreait.project.hyejoon.dto.MeetingListingDto">
+		select
+			photo.photo_filename as meeting_filename,
+			meeting.meeting_title as meeting_title,
+			exercise.exercise_name as exercise_name,
+			meeting.meeting_min as min,
+			meeting.meeting_max as max,
+			location1.location1_name as location1,
+			location2.location2_name as location2,
+			meeting.meeting_date as meeting_date,
+			users.profile_photo as profile_filename,
+			users.user_nickname as nickname,
+			meeting.meeting_no as meeting_no
+		from	
+			(select
+				*
+			from
+				(select
+					rownum as rn, b.*
+				from
+					(select
+						*
+					from
+						meeting
+					join
+						(select
+							meeting_no as a
+						from
+							meeting_participants
+						where
+							status = 1
+							and user_no = #{param1}) a on meeting.meeting_no = a.a
+					where
+						meeting.is_progress = 0
+					order by
+						meeting.meeting_date) b) c
+			where
+				c.rn between #{param2} and #{param3}) meeting
+		join
+			users on meeting.user_no = users.user_no
+		join
+			location1 on meeting.location1_no = location1.location1_no
+		join
+			location2 on meeting.location2_no = location2.location2_no
+		join
+			exercise on meeting.exercise_no = exercise.exercise_no
+		left join
+			photo on meeting.meeting_no = photo.photo_referer_no
+			and photo_referer_sep = 4
+		order by
+			meeting_date
+	</select>
+	
+	<select id="updateUserInfo" resultType="com.koreait.project.hyejoon.dto.UserUpdateDto">
+		select
+			*
+		from
+			users
+		where
+			user_no = #{param1}
+	</select>
+	
+	<select id="updateUserInterest" resultType="String">
+		select
+			LISTAGG(exercise_no, ',') within group (order by exercise_no) as interest_list
+		from
+			user_interest
+		where
+			user_no = #{param1}
+	</select>
+	
+	<update id="userUpdate" parameterType="com.koreait.project.hyejoon.dto.UserUpdateDto">
+		update
+			users
+		set
+			user_nickname = #{user_nickname},
+			<if test="!password.equals('')">
+				password = #{password},
+			</if>
+			location1_no = #{location1_no},
+			location2_no = #{location2_no}
+		where
+			user_no = #{user_no}
+	</update>
+	
+	<delete id="deleteInterest" parameterType="int">
+		delete from
+			user_interest
+		where
+			user_no = #{param1}
+	</delete>
+	
+	<insert id="insertNewInterest">
+		insert into
+			user_interest
+		values
+			(user_interest_seq.nextval, ${param1}, ${param2})
+	</insert>
+	
+</mapper>

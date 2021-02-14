@@ -41,6 +41,13 @@ INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 2
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 25, SYSDATE, 1, NULL);
 
 
+
+insert into user_interest values (user_interest_seq.nextval, 13, 0);
+insert into user_interest values (user_interest_seq.nextval, 13, 3);
+insert into user_interest values (user_interest_seq.nextval, 13, 5);
+
+
+
 	
 DROP TABLE test_board;
 DROP SEQUENCE test_board_seq;

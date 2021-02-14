@@ -100,7 +100,7 @@ public class MyPageController {
 	public String userUpdateView(HttpServletRequest request, Model model){
 		model.addAttribute("request", request);
 		userUpdateViewCommand.execute(sqlSession, model);
-		return "hyePages/usersInfoUpdatePage";
+		return "hyePages/userUpdatePage";
 		
 	}
 	

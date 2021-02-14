@@ -1,0 +1,51 @@
+@CHARSET "UTF-8";
+
+.flex {
+	display: flex;
+}
+
+.wrap {
+	flex-wrap: wrap;
+}
+
+.cover {
+	width: 240px;
+	height: 180px;
+	overflow: hidden;
+	position: relative;
+}
+
+.cover img {
+	width: 240px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.profiePhoto {
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+	position: relative;
+}
+
+.profiePhoto img {
+	height: 40px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.meeting {
+	margin: 5px;
+	padding: 5px;
+	border: 1px solid black;
+	border-radius: 10px;
+}
+
+.meeting:hover {
+	cursor: pointer;
+	border: 1px solid orangered;
+}
