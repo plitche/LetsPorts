@@ -111,6 +111,12 @@ public class WonController {
 		return "redirect:GoBoard_KnowHowList.limyeng";
 	}
 
+	// list페이지에서 조회수 증가
+
+	
+	
+	
+	
 }
 	
 	
