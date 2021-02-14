@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Bean;
 
 import com.koreait.project.yongsoo.command.Scrap.InsertScrapCommand;
 import com.koreait.project.yongsoo.command.Scrap.IsInWishListCommand;
+import com.koreait.project.yongsoo.command.mainPage.GetMeetingCommand;
+import com.koreait.project.yongsoo.command.mainPage.GetQnACommand;
+import com.koreait.project.yongsoo.command.mainPage.GetTrainerCommand;
 import com.koreait.project.yongsoo.command.meetingComment.AddCommentCommand;
 import com.koreait.project.yongsoo.command.meetingComment.DeleteCommentCommand;
 import com.koreait.project.yongsoo.command.meetingComment.GetCommentListCommand;
@@ -199,6 +202,21 @@ public class SooAppContext {
 	@Bean
 	public InsertScrapCommand insertScrapCommand() {
 		return new InsertScrapCommand();
+	}
+	
+	@Bean
+	public GetMeetingCommand getMeetingCommand() {
+		return new GetMeetingCommand();
+	}
+	
+	@Bean
+	public GetTrainerCommand getTrainerCommand() {
+		return new GetTrainerCommand();
+	}
+	
+	@Bean
+	public GetQnACommand getQnACommand() {
+		return new GetQnACommand();
 	}
 	
 }
