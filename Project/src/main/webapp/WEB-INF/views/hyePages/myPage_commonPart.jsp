@@ -229,6 +229,12 @@ $(document).on('click', '#updateMsgBtn', function(){
 		$('.preparingMeeting').click(function() {
 			fn_preparingMeetingForm();
 		});
+		$('.pastMeeting').click(function() {
+			fn_pastMeetingForm();
+		});
+		$('.qna').click(function() {
+			fn_myQnAForm();
+		});
 	});
 </script>
 
@@ -239,7 +245,6 @@ $(document).on('click', '#updateMsgBtn', function(){
 	<div class="flex">
 		<div class="preparingMeeting">참여예정 모임</div>
 		<div class="pastMeeting">지난 모임</div>
-		<div class="meetingPar">모임 참여자 관리</div>
 		<div class="qna">질문과답변</div>
 	</div>
 	<div id="contentBox"></div>

@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.koreait.project.hyejoon.dao.WookiClientDao">
 	
-	<select id="preparingTotalRecord" resultType="int">
+	<select id="totalRecord" resultType="int">
 		select
 			count(*)
 		from
@@ -19,10 +19,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				status = 1
 				and user_no = #{param1}) a on meeting.meeting_no = a.a
 		where
-			meeting.is_progress = 0
+			meeting.is_progress = #{param2}
 	</select>
 	
-	<select id="preparingMeetingList" parameterType="int" resultType="com.koreait.project.hyejoon.dto.MeetingListingDto">
+	<select id="meetingList" parameterType="int" resultType="com.koreait.project.hyejoon.dto.MeetingListingDto">
 		select
 			photo.photo_filename as meeting_filename,
 			meeting.meeting_title as meeting_title,
@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							status = 1
 							and user_no = #{param1}) a on meeting.meeting_no = a.a
 					where
-						meeting.is_progress = 0
+						meeting.is_progress = #{param4}
 					order by
 						meeting.meeting_date) b) c
 			where
@@ -73,6 +73,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and photo_referer_sep = 4
 		order by
 			meeting_date
+	</select>
+	
+	<select id="totalMyQnARecord" resultType="int">
+		select
+			count(*)
+		from
+			board_qna
+		where
+			user_no = #{param1}
+	</select>
+	
+	<select id="myQnAList" resultType="com.koreait.project.hyejoon.dto.MyQnADto">
+		select
+			board.board_qna_title as board_qna_title,
+			nvl(c.comment_count, 0) as comment_count,
+			board.board_qna_no as board_qna_no,
+			board.created_at as created_at
+		from
+			(select
+				*
+			from
+				(select
+					rownum as rn, a.*
+				from
+					(select
+						*
+					from
+						board_qna
+					where
+						user_no = #{param1}
+					order by
+						created_at desc) a) b
+			where
+				b.rn between #{param2} and #{param3}) board
+		left join
+			(select
+				comment_referer_no, count(*) as comment_count
+			from
+				comments
+			where
+				comment_referer_sep = 1
+			group by
+				comment_referer_no) c on board.board_qna_no = c.comment_referer_no
 	</select>
 	
 	<select id="updateUserInfo" resultType="com.koreait.project.hyejoon.dto.UserUpdateDto">

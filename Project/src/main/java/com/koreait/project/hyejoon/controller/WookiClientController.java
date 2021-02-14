@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.koreait.project.hyejoon.command.myPage.MyQnAListCommand;
+import com.koreait.project.hyejoon.command.myPage.PastMeetingListCommand;
 import com.koreait.project.hyejoon.command.myPage.PreparingMeetingListCommand;
 import com.koreait.project.hyejoon.command.userAccount.UserUpdateCommand;
 import com.koreait.project.hyejoon.config.WookiClientAppContext;
@@ -26,6 +28,8 @@ public class WookiClientController {
 	private SqlSession sqlSession;
 	private AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(WookiClientAppContext.class);
 	private PreparingMeetingListCommand preparingMeetingListCommand = ctx.getBean("preparingMeetingListCommand", PreparingMeetingListCommand.class);
+	private PastMeetingListCommand pastMeetingListCommand = ctx.getBean("pastMeetingListCommand", PastMeetingListCommand.class);
+	private MyQnAListCommand myQnAListCommand = ctx.getBean("myQnAListCommand", MyQnAListCommand.class);
 	private UserUpdateCommand userUpdateCommand = ctx.getBean("userUpdateCommand", UserUpdateCommand.class);
 	
 	
@@ -39,6 +43,27 @@ public class WookiClientController {
 		return preparingMeetingListCommand.execute(sqlSession, model);
 	}
 	
+	// 참가했던 지난모임
+	@GetMapping(value="pastMeetingList.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> pastMeetingList(
+			@ModelAttribute("user_no") int user_no,
+			@ModelAttribute("page") int page,
+			Model model) {
+		return pastMeetingListCommand.execute(sqlSession, model);
+	}
+	
+	// 질문과 답변 리스트
+	@GetMapping(value="myQnAList.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> myQnAList(
+			@ModelAttribute("user_no") int user_no,
+			@ModelAttribute("page") int page,
+			Model model) {
+		return myQnAListCommand.execute(sqlSession, model);
+	}
+	
+	// 회원정보 업데이트
 	@PostMapping(value="userUpdate.wooki")
 	public String userUpdate(
 			HttpServletRequest request,
