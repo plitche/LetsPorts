@@ -87,7 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 클래스의 meeting 테이블에 내용들을 삽입하는 쿼리문 -->
 	<insert id="trainerClassInsert" parameterType="com.koreait.project.jungho.dto.MakeTrainerClassDto">
 		INSERT INTO MEETING VALUES
-		(MEETING_SEQ.NEXTVAL, #{user_no}, #{meeting_max}, #{meeting_min}, #{exercise_no}, SYSDATE, #{start_gather_date}, #{end_gather_date}, #{meeting_date}, #{location1_no}, #{location2_no}, #{meeting_title}, #{meeting_content}, 0, null, 0, #{detail_location}, 0)	
+		(MEETING_SEQ.NEXTVAL, #{user_no}, #{meeting_max}, #{meeting_min}, #{exercise_no}, SYSDATE, #{start_gather_date}, #{end_gather_date}, #{meeting_date}, #{location1_no}, #{location2_no}, #{meeting_title}, #{content}, 0, null, 0, #{detail_location}, 0)	
 	</insert>
 	<!-- meeting 테이블 삽입 후 새롭게 생긴 meeting_no 값을 최신화시켜 가져오는 쿼리문 -->
 	<select id="findNewMeetingNo" resultType="int" parameterType="int">
@@ -101,7 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<insert id="insertPhoto">
-		INSERT INTO PHOTO VALUES (PHOTO_SEQ.NEXTVAL, 2, #{param1}, #{param2}, #{param3}, SYSDATE, 0)
+		INSERT INTO PHOTO VALUES (PHOTO_SEQ.NEXTVAL, 4, #{param1}, #{param2}, #{param3}, SYSDATE, 0)
 	</insert>
 	
 	<!-- 보여주기 페이지를 위해 값 가져가는 쿼리문 -->
@@ -119,6 +119,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			JOIN PHOTO P
 				 ON M.MEETING_NO = P.PHOTO_REFERER_NO
 		WHERE M.MEETING_NO = #{param1}
+		AND P.PHOTO_REFERER_SEP = 4
 	</select>
 	
 	<!-- materials 테이블에 저장된 내용을 가져가는 쿼리문 -->

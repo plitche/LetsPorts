@@ -259,6 +259,7 @@ $(document).on('click', '#updateMsgBtn', function(){
 			<input type="button" value="수정하기" id="updateMsgBtn" />
 		</div>
 	</div>
+
 </div>
 		
 
