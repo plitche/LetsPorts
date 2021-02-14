@@ -10,10 +10,7 @@
 	<jsp:param value="트레이너 리스트 페이지" name="title"/>
 </jsp:include>
 
-<div id="trainerMainPhoto">
-	<img alt="coaching" src="resources/images/soo/coaching.jpg">
-</div>
-<br/><br/>
+<br/>
 <div id="ManageTrainer">
 	<div>
 		<img class="introLogo" alt="interview" src="resources/images/soo/job-interview.png">
@@ -72,4 +69,7 @@
 		</div>
 	</div>
 </c:if>
+
 <%@ include file="../template/footer.jsp" %>
+
+

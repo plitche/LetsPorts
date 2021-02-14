@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.koreait.project.yongsoo.dao.MainPageDao">
+	
+	<!-- 메인페이지로 이동 시 ajax를 통해 마감이 임박한 모임 list를 가져오는 메소드 -->
+	<select id="getMeeting" resultType="com.koreait.project.yongsoo.dto.MeetingTemDto">
+		SELECT *
+		  FROM (SELECT M1.*, ROWNUM RN
+		        FROM (SELECT *
+		              FROM MEETING
+		              WHERE ON_HIDE = 0
+		                AND END_GATHER_DATE > SYSDATE-1/2
+		              ORDER BY MEETING_DATE DESC) M1
+		        ) M2 
+		  	    FULL OUTER JOIN USERS U 
+		        ON M2.USER_NO = U.USER_NO
+		        FULL OUTER JOIN EXERCISE E
+		        ON M2.EXERCISE_NO = E.EXERCISE_NO
+		        FULL OUTER JOIN PHOTO P
+		        ON M2.meeting_no = P.photo_referer_no
+    		    FULL OUTER JOIN LOCATION1 L1
+		        ON M2.LOCATION1_NO = L1.LOCATION1_NO
+		        FULL OUTER JOIN LOCATION2 L2
+		        ON M2.LOCATION2_NO = L2.LOCATION2_NO
+		 WHERE RN BETWEEN 1 AND 4
+		   AND P.PHOTO_REFERER_SEP = 4
+		   AND P.ON_HIDE = 0
+	</select>
+	
+	
+	<!-- 메인페이지로 이동 시 ajax를 통해 평점이 높은 트레이너 정보를 가져오는 메소드 -->
+	<select id="getTrainer" resultType="com.koreait.project.yongsoo.dto.TrainerTemDto">
+		SELECT *
+		  FROM (SELECT ROWNUM RN, a.*
+		          FROM (SELECT U.USER_NO, AVG(R.SCORE)
+					      FROM USERS U FULL OUTER JOIN REVIEW R
+					        ON U.USER_NO = R.TARGET_USER_NO
+					     WHERE U.USER_NO IN (SELECT TARGET_USER_NO
+					        				   FROM REVIEW
+					       				      GROUP BY TARGET_USER_NO
+					       				     HAVING COUNT(*) > 4
+					       				    )
+				  	     GROUP BY U.USER_NO
+				  	     ORDER BY AVG(R.SCORE) DESC ) A ) B
+		        FULL OUTER JOIN USERS U
+		          ON U.USER_NO = B.USER_NO
+		        FULL OUTER JOIN TRAINER_INFO T
+		          ON T.USER_NO = B.USER_NO
+		 WHERE B.USER_NO IS NOT NULL
+		   AND U.DISABLE = 0
+		   AND B.RN BETWEEN 1 AND 2
+	</select>
+	
+	<!-- 리뷰 개수를 가지고 오는 메소드 -->
+	<select id="reviewCount" parameterType="int" resultType="Integer">
+		SELECT COUNT(*)
+		  FROM REVIEW
+		 WHERE TARGET_USER_NO = #{user_no}	
+	</select>
+	
+	
+	<!-- 메인페이지로 이동 시 ajax를 통해 최근에 작성된 질문 list를 가져오는 메소드 -->
+	<select id="getQnA" resultType="com.koreait.project.yongsoo.dto.BoardQnATemDto">
+ 		SELECT *
+		  FROM (SELECT ROWNUM RN, B1.*
+		          FROM (SELECT *
+		                  FROM BOARD_QNA
+		                 WHERE BOARD_QNA_NO IS NOT NULL
+		                   AND ON_HIDE = 0
+		                 ORDER BY BOARD_QNA_NO DESC) B1) B2 
+      		   FULL OUTER JOIN USERS U
+		       ON B2.USER_NO = U.USER_NO
+		 WHERE B2.RN BETWEEN 1 AND 10
+	</select>
+
+	
+	
+	
+</mapper>

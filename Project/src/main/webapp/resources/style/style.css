@@ -23,10 +23,15 @@ ul {
 }
 
 .top-menu {
-	height: 60px;
+	height: 70px;
 	display: flex;
-	width: 1080px;
-	margin: 0 auto;
+	width: 100%;
+	position: fixed;
+	background: #fff;
+	z-index: 999;
+	top: -7px;
+	padding-left: 21%;
+	filter: drop-shadow(0px 3px 6px black);
 }
 .top-menu > a > img {
 	width: 27px;
@@ -53,7 +58,7 @@ ul {
 
 .menu-bar {
 	display: flex;
-	margin-right: 32%;
+	margin-right: 24%;
 }
 
 .header {
@@ -78,13 +83,14 @@ ul {
 .imageWrap {
 	height: 400px;
 	width: 100%;
-	margin-top: 10px;
 	background-image: url("../images/man.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
 	padding-top: 11%;
 	padding-left: 15.2%;
 	background-position: 20% 65%;
+	position: absolute;
+	top: 65px;
 }
 .introduce div:nth-child(1) {
 	font-family: 'Black Han Sans', sans-serif;
@@ -115,39 +121,224 @@ ul {
 	font-size: 18px;
 }
 
+#meeting, 
+#trainer, 
+#qna {
+	position: relative;
+}
+#meeting > span, 
+#trainer > span,
+#qna > span {
+	position: absolute;
+	top: 30px;
+	right: 0px;
+	font-size: 12px;
+}
+#meeting > span a, 
+#trainer > span a,
+#qna > span a {
+	text-decoration: none;
+	color: #999;
+}
+	
 .body-wrap {
 	width: 1080px;
 	margin: 0 auto;
 	margin-bottom: 80px;
 	height: auto;
 	display: flow-root;
+	margin-top: 50px;
 }
 
-.footer {
+/* 모임 파트 css */
+#meetingList {
+	white-space: nowrap;
+	border-top: 2px solid #fa8072;
+	border-bottom: 2px solid #fa8072;
+	height: 94%;	
+}
+#meetingList > a {
+	width: 43%;
+	text-decoration: none;
+	color: inherit;
+	float: left;	
+	margin: 20px 20px;
+	background: #fff;
+	transition: 0.2s ease;
+	border-radius: 6%;
+	box-shadow: 2px 1px 1px gray;
+}
+#meetingList > a:hover {
+	transform: scale(1.05, 1.05);
+}
+#meetingList .trainerMeeting {
+	width: 100%;
+	height: auto;
+	border-radius: 16px;
+	border: 1px solid #f1f1f1;
+}
+.trainerMeeting > div:nth-child(1) {
+	height: 120px;
+	text-align: center;
+	line-height: 100px;
+}
+.trainerMeeting > div > img {
+	width: 100%;
+	height: 100%;
+	border-radius: 16px 16px 0 0;
+}
+.writerInfo {
+	border-top: .5px solid #dbdbdb;
+	padding-top: 10px;
+}
+.writerInfo img {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+.writerInfo > span:nth-child(2) {
+	font-size: 14px;
+	line-height: 40px;
+	font-weight: 700;
+}
+.meetingContent  {
+	padding: 13px;
+}
+
+
+/* 트레이너 파트 css */
+#trainer-list {
+	display: flex;
+	flex-wrap: wrap;
+}
+#trainer-list a {
+	width: 33%;
+	color: inherit;
+	text-decoration: none;
+	margin: auto;
+}
+.trainer-picture {
+	position: relative;
+}
+.overlay {
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	transition: 0.7s ease;
+}
+
+.trainer:hover .overlay {
+	opacity: 1;
+	color: yellow;
+}
+.overlay > div {
+	padding: 20px;
+	word-spacing: 10px;
+	position: absolute;
+}
+.trainer {
+	margin: 0 15px;
+}
+.trainer-picture img {
+	width: 100%;
+	height: 100%;
+	transition: 0.7s ease;
+}
+.trainer-info {
+	padding: 5px;
+}
+.trainer-info > div:nth-child(1),
+.trainer-info > div:nth-child(3) {
+	font-size: 1.5rem;
+}
+.trainer-info > div:nth-child(2) {
+	font-size: 2rem;
+	font-weight: 900;
+	font-stretch: wider;
+}
+.trainer-info span {
+	margin-right: 10px;
+}
+
+
+
+
+/* 질문 파트 css */
+#container {
 	display: grid;
-	background: black;
+	grid-template-columns: 60% 40%;
+	grid-gap: 30px;
+}
+#qna {
+	grid-column-start: 2;
+	grid-column-end: 3;
+	grid-row-start: 1;
+	grid-row-end: 3;
+}
+#qna a {
+	text-decoration: none;
+	color: black;
+}
+#qna thead td {
+	padding: 8px;
+	font-weight: bold;
+	border-top: 2px solid #fa8072;
+	border-bottom: 1px solid #d7d7d7;
+	background: #fcfcfc;
+	font-size: 16px;
+}
+#qna thead a {
+	font-size: 12px;
+	color: #999;
+}
+#qna thead td:nth-child(2) {
+	text-align: right;
+}
+#qna tbody td {
+	padding: 8px;
+	border-bottom: 1px solid #d7d7d7;
+	margin: 0;
+	font-size: 13px;
+}
+#qna tbody td:nth-child(2),
+#qna tbody td:nth-child(3) {
+	text-align: center;
+}
+#qna tbody tr:nth-last-child(1) {
+	border-bottom: 2px solid #fa8072;
+}
+
+
+
+
+
+
+
+
+
+.footer {
 	padding: 5px;
 	grid-template-rows: 50px 120px;
 	grid-template-columns: 40% 30% 30%;
 	align-items: center;
-	width: 1080px;
+	width: 100%;
 	margin: 0 auto;
-}
-
-.footer>div, .footer-title {
-	color: white;
-	margin-left: 10px;
+	background-image: url("../images/cityscape.jpg");
+	background-repeat: no-repeat;
+	background-position: 47% 77%;
 }
 
 .footer-title {
-	grid-column: span 3;
 	font-family: 'Dancing Script', cursive;
 }
-
-.footer>div {
-	padding: 15px 0;
+.company {
+	margin-right: 31%;
+	width: 40%;
+	text-align: right;
 }
-
-.company, .customer-center {
-	border-right: 1px solid white;
+.us {
+	width: 45%;
 }
