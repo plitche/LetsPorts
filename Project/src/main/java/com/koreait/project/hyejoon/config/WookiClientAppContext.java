@@ -3,6 +3,7 @@ package com.koreait.project.hyejoon.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.koreait.project.hyejoon.command.InsertTrainerCommand;
 import com.koreait.project.hyejoon.command.myPage.MyQnAListCommand;
 import com.koreait.project.hyejoon.command.myPage.PastMeetingListCommand;
 import com.koreait.project.hyejoon.command.myPage.PreparingMeetingListCommand;
@@ -29,6 +30,11 @@ public class WookiClientAppContext {
 	@Bean
 	public UserUpdateCommand userUpdateCommand() {
 		return new UserUpdateCommand();
+	}
+	
+	@Bean
+	public InsertTrainerCommand insertTrainerCommand() {
+		return new InsertTrainerCommand();
 	}
 	
 }

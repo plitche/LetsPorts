@@ -2,6 +2,7 @@ package com.koreait.project.hyejoon.dao;
 
 import java.util.List;
 
+import com.koreait.project.dto.Trainer_infoDto;
 import com.koreait.project.hyejoon.dto.MeetingListingDto;
 import com.koreait.project.hyejoon.dto.MyQnADto;
 import com.koreait.project.hyejoon.dto.UserUpdateDto;
@@ -21,4 +22,6 @@ public interface WookiClientDao {
 	public int deleteInterest(int user_no);
 	public int insertNewInterest(int user_no, int exercise_no);
 	
+	public int updateTrainerUser(int user_no);
+	public int insertTrainer(Trainer_infoDto trainer_infoDto);
 }

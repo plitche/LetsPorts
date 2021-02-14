@@ -34,7 +34,7 @@ public class AddTrainerSendEmailCommand implements CommonMapCommand {
 			message.setRecipient(Message.RecipientType.TO, to);
 			message.setSubject("트레이너 회원가입 페이지 링크입니다.");
 			
-			message.setContent("회원가입 링크는 <a href='http://localhost:9090/project/trainerSignUp.hey?user_no=" + user_no + "'>여기</a>를 클릭해주세요.", "text/html; charset=utf-8");
+			message.setContent("회원가입 링크는 <a href='http://localhost:9090/project/trainerSignUp.wooki?user_no=" + user_no + "'>여기</a>를 클릭해주세요.", "text/html; charset=utf-8");
 			
 			resultMap = new HashMap<String, Object>();
 			mailSender.send(message);

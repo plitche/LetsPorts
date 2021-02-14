@@ -164,4 +164,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			(user_interest_seq.nextval, ${param1}, ${param2})
 	</insert>
 	
+	<update id="updateTrainerUser">
+		update
+			users
+		set
+			user_separator = 1
+		where
+			user_no = #{param1}
+	</update>
+	
+	<insert id="insertTrainer" parameterType="com.koreait.project.dto.Trainer_infoDto">
+		insert into
+			trainer_info
+		values
+			(trainer_info_seq.nextval, ${user_no}, ${career}, #{trainer_name}, #{certificate_filename}, #{employment}, #{profile}, sysdate)
+	</insert>
+	
 </mapper>

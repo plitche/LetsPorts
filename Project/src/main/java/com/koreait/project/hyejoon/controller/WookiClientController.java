@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.koreait.project.hyejoon.command.InsertTrainerCommand;
 import com.koreait.project.hyejoon.command.myPage.MyQnAListCommand;
 import com.koreait.project.hyejoon.command.myPage.PastMeetingListCommand;
 import com.koreait.project.hyejoon.command.myPage.PreparingMeetingListCommand;
@@ -31,6 +33,7 @@ public class WookiClientController {
 	private PastMeetingListCommand pastMeetingListCommand = ctx.getBean("pastMeetingListCommand", PastMeetingListCommand.class);
 	private MyQnAListCommand myQnAListCommand = ctx.getBean("myQnAListCommand", MyQnAListCommand.class);
 	private UserUpdateCommand userUpdateCommand = ctx.getBean("userUpdateCommand", UserUpdateCommand.class);
+	private InsertTrainerCommand insertTrainerCommand = ctx.getBean("insertTrainerCommand", InsertTrainerCommand.class);
 	
 	
 	// 참가 예정 모임중 진행예정 모임 
@@ -73,5 +76,19 @@ public class WookiClientController {
 		model.addAttribute("userUpdateDto", userUpdateDto);
 		userUpdateCommand.execute(sqlSession, model);
 		return "redirect:myPage_commonPart.hey";
+	}
+	
+	// 트레이너 회원가입 페이지
+	@GetMapping(value="trainerSignUp.wooki")
+	public String trainerSignUp() {
+		return "hyePages/trainerSignUp";
+	}
+	
+	// 트레이너 회원가입
+	@PostMapping(value="insertTrainer.wooki")
+	public String insertTrainer(MultipartHttpServletRequest multipartRequest, Model model) {
+		model.addAttribute("multipartRequest", multipartRequest);
+		insertTrainerCommand.execute(sqlSession, model);
+		return "redirect:/";
 	}
 }
