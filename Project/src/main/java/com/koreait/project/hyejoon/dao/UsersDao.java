@@ -33,4 +33,6 @@ public interface UsersDao {
 	
 	public int updateMsg(int user_no, String user_message);	// 상태메세지 수정
 	
+	public int viewMeetingInfo(int user_no);	// 탭 모임 정보 가져오기
+	
 }

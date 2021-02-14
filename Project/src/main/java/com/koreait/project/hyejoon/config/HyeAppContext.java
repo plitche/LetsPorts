@@ -9,6 +9,7 @@ import com.koreait.project.hyejoon.command.login.UsersLoginCommand;
 import com.koreait.project.hyejoon.command.myPage.DeletePhotoCommand;
 import com.koreait.project.hyejoon.command.myPage.UpdateMsgCommand;
 import com.koreait.project.hyejoon.command.myPage.UploadProfilePhotoCommand;
+import com.koreait.project.hyejoon.command.myPage.ViewMeetingInfoCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailAuthCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailCheckCommand;
 import com.koreait.project.hyejoon.command.signUp.InsertJoinCommand;
@@ -81,6 +82,10 @@ public class HyeAppContext {
 	@Bean
 	public UpdateMsgCommand updateMsgCommand() {
 		return new UpdateMsgCommand();
+	}
+	@Bean
+	public ViewMeetingInfoCommand viewMeetingInfoCommand() {
+		return new ViewMeetingInfoCommand();
 	}
 	
 }
