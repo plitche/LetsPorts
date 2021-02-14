@@ -13,6 +13,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+<link type="text/css" rel="stylesheet" href="resources/joon/css/usersSignUpPage.css" >
 <script src="resources/joon/js/usersSignUpPage.js"></script>
 
 <style type="text/css">
@@ -257,13 +258,18 @@ function rePwCheck(){
 <title>회원가입 입력</title>
 </head>
 <body>
-	
-	<h3>회원가입</h3>
+			<br/>
+			<br/>
+			<br/>
+	<!-- wrapper는 나중에 css 작업에 용이하게 하기 위함 -->
+	<div id="signUpWrapper">
+	<h3>
+		<img alt="mainLogo" id="logo" src="resources/images/mainLogo.JPG">
+		회원가입
+	</h3>
 
 	<br />
 	<br />
-	<!-- wrapper는 나중에 css 작업에 용이하게 하기 위함 -->
-	<div id="signUpWrapper">
 		<form method="post">
 			<!-- 닉네임 -->
 			<div class="form-group">
@@ -296,22 +302,22 @@ function rePwCheck(){
 			<div class="form-group">
 				<label for="password">비밀번호 </label><br/>
 				<input type="password" class="form-control" id='password' name="password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)"><br/>
-				<div class="check_font" id="pw_check"></div>
+				<div class="check_font" id="pw_check"></div><br/>
 			</div>
 			
 		<!-- 비밀번호 확인 -->
 			<div class="form-group">
 				<label for="re_password">비밀번호 확인 </label><br/>
 				<input type="password" class="form-control" id="re_password" name="re_password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)"><br/>
-				<div class="check_font" id="pw_reCheck"></div>
+				<div class="check_font" id="pw_reCheck"></div><br/>
 			</div>
 			
 			<!-- 생년월일 -->
 			<div class="form-group">
-				<label for="password">생년월일</label><br/>
-				 <select name="birth_year" id="birth_year" title="년도" class="select_birth"></select>   
-				 <select name="birth_month" id="birth_month" title="월" class="select_birth"></select>
-				 <select name="birth_day" id="birth_day" title="일" class="sselect_birth"></select>
+				<label for="birth">생년월일</label><br/>
+				 <select name="birth_year" id="birth_year" title="년도" class="select_birth"></select>년 &nbsp;
+				 <select name="birth_month" id="birth_month" title="월" class="select_birth"></select>월&nbsp;
+				 <select name="birth_day" id="birth_day" title="일" class="select_birth"></select>일
 			</div>
 			<br/>
 			
@@ -319,12 +325,12 @@ function rePwCheck(){
 			<div class="form-group">
 				<label for="address">주소 </label><br/>
 				<select id="location1" name="location1_no">
-					<option id="none" value="">시/도 선택</option>
-					<option id="seoul" value="0">서울특별시</option>
-					<option id="incheon" value="1">인천광역시</option>
-					<option id="gyeongi" value="2">경기도</option>
+					<option class="location" id="none" value="">시/도 선택</option>
+					<option class="location" id="seoul" value="0">서울특별시</option>
+					<option class="location" id="incheon" value="1">인천광역시</option>
+					<option class="location" id="gyeongi" value="2">경기도</option>
 				</select>
-				<select id="location2" name="location2_no">
+				<select class="location" id="location2" name="location2_no">
 					
 				</select> 
 			</div>
@@ -336,25 +342,36 @@ function rePwCheck(){
 				<label><input type="checkbox" name="exercise_no" value="0">족구</label>
 				<label><input type="checkbox" name="exercise_no" value="1">축구</label>
 				<label><input type="checkbox" name="exercise_no" value="2">농구</label>
-				<label><input type="checkbox" name="exercise_no" value="3">볼링</label><br/>
+				<label><input type="checkbox" name="exercise_no" value="3">볼링</label>
 				<label><input type="checkbox" name="exercise_no" value="4">크로스핏</label>
 				<label><input type="checkbox" name="exercise_no" value="5">스피닝</label>
 				<label><input type="checkbox" name="exercise_no" value="6">댄스</label>
-				<label><input type="checkbox" name="exercise_no" value="7">요가</label><br/>
+				<label><input type="checkbox" name="exercise_no" value="7">요가</label>
 				<label><input type="checkbox" name="exercise_no" value="8">명상</label>
 			</div>
 			<hr />
 
-			<div>
-				<input type="radio" id="이용약관" />(필수)
+			<div class="radio-form">
+				<input type="radio" class="radioBtn" />(필수)<br>
+				<textarea rows="2" cols="72" style="resize: none">이용약관</textarea>
 			</div>
 			<br />
-			<div>
-				<input type="radio" id="개인정보처리방침" />(필수)<br /> <br />
+			<div class="radio-form">
+				<input type="radio" class="radioBtn"/>(필수)<br />
+				<textarea rows="2" cols="72" style="resize: none">개인정보처리방침</textarea>
 			</div>
+			<br/>
+			<br/>
+			<br/>
+			
 
 			<input type="button" id="signUpSubmit" value="회원가입하기" onclick="fn_signUpSubmit(this.form)">
-
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
 		</form>
 	</div>
 

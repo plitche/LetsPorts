@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+body {
+	text-align: left;
+	margin10px;
+}
+h3 {
+	font-size: 30px;
+	text-align: center;
+}
+#logo {
+	height: 40px;
+}
+label{
+	margin-bottom: 10px;
+}
+#signUpWrapper {
+	margin-left: 30%;
+	width: 500px;
+}
+
+hr {
+	width : 100%;
+}
+.check_font {
+	font-size: 12px;
+}
+
+input[type=text]{
+	width: 475px;
+	height: 25px;
+	color: #6c757d;
+	font-weight: 500;
+	font-size: 15px;
+	padding:6px 12px;
+	margin-top: 10px;
+	border: 0.5px solid silver;
+	appearance: textfield;
+}
+input[type=password]{
+	width: 475px;
+	height: 25px;
+	color: #6c757d;
+	font-weight: 500;
+	font-size: 15px;
+	padding:6px 12px;
+	margin-top: 10px;
+	border: 0.5px solid silver;
+	appearance: textfield;
+}
+
+input:focus {
+	outline:1px solid #ff6600;
+}
+#authNum {
+	width: 250px;
+	margin-right: 10px;
+}
+#sendAuth_btn {
+	width: 100px;
+	height: 38px;
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	background: #d12957;
+	color: #ffffff;
+	
+}
+#successAuth_btn {
+	width: 100px;
+	height: 38px;
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	background: #295cd1;
+	color: #ffffff;
+	
+}
+
+.select_birth{
+	width: 110px;
+	height: 30px;
+	color: #6c757d;
+	font-weight: 500;
+	font-size: 15px;
+	padding:5px;
+	border: 1px solid silver;
+}
+select {
+	width: 150px;
+	height: 30px;
+	color: #6c757d;
+	font-weight: 500;
+	font-size: 15px;;
+	padding:5px;
+	margin-top: 10px;
+	border: 1px solid silver;
+}
+select:focus {
+	outline:1px solid #ff6600;
+}
+#signUpSubmit {
+	width: 500px;
+	height: 50px;
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	background: #ff6600;
+	color: #ffffff;
+}
