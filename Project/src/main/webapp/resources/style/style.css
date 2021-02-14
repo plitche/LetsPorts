@@ -22,14 +22,11 @@ ul {
 	margin-left: 10px;
 }
 
-.top-wrap {
-	width: 1080px;
-	margin: 0 auto;
-}
 .top-menu {
 	height: 60px;
-	width: 100%;
 	display: flex;
+	width: 1080px;
+	margin: 0 auto;
 }
 .top-menu > a > img {
 	width: 27px;
@@ -61,7 +58,6 @@ ul {
 
 .header {
 	height: 450px;
-	width: 1080px;
 	margin: 0 auto;
 }
 
@@ -80,13 +76,15 @@ ul {
 }
 
 .imageWrap {
-	height: 350px;
+	height: 400px;
+	width: 100%;
 	margin-top: 10px;
-	background-image: url("../images/jogging.png");
-	background-size: contain;
+	background-image: url("../images/man.jpg");
+	background-size: cover;
 	background-repeat: no-repeat;
-	padding-top: 24.5%;
-	padding-left: 14%;
+	padding-top: 16.5%;
+	padding-left: 32%;
+	background-position: 20% 65%;
 }
 .introduce div:nth-child(1) {
 	font-family: 'Black Han Sans', sans-serif;
