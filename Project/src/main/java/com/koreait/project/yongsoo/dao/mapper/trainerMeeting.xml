@@ -44,7 +44,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		         FULL OUTER JOIN PHOTO P
 		         ON M.meeting_no = P.photo_referer_no
 		 WHERE M.MEETING_NO = #{meeting_no}
-		   AND P.PHOTO_REFERER_SEP = 4
 	</select>
 	<select id="findMaterialsInfo" parameterType="int" resultType="com.koreait.project.dto.MaterialsDto">
 		SELECT *
@@ -133,7 +132,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		 WHERE M.USER_NO = #{param1}
 		   AND M.MEETING_NO != #{param2} 
 		   AND M.ON_HIDE = 0
-		   AND P.PHOTO_REFERER_SEP = 4
 		   AND M.END_GATHER_DATE > SYSDATE
 		 ORDER BY END_GATHER_DATE
 	</select>
@@ -154,7 +152,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE M.USER_NO != #{param1}
 		   AND M.EXERCISE_NO = #{param2}
 		   AND M.ON_HIDE = 0
-   		   AND P.PHOTO_REFERER_SEP = 4
    		   AND M.END_GATHER_DATE > SYSDATE
    		 ORDER BY END_GATHER_DATE
 	</select>

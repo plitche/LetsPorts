@@ -28,9 +28,14 @@ public class CreateNewMeetingDto {
 	private int location2_no;
 	private String location2_name;
 	private String detail_location;
+	
 	private String photo_filename;
 	private MultipartFile mainPhoto;
+	private int photo_referer_sep;
+	
 	private String[] materialList;
+	
+	
 	
 	private String meeting_date2;
 	private String start_gather_date2;

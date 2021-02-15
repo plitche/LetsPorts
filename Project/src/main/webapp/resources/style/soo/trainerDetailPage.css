@@ -514,6 +514,7 @@
 #trainerAnswer > div:nth-child(3) {
 	float: right;
 	margin-bottom: 20px;
+	font-size: 14px;
 }
 
 #star_grade {
