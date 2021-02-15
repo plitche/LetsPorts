@@ -771,7 +771,8 @@
 ${trainerTemDto.profile}
 		</pre>
 		<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
-			<input type="button" class="TrainerDetailBtn" value="새 프로그램 등록" onclick="location.href='goCreateMeetingPage.plitche'"/>
+			<!-- <input type="button" class="TrainerDetailBtn" value="새 프로그램 등록" onclick="location.href='goCreateMeetingPage.plitche'"/> -->
+			<input type="button" class="TrainerDetailBtn" value="새 프로그램 등록" onclick="location.href='TrainerClassInsertPage.leo'"/>
 		</c:if>	
 	</div>
 </div>
