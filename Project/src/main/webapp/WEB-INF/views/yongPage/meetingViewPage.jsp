@@ -411,19 +411,42 @@
 		});
 	}
 </script>
-<!-- 신청하기 버튼 클릭시 작동 -->
+<!-- 신청하기 관련 script -->
 <script>
 	$(document).ready(function() {
 		applyMeeting();
 	});
 	
+	/* 신청하기 버튼  */
 	function applyMeeting() {
 		$(document).on('click', '#applyMeeting', function() {
 			if( '${loginUser.user_no}' == '' ) {
 				loginAlert();
 			} else {
-				alert('구현해야됨');
-				location.href='';
+				var user_no = '${loginUser.user_no}';
+				var meeting_no = ${meetingDto.meeting_no};
+				var meeting_max = ${meetingDto.meeting_max};
+				var sendObj = {
+					"user_no": user_no,
+					"meeting_no": meeting_no,
+					"meeting_max": meeting_max
+				}
+				
+				$.ajax({
+					url: 'applyMeeting.plitche',
+					type: 'post',
+					data: JSON.stringify(sendObj),
+					contentType: 'application/json; charset=utf-8',
+					dataType: 'json',
+					success: function(responseObj) {
+						if (responseObj.result) {
+							
+						} else {
+							
+						}
+					},
+					error: function(){alert('신청하기 실패')}
+				});
 			}
 			
 		});
