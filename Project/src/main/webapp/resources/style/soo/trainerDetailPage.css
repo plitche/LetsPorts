@@ -19,9 +19,6 @@
 #trainerImage img {
 	width: 100%;
 }
-#trainerDetail pre {
-	word-break: break-all;
-}
 
 #totalMeeting, #totalReview, #totalQnA{
 	border: none;
@@ -517,6 +514,7 @@
 #trainerAnswer > div:nth-child(3) {
 	float: right;
 	margin-bottom: 20px;
+	font-size: 14px;
 }
 
 #star_grade {

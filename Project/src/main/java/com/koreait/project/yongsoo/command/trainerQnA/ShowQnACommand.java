@@ -21,10 +21,11 @@ public class ShowQnACommand implements CommonMapCommand {
 		
 		TrainerQnADao trainerQnADao = sqlSession.getMapper(TrainerQnADao.class);
 		QnATemDto qnaTemDto = trainerQnADao.showQnA(trainer_qna_no);
+		
 		Map<String, Object> result = new HashMap<String, Object>();
-		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy:MM:dd(E) HH:mm");
-		
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy:MM:dd(E) HH:mm:ss");
+
 		if (qnaTemDto!=null) {
 			qnaTemDto.setCreated_at2(format.format(qnaTemDto.getCreated_at()));
 			if(qnaTemDto.getIs_answered()==1) {	// 답변 아직 0

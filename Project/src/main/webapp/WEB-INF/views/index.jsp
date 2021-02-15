@@ -78,7 +78,7 @@
 				dataType: 'json',
 				success: function(responseObj) {
 					if (responseObj.result) {
-						mainQnAList(responseObj.trainerList);
+						fn_mainQnAList(responseObj.trainerList);
 					} else {
 
 					}
@@ -88,19 +88,19 @@
 		}
 		
 		/* 가져온 트레이너 list를 append해주기 위한 서브함수 */
-		function mainQnAList(trainerList) {
+		function fn_mainQnAList(trainerList) {
 			$('#trainer-list').empty();
 			$.each(trainerList, function(idx, trainer) {
 				$('#trainer-list')
-				.append( $('<a href="goTrainerDetail.plitche?user_no='+ trainer_user_no +'">') 
+				.append( $('<a href="goTrainerDetail.plitche?user_no='+ trainer.user_no +'">') 
 					.append( $('<div>').addClass('trainer')
 						.append( $('<div>').addClass('trainer-picture')
 							.append( $('<div>').addClass('overlay')
 								.append( $('<div style="bottom: 60px;">').html('<i class="fas fa-check-circle"></i> 활동센터 : '+trainer.employment) )
-								.append( $('<div style="bottom: 60px;">').html('<i class="fas fa-check-circle"></i> 활동경력 : '+trainer.career+'년') )
-								.append( $('<div style="bottom: 60px;">').html('<i class="fas fa-check-circle"></i>'+trainer.user_message) )
+								.append( $('<div style="bottom: 30px;">').html('<i class="fas fa-check-circle"></i> 활동경력 : '+trainer.career+'년') )
+								.append( $('<div style="bottom: 0px;">').html('<i class="fas fa-check-circle"></i> '+trainer.user_message) )
 							)
-							.append( $('<img alt="'+ trainer.profile_photo +' src="resources/storage/'+ trainer.profile_photo +'" >') )
+							.append( $('<img alt="'+ trainer.profile_photo +'" src="resources/storage/'+ trainer.profile_photo +'" >') )
 						)
 						.append( $('<div>').addClass('trainer-info') 
 							.append( $('<div>').text(trainer.trainer_name) )
@@ -125,7 +125,7 @@
 				dataType: 'json',
 				success: function(responseObj) {
 					if (responseObj.result) {
-						mainQnAList(responseObj.trainerList);
+						mainQnAList(responseObj.data);
 					}
 				},
 				error: function(){alert('댓글 정보 가져오기 실패');}
@@ -143,15 +143,14 @@
 					isSolved = '<td style="color:green;">해결완료</td>';
 				}
 				
-				
 				var board_qna_title = qna.board_qna_title;
-				if (board_qna_title.length > 20) {
-					board_qna_title = board_qna_title.substring(0, 20);
-					board_qna_title += '...';
-				}
+				// if (board_qna_title.length > 20) {
+				//	board_qna_title = board_qna_title.substring(0, 16);
+				//	board_qna_title += '...';
+				//}
 				
 				$('#mainQnAList')
-				.append( $('<tr>').html('<td><a href="goQnAViewPage.plitche?board_qna_no='+qna.board_qna_no+'&page=1"> ⊙'+ board_qna_title +'</a></td>')
+				.append( $('<tr>').html('<td><a href="goQnAViewPage.plitche?board_qna_no='+qna.board_qna_no+'&page=1"> ⊙'+ qna.board_qna_title +'</a></td>')
 					.append( $(isSolved) )
 					.append( $('<td>'+ qna.user_nickname +'</td>') )
 				)

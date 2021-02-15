@@ -12,7 +12,7 @@ public class TrainerTemDto {
 	private int user_no;
 	private int user_separator;
 	private String user_nickname;
-	private String profile_photo;
+	
 	private String trainer_name;
 	private String user_message;
 	private int career;	// 1년,2년,3년 등 #연차로 표기
@@ -26,4 +26,7 @@ public class TrainerTemDto {
 	private int reviews;
 	private int scrap_referer_no;
 	private String[] exercise_name;
+	
+	private String profile_photo;
+	private int photo_referer_sep;
 }

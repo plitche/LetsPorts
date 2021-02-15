@@ -10,9 +10,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonMapCommand;
-import com.koreait.project.dto.Trainer_qnaDto;
 import com.koreait.project.yongsoo.dao.TrainerDao;
 import com.koreait.project.yongsoo.dao.TrainerQnADao;
+import com.koreait.project.yongsoo.dto.QnATemDto;
 import com.koreait.project.yongsoo.dto.TrainerTemDto;
 
 public class GetTrainerQnACommand implements CommonMapCommand {
@@ -25,7 +25,7 @@ public class GetTrainerQnACommand implements CommonMapCommand {
 		int page_no = (int)map.get("qnaPageNo");
 		
 		TrainerQnADao trainerQnADao = sqlSession.getMapper(TrainerQnADao.class);
-		List<Trainer_qnaDto> qnalist = trainerQnADao.getTrainerQnAList(page_no, user_no); 
+		List<QnATemDto> qnalist = trainerQnADao.getTrainerQnAList(page_no, user_no); 
 		
 		SimpleDateFormat year = new SimpleDateFormat("yyyy");
 		SimpleDateFormat month = new SimpleDateFormat("MM");
