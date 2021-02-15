@@ -41,7 +41,7 @@ public class WishClassListController {
 	}
 	
 	@RequestMapping(value="WishClassInsert.leo",
-								method=RequestMethod.GET,
+								method=RequestMethod.POST,
 								produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> WishClassListInsert(@RequestParam("scrap_referer_no") int scrap_referer_no,

@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <!-- hidden 
+				   <input type="hidden" name="photo_filename" value="${trainerClassDto.photo_filename}" />
+				   <input type="hidden" name="meeting_no" value="${trainerClassDto.meeting_no}" />
+				   <input type="hidden" name="meeting_title" value="${trainerClassDto.meeting_title}" />
+				   <input type="hidden" name="meeting_date" value="${trainerClassDto.meeting_date}" />
+				   <input type="hidden" name="start_gather_date" value="${trainerClassDto.start_gather_date}" />
+				   <input type="hidden" name="end_gather_date" value="${trainerClassDto.end_gather_date}" />
+				   <input type="hidden" name="meeting_min" value="${trainerClassDto.meeting_min}" />
+				   <input type="hidden" name="meeting_max" value="${trainerClassDto.meeting_max}" />
+				   <input type="hidden" name="exercise_no" value="${trainerClassDto.exercise_no}" />
+				   <input type="hidden" name="location1_no" value="${trainerClassDto.location1_no}" />
+				   <input type="hidden" name="location2_no" value="${trainerClassDto.location2_no}" />
+				   <input type="hidden" name="detail_location" value="${trainerClassDto.detail_location}" />
+				   <input type="hidden" name="meeting_content" value="${trainerClassDto.meeting_content}" />
+				   -->
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- jquery, fontawesome -->
@@ -42,17 +57,78 @@
     <!--  <form method="post">-->
     
     		<br/><br/><br/>
+ 	   		<!-- 상단 제목 + 위시리스트 -->
+   	   		<div class="TrainerClass_title_part">
+   	   		
+    	   		<div id="TrainerClass_title" style="font-size: 32px; font-weight: 900;">${trainerClassDto.meeting_title}</div>
+    	   		<div class="OfferWishListBtn_Box">
+				   		<button type="button" class="WishListBtn" >
+					   		<svg class="WishIcon-module__container--cAypQ" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+					   			<path id="loveIcon_1" fill="none" fill-rule="evenodd" stroke="#CED4DA" stroke-width="1.25" d="M15.876 4.625c1.205 0 2.41.46 3.33 1.379.918.92 1.378 2.124 1.378 3.33 0 1.204-.46 2.41-1.379 3.329h0l-7.1 7.1-7.101-7.1c-.92-.92-1.379-2.125-1.379-3.33s.46-2.41 1.379-3.329c.92-.92 2.124-1.379 3.33-1.379 1.204 0 2.41.46 3.329 1.379.161.162.309.332.442.51.133-.178.28-.349.442-.51.919-.92 2.124-1.379 3.329-1.379z"></path>
+					   		</svg>
+					   		<span class="goWishList">위시리스트에 담기</span>
+				   		</button>
+			   		<p class="IfgoWish_message"></p>
+			   	</div>
+   	   		
+   	   		</div>
+   	   		
+   	   		<div id="title_line" style="width:1080px; height: 0.5px; background: lightgray;"></div>
     	   <div class="TrainerClassView_part1" style="width:1080px; heigth:auto;"> 
-    	   
+    	   			
+	    	   		
 		    	   <div class="TrainerClassInfo" >
-		    	   
-					   <h3>${trainerClassDto.meeting_title}</h3><br/><br/>
+		    	   		
 					   모임일 : ${trainerClassDto.meeting_date}<br/><br/>
 					   모집 기간 : ${trainerClassDto.start_gather_date} ~ ${trainerClassDto.end_gather_date}<br/><br/>
 					   모집 인원 : 최소 ${trainerClassDto.meeting_min}명 ~ 최대 ${trainerClassDto.meeting_max}<br/><br/>
 					   운동 종목 : ${trainerClassDto.exercise_name}<br/><br/>
 					   모임장소 : ${trainerClassDto.location1_name} ${trainerClassDto.location2_name}<br/><br/>
-					   상세 주소 : ${trainerClassDto.detail_location}<br/><br/>
+					   <div>상세 주소</div>
+					 	<div id="map" style="width:500px;height:200px;"></div>
+						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74162e293be31e9dc5e8e7b8c8e0be9c"></script>
+						<script>
+							var detailLocation = ' ${trainerClassDto.detail_location}';
+							var locationIdx = detailLocation.indexOf('/');
+							var lat = detailLocation.substring(0, locationIdx);
+							var lng = detailLocation.substring(locationIdx+1);
+							
+							var container = document.getElementById('map');
+							var options = {
+								center: new kakao.maps.LatLng(lat, lng),
+								level: 4
+							};
+							
+							var map = new kakao.maps.Map(container, options);
+							
+							// 마커가 표시될 위치입니다 
+							var markerPosition  = new kakao.maps.LatLng(lat, lng); 
+						
+							// 마커를 생성합니다
+							var marker = new kakao.maps.Marker({
+							    position: markerPosition
+							});
+						
+							// 마커가 지도 위에 표시되도록 설정합니다
+							marker.setMap(map);
+							
+							function relayout() {    
+							    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+							    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+							    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+							    map.relayout();
+							}
+							// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+						    var mapTypeControl = new kakao.maps.MapTypeControl();
+			
+						    // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+						    // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+						    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+			
+						    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+						    var zoomControl = new kakao.maps.ZoomControl();
+						    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+						</script>
 					   준비물 :
 					   <c:forEach var="materialsDto" items="${list}">
 						   	${materialsDto.materials_name}
@@ -62,32 +138,15 @@
 					   <div id="content" >
    							 ${trainerClassDto.meeting_content}
 						</div>
-		    	   
 		    	   </div>
-				   
 				   <div class="WishList_all">
-				   
-					   <div class="WishList"><a href="">관심페이지 등록하기</a></div>
+				   		
 					   <div class="TrainerClassPhoto">
 					   		<img alt="${trainerClassDto.photo_filename}" src="resources/storage/${trainerClassDto.photo_filename}" style="width: 300px; height:300px;">
 					   </div>
 				   
 				   </div>
 				   
-				   <!-- hidden 
-				   <input type="hidden" name="photo_filename" value="${trainerClassDto.photo_filename}" />
-				   <input type="hidden" name="meeting_no" value="${trainerClassDto.meeting_no}" />
-				   <input type="hidden" name="meeting_title" value="${trainerClassDto.meeting_title}" />
-				   <input type="hidden" name="meeting_date" value="${trainerClassDto.meeting_date}" />
-				   <input type="hidden" name="start_gather_date" value="${trainerClassDto.start_gather_date}" />
-				   <input type="hidden" name="end_gather_date" value="${trainerClassDto.end_gather_date}" />
-				   <input type="hidden" name="meeting_min" value="${trainerClassDto.meeting_min}" />
-				   <input type="hidden" name="meeting_max" value="${trainerClassDto.meeting_max}" />
-				   <input type="hidden" name="exercise_no" value="${trainerClassDto.exercise_no}" />
-				   <input type="hidden" name="location1_no" value="${trainerClassDto.location1_no}" />
-				   <input type="hidden" name="location2_no" value="${trainerClassDto.location2_no}" />
-				   <input type="hidden" name="detail_location" value="${trainerClassDto.detail_location}" />
-				   <input type="hidden" name="meeting_content" value="${trainerClassDto.meeting_content}" />
 				   <!-- 받은 여러개의 materials 값을 보내기 위한 작업 -->
 				   <c:forEach var="materialsList" items="${list}">
 					   <input type="hidden" name="materials_name" value="${materialsList.materials_name}" />
@@ -139,13 +198,21 @@
     	   <script>
     
     	   $(document).ready(function() {
-    		   WishListInsert();
-    		   WishListDelete();
+    		   $('.OfferWishListBtn_Box').on('click', '.WishListBtn' , function(){
+    			   
+	    		  var data_state = $('#loveIcon_1').attr('fill');
+	    		  alert(data_state);
+	    		   if (data_state == 'none') {
+		    		   WishListInsert();    			   
+	    		   } else if (data_state == '#FA5B4A') {
+		    		   WishListDelete();
+	    		   }
+    		   });
     		   WishListTotal();
     		});
     	   
     		function WishListInsert() {
-    			$('.WishListBtn').click(function(){
+    			//$('.WishListBtn').click(function(){
 	    		   var meeting_no = '${trainerClassDto.meeting_no}';
 	    		   var scrap_user_no = '${trainerClassDto.user_no}';
 	    		   var user_no = '${loginUser.user_no}';
@@ -153,28 +220,28 @@
     		   	 
 	    		   $.ajax({
 	    			  url: 'WishClassInsert.leo',
-	    			  type: 'get',
+	    			  type: 'post',
 	    		      data: 'scrap_referer_no=' + meeting_no + '&scrap_user_no=' + scrap_user_no + '&user_no=' +user_no + '&end_gather_date=' + end_gather_date,
     		    	  dataType: 'json',
  	    			  success: function (responseObj) {
  	    				if (responseObj.result > 0) {
-	 	    				$('#loveIcon').attr('stroke', '#FA5B4A');
-	 	    				$('#loveIcon').attr('fill', '#FA5B4A');
+	 	    				$('#loveIcon_1').attr('stroke', '#FA5B4A');
+	 	    				$('#loveIcon_1').attr('fill', '#FA5B4A');
 	 	 	    		    $('.goWishList').html('위시리스트 추가됨');
-	 	 	    		 	 WishListTotal();
+	 	 	    		  WishListTotal();
  	    				} else {
  	    					alert('찜리스트 삽입에 실패하였습니다.');
  	    				}
  	    			  },
- 	    			  error: function(){alert('실패');}
+ 	    			  error: function(){alert('실패1');}
 	    	  	   });
 	    		   
-    	  		});
+    	  		//});
     			
     		}
     		
    			function WishListDelete() {
-	    		$('.WishListBtn').click(function(){
+	    		//$('.WishListBtn').click(function(){
 	    			 var meeting_no = '${trainerClassDto.meeting_no}';
 	    			 $.ajax({
 			  			  url: 'WishClassDelete.leo',
@@ -183,15 +250,15 @@
 					      dataType: 'json',
 			   			  success: function (responseObj) {
 			   				  if (responseObj.result > 0) {
-			   					$('#loveIcon').attr('stroke', '#CED4DA');
-		 	    				$('#loveIcon').attr('fill', 'none');
+			   					$('#loveIcon_1').attr('stroke', '#CED4DA');
+		 	    				$('#loveIcon_1').attr('fill', 'none');
 		 	 	    		    $('.goWishList').html('위시리스트에 담기');
-		 	 	    		  	WishListTotal();
+		 	 	    		  WishListTotal();
 			   				  }
 			   			  },
-			   			  error: function(){alert('실패');}
+			   			  error: function(){alert('실패2');}
 			  	  	   });
-    			});
+    			//});
    			}
    			
     		function WishListTotal() {
@@ -204,28 +271,19 @@
 		   			  success: function (responseObj) {
 			    				$('.IfgoWish_message').html(responseObj.WishClassListTotal + '명이 위시리스트에 담았습니다.')
 		   			  },
-		   			  error: function(){alert('실패');}
+		   			  error: function(){alert('실패3');}
 		  	  	   });
     		}
     		
     	   </script>
+							   
+<!-- *********************************************************** 위시리스트 담기 마감 ************************************************************ -->
     
 			   <!-- 버튼들(수정, 삭제, 등록) -->
 				   <div class="Btns1" style="display:flex;">
 				   
 						   <div><input type="button" value="클래스 신청" onclick="fn_TrainerClassApply(this.form)" id="ClassApplyBtn" /></div>
 						   <!-- 모달창 띄우는 버튼 -->
-						   <div class="OfferWishListBtn_Box">
-							   		<button type="button" class="WishListBtn" >
-								   		<svg class="WishIcon-module__container--cAypQ" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-								   			<path id="loveIcon" fill="none" fill-rule="evenodd" stroke="#CED4DA" stroke-width="1.25" d="M15.876 4.625c1.205 0 2.41.46 3.33 1.379.918.92 1.378 2.124 1.378 3.33 0 1.204-.46 2.41-1.379 3.329h0l-7.1 7.1-7.101-7.1c-.92-.92-1.379-2.125-1.379-3.33s.46-2.41 1.379-3.329c.92-.92 2.124-1.379 3.33-1.379 1.204 0 2.41.46 3.329 1.379.161.162.309.332.442.51.133-.178.28-.349.442-.51.919-.92 2.124-1.379 3.329-1.379z"></path>
-								   		</svg>
-								   		<span class="goWishList">위시리스트에 담기</span>
-							   		</button>
-							   		
-						   		<p class="IfgoWish_message"></p>
-						   	</div>
-<!-- *********************************************************** 위시리스트 담기 마감 ************************************************************ -->
 			   
 			   
 							<!-- 이것또한 버튼들 -->			   
@@ -269,7 +327,6 @@
 				      </div>
 			    </div>
 			   
-    </form>
     
     <br/><br/><br/><br/><br/>
     

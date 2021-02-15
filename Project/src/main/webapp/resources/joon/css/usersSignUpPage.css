@@ -28,7 +28,7 @@ hr {
 
 input[type=text]{
 	width: 475px;
-	height: 25px;
+	height: 30px;
 	color: #6c757d;
 	font-weight: 500;
 	font-size: 15px;
@@ -39,7 +39,7 @@ input[type=text]{
 }
 input[type=password]{
 	width: 475px;
-	height: 25px;
+	height: 30px;
 	color: #6c757d;
 	font-weight: 500;
 	font-size: 15px;

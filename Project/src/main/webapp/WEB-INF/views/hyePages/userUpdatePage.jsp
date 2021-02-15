@@ -3,8 +3,120 @@
 <jsp:include page="../template/header.jsp">
 	<jsp:param value="회원정보 수정 페이지" name="title"/>
 </jsp:include>
+<link type="text/css" rel="stylesheet" href="resources/joon/css/userUpdate.css" >
 
+<!-- css 파일에 적용이 되지 않아 style에 지정함 -->
+<style>
+h3 {
+	font-size: 30px;
+	text-align: center;
+}
+.contentsName {
+	font-size: 18px;
+	color: #343a40;
+}
+#userUpdateWrapper {
+	height: 800px;
+	width: 500px;
+    transform: translate(55%, 10%);
+}
+form {
+	padding: 10px;
+}
+hr{
+	width: 480px;
+}
+input[type=text]{
+	width: 475px;
+	height: 30px;
+	color: #6c757d;
+	font-weight: 500;
+	font-size: 15px;
+	padding:6px 12px;
+	margin-top: 10px;
+	border: 0.5px solid silver;
+	appearance: textfield;
+}
+input[type=password]{
+	width: 475px;
+	height: 30px;
+	color: #6c757d;
+	font-weight: 500;
+	font-size: 15px;
+	padding:6px 12px;
+	margin-top: 10px;
+	border: 0.5px solid silver;
+	appearance: textfield;
+}
+input[type=checkbox]{
+	color: #6c757d;
+	font-weight: 500;
+	font-size: 15px;
+	padding:6px 12px;
+	margin-top: 10px;
+}
 
+input:focus {
+	outline:1px solid #ff6600;
+	
+}
+.check_font {
+	font-size: 12px;
+}
+
+.select_birth{
+	width: 110px;
+	height: 30px;
+	color: #6c757d;
+	font-weight: 500;
+	font-size: 15px;
+	padding:5px;
+	border: 1px solid silver;
+}
+select {
+	width: 150px;
+	height: 30px;
+	color: #6c757d;
+	font-weight: 500;
+	font-size: 15px;;
+	padding:5px;
+	margin-top: 10px;
+	border: 1px solid silver;
+}
+select:focus {
+	outline:1px solid #ff6600;
+}
+button {
+	text-align: center;
+}
+#updateSubmit {
+	width: 200px;
+	height: 50px;
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	background: #ff6600;
+	color: #ffffff;
+}
+#updateSubmit:hover {
+	background: #fd3114ed;
+}
+#cancelUpdate {
+	width: 200px;
+	height: 50px;
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	background: #d12957;
+	color: #ffffff;
+}
+#cancelUpdate:hover {
+	background: #a10e1c;
+}
+#submitBtns {
+	text-align: center;
+}
+</style>
 <script>
 	let is_passed = false;
 	function nickCheck() {
@@ -12,7 +124,7 @@
 		var nickJ = /^[a-zA-Z0-9가-힣]{2,15}$/;
 	
 		// 닉네임 키업 체크
-		$('#user_nickname').blur(function() {
+		$('#user_nickname').keyup(function() {
 			var user_nickname = $('#user_nickname').val();
 			var obj = {"user_nickname" : user_nickname};
 			
@@ -48,12 +160,13 @@
 			});
 		});
 	}
+	// 비밀번호 확인
 	function pwCheck(){
 		var empJ = /\s/g;
 		var pwJ = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#%&_])[A-Za-z0-9!@#%&_]{8,16}$/;
 		var checkHangul = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 
-		$('#password').blur(function() {
+		$('#password').keyup(function() {
 			var password = $('#password').val();
 			
 			if(pwJ.test(password)){
@@ -68,6 +181,30 @@
 				$('#pw_check').css('color', 'red');
 				$('#signUpSubmit').attr("disabled", 1);
 				is_passed = false;
+			}
+		});
+	}
+	
+	//비밀번호 재확인 
+	function rePwCheck(){
+		$('#re_password').keyup(function(){
+			var pw = $('#password').val();
+			var re_pw = $('#re_password').val();
+			if(pw == "") {
+			}
+			console.log(pw);
+			console.log(re_pw);
+			if(pw == re_pw){
+				$('#pw_reCheck').text("비밀번호 일치합니다.");
+				$('#pw_reCheck').css('color', 'green');
+				$('#signUpSubmit').attr("disabled", 0);
+				console.log("사용가능한 비밀번호");
+			} else {
+				$('#pw_reCheck').text("비밀번호를 확인해주세요.");
+				$('#pw_reCheck').css('color', 'red');
+				$('#signUpSubmit').attr("disabled", 1);
+				console.log("사용불가한 비밀번호");
+				
 			}
 		});
 	}
@@ -176,7 +313,7 @@
 		}
 		if(f.password.value != '') {
 			if(f.confirmPw.value != f.password.value) {
-				alert('비밀번호가 일치하지 않습니다.');
+				Swal.fire('비밀번호가 일치하지 않습니다.');
 				return;
 			}
 		}
@@ -204,53 +341,68 @@
 		user_interest();
 		nickCheck();
 		pwCheck();
+		rePwCheck();
 	});
 </script>
+<div id="userUpdateWrapper">
 
-<h3>회원정보 수정</h3>
-	<input type="hidden" id="user_interest" value="${updateUser.interest_list}" />
+	<h3>회원정보 수정</h3>
+		<input type="hidden" id="user_interest" value="${updateUser.interest_list}" />
+		<br/>
+		<br/>
+		<br/>
+	<form method="post" action="userUpdate.wooki">
+		<input type="hidden" name="user_no" value="${updateUser.user_no}" />
+		
+		<div class="contentsName">닉네임</div>
+		<input type="text" name="user_nickname" id="user_nickname" value="${updateUser.user_nickname}"><br/>
+		<span class="font-check" id="nick_check"></span><br/>
+		
+		<div class="contentsName">비밀번호</div>
+		<input type="password" name="password" id="password"><br/>
+		<span class="font-check" id="pw_check"></span><br/>
 	
-<form method="post" action="userUpdate.wooki">
-	<input type="hidden" name="user_no" value="${updateUser.user_no}" />
-	
-	닉네임<br/>
-	<input type="text" name="user_nickname" id="user_nickname" value="${updateUser.user_nickname}">
-	<span id="nick_check"></span><br/>
-	
-	비밀번호<br/>
-	<input type="password" name="password" id="password">
-	<span id="pw_check"></span><br/>
-
-	비밀번호 확인<br/>
-	<input type="password" name="confirmPw"><br/>
-	
-	주요 활동지역<br/>
-	<select id="location1" name="location1_no">
-		<option id="none" value="">시/도 선택</option>
-		<option id="seoul" value="0">서울특별시</option>
-		<option id="incheon" value="1">인천광역시</option>
-		<option id="gyeongi" value="2">경기도</option>
-	</select>
-	<select id="location2" name="location2_no">
-		<option>구/군 선택</option>
-	</select><br/>
-	
-	<input type="hidden" name="interest_list" id="interest_list" />
-	
-	관심 분야<br/>
-	<label><input type="checkbox" name="user_interest" value="0">족구</label>
-	<label><input type="checkbox" name="user_interest" value="1">축구</label>
-	<label><input type="checkbox" name="user_interest" value="2">농구</label>
-	<label><input type="checkbox" name="user_interest" value="3">볼링</label>
-	<label><input type="checkbox" name="user_interest" value="4">크로스핏</label>
-	<label><input type="checkbox" name="user_interest" value="5">스피닝</label>
-	<label><input type="checkbox" name="user_interest" value="6">댄스</label>
-	<label><input type="checkbox" name="user_interest" value="7">요가</label>
-	<label><input type="checkbox" name="user_interest" value="8">명상</label>
-	
-	<br/><br/>
-	<input type="button" value="수정하기" onclick="fn_update(this.form)" />
-	<input type="button" value="돌아가기" onclick="location.href='myPage_commonPart.hey'" />
-</form>
+		<div class="contentsName">비밀번호 확인</div>
+		<input type="password" name="confirmPw" id="re_password"><br/>
+		<span class="font-check" id="pw_reCheck"></span><br/>
+		
+		<div class="contentsName">주요 활동지역</div>
+		<select id="location1" name="location1_no">
+			<option id="none" value="">시/도 선택</option>
+			<option id="seoul" value="0">서울특별시</option>
+			<option id="incheon" value="1">인천광역시</option>
+			<option id="gyeongi" value="2">경기도</option>
+		</select>
+		<select id="location2" name="location2_no">
+			<option>구/군 선택</option>
+		</select><br/>
+		
+		<input type="hidden" name="interest_list" id="interest_list" />
+		<br/>
+		<hr/>
+		<div class="contentsName">관심 분야</div>
+		<label><input type="checkbox" name="user_interest" value="0">족구</label>
+		<label><input type="checkbox" name="user_interest" value="1">축구</label>
+		<label><input type="checkbox" name="user_interest" value="2">농구</label>
+		<label><input type="checkbox" name="user_interest" value="3">볼링</label>
+		<label><input type="checkbox" name="user_interest" value="4">크로스핏</label>
+		<label><input type="checkbox" name="user_interest" value="5">스피닝</label>
+		<label><input type="checkbox" name="user_interest" value="6">댄스</label>
+		<label><input type="checkbox" name="user_interest" value="7">요가</label>
+		<label><input type="checkbox" name="user_interest" value="8">명상</label>
+		<hr/>
+		<br/><br/>
+		<div id="submitBtns">
+			<input type="button" id="updateSubmit" value="수정하기" onclick="fn_update(this.form)" />
+			<input type="button" id="cancelUpdate" value="돌아가기" onclick="location.href='myPage_commonPart.hey'" />
+		</div>
+	</form>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+</div>
 
 <%@ include file="../template/footer.jsp" %>
