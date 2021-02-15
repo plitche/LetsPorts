@@ -126,7 +126,7 @@
 					.append( $('<div class="comment-content">')
 						.append( $('<p>').html(qnaComment.user_nickname) )
 						.append( $('<p class="'+qnaComment.comment_no+'nthComment">').html(qnaComment.comment_content) )
-						.append( $('<p>').html(qnaComment.created_at) )
+						.append( $('<p>').html(qnaComment.created_at2) )
 					)
 					.append( $('<div class="comment-btn">')
 						.append( $('<div class="'+qnaComment.comment_no+'nthBtn">').addClass('editComment')

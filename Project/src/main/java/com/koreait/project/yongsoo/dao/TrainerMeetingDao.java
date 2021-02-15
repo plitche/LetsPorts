@@ -56,6 +56,7 @@ public interface TrainerMeetingDao {
 	public int isFull(int meeting_no);
 	// 현재 이동한 모임에 본인이 이미 신청했었는지 확인하는 메소드
 	public int isApply(int user_no, int meeting_no);
-	
+	// 위의 두 경우를 모두 통과하였을 때 insert해주기 위한 메소드
+	public int apply(int user_no, int meeting_no);
 	
 }

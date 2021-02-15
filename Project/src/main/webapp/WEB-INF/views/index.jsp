@@ -26,7 +26,7 @@
 					if (responseObj.result) {
 						mainMeetingList(responseObj.meetingList);
 					} else {
-						alert('모임 정보 없음');
+
 					}
 				},
 				error: function(){alert('모임 정보 가져오기 실패');}
@@ -80,7 +80,7 @@
 					if (responseObj.result) {
 						mainQnAList(responseObj.trainerList);
 					} else {
-						alert('트레이너 없음');
+
 					}
 				},
 				error: function(){alert('트레이너 정보 가져오기 실패');}
@@ -143,8 +143,12 @@
 					isSolved = '<td style="color:green;">해결완료</td>';
 				}
 				
-				var board_qna_title = qna.board_qna_title.substring(0, 15);
-				board_qna_title += '...';
+				
+				var board_qna_title = qna.board_qna_title;
+				if (board_qna_title.length > 20) {
+					board_qna_title = board_qna_title.substring(0, 20);
+					board_qna_title += '...';
+				}
 				
 				$('#mainQnAList')
 				.append( $('<tr>').html('<td><a href="goQnAViewPage.plitche?board_qna_no='+qna.board_qna_no+'&page=1"> ⊙'+ board_qna_title +'</a></td>')

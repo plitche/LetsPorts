@@ -36,6 +36,12 @@ public class ApplyMeetingCommand implements CommonMapCommand {
 			if (isApply > 0) {
 				// 해당 게시글에 본인은 신청 안한 상태
 				applyResult.put("isApply", false);
+				int apply = trainerMeetingDao.apply(user_no, meeting_no);
+				if (apply > 0) {
+					applyResult.put("apply", true);
+				} else {
+					applyResult.put("apply", false);
+				}
 				
 			} else {
 				// 이미 신청을 본인이 한 상태
