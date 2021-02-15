@@ -10,22 +10,47 @@
 	height: auto;
 }
 
+#TrainerClass_title {
+}
+
 .TrainerClass_title_part {
 	display: flex;
 }
 
 .OfferWishListBtn_Box {
-	margin-right: auto;
+	width: 280;
+	text-align:right;
 }
 
 .WishListBtn {
-	width: 200px;
+	line-height: 50px;
+	width: 210px;
 	height: 50px;
-	border: none;
-	background: lightgray;
+	border: 0.2px solid lightgray;
+	background: white;
+}
+
+.IfgoWish_message {
+	margin-left: 10px;
+}
+
+.WishListBtn:hover {
+	box-shadow: 1px 1px 5px 0px #d9d9d9;
 }
 
 
+/* 모임 소개 관련 */
+
+.subTitle {
+	font-size: 12px;
+	color: #fa8072;
+	font-weight: 800;
+}
+
+.title {
+	font-size: 22px;
+	font-weight: 900;
+}
 
 .TrainerClassInfo {
 	width:72%;

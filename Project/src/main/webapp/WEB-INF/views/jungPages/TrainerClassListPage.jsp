@@ -237,7 +237,7 @@
 			if ('${loginUser}' == '') {
 				loginAlert();
 			} else {
-				location.href = 'TrainerClassInsertPage.leo';
+				location.href = 'TrainerClassInsertPage.leo?from=community';
 			}
 			
 		}

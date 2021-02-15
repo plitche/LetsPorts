@@ -33,7 +33,7 @@
 
 	<div class="TrainerClassInsert_all">
 		<form action="TrainerClassInsert.leo"  id="insertForm" method="post" enctype="multipart/form-data">
-	
+			
 			<span style="font-size:14px; font-weight: 900; width: 300px; height: 100px; background: #2ed8b6;">새로운 모임 만들기</span>
 			<div style="width: 1000px; height: 0.5px; background: black; margin:25px 0px;"></div>
 			<div class="blank_bottom">
@@ -113,7 +113,6 @@
 
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74162e293be31e9dc5e8e7b8c8e0be9c"></script>
 			<script>
-				
 			
 				var container = document.getElementById('map');
 				var options = {
@@ -171,6 +170,7 @@
             <script>
             </script>
 					<!-- hidden -->
+					<input type="hidden" name="from" value="${from}" />
 				    <input type="hidden" name="temp_no" id="temp_no" />
 				    <input type="hidden" name="user_no" id="user_no" value="${loginUser.user_no}" />
 			<div class="blank_bottom">

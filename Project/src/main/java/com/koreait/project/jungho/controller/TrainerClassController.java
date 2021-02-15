@@ -76,20 +76,24 @@ public class TrainerClassController {
 	
 	// 트레이너 클래스 작성 페이지로 넘겨주는 역할
 	@RequestMapping(value="TrainerClassInsertPage.leo")
-	public String maketrainerClass() {
+	public String maketrainerClass(@RequestParam("from") String from, Model model) {
+		model.addAttribute("from", from);
 		return "jungPages/TrainerClassInsertPage";
 	}
 	
 	// 추가한 내용을 삽입시켜주는 명령역할
 	@RequestMapping(value="TrainerClassInsert.leo", method=RequestMethod.POST)
 	public String TrainerClassInsert(MultipartHttpServletRequest multipartRequest, Model model) {
-		
+		String from = multipartRequest.getParameter("from");
+		// int user_no = multipartRequest.getParameter("user_no");
 		model.addAttribute("multipartRequest", multipartRequest);
 		TrainerClassInsertCommand trainerClassInsertCommand = ctx.getBean("trainerClassInsertCommand", TrainerClassInsertCommand.class);
 		trainerClassInsertCommand.execute(sqlSession, model);
 		
-		return "redirect:TrainerClassListPage.leo";
-		
+		// if (from.equals("community")) {
+			return "redirect:TrainerClassListPage.leo";
+		// }
+			
 	}
 	
 	// 목록 리스트 중 하나를 클릭하면 리스트 정보를 보여주는 페이지
