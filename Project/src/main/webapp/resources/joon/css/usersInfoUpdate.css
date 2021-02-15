@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.h3 {
+	text-align: center;
+}
+#signUpWrapper {
+	text-align: center;
+	margin-left: 30%;
+	width: 500px;
+}
+hr {
+	width : 100%;
+}
+.check_font {
+	font-size: 12px;
+}
