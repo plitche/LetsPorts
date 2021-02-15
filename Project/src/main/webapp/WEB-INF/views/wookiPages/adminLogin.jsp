@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>관리자 로그인</title>
+	<link rel="icon" href="resources/images/favicon.ico">
 	<!-- jquery, fontawesome -->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://kit.fontawesome.com/07b67006ce.js"></script>
@@ -12,6 +13,7 @@
 	<!-- css파일 및 js파일 -->
 	<link rel="stylesheet" href="resources/wooki/css/common.css">
 	<script src="resources/wooki/js/common.js"></script>
+
 	<script>
 		if('${loginUser}' != '' && fn_adminCheck(${loginUser.user_separator})) {
 			location.href = 'adminIndex.wooki';

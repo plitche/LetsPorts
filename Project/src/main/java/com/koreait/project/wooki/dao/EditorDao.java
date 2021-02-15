@@ -8,6 +8,7 @@ public interface EditorDao {
 	public TempBoardDto selectTempBoard(int user_no);
 	public int insertTempPhoto(int temp_no, int user_no, String uploadFilename);
 	public int deleteTempPhoto(String[] list);
+	public String photoHideCheck(String[] list);
 	
 	// 게시글 인서트
 	public int insertBoard(TestBoardDto testBoardDto);

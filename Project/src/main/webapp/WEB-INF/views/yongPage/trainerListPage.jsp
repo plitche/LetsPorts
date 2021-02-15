@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 
 <script src="https://kit.fontawesome.com/6b75fdce2b.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="resources/style/soo/trainerListPage.css" >
 
 <jsp:include page="../template/header.jsp">
 	<jsp:param value="트레이너 리스트 페이지" name="title"/>
 </jsp:include>
+<link rel="stylesheet" href="resources/style/soo/trainerListPage.css" >
 
 <br/>
 <div id="ManageTrainer">

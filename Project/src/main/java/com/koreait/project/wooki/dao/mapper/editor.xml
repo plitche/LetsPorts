@@ -49,6 +49,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</foreach>
 	</delete>
 	
+	<select id="photoHideCheck" parameterType="map" resultType="String">
+		select
+			LISTAGG(photo_filename, ',') within group (order by photo_filename) as filesname
+		from
+			photo
+		where
+			photo_filename in 
+			<foreach collection="array" index="index" item="filename" open="(" separator="," close=")">
+				#{filename}
+			</foreach>
+			and on_hide = 1
+	</select>
+	
 	<insert id="insertBoard" parameterType="com.koreait.project.wooki.dto.TestBoardDto">
 		insert into
 			test_board

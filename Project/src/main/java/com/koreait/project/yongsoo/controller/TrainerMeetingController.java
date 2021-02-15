@@ -87,7 +87,8 @@ public class TrainerMeetingController {
 	// 트레이너 프로그램 등록 - 미팅(모임) 게시글 작성 페이지로 단순이동을 위한 메소드
 	@RequestMapping(value="goCreateMeetingPage.plitche")
 	public String goCreateMeetingPage() {
-		return "yongPage/createMeetingPage";
+		return "jungPages/TrainerClassInsertPage1";
+		// return "yongPage/createMeetingPage";
 	}
 	
 	// 모임 작성 후 작성완료 버튼 클릭시 작동할 메소드

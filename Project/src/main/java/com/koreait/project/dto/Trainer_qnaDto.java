@@ -17,7 +17,7 @@ public class Trainer_qnaDto {
 	private String trainer_qna_title;
 	private String trainer_qna_content;
 	private Timestamp created_at;
-	private int is_published;	// 공개:0, 비공개:1
+	private int is_published;	// 공개:1, 비공개:0
 	private int is_answered;	// 답변아직:0, 답변완료:1 
 	private String trainer_qna_answered;
 	private Timestamp answered_date;

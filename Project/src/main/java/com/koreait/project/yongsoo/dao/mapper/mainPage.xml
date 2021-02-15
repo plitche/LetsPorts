@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getTrainer" resultType="com.koreait.project.yongsoo.dto.TrainerTemDto">
 		SELECT *
 		  FROM (SELECT ROWNUM RN, a.*
-		          FROM (SELECT U.USER_NO, AVG(R.SCORE)
+		          FROM (SELECT U.USER_NO, AVG(R.SCORE) as score
 					      FROM USERS U FULL OUTER JOIN REVIEW R
 					        ON U.USER_NO = R.TARGET_USER_NO
 					     WHERE U.USER_NO IN (SELECT TARGET_USER_NO

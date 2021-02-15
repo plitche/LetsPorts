@@ -746,7 +746,7 @@ function trainerUserList(list, paging, totalRecord, recordPerPage, page) {
 		.append($('<td>').html(user.user_no))
 		.append($('<td>').html(user.career + '년'))
 		.append($('<td>').html(user.trainer_name))
-		.append($('<td>').html(user.certificate_filename))
+		.append($('<td>').html(`<span onclick="fn_viewCertificate('${user.certificate_filename}')">${user.certificate_filename}</span>`))
 		.append($('<td>').html(user.employment))
 		.append($('<td>').html(result))
 		.append($('<input type="hidden" name="user_no" id="user_no" />').val(user.user_no))
@@ -876,6 +876,33 @@ function fn_deleteTrainerUser() {
 				setTimeout(function() {is_progress = false;}, 1000);
 			}
 		});
+	});
+}
+
+// 트레이너 - 자격증 이미지 보기
+function fn_viewCertificate(src) {
+	let code = `
+	<div class="black-background" id="viewCertificate">
+		<div class="canvas">
+			<img src="resources/storage/certificate/${src}" />
+		</div>
+	</div>`;
+	$('body').append(code);
+	let width = $('.canvas img').width();
+	let height = $('.canvas img').height();
+	if(width >= height) {
+		$('.canvas img').css('width', '510px');
+	} else {
+		$('.canvas img').css('height', '680px');
+	}
+}
+
+// 트레이너 - 자격증 모달 닫기
+function fn_closeViewCertificate() {
+	$('body').on('click', '#viewCertificate', function(e) {
+		if(e.target == e.currentTarget) {
+			$('#viewCertificate').remove();
+		}
 	});
 }
 

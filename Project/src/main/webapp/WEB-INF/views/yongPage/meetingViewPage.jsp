@@ -46,9 +46,16 @@
 				showProfile = $('<span>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/'+meeting.profile_photo+'">');		
 			}
 			
+			var showCover = null;
+			if (meeting.photo_referer_sep == 4) {
+				showCover = $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >');
+			} else {
+				showCover = $('<div>').html('<img alt="meeting_basic_corver" src="resources/images/meeting_basic_corver.jpg" >');		
+			}
+			
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
-				.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
+				.append(showCover)
 				.append( $('<div class="meetingContent">')
 					.append( $('<div>').text(meeting.meeting_title) )
 					.append( $('<div>')
@@ -128,14 +135,21 @@
 		$.each(list, function(idx, meeting){
 			var showProfile = null;
 			if (meeting.profile_photo == null) {
-				showProfile = $('<span>').html('<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">');
+				showProfile = $('<div>').html('<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">');
 			} else {
-				showProfile = $('<span>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/'+meeting.profile_photo+'">');		
+				showProfile = $('<div>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/'+meeting.profile_photo+'">');		
+			}
+			
+			var showCover = null;
+			if (meeting.photo_referer_sep == 4) {
+				showCover = $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >');
+			} else {
+				showCover = $('<div>').html('<img alt="meeting_basic_corver" src="resources/images/meeting_basic_corver.jpg" >');		
 			}
 			
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
-				.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
+				.append(showCover)
 				.append( $('<div class="meetingContent">')
 					.append( $('<div>').text(meeting.meeting_title) )
 					.append( $('<div>')
@@ -659,15 +673,15 @@
 					    map.relayout();
 					}
 					// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-				    var mapTypeControl = new kakao.maps.MapTypeControl();
+				    // var mapTypeControl = new kakao.maps.MapTypeControl();
 	
 				    // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
 				    // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-				    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+				    // map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 	
 				    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-				    var zoomControl = new kakao.maps.ZoomControl();
-				    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+				    // var zoomControl = new kakao.maps.ZoomControl();
+				    // map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 				</script>
 				<div class="subTitle">준비사항</div>
 				<div class="title">함께 준비하면 좋아요</div>
@@ -681,7 +695,12 @@
 		</div>
 		<div id="rightSide">
 			<div id="mainImg">
-				<img alt="${meetingDto.photo_filename}" src="resources/storage/${meetingDto.photo_filename}">
+				<c:if test="${meetingDto.photo_referer_sep eq 4}">
+					<img alt="${meetingDto.photo_filename}" src="resources/storage/${meetingDto.photo_filename}">
+				</c:if>
+				<c:if test="${meetingDto.photo_referer_sep ne 4}">
+					<img alt="meeting_basic_corver" src="resources/images/meeting_basic_corver.jpg">
+				</c:if>
 			</div>
 		</div>
 	</div>
