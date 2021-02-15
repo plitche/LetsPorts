@@ -107,8 +107,8 @@ SELECT *
         AND B.RN < 3
 					
 		SELECT *
-		  FROM (SELECT ROWNUM RN, R1.*
-		          FROM (SELECT U.USER_NO, AVG(R.SCORE)
+		  FROM (SELECT ROWNUM RN, a.*
+		          FROM (SELECT U.USER_NO, AVG(R.SCORE) as score
 					      FROM USERS U FULL OUTER JOIN REVIEW R
 					        ON U.USER_NO = R.TARGET_USER_NO
 					     WHERE U.USER_NO IN (SELECT TARGET_USER_NO
@@ -117,16 +117,36 @@ SELECT *
 					       				     HAVING COUNT(*) > 4
 					       				    )
 				  	     GROUP BY U.USER_NO
-				  	     ORDER BY AVG(R.SCORE) DESC ) R1 ) R2
+				  	     ORDER BY AVG(R.SCORE) DESC ) A ) B
 		        FULL OUTER JOIN USERS U
-		        ON U.USER_NO = R2.TARGET_USER_NO
+		          ON U.USER_NO = B.USER_NO
 		        FULL OUTER JOIN TRAINER_INFO T
-		        ON T.USER_NO = R2.TARGET_USER_NO
-		 WHERE R2.TARGET_USER_NO IS NOT NULL
+		          ON T.USER_NO = B.USER_NO
+		 WHERE B.USER_NO IS NOT NULL
 		   AND U.DISABLE = 0
-		   AND R2.RN BETWEEN 1 AND 2
+		   AND B.RN BETWEEN 1 AND 2
         
-
+		SELECT *
+		  FROM (SELECT M1.*, ROWNUM RN
+		        FROM (SELECT *
+		              FROM MEETING
+		              WHERE ON_HIDE = 0
+		                AND END_GATHER_DATE > SYSDATE-1/2
+		              ORDER BY MEETING_DATE DESC) M1
+		        ) M2 
+		  	    FULL OUTER JOIN USERS U 
+		        ON M2.USER_NO = U.USER_NO
+		        FULL OUTER JOIN EXERCISE E
+		        ON M2.EXERCISE_NO = E.EXERCISE_NO
+		        FULL OUTER JOIN PHOTO P
+		        ON M2.meeting_no = P.photo_referer_no
+    		    FULL OUTER JOIN LOCATION1 L1
+		        ON M2.LOCATION1_NO = L1.LOCATION1_NO
+		        FULL OUTER JOIN LOCATION2 L2
+		        ON M2.LOCATION2_NO = L2.LOCATION2_NO
+		 WHERE RN BETWEEN 1 AND 4
+		   AND P.PHOTO_REFERER_SEP = 4
+		   AND P.ON_HIDE = 0
 
 		SELECT *
 		  FROM (SELECT M1.*, ROWNUM RN

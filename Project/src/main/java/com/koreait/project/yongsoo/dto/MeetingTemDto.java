@@ -36,4 +36,5 @@ public class MeetingTemDto {
 	private String meeting_date2;
 	private String start_gather_date2;
 	private String end_gather_date2;
+	
 }
