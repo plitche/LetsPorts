@@ -252,6 +252,7 @@ input[type="button"]:focus {
     left: 50%;
     top: 25%;
     transform: translate(-50%, -50%);
+    box-shadow: 1px 1px 5px 1px rgba(216, 216, 216, 0.7);
 }
 
 .loginBox input[type="text"], .loginBox input[type="password"] {
@@ -263,4 +264,20 @@ input[type="button"]:focus {
 
 .loginBox input[type="text"]:focus, .loginBox input[type="password"]:focus {
 	outline: none;
+}
+
+.canvas {
+    width: 550px;
+    height: 720px;
+    border-radius: 5px;
+    background: white;
+    margin: 150px auto;
+    padding: 20px;
+}
+
+.canvas img {
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }

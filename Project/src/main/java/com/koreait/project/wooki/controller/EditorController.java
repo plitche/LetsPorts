@@ -22,6 +22,7 @@ import com.koreait.project.wooki.command.textEditor.BoardUpdatePageCommand;
 import com.koreait.project.wooki.command.textEditor.InsertBoardTestCommand;
 import com.koreait.project.wooki.command.textEditor.IsnertTempBoardCommand;
 import com.koreait.project.wooki.command.textEditor.PhotoDeleteCommand;
+import com.koreait.project.wooki.command.textEditor.PhotoHideCheckCommand;
 import com.koreait.project.wooki.command.textEditor.PhotoUploadCommand;
 import com.koreait.project.wooki.command.textEditor.TestViewCommand;
 import com.koreait.project.wooki.config.EditorAppContext;
@@ -35,6 +36,7 @@ public class EditorController {
 	private IsnertTempBoardCommand isnertTempBoardCommand = ctx.getBean("isnertTempBoardCommand", IsnertTempBoardCommand.class);
 	private PhotoUploadCommand photoUploadCommand = ctx.getBean("photoUploadCommand", PhotoUploadCommand.class);
 	private PhotoDeleteCommand photoDeleteCommand = ctx.getBean("photoDeleteCommand", PhotoDeleteCommand.class);
+	private PhotoHideCheckCommand photoHideCheckCommand = ctx.getBean("photoHideCheckCommand", PhotoHideCheckCommand.class);
 	
 	// 테스트케이스
 	private InsertBoardTestCommand insertBoardTestCommand = ctx.getBean("insertBoardTestCommand", InsertBoardTestCommand.class);
@@ -57,13 +59,26 @@ public class EditorController {
 	@DeleteMapping(value="photoDelete/{filesname}.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> photoDelete(
-			HttpServletRequest request, @PathVariable("filesname") String filesname,
+			HttpServletRequest request,
+			@PathVariable("filesname") String filesname,
 			Model model) {
 		model.addAttribute("request", request);
 		model.addAttribute("filesname", filesname);
 		return photoDeleteCommand.execute(sqlSession, model);
 	}
 	
+	@GetMapping(value="photoHideCheck/{filesname}.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> photoHideCheck(
+			HttpServletRequest request,
+			@PathVariable("filesname") String filesname,
+			Model model) {
+		model.addAttribute("request", request);
+		model.addAttribute("filesname", filesname);
+		return photoHideCheckCommand.execute(sqlSession, model);
+	}
+	
+	// 테스트 케이스
 	@GetMapping(value="test.wooki")
 	public String test() {
 		return "wookiPages/editTest";

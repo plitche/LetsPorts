@@ -41,14 +41,6 @@ INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 2
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 25, SYSDATE, 1, NULL);
 
 
-
-insert into user_interest values (user_interest_seq.nextval, 13, 0);
-insert into user_interest values (user_interest_seq.nextval, 13, 3);
-insert into user_interest values (user_interest_seq.nextval, 13, 5);
-
-
-
-	
 DROP TABLE test_board;
 DROP SEQUENCE test_board_seq;
 
@@ -559,9 +551,9 @@ INSERT INTO USERS values (users_seq.nextval, 'user35@letsports.com', 1111, 2, SY
 INSERT INTO USERS values (users_seq.nextval, 'trainer1@letsports.com', 1111, 1, SYSDATE, SYSDATE, 1, 0, 0, 'naver', '쫑트', '잘부탁드려요', null, null, null, null, 0, 0);
 INSERT INTO USERS values (users_seq.nextval, 'trainer2@letsports.com', 1111, 1, SYSDATE, SYSDATE, 1, 0, 0, 'kakao', '킹트', '잘부탁드려요', null, null, null, null, 0, 0);
 INSERT INTO USERS values (users_seq.nextval, 'trainer3@letsports.com', 1111, 1, SYSDATE, SYSDATE, 1, 0, 0, 'naver', '홍트', '잘부탁드려요', null, null, null, null, 0, 0);
-INSERT INTO trainer_info values (trainer_info_seq.nextval, 38, 1, '강철종', '트레이너자격증', '신촌센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
-INSERT INTO trainer_info values (trainer_info_seq.nextval, 39, 7, '김갑수', '트레이너자격증', '영등포센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
-INSERT INTO trainer_info values (trainer_info_seq.nextval, 40, 10, '홍백현', '트레이너자격증', '강남센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
+INSERT INTO trainer_info values (trainer_info_seq.nextval, 38, 1, '강철종', '1613356665134.jpg', '신촌센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
+INSERT INTO trainer_info values (trainer_info_seq.nextval, 39, 7, '김갑수', '1613354118296.jpeg', '영등포센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
+INSERT INTO trainer_info values (trainer_info_seq.nextval, 40, 10, '홍백현', '1613314954780.jpeg', '강남센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
 
 -- 모임3 / 게시글12 / 15질문과답변
 INSERT INTO MEETING values (meeting_seq.nextval, 1, 10, 6, 0, SYSDATE, SYSDATE, SYSDATE, SYSDATE, 0, 1, '족구합시다.', '족구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);

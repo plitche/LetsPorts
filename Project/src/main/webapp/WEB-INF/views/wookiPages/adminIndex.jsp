@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8" />
 <title>어드민 페이지</title>
+<link rel="icon" href="resources/images/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- jquery, fontawesome, Chart -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -35,6 +36,7 @@
 		fn_deleteTrainerUser();
 		fn_addTrainerSendEamil();
 		fn_closeAddTrainerModal();
+		fn_closeViewCertificate();
 		fn_boardFilterAdd();
 		fn_boardsOnHideToggle();
 		fn_boardDelete();
