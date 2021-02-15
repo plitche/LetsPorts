@@ -48,7 +48,7 @@ function fn_loginCheck(f) {
 		<form method="post">
 			<input type="text" class="login_text" name="email" id="email" placeholder="E-MAIL" /><br/>
 			<input type="password" class="login_text" name="password" id="password" placeholder="PASSWORD" /><br/>
-			<input type="button" class="login_btns" value="로그인" id="loginBtn" onclick="fn_loginCheck(this.form)"><br/>
+			<input type="button" class="login_btns1" value="로그인" id="loginBtn" onclick="fn_loginCheck(this.form)"><br/>
 		</form>
 				<!-- 모달 창으로 비밀번호 확인 -->
 		<p><a href="#" id="modal_btn">비밀번호 찾기</a></p><br/>
@@ -69,10 +69,9 @@ function fn_loginCheck(f) {
 			<a href="signUpChoicePage.hey">회원가입하기</a>
 		</div>
 		<div>
-			<hr/>
-			<input type="button" class="login_btns" value="페이스북으로 로그인"><br/>
-			<input type="button" class="login_btns" value="카카오톡으로 로그인"><br/>
-			<hr/>
+			<br><br/>
+			<button class="login_btns2" ><img alt="kakaoLogo" src="resources/images/joon/kakao.png">카카오톡으로 가입</button><br/>
+			<button class="login_btns3" ><img alt="facebookLogo" src="resources/images/joon/facebook.png">페이스북으로 가입</button><br/>
 		</div>
 		<div>
 			<a href="#">혹시 로그인이 안 되시나요?</a><br/>
