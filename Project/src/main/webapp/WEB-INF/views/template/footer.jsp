@@ -14,10 +14,10 @@
 			<div class="us">
 				<h1 class="footer-title">How to Contact</h1>	
 				권용수. 010-7721-3032 / kysu728@naver.com<br/>
-				김영욱.<br/>
-				상혜준.<br/>
-				나정호.<br/>
-				임예원.<br/>
+				김영욱. 010-2328-2338 / ziziza93@naver.com<br/>
+				상혜준. 010-3021-1783 / sangjinju0321@gmail.com<br/>
+				나정호. 010-7151-5352 / wjdgh823@naver.com<br/>
+				임예원. 010-4045-6957 / limyeng@naver.com<br/>
 			</div>
 		</div>
 	</div>
