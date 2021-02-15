@@ -25,6 +25,7 @@ public interface TrainerMeetingDao {
 	// 4. 모임 개설자의 관심 종목을 가져오기 위한 메소드
 	public List<String> getUserInterest(int user_no);
 	
+	
 	// 이동하는 모임이 이미 스크랩 한 모임인지 판단하기 위한 메소드
 	public int isInWishList(int user_no, int meeting_no);
 	
@@ -50,5 +51,11 @@ public interface TrainerMeetingDao {
 
 	// 현재 보고있는 모임과 같은 카테고리 모임들 중 현재 호스트가 아닌 다른 호스트의 모임 data 가져오기 
 	public List<MeetingTemDto> getOtherHostMeeting(int user_no, int exercise_no);
+	
+	// 현재 이동한 모임에 신청한 인원이 max인원수를 이미 넘었는지 확인하기 위한 메소드
+	public int isFull(int meeting_no);
+	// 현재 이동한 모임에 본인이 이미 신청했었는지 확인하는 메소드
+	public int isApply(int user_no, int meeting_no);
+	
 	
 }

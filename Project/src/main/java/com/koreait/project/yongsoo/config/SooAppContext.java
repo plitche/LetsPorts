@@ -25,6 +25,7 @@ import com.koreait.project.yongsoo.command.qna.WriteQnACommand;
 
 import com.koreait.project.yongsoo.command.trainer.GoTrainerDetailCommand;
 import com.koreait.project.yongsoo.command.trainer.GoTrainerListCommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.ApplyMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.CreateMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherHostMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherMeetingCommand;
@@ -219,4 +220,8 @@ public class SooAppContext {
 		return new GetQnACommand();
 	}
 	
+	@Bean
+	public ApplyMeetingCommand applyMeetingCommand() {
+		return new ApplyMeetingCommand();
+	}
 }
