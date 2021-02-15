@@ -2,6 +2,8 @@ package com.koreait.project.yongsoo.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -22,6 +24,7 @@ import com.koreait.project.jungho.command.TrainerClassCommand.TrainerClassDelete
 import com.koreait.project.jungho.config.JungAppContext;
 import com.koreait.project.yongsoo.command.Scrap.InsertScrapCommand;
 import com.koreait.project.yongsoo.command.Scrap.IsInWishListCommand;
+import com.koreait.project.yongsoo.command.trainerMeeting.ApplyMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.CreateMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherHostMeetingCommand;
 import com.koreait.project.yongsoo.command.trainerMeeting.GetOtherMeetingCommand;
@@ -130,7 +133,14 @@ public class TrainerMeetingController {
 	}
 	
 	
-	
+	// 모임 신청하기 버튼 클릭 시 작동할 메소드
+	@RequestMapping(value="applyMeeting.plitche", method=RequestMethod.POST,
+			 		produces="application/json; charset=utf-8")
+	public Map<String, Object> applyMeeting(@RequestBody MeetingTemDto meetingTemDto,	Model model) {
+		model.addAttribute("meetingTemDto", meetingTemDto);
+		ApplyMeetingCommand applyMeetingCommand = ctx.getBean("applyMeetingCommand", ApplyMeetingCommand.class);
+		return applyMeetingCommand.execute(sqlSession, model);
+	}
 	
 	
 }

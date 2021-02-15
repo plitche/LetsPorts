@@ -34,6 +34,9 @@ public class GoMeetingViewCommand implements CommonVoidCommand {
 		List<MaterialsDto> materialList = trainerMeetingDao.findMaterialsInfo(meeting_no); // 2번
 		TrainerTemDto trainerTemDto = trainerMeetingDao.findUserInfo(user_no); // 3번
 		List<String> interestList = trainerMeetingDao.getUserInterest(user_no); // 4번
+		int full = trainerMeetingDao.isFull(meeting_no);
+		
+		// 신청하기 버튼 관련해서는 일단 먼저 무조건 보여주고, 버튼 클릭시 결과에 따른 alert창 띄우기로
 		
 		model.addAttribute("meetingDto", createNewMeetingDto);
 		model.addAttribute("materialList", materialList);
