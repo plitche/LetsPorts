@@ -50,7 +50,7 @@ input[type=password]{
 }
 
 input:focus {
-	outline:1px solid #ff6600;
+	outline:1px solid #fa8072;
 }
 #authNum {
 	width: 250px;
@@ -97,7 +97,7 @@ select {
 	border: 1px solid silver;
 }
 select:focus {
-	outline:1px solid #ff6600;
+	outline:1px solid #fa8072;
 }
 #signUpSubmit {
 	width: 500px;
@@ -105,6 +105,6 @@ select:focus {
 	font-size: 16px;
 	font-weight: bold;
 	border: none;
-	background: #ff6600;
+	background: #fa8072;
 	color: #ffffff;
 }

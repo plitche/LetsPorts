@@ -10,6 +10,197 @@
 <script src="resources/joon/js/myPage_commonPart.js"></script>
 <link type="text/css" rel="stylesheet" href="resources/joon/css/myPage_commonPart.css" >
 
+<!-- css파일 적용되지 않아 style에 지정함 -->
+<style>
+	/* 마이페이지 전체 */
+
+ a {
+	text-decoration: none;
+	font-size: 12px;
+	color: silver;
+}
+.interestBtns > a {
+	color: #fa8072;
+}
+
+.myPageHeader {
+	display: flex;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+#myPageTitle {
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+}
+.myPageInfo {
+	margin-left: 50px;
+}
+#myPageWrapper {
+	width: 700px;
+	height: 800px;
+	transform: translate(25%, 7%);
+}
+#policyNoticeBtn {
+	width: 100%;
+	height: 70px;
+	line-height: 70px;
+	margin-bottom: 20px;
+	background: #20c997;
+	color: #fff;
+	align-content: center;
+}
+#policyNotice {
+	font-size: 20px;
+	text-align: ceneter;
+	padding-left: 40%;
+	margin: auto;
+}
+
+
+/* 모달 css */
+.modal_wrap{
+	display: none;
+	width: 500px;
+	height: 500px;
+	position: fixed;
+	top:50%;
+	left: 50%;
+	margin: -250px 0 0 -250px;
+	padding: 50px;
+	background:#eee;
+	z-index: 2;
+	box-shadow : 3px 3px 7px #999;
+}
+.modal_close{
+	width: 26px;
+	height: 26px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+.modal_close> a{
+   	
+	font-weight: bold;
+	color: black;
+	display: block;
+	width: 100%;
+	height: 100%;
+	z-index: 3;
+}
+
+/* 파일 업로드 */
+.userImage {
+	overflow: hidden;
+	width: 200px;
+	height: 300px;
+	position: relative;
+	border-radius: 10px;
+}
+
+.userImage img {
+	height: 300px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	
+}
+i {
+	color: #fa8072;
+}
+i:hover {
+	color: #ff6600;
+}
+#fileBtn {
+	position: absolute;
+	z-index: 2;
+	left: 100%;
+	top: 100%;
+	transform: translate(-605%, -115%);
+	display: block;
+	cursor: pointer;
+	border: none;
+	border-radius: 8px;
+	box-shadow : 3px 3px 7px #303030;
+	cursor: pointer;
+
+}
+#fileBtn:active {
+	box-shadow : 2px 2px 5px #303030;
+}
+#deleteFileBtn {
+	position: absolute;
+	z-index: 2;
+	left: 100%;
+	top: 100%;
+	transform: translate(-115%, -115%);
+	display: block;
+	box-shadow : 3px 3px 7px #303030;
+	cursor: pointer;
+}
+#deleteFileBtn:active {
+	box-shadow : 2px 2px 5px #303030;
+}
+.imageBtn {
+	display: inline-block;
+	padding: 5px;
+	font-size: 20px;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+
+/* 상태메세지 */
+#statusName {
+	font-size: 16px;
+}
+#statusMsg {
+	border: 1px solid silver;
+}
+#statusMsg:focus {
+	outline:1px solid #fa8072;
+}
+#updateMsgBtn {
+	width: 100px;
+	height: 40px;
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	background: #fa8072;
+	color: #ffffff;
+}
+#updateMsgBtn:hover {
+	background: #ff6600;
+}
+
+/* 마이페이지 탭바 */
+.flex {
+	display: flex;
+}
+.barTabs {
+	width: 232px;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	margin: 2px;
+	background: silver;
+	color: #fff;
+	cursor: pointer;
+}
+.barTabs:hover {
+	background: #fa8072;
+}
+
+#contentBox {
+	text-align: center;
+}
+
+</style>
+
+<!-- 영욱님 수정 내용 -->
+<script src="resources/joon/js/wookiClient.js"></script>
+
 <!-- 모달창 -->
 <script type="text/javascript">
 
@@ -101,7 +292,7 @@ function fileUpload(){
 		        success: function (data) {
 		        	let filename = data.filename;
 		        	$('.userImage img').attr('src', 'resources/storage/profile_photo/' + filename);
-		        	$('.userImage').append('<i class="fas fa-backspace imageBtn" id="deleteFileBtn"></i>');
+		        	$('.userImage').append('<i class="fas fa-eraser imageBtn" id="deleteFileBtn"></i>');
 		        	$('#uploadFile').val('');
 		        },
 		        error: function() {
@@ -171,84 +362,97 @@ $(document).on('click', '#updateMsgBtn', function(){
 
 </script>
 
-
-
-
-	<h3>마이페이지</h3>
-<div class="myPageHeader" >
-	<div class="userImage">
-		<c:if test="${loginUser.profile_photo ne null}">
-			<img src="resources/storage/profile_photo/${loginUser.profile_photo}" />
-			<i class="fas fa-backspace imageBtn" id="deleteFileBtn"></i>
-		</c:if>
-		<c:if test="${loginUser.profile_photo eq null}">
-			<img src="resources/images/blank-profile-picture.png" />
-		</c:if>
-		<label id="fileBtn">
-			<input type="file" id="uploadFile" name="uploadFile" style="display: none" accept="image/*"/>
-			<i class="fas fa-camera imageBtn"></i>
-		</label>
-	</div>
-
-	<div class="myPageInfo">
-		<h3>${loginUser.user_nickname}님</h3>
-			<!-- 모달 창으로 본인 인증 -->
-		<a href="#" id="modal_btn">정보 수정</a><br/>
-		<br/><br/><br/>
-			<div class="black_bg"></div>
-			<div class="modal_wrap">
-				<p class="modal_close" ><a href="#">X</a></p>
-					<div id="verification_content">
-						<h3>회원 정보 수정을 위한 인증</h3>
-						<input type="password" id="userAuthPw" placeholder="비밀번호 입력"><br/><br/>
-					  	<input type="button" id="forUpdateInfo_btn" value="내 정보 수정하러 가기" >
-					</div>
+<div id="myPageWrapper">
+	<h3 id="myPageTitle">마이페이지</h3>
+	<br/>
+	<br/>
+	<div class="myPageHeader" >
+			<div class="userImage">
+				<c:if test="${loginUser.profile_photo ne null}">
+					<img src="resources/storage/profile_photo/${loginUser.profile_photo}" />
+					<i class="fas fa-backspace imageBtn" id="deleteFileBtn"></i>
+				</c:if>
+				<c:if test="${loginUser.profile_photo eq null}">
+					<img src="resources/images/blank-profile-picture.png" />
+				</c:if>
+				<label id="fileBtn">
+					<input type="file" id="uploadFile" name="uploadFile" style="display: none" accept="image/*"/>
+					<i class="fas fa-camera imageBtn"></i>
+				</label>
 			</div>
 		
-		<!-- 각각 페이지 따로 만들 것! -->
-		<div class="interestBtns">
-			<a href="WishClassListPage.leo?user_no=${loginUser.user_no}" ><i class="fas fa-heart fa-lg"></i><br/>관심모임</a>
-			<a href="WishTrainerListPage.leo?user_no=${loginUser.user_no}"><i class="fas fa-id-badge fa-lg"></i><br/>관심 트레이너</a>
-			<!-- <a href="#"><i class="far fa-file-alt fa-lg"></i><br/>관심 노하우</a> -->		</div>
-		<br/>
-		<div class="status">
-			상태 메세지<br/>
-			<textarea rows="2" cols="50" id="statusMsg" placeholder="상태 메세지를 입력해주세요." readonly="readonly" style="resize: none">${loginUser.user_message}</textarea><br/>
-			<div id="limitMsg"></div>			
-			<input type="button" value="수정하기" id="updateMsgBtn" />
+			<div class="myPageInfo">
+				<h3>${loginUser.user_nickname}님</h3>
+					<!-- 모달 창으로 본인 인증 -->
+				<a href="#" id="modal_btn">정보 수정</a><br/>
+				<br/><br/><br/>
+					<div class="black_bg"></div>
+					<div class="modal_wrap">
+						<p class="modal_close" ><a href="#">X</a></p>
+							<div id="verification_content">
+								<h3>회원 정보 수정을 위한 인증</h3>
+								<input type="password" id="userAuthPw" placeholder="비밀번호 입력"><br/><br/>
+							  	<input type="button" id="forUpdateInfo_btn" value="내 정보 수정하러 가기" >
+							</div>
+					</div>
+				
+				<!-- 각각 페이지 따로 만들 것! -->
+				<div class="interestBtns">
+					<a href="WishClassListPage.leo?user_no=${loginUser.user_no}" ><i class="fas fa-heart fa-lg"></i><br/>관심모임</a>
+					<a href="WishTrainerListPage.leo?user_no=${loginUser.user_no}"><i class="fas fa-id-badge fa-lg"></i><br/>관심 트레이너</a>
+					<!-- <a href="#"><i class="far fa-file-alt fa-lg"></i><br/>관심 노하우</a> -->		</div>
+				<br/>
+				<div class="status">
+					<span id="statusName">상태 메세지</span><br/>
+					<textarea rows="2" cols="50" id="statusMsg" placeholder="상태 메세지를 입력해주세요." readonly="readonly" style="resize: none">${loginUser.user_message}</textarea><br/>
+					<input type="button" value="수정하기" id="updateMsgBtn" />
+					<span id="limitMsg"></span>			
+				</div>
+			</div>
+		
 		</div>
-	</div>
+		<a id="policyNoticeBtn" href="notice.hey" >
+			<span id="policyNotice">
+				모임 방역 수칙😷
+			</span>
+		</a>
+		
+		
 
+			<script>
+				$(document).ready(function() {
+					$('#preparingMeeting').click(function() {
+						fn_preparingMeetingForm();
+						$('#preparingMeeting').css('background', '#fa8072');
+						$('#pastMeeting').css('background', '');
+						$('#qna').css('background', '');
+					});
+					$('#pastMeeting').click(function() {
+						fn_pastMeetingForm();
+						$('#pastMeeting').css('background', '#fa8072');
+						$('#preparingMeeting').css('background', '');
+						$('#qna').css('background', '');
+					});
+					$('#qna').click(function() {
+						fn_myQnAForm();
+						$('#qna').css('background', '#fa8072');
+						$('#pastMeeting').css('background', '');
+						$('#preparingMeeting').css('background', '');
+					});
+				});
+			</script>
+			
+			<input type="hidden" name="user_no" id="user_no" value="${loginUser.user_no}" />
+			
+			<!-- 탭 이동 형식 -->
+			<div id="contentContainer">
+				<div class="flex">
+					<div class="barTabs" id="preparingMeeting">참여예정 모임</div>
+					<div class="barTabs" id="pastMeeting">지난 모임</div>
+					<div class="barTabs" id="qna">질문과답변</div>
+				</div>
+				<div id="contentBox"></div>
+		</div>	
 </div>
-
-
-<script src="resources/joon/js/wookiClient.js"></script>
-<link type="text/css" rel="stylesheet" href="resources/joon/css/wookiClient.css" >
-<script>
-	$(document).ready(function() {
-		$('.preparingMeeting').click(function() {
-			fn_preparingMeetingForm();
-		});
-		$('.pastMeeting').click(function() {
-			fn_pastMeetingForm();
-		});
-		$('.qna').click(function() {
-			fn_myQnAForm();
-		});
-	});
-</script>
-
-<input type="hidden" name="user_no" id="user_no" value="${loginUser.user_no}" />
-
-<!-- 탭 이동 형식 -->
-<div id="contentContainer">
-	<div class="flex">
-		<div class="preparingMeeting">참여예정 모임</div>
-		<div class="pastMeeting">지난 모임</div>
-		<div class="qna">질문과답변</div>
-	</div>
-	<div id="contentBox"></div>
-</div>	
-
 
 <%@ include file="../template/footer.jsp" %>

@@ -84,7 +84,6 @@
 	input [type=button] {
 		border: none;
 		background: #ff6600;
-		color: #fff;
 	}
 	
 	button {
@@ -105,9 +104,8 @@
 	
 	.login_btns1 {
 		background: #ff6600;
+		color: #fff;
 	}
-	
-	
 	
 	.login_btns2 {
 		background: #ffe800;

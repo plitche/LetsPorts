@@ -28,7 +28,7 @@ ul {
 	width: 100%;
 	position: fixed;
 	background: #fff;
-	z-index: 999;
+	z-index: 10;
 	top: -7px;
 	padding-left: 21%;
 	box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 12px !important;

@@ -37,7 +37,6 @@ function fn_loginCheck(f) {
 	f.submit();
 }
 
-// 이 페이지에서 스윗 알람 안되고 있음,,,
 </script>
 
 
@@ -70,12 +69,12 @@ function fn_loginCheck(f) {
 		</div>
 		<div>
 			<br><br/>
-			<button class="login_btns2" ><img alt="kakaoLogo" src="resources/images/joon/kakao.png">카카오톡으로 가입</button><br/>
-			<button class="login_btns3" ><img alt="facebookLogo" src="resources/images/joon/facebook.png">페이스북으로 가입</button><br/>
+			<button class="login_btns2" ><img alt="kakaoLogo" src="resources/images/joon/kakao.png">카카오톡으로 로그인</button><br/>
+			<button class="login_btns3" ><img alt="facebookLogo" src="resources/images/joon/facebook.png">페이스북으로 로그인</button><br/>
 		</div>
-		<div>
+		<!-- <div>
 			<a href="#">혹시 로그인이 안 되시나요?</a><br/>
-		</div>
+		</div> -->
 	
 </body>
 </html>
