@@ -1,13 +1,11 @@
 package com.koreait.project.jungho.command.TrainerClassCommand;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonVoidCommand;
-import com.koreait.project.dto.MaterialsDto;
 import com.koreait.project.jungho.dao.TrainerClassDao;
 
 public class GetUpdateContentCommand implements CommonVoidCommand {

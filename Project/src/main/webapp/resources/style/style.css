@@ -31,7 +31,7 @@ ul {
 	z-index: 999;
 	top: -7px;
 	padding-left: 21%;
-	filter: drop-shadow(0px 3px 6px black);
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 12px !important;
 }
 .top-menu > a > img {
 	width: 27px;

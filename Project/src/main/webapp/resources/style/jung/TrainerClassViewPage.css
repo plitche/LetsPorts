@@ -4,10 +4,36 @@
 	display: flex;
 }
 
+/* 뷰페이지 제목 + 위시리스트 */
+#TrainerClass_title {
+	width:800px;
+	height: auto;
+}
+
+.TrainerClass_title_part {
+	display: flex;
+}
+
+.OfferWishListBtn_Box {
+	margin-right: auto;
+}
+
+.WishListBtn {
+	width: 200px;
+	height: 50px;
+	border: none;
+	background: lightgray;
+}
+
+
+
 .TrainerClassInfo {
 	width:72%;
 	font-size: 18px;
 }
+
+
+
 
 .TrainerClassPhoto {
 	width: 300px;

@@ -33,6 +33,9 @@ INSERT INTO TRAINER_INFO values (4, 13, 6, '김나현', '트레이너자격증',
 INSERT INTO TRAINER_INFO values (5, 14, 7, '천현정', '트레이너자격증', '고양센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
 INSERT INTO TRAINER_INFO values (6, 15, 8, '이병헌', '트레이너자격증', '영등포센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
 
+select * from SCRAP;
+select * from TRAINER_INFO;
+select * from temp_board;
 select * from photo;
 select * from MEETING;
 select * from users;
@@ -43,7 +46,7 @@ DELETE FROM MEETING WHERE MEETING_NO BETWEEN 1 AND 15;
 insert into scrap values(1, 1, 1, 4, null, SYSDATE);
 insert into scrap values(2, 2, 1, 3, null, SYSDATE);
 		   
-							     
+				DELETE FROM MEETING	;		     
 							     
 SELECT *
 		FROM MEETING M
@@ -101,4 +104,35 @@ SELECT *
               ON M2.LOCATION2_NO = L2.LOCATION2_NO
        WHERE RN BETWEEN 1 AND 100
          AND P.PHOTO_REFERER_SEP = 4
+         
+         
+         
+         
+         
+         SELECT *
+		FROM SCRAP S1
+			FULL OUTER JOIN USERS U 
+				ON S1.USER_NO = U.USER_NO
+			FULL OUTER JOIN MEETING M
+				ON S1.SCRAP_REFERER_NO = M.MEETING_NO
+			FULL OUTER JOIN PHOTO P
+				ON M.MEETING_NO = P.PHOTO_REFERER_NO
+			FULL OUTER JOIN LOCATION1 L1
+				ON M.LOCATION1_NO = L1.LOCATION1_NO
+			FULL OUTER JOIN LOCATION2 L2
+				ON M.LOCATION2_NO = L2.LOCATION2_NO
+			FULL OUTER JOIN EXERCISE E
+				ON M.EXERCISE_NO = E.EXERCISE_NO
+		WHERE S1.USER_NO = 11
+		AND S1.SCRAP_SEPARATOR = 2
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
 

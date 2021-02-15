@@ -99,16 +99,18 @@
 					
 				</select>
 			</div>
-			<div style="display:flex;" class="blank_bottom">
-				<div>
-					<span id="detail_location">상세주소</span>
-					<span  id="detail_location1"><input type="text" name="detail_location" placeholder="ex) 경기도 서울시 여의방로 호수공원 제1주차장" style="font-size: 12px;"/></span>
+			<div class="blank_bottom">
+				<div style="display:flex;">
+					<div id="detail_location">상세주소</div>
+					<input type="hidden" id="detailLocation" name="detail_location"/>
+					<div>
+						<div style="margin-left: 50px; margin-bottom:20px; font-style:10px;">정확한 위치를 위해 SPOT를 찍어주세요!</div>
+						<div id="map" style="width:500px;height:300px; margin-left: 50px; margin-bottom: 50px;"></div>
+					</div>
+					<!-- <span  id="detail_location1"><input type="text" name="detail_location" placeholder="ex) 경기도 서울시 여의방로 호수공원 제1주차장" style="font-size: 12px;"/></span> -->
 				</div>
-				<input type="hidden" id="detailLocation" name="detail_location"/>	
 			</div>
 
-			<div style="margin-left: 105px; font-style:10px;">정확한 위치를 위해 SPOT를 찍어주세요!</div>
-			<div id="map" style="width:500px;height:300px; margin-left: 105px; margin-bottom: 50px;"></div>
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74162e293be31e9dc5e8e7b8c8e0be9c"></script>
 			<script>
 				

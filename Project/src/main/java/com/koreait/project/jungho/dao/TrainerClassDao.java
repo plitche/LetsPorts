@@ -70,14 +70,4 @@ public interface TrainerClassDao {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
