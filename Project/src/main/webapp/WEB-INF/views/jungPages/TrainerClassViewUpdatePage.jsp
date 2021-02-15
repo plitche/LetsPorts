@@ -29,7 +29,7 @@
 	<div class="TrainerClassInsert_all">
 		<form action="TrainerClassViewUpdate.leo"  id="insertForm" method="post" enctype="multipart/form-data">
 	
-			<span style="font-size:14px; font-weight: 900; width: 300px; height: 100px; background: #2ed8b6;">새로운 모임 만들기</span>
+			<span style="font-size:14px; font-weight: 900; width: 300px; height: 100px; background: #fa8072;">새로운 모임 만들기</span>
 			<div style="width: 1000px; height: 0.5px; background: black; margin:25px 0px;"></div>
 			<div class="blank_bottom">
 			 
@@ -179,7 +179,7 @@
 					</div>
 					<div id="content" style="border: 1px solid #d8d8d8;">${getTrainerClassUpdate.meeting_content}</div>
 					<div id="submit_Btns">
-						<input type="button"  id="submit_Btn" value="수정완료"  onclick="fn_TrainerClassViewUpdate(this.form)" />
+						<input type="button"  id="submit_Btn" value="수정완료"  style="background:#fa8072" onclick="fn_TrainerClassViewUpdate(this.form)" />
 						<input type="button" value="취소" id="cancel_Btn" onclick="location.href='TrainerClassListPage.leo'"/>
 			
 					</div>

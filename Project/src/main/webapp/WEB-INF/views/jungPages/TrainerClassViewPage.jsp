@@ -51,6 +51,17 @@
 							}
 						});
 					}
+	
+</script>
+
+<script>
+
+	$(document).on('click', '.WishListBtn', function() {
+		if ('${loginUser.user_no}' == '') {
+			loginAlert();
+		}
+	});
+
 </script>
 
 
@@ -68,45 +79,86 @@
 					   		<svg class="WishIcon-module__container--cAypQ" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 					   			<path id="loveIcon_1" fill="none" fill-rule="evenodd" stroke="#CED4DA" stroke-width="1.25" d="M15.876 4.625c1.205 0 2.41.46 3.33 1.379.918.92 1.378 2.124 1.378 3.33 0 1.204-.46 2.41-1.379 3.329h0l-7.1 7.1-7.101-7.1c-.92-.92-1.379-2.125-1.379-3.33s.46-2.41 1.379-3.329c.92-.92 2.124-1.379 3.33-1.379 1.204 0 2.41.46 3.329 1.379.161.162.309.332.442.51.133-.178.28-.349.442-.51.919-.92 2.124-1.379 3.329-1.379z"></path>
 					   		</svg>
-					   		<span class="goWishList" >위시리스트에 담기</span>
+					   		<span class="goWishList">위시리스트에 담기</span>
 				   		</button>
-			   			<p class="IfgoWish_message" style="font-size: 12px; margin-top:10px; text-align: center;"></p>
+			   			<p class="IfgoWish_message"></p>
 			   	</div>
 			   	<!-- wishlist 버튼 -->
    	   		
    	   		</div>
    	   		
-   	   		<div id="title_line" style="width:1080px; height: 0.5px; background: lightgray; margin: 10px 0px;"></div>
+   	   		<div id="title_line" style="width:1080px; height: 0.5px; background: #cacfd5; margin: 10px 0px;"></div>
     	   <div class="TrainerClassView_part1" style="width:1080px; heigth:auto;"> 
     	   			
 	    	   		
-		    	   <div class="TrainerClassInfo" >
-		    	   		<div class="subTitle" style="margin-top: auto;">모임 소개</div>
-		    	   		<div class="title">자세한 정보를 알려드릴게요</div>
-		    	   		<div  class="info_row">
-		    	   			<i class="fas fa-user-friends"></i>
-		    	   			<span>최소 ${trainerClassDto.meeting_min}명 ~ 최대 ${trainerClassDto.meeting_max}명</span>
+		    	   <div class="TrainerClassInfos"  id="TrainerClass_part">
+		    	   		<div id="TrainerClass_intro">
+			    	   		<div class="subTitle" style="margin-top: auto;">모임 소개</div>
+			    	   		<div class="title">자세한 정보를 알려드릴게요</div>
+			    	   		<div  class="info_row" style="margin-top:20px;">
+			    	   			<i class="fas fa-user-friends"></i>
+			    	   			<span class="intro_values">최소 ${trainerClassDto.meeting_min}명 ~ 최대 ${trainerClassDto.meeting_max}명</span>
+			    	   		</div>
+			    	   		<div  class="info_row">
+			    	   			<i class="far fa-calendar-alt"></i>
+			    	   			<span class="intro_values">약속일 ${trainerClassDto.meeting_date}</span>
+			    	   		</div>
+			    	   		<div class="info_row">
+								<i class="fas fa-hourglass-half"></i>
+								<span class="intro_values">모집 기간 ${trainerClassDto.start_gather_date} ~ ${trainerClassDto.end_gather_date}</span>
+							</div>
+							<div class="info_row">
+								<i class="fas fa-map-marked-alt"></i>
+								<span class="intro_values">${trainerClassDto.location1_name} ${trainerClassDto.location2_name}</span>
+							</div>
+							<div class="info_row">
+								<i class="fas fa-dumbbell"></i>
+								<span class="intro_values">${trainerClassDto.exercise_name}</span>
+							</div>
 		    	   		</div>
-		    	   		<div  class="info_row">
-		    	   			<i class="far fa-calendar-alt"></i>
-		    	   			<span>약속일 ${trainerClassDto.meeting_date}</span>
+	    	   			<div class="WishList_all">
+			   		
+						   <div class="TrainerClassPhoto">
+						   		<img alt="${trainerClassDto.photo_filename}" src="resources/storage/${trainerClassDto.photo_filename}" style="width: 500px; height:500px;">
+						   </div>
+					   
+					   </div>
+	    	   	</div>
+				<div id="TrainerClass_part">
+				
+						<div style="width:1080px; height: 0.5px; background: white; margin:20px 0px;"></div>
+						
+						<div class="subTitle">준비사항</div>
+		    	   		<div class="title">함께 준비하면 좋아요</div>
+		    	   		<div style="margin-top:20px;">
+						   <i class="fas fa-american-sign-language-interpreting"></i>
+						   <span class="info_row">준비물 : 
+							   <c:forEach var="materialsDto" items="${list}">
+							   		<span>${materialsDto.materials_name}&nbsp;</span>
+							   </c:forEach>
+						   </span>
 		    	   		</div>
-		    	   		<div class="info_row">
-							<i class="fas fa-hourglass-half"></i>
-							<span>모집 기간 ${trainerClassDto.start_gather_date} ~ ${trainerClassDto.end_gather_date}</span>
+				
+				</div>
+				<div id="TrainerClass_part">
+				
+						<div style="width:1080px; height: 0.5px; background: white; margin:20px 0px;"></div>
+
+					   <div class="subTitle" >안내사항</div>
+					   <div class="title">어떤 모임인가요</div>
+					   <div id="content" style="margin-top:20px;">
+   							 ${trainerClassDto.meeting_content}
 						</div>
-						<div class="info_row">
-							<i class="fas fa-map-marked-alt"></i>
-							<span>${trainerClassDto.location1_name} ${trainerClassDto.location2_name}</span>
-						</div>
-						<div class="info_row">
-							<i class="fas fa-dumbbell"></i>
-							<span>${trainerClassDto.exercise_name}</span>
-						</div>
-		    	   		
-					  
-					   <div>상세 주소</div>
-					 	<div id="map" style="width:500px;height:200px;"></div>
+				
+				</div>
+						
+						<div style="width:1080px; height: 0.5px; background: white; margin:10px 0px;"></div>
+						
+				<div id="TrainerClass_part">
+				
+				  		<span class="subTitle">상세 위치</span>
+				  		<div class="title" style="margin-top:10px;">지도로 한눈에 확인해요</div>
+					 	<div id="map" style="width:500px;height:200px; margin-top:20px; margin-bottom:80px;"></div>
 						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74162e293be31e9dc5e8e7b8c8e0be9c"></script>
 						<script>
 							var detailLocation = '${trainerClassDto.detail_location}';
@@ -150,32 +202,11 @@
 						    var zoomControl = new kakao.maps.ZoomControl();
 						    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 						</script>
-						
-						<div style="width:1080px; height: 0.5px; background: lightgray; margin:10px 0px;"></div>
-						
-						<div class="subTitle" style="margin-top: auto;">준비사항</div>
-		    	   		<div class="title">함께 준비하면 좋아요</div>
-					   <i class="fas fa-american-sign-language-interpreting"></i>
-					   <span class="info_row">준비물 : 
-						   <c:forEach var="materialsDto" items="${list}">
-						   		${materialsDto.materials_name}&nbsp;
-						   </c:forEach>
-					   </span>
-					   <br/><br/>
-					   <div>상세내용</div>
-					   <div id="content" >
-   							 ${trainerClassDto.meeting_content}
-						</div>
-		    	   </div>
-				   <div class="WishList_all">
-				   		
-					   <div class="TrainerClassPhoto">
-					   		<img alt="${trainerClassDto.photo_filename}" src="resources/storage/${trainerClassDto.photo_filename}" style="width: 300px; height:300px;">
-					   </div>
+		   
+				</div>		
 				   
-				   </div>
 				   
-				   <!-- 받은 여러개의 materials 값을 보내기 위한 작업 -->
+				   <!-- 받은 여러개의 materials 값을 보내기 위한 hidden 작업 -->
 				   <c:forEach var="materialsList" items="${list}">
 					   <input type="hidden" name="materials_name" value="${materialsList.materials_name}" />
 				   </c:forEach>
@@ -232,7 +263,6 @@
 				
     		   $('.OfferWishListBtn_Box').on('click', '.WishListBtn' , function(){
 			    	var data_state = $('#loveIcon_1').attr('fill');
-	    		  alert(data_state);
 	    		   if (data_state == 'none') {
 		    		   WishListInsert();
 	    		   } else if (data_state == '#FA5B4A') {
@@ -314,18 +344,19 @@
 			   <!-- 버튼들(수정, 삭제, 등록) -->
 				   <div class="Btns1" style="display:flex;">
 				   
-						   <div><input type="button" value="클래스 신청" onclick="fn_TrainerClassApply(this.form)" id="ClassApplyBtn" /></div>
-						   <!-- 모달창 띄우는 버튼 -->
-			   
-			   
-							<!-- 이것또한 버튼들 -->			   
-						   <div><input type="button" value="클래스 질문하기" id="modal-open-btn" class="ClassQuestionBtn" /></div>
-						   <div><input type="button" value="클래스 목록"  onclick="fn_TrainerClassList()"/></div>
+						   <div><input type="button" value="모임신청" onclick="fn_TrainerClassApply(this.form)" id="ClassApplyBtn" /></div>
+						   <div><input type="button" value="모임 질문" id="modal-open-btn" class="ClassQuestionBtn" /></div>
+						   <div><input type="button" value="모임 목록"  id="meeting_List" onclick="fn_TrainerClassList()"/></div>
 						   <div><input type="button" value="수정" onclick="fn_TrainerClassViewUpdatePage(this.form)" id="ClassUpdateBtn" /></div>
 						   <div><input type="button" value="삭제" onclick="fn_TrainerClassViewDelete(this.form)" id="ClassDeleteBtn" /></div>
 				   
 				   </div>
+				   
+				   
+				   
+				   
 </form>
+
 			   
 			   <!-- 모달창 버튼 누를 시 열리는 내용들 -->
 			   <div id="modal_background"></div>
@@ -359,10 +390,16 @@
 				      </div>
 			    </div>
 			   
+    <br/><br/>
     
-    <br/><br/><br/><br/><br/>
-    
-	<h3>트레이너 소개</h3>
+ 	<div style="width:1080px; height: 0.5px; background: #cacfd5; margin:20px 0px;"></div>
+ 				
+ 	<br/>
+ 	
+ 				
+ 				
+	<div class="subTitle" >호스트 소개</div>
+	<div class="title">우리 반갑게 만나요!</div>
     <div class="trainerHostInfo_all">
 		<a href="#" onclick="">
 	    		<div class="trainerHostInfo">
@@ -373,15 +410,20 @@
  		</a>
   	 </div>
     
-    <br/><br/><br/><br/><br/>
+    <br/><br/>
+    
+    <div style="width:1080px; height: 0.5px; background: #cacfd5; margin:20px 0px;"></div>
   	
+  	<br/>
   	<!-- 관련트레이너 클래스 리스트 뿌려주는 곳 -->
-  	<h3>관련 트레이너 클래스</h3>
+  	<div class="subTitle" >관련모임</div>
+  	<div class="title">이런 모임은 어때요?</div>
     <br/>
     <div class="relatedClass_all">
     
     
     </div>
+    
     
     <script>
     	
@@ -431,12 +473,21 @@
     		$('.relatedClass_all').empty();
 			$.each(list, function(idx, relatedClass) {
 				$('<div>').addClass('relatedClass')
-				.append($('<img alt="' + relatedClass.photo_filename + '" src="resources/storage/' + relatedClass.photo_filename + '" style="width:250px; height:100px;">'))
-				.append($('<a href="#" onclick="fn_showRelatedMeeting(' + relatedClass.meeting_no + '); return false;">' + relatedClass.meeting_title + '</a> '))
-				.append($('<div>모임날짜  : ' + relatedClass.meeting_date + '</div>'))
-				.append($('<div>운동종목 : ' + relatedClass.exercise_name + '</div>'))
-				.append($('<div>작성자 : ' + relatedClass.user_nickname + '</div>'))
-				.append($('<div>조회수 : ' + relatedClass.meeting_hit + '</div>'))
+					.append( $('<a href="#" onclick="fn_showRelatedMeeting(' + relatedClass.meeting_no + '); return false;">')
+								.append($('<img alt="' + relatedClass.photo_filename + '" src="resources/storage/' + relatedClass.photo_filename + '" style="border-radius: 16px 16px 0 0; width:250px; height:100px;">'))
+								.append( $('<div>').addClass('related_meeting_content')
+									.append($('<div class="related_meeting_title">' +relatedClass.meeting_title + '</div>'))
+									.append($('<div class="related_exercise_name">' + relatedClass.exercise_name + '</div>'))
+									.append($('<div style="margin-top:5px;">')
+										.append($('<i class="fas fa-map-marker-alt"></i><span class="location">' + relatedClass.location1_name + ' ' +relatedClass.location2_name + ' · ' + relatedClass.meeting_date + '</span>'))
+									)
+									.append($('<div style="display:flex;">')
+										.append($('<img alt="' + relatedClass.profile_photo + '" src="resources/storage/' + relatedClass.profile_photo + '" class="profile_photo">'))
+										.append($('<div style="margin-top:10px; margin-left:5px;">' + relatedClass.user_nickname + '</div>'))
+										.append($('<i class="fas fa-eye" style="color: lightgray; margin-left: 90px; margin-top:12px;"></i><div style="font-size:10px; margin-top:13px; margin-left: 5px;">' + relatedClass.meeting_hit + '</div>'))
+									)
+								)
+					)
 				.appendTo('.relatedClass_all');
 			});
     	}
@@ -534,7 +585,7 @@
 						.appendTo('#totalCount');
 					} else {
 						$('#listComment_all').empty();
-						 $('<div>').html('댓글을 작성해주세요')
+						 $('<div style="margin-left:80px;">').html('댓글을 작성해주세요')
 						.appendTo('#listComment_all');
 					}
 					
@@ -542,26 +593,26 @@
 					
 					// <
 					if (paging.beginPage <= paging.pagePerBlock) {
-						$('#paging').append('<div class="disable"><a>◀</a></div>');
+						$('#paging').append('<span class="disable"><a>◀</a></span>');
 					} else {
-						$('#paging').append('<div class="prev-block" data-page="' + (paging.beginPage - 1) + '"><a>◀</a></div>');
+						$('#paging').append('<span class="prev-block" data-page="' + (paging.beginPage - 1) + '"><a>◀</a></span>');
 					}
 					
 					for (let p = paging.beginPage; p <= paging.endPage; p++) {
 						if (paging.commentPage == p) {
-							$('#paging').append('<div class="now-page"><a>' + p + '</a></div>')
+							$('#paging').append('<span class="now-page"><a>' + p + '</a></span>')
 						} else {
-							$('#paging').append('<div class="go-page" data-page="' + p +'"><a>' + p + '</a></div>');
+							$('#paging').append('<span class="go-page" data-page="' + p +'"><a>' + p + '</a></span>');
 						}
 					}
 					// >
 					if (paging.endPage >= paging.totalPage) {
-						$('#paging').append('<div class="disable"><a>▶</a></div>');
+						$('#paging').append('<span class="disable"><a>▶</a></span>');
 					} else {
 						// class 의미
 						// 1) next-block : 다음(▶)으로 이동하려고
 						// 2) go-page : css (cursor: pointer) 적용하려고
-						$('#paging').append('<div class="next-block" data-page="' + (paging.endPage + 1) + '"><a>▶</a></div>');
+						$('#paging').append('<span class="next-block" data-page="' + (paging.endPage + 1) + '"><a>▶</a></span>');
 					}
 				},
 				error: function() {alert('실패44');}
@@ -588,7 +639,7 @@
 			$.each(list, function(idx, comment){
 					
 				$('<div>').addClass('commentContent')
-				.append( $('<div>').addClass('myPhoto').append( $('<img alt="내프로필" src="">') ))
+				.append( $('<div>').addClass('myPhoto').append( $('<img alt="내프로필" src="'+ comment.profile_photo +'">') ))
 				.append( $('<div>').addClass('comment_wrap')
 					.append( $('<div>').addClass('comment_all')
 						.append( $('<div>').addClass('comment1')
@@ -696,7 +747,7 @@
 				$('<div>').addClass('commentUpdateScreen')
 				.append($('<input type="text" name="commentUpdate" id="commentUpdate"/>').val(comment_content))
 				.append($('<input type="hidden" name="comment_no"/>').val(comment_no))
-				.append($('<input type="button" value="수정완료" id="commentUpdateEnd"/>'))
+				.append($('<input type="button" value="완료" id="commentUpdateEnd"/>'))
 				.append($('<input type="button" value="취소" id="commentUpdateCancel"/>'))
 				.appendTo('.my');
 			});
@@ -752,7 +803,15 @@
 	</script>
 	
 	
-	<br/><br/><br/><br/><br/>
+	<br/><br/>
+
+	<div style="width:1080px; height: 0.5px; background: #cacfd5; margin:20px 0px;"></div>
+	
+	<br/>
+	<div class="subTitle" >댓글</div>
+  	<div class="title">만날 사람과 자유롭게 대화해요</div>
+  	
+  	<br/>
 
 		<form>
 			<div>댓글&nbsp;<span id="totalCount"></span>개</div><br/>
@@ -761,8 +820,8 @@
 				<div class="myPhoto"><img alt="내 프로필" src="" /></div>
 				<div id="createComment"><input type="text" name="comment_content" id="comment_content" placeholder="댓글작성.."></textarea></div>
 				<div class="btns">
+					<input type="button" value="댓글" id="commentBtn" /> 
 					<input type="button" value="취소" id="commentInsertCancel"/>
-					<input type="button" value="댓글달기" id="commentBtn" /> 
 				</div>
 			</div>
 		</form>

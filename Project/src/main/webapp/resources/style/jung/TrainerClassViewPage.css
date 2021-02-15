@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
 .TrainerClassView_part1 {
-	display: flex;
 }
 
 /* 뷰페이지 제목 + 위시리스트 */
@@ -26,12 +25,17 @@
 	line-height: 50px;
 	width: 210px;
 	height: 50px;
-	border: 0.2px solid lightgray;
+	border: 0.2px solid #bec6d3;
 	background: white;
+	border-radius: 10px;
+	font-weight: 700;
 }
 
 .IfgoWish_message {
 	margin-left: 10px;
+	font-size: 13px;
+	color: #bec6d3;
+	margin-top:10px;
 }
 
 .WishListBtn:hover {
@@ -45,6 +49,12 @@
 	font-size: 12px;
 	color: #fa8072;
 	font-weight: 800;
+	margin-bottom: 5px;
+}
+
+
+i, .intro_values {
+	margin-bottom: 13px;
 }
 
 .title {
@@ -52,13 +62,87 @@
 	font-weight: 900;
 }
 
-.TrainerClassInfo {
-	width:72%;
-	font-size: 18px;
+.intro_values {
+	font-size: 14px;
 }
 
+.TrainerClassInfos {
+	font-size: 18px;
+	display: flex;
+}
 
+#TrainerClass_part {
+	margin: 28px 0px;
+}
 
+ 
+.TrainerClassPhoto {
+	float: right;
+}
+
+#TrainerClass_intro {
+	width: 580px;
+}
+
+.Btns1 > div > input {
+	border:none;
+	background: white;
+}
+
+#ClassApplyBtn {
+	background: #fa8072;
+	width: 100px;
+	height: 30px;
+	color: white;
+	border-radius: 10px;
+	font-weight: 300;
+}
+
+#ClassApplyBtn:hover {
+	background: #fa7061;
+	font-weight: 800;
+	border-radius: 10px;
+}
+
+.relatedClass_all {
+	overflow-x: scroll;
+}
+
+#modal-open-btn {
+	border-radius: 10px;
+	width: 100px;
+	height: 30px;
+	border: 1px solid #fa8072;
+	color: #fa8072;
+	margin-left: 5px;
+}
+
+#meeting_List {
+	width: 100px;
+	height: 30px;
+	border: 1px solid #bebebe;
+	color: #bebebe;
+	margin-left: 5px;
+	border-radius: 10px;
+}
+
+#ClassUpdateBtn {
+	border-radius: 10px;
+	border: 1px solid #bebebe;
+	color: #bebebe;
+	margin-left: 5px;
+	width: 100px;
+	height: 30px;
+}
+
+#ClassDeleteBtn {
+	border-radius: 10px;
+	border: 1px solid #bebebe;
+	color: #bebebe;
+	margin-left: 5px;
+	width: 100px;
+	height: 30px;
+}
 
 .TrainerClassPhoto {
 	width: 300px;
@@ -175,6 +259,7 @@
 /* 모달창 */
 
 .modal_all {
+
 	display: none;
 	width: 800px;
 	height: 700px;
@@ -254,30 +339,101 @@ textarea[name="question_content"] {
 }
 
 .relatedClass {
-	margin-right: 30px;
+	margin-right: 20px;
 	width: 250px;
-	height: 250px;
-	background: lightgray;
+	height: 280px;
+	background: white;
+	border: 0.5px solid #cacfd5;
+	border-radius: 30px;
 }
 
 
 /* 트레이너 정보 */
 
 .trainerHostInfo_all {
+	margin-top: 20px;
 	width: 500px;
 	height: 200px;
-	border-radius: 30px;
-	border: 1px solid gray;
+	border-radius: 16px;
+	border: 0.5px solid #cacfd5;
 	}
 
 
+/* 관련리스트 */
+.related_meeting_content {
+	padding: 15px;
+}
 
+.relatedClass > a {
+	text-decoration: none;
+	color:black;
+}
 
+.related_meeting_title {
+	font-weight: 800;
+}
 
+.related_exercise_name {
+	margin-top:25px;
+	margin-bottom:8px;
+	width: 45px;
+	height: 25px;
+	border-radius: 25px;
+	text-align:center;
+	line-height: 25px;
+	background: #e8eaec;
+}
 
+.location {
+	font-size: 8px;
+	margin-left: 3px;
+}
 
+.profile_photo {
+	width: 45px;
+	height: 45px;
+	border-radius:100px;
+	background:lightgray;
+}
 
+#paging {
+	text-align: center;
+	margin-top:50px;
+	color: lightgray;
+}
 
+#commentBtn {
+	border:none;
+	background: lightgray;
+	width: 50px;
+	height: 30px;
+	color: white;
+}
+
+#commentInsertCancel {
+	border:0.5px solid lightgray;
+	background: white;
+	width: 50px;
+	height: 30px;
+	color: lightgray;
+	
+}
+
+#commentUpdateEnd {
+	border:none;
+	background: lightgray;
+	width: 50px;
+	height: 30px;
+	color: white;
+}
+
+#commentUpdateCancel {
+	border:0.5px solid lightgray;
+	background: white;
+	width: 50px;
+	height: 30px;
+	color: lightgray;
+}
 
 
 

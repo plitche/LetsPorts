@@ -683,13 +683,24 @@
 	
 	/* *********************************************************** 위시리스트 담기 시작점 *************************************************************/
 
-	   $(document).ready(function() {
-		   WishTrainerListInsert();
-		   //WishTrainerDelete();
-		});
+	
+	 
+		$(document).ready(function() {
+   		   
+   		   $('#TrainerloveIcon').attr('stroke', '#CED4DA');
+		   $('#TrainerloveIcon').attr('fill', 'none');
+			
+   		   $('#wishTrainerAdd').on('click', '.WishTrainerBtn' , function(){
+		    	var data_state = $('#TrainerloveIcon').attr('fill');
+    		   if (data_state == 'none') {
+    			   WishTrainerListInsert();
+    		   } else if (data_state == '#FA5B4A') {
+    			   WishTrainerDelete();
+    		   }
+   		   });
+   		});
 	   
 		function WishTrainerListInsert() {
-			$('.WishTrainerBtn').click(function(){
  		   var scrap_referer_no = '${trainerTemDto.user_no}';
  		   var user_no = '${loginUser.user_no}';
 		   	 
@@ -710,33 +721,30 @@
   			  error: function(){alert('실패');}
  	  	   });
  		   
-	  		});
 			
 		}
 		
 		
-		/* 
+	
 		function WishTrainerDelete() {
- 		$('.WishListBtn').click(function(){
- 			 var meeting_no = '${trainerClassDto.meeting_no}';
+ 			 var user_no = '${trainerTemDto.user_no}';
+ 			 alert(user_no);
  			 $.ajax({
-		  			  url: 'WishClassDelete.leo',
+		  			  url: 'WishTrainerDelete.leo',
 		  			  type: 'get',
-		  		      data: 'meeting_no=' + meeting_no,
+		  		      data: 'user_no=' + user_no,
 				      dataType: 'json',
 		   			  success: function (responseObj) {
 		   				  if (responseObj.result > 0) {
-		   					$('#loveIcon').attr('stroke', '#CED4DA');
-	 	    				$('#loveIcon').attr('fill', 'none');
-	 	 	    		    $('.goWishList').html('위시리스트에 담기');
-	 	 	    		  	WishListTotal();
+		   					$('#TrainerloveIcon').attr('stroke', '#CED4DA');
+	 	    				$('#TrainerloveIcon').attr('fill', 'none');
+	 	 	    		    $('.TrainerloveIcon').html('위시리스트에 담기');
 		   				  }
 		   			  },
-		   			  error: function(){alert('실패');}
+		   			  error: function(){alert('실패1');}
 		  	  	   });
-			});
 		}
-		 */
+		
 		
 		/* *********************************************************** 위시리스트 담기 끝점 ********************************************************** */
 	
@@ -758,7 +766,7 @@
 	<div id="trainerDetail" style="border-top: 2px solid #000; padding-top: 20px;">
 		<div style="display: flex;">
 			<div style="font-size: 32px; font-weight: 400;">트레이너 프로필</div>
-			<div>
+			<div id="wishTrainerAdd">
 			<button type="button" class="WishTrainerBtn" style="margin-left:332px; border: 0.5px solid lightgray; width: 170px; height: 40px; background: white; font-size:12px; font-weight: 600">
 		   		<svg class="WishTrainerIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 		   			<path id="TrainerloveIcon" fill="none" fill-rule="evenodd" stroke="#CED4DA" stroke-width="1.25" d="M15.876 4.625c1.205 0 2.41.46 3.33 1.379.918.92 1.378 2.124 1.378 3.33 0 1.204-.46 2.41-1.379 3.329h0l-7.1 7.1-7.101-7.1c-.92-.92-1.379-2.125-1.379-3.33s.46-2.41 1.379-3.329c.92-.92 2.124-1.379 3.33-1.379 1.204 0 2.41.46 3.329 1.379.161.162.309.332.442.51.133-.178.28-.349.442-.51.919-.92 2.124-1.379 3.329-1.379z"></path>
