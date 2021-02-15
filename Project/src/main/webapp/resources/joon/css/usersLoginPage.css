@@ -45,83 +45,95 @@
 
 
 	* {
-		margin: 5px;
-		padding: 0px;
-		text-align: center;
-		text-decoration: none;
-		
+		box-sizing: border-box;
 	}
 	
 	
-	body > h3 { 
+	body { 
+		font-size: 15px;
+		text-align: center;
+		top: 50%;
+		left: 50%;
+		padding: 50px;
+	}
+	
+	h3 {
 		font-size: 30px;
-		margin-bottom: 40px;
+		margin: 0px auto;
+		margin-botom: 400px;
+		padding: 50px;
 	}
 	
 	
 	.login_text {
-		width: 200px;
+		width: 300px;
 		top: 50%;
 		text-align: center;
-		height: 30px;
+		height: 40px;
 		margin-bottom: 10px;
 		box-sizing: border-box;
 		
 	}
 	
-	
-	.login_btns {
-		display: inline-block;
-		width: 200px;
-		font-weight: 400;
-		text-align: center;
-		white-space: nowrap;
-		vertical-align: middle;
-		border: 1px solid black;
-		box-sizing: border-box;
-		height: 40px;
-		border-radius: 3px; 
-		font-weight: bold;		
-		background: orange;
+	img {
+		width: 40px;
+		margin-bottom: -15px;
+		margin-right: 15px;
 	}
-	
-	p > a {
-		color: #7B7B7B;
-		cursor: pointer;
-		text-decoration: none;
-	}
-	
-	div  a {
-		color: #7B7B7B;
-		cursor: pointer;
-		text-decoration: underline;
-	}
-	
-	div > input > .login_btns {
-		backgound: #41617B;
-	}
-	
 
-	div > input > .login_btns1 {
-		background-color: rgb(65, 103, 178);
-		border: 0px;
-		font-size: 14px;
-		height: 48px;
-		width: 100%;
+	input [type=button] {
+		border: none;
+		background: #ff6600;
+		color: #fff;
 	}
 	
-	div > input > login_btns2 {
+	button {
+		border: none;
+	}
+
+	.login_btns1, .login_btns2, .login_btns3 {
 		width: 300px;
-		height: 44px;
-		border-radius: 5px;
-		margin-bottom: 8px;
-		font-size: 12px;
-		color: #4a4a4a;
-		background-color: #fff115;
-		box-shadow: 0 2px 1px 0 rgba(155, 155, 155, 0.5);
-		display: flex;
-
+		height: 50px;
+		font-size: 16px;
+		font-weight: 600;
+		margin-bottom: 10px;
+		line-height: 50px;
+		border: 0;
+		outline: 0;
 		
 	}
 	
+	.login_btns1 {
+		background: #ff6600;
+	}
+	
+	
+	
+	.login_btns2 {
+		background: #ffe800;
+		color: #381e1f;
+	}
+	
+	.login_btns3 {
+		background: #435e99;
+		color: #fff;
+	}
+	
+	p > a {
+		color: rgb(123, 123, 123);
+		cursor: pointer;
+		font-size: 15px;
+		margin-top: 0px;
+		text-decoration: underline;
+	}
+	
+	
+	div > a {
+		color: rgb(123, 123, 123);
+		cursor: pointer;
+		font-size: 15px;
+		margin-top: 0px;
+		text-decoration: underline;
+		text-align: border:
+	}
 	
