@@ -55,9 +55,16 @@
 				doneCss = 'filter: brightness(1.0)';
 			}
 
+			var showCover = null;
+			if (meeting.photo_referer_sep == 4) {
+				showCover = $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >');
+			} else {
+				showCover = $('<div>').html('<img alt="' + meeting_basic_corver + '" src="resources/images/' + meeting_basic_corver.jpg + '" >');		
+			}
+			
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;" style="'+doneCss+'">')
 			.append( $('<div>').addClass('trainerMeeting') 
-				.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
+				.append(  )
 				.append( $('<div class="meetingContent">')
 					.append( $('<div>').text(meeting.meeting_title) )
 					.append( $('<div>')
@@ -767,9 +774,9 @@
 	   		</button>
 	   		</div>
 		</div>
-		<pre style="background: none; border: none; padding-top: 20px;">
+		<div style="background: none; border: none; padding-top: 20px;">
 ${trainerTemDto.profile}
-		</pre>
+		</div>
 		<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
 			<!-- <input type="button" class="TrainerDetailBtn" value="새 프로그램 등록" onclick="location.href='goCreateMeetingPage.plitche'"/> -->
 			<input type="button" class="TrainerDetailBtn" value="새 프로그램 등록" onclick="location.href='TrainerClassInsertPage.leo'"/>
@@ -820,7 +827,7 @@ ${trainerTemDto.profile}
 					<col width="80">
 					<col width="*">
 					<col width="90">
-					<col width="10%">
+					<col width="12%">
 					<col width="10%">
 				</colgroup>
 				<thead>

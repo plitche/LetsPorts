@@ -40,18 +40,19 @@ INSERT INTO trainer_info values (8, 39, 7, '김갑수', '트레이너자격증',
 INSERT INTO trainer_info values (9, 40, 10, '홍백현', '트레이너자격증', '강남센터', '안녕하세요. 반갑습니다. 잘부탁드립니다.', SYSDATE);
 
 -- 임시 모임(meeting)
-INSERT INTO meeting VALUES (10, 39, 6, 3, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-09', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
-INSERT INTO meeting VALUES (11, 40, 4, 3, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-10', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
-INSERT INTO meeting VALUES (12, 38, 4, 4, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-14', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
-INSERT INTO meeting VALUES (13, 39, 6, 5, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-08', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
-INSERT INTO meeting VALUES (14, 40, 8, 4, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-20', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
-INSERT INTO meeting VALUES (15, 38, 8, 6, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-06', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 3, '개인사유취소', 0, NULL, 0);
-INSERT INTO meeting VALUES (16, 39, 8, 6, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-08', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
-INSERT INTO meeting VALUES (17, 40, 8, 4, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-17', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
-INSERT INTO meeting VALUES (18, 38, 5, 5, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-08', 'yyyy-mm-dd'), 0, 0, '테스트', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (10, 10, 6, 3, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-09', 'yyyy-mm-dd'), 0, 0, '테스트1', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (11, 10, 4, 3, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-10', 'yyyy-mm-dd'), 0, 0, '테스트2', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (12, 10, 4, 4, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-14', 'yyyy-mm-dd'), 0, 0, '테스트3', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (13, 10, 6, 5, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-08', 'yyyy-mm-dd'), 0, 0, '테스트4', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (14, 10, 8, 4, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-20', 'yyyy-mm-dd'), 0, 0, '테스트5', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (15, 10, 8, 6, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-06', 'yyyy-mm-dd'), 0, 0, '테스트6', '테스트', 3, '개인사유취소', 0, NULL, 0);
+INSERT INTO meeting VALUES (16, 10, 8, 6, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-08', 'yyyy-mm-dd'), 0, 0, '테스트7', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (17, 10, 8, 4, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-17', 'yyyy-mm-dd'), 0, 0, '테스트8', '테스트', 0, NULL, 0, NULL, 0);
+INSERT INTO meeting VALUES (18, 10, 5, 5, 0, TO_DATE('2021-02-03 18:24:30', 'yyyy-mm-dd hh24:mi:ss'), TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-08', 'yyyy-mm-dd'), 0, 0, '테스트9', '테스트', 0, NULL, 0, NULL, 0);
+
 
 -- 임시 모임 참가자 테이블 테스트케이스 
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 39, SYSDATE, 1, NULL);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 10, SYSDATE, 1, NULL);
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 30, SYSDATE, 1, NULL);
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 31, SYSDATE, 1, NULL);
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 32, SYSDATE, 1, NULL);
@@ -60,32 +61,17 @@ INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 3
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 35, SYSDATE, 1, NULL);
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 36, SYSDATE, 1, NULL);
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 10, 37, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 11, 40, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 11, 30, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 11, 31, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 12, 38, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 12, 32, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 12, 33, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 12, 34, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 13, 39, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 14, 40, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 14, 30, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 14, 31, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 15, 38, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 15, 32, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 39, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 33, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 34, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 35, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 36, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 38, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 17, 40, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 17, 30, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 38, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 31, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 32, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 33, SYSDATE, 1, NULL);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 18, 34, SYSDATE, 1, NULL);
+
+
+-- phto 테이블에 메인 사진 넣기
+insert into photo values (photo_seq.nextval, 4, 10, 10, '1.JPG', sysdate, 0);
+insert into photo values (photo_seq.nextval, 4, 11, 10, '2.JPG', sysdate, 0);
+insert into photo values (photo_seq.nextval, 4, 12, 10, '3.JPG', sysdate, 0);
+insert into photo values (photo_seq.nextval, 4, 13, 10, '4.JPG', sysdate, 0);
+insert into photo values (photo_seq.nextval, 4, 14, 10, '5.jpg', sysdate, 0);
+insert into photo values (photo_seq.nextval, 4, 15, 10, '6.jpg', sysdate, 0);
+insert into photo values (photo_seq.nextval, 4, 16, 10, '7.jpg', sysdate, 0);
+
 
 -- 리뷰 테이블 평가 관련 테스트케이스
 INSERT INTO REVIEW values (5, 10, 4.0, 5, '꾀 괜찮았어요', SYSDATE, 0, 11);
@@ -102,7 +88,7 @@ select * from review
 select * from BOARD_QNA
 select * from Meeting_participants
 select * from temp_board
-
+select * from is_reviewed
 
 SELECT *
   FROM (SELECT ROWNUM RN, A.*

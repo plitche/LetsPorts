@@ -14,7 +14,6 @@ public class MeetingTemDto {
 	private int user_no;
 	private String user_nickname;
 	private String user_message;
-	private String profile_photo;
 	private int meeting_no;
 	private String meeting_title;
 	private Timestamp meeting_date;
@@ -30,6 +29,9 @@ public class MeetingTemDto {
 	private String location1_name;
 	private int location2_no;
 	private String location2_name;
+
+	private String profile_photo;
+	private int photo_referer_sep;
 	
 	private String meeting_date2;
 	private String start_gather_date2;

@@ -25,7 +25,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        FULL OUTER JOIN LOCATION2 L2
 		        ON M2.LOCATION2_NO = L2.LOCATION2_NO
 		 WHERE RN BETWEEN (#{param1}*6-5) AND (#{param1}*6)
-		   AND P.PHOTO_REFERER_SEP = 4
 	</select>
 	<select id="totalMeetingCount" parameterType="int" resultType="int">
 		SELECT COUNT(*)
