@@ -61,34 +61,55 @@
    	   		<div class="TrainerClass_title_part">
    	   		
     	   		<div id="TrainerClass_title" style="font-size: 32px; font-weight: 900;">${trainerClassDto.meeting_title}</div>
+    	   		
+    	   		<!-- wishlist 버튼 -->
     	   		<div class="OfferWishListBtn_Box">
 				   		<button type="button" class="WishListBtn" >
 					   		<svg class="WishIcon-module__container--cAypQ" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 					   			<path id="loveIcon_1" fill="none" fill-rule="evenodd" stroke="#CED4DA" stroke-width="1.25" d="M15.876 4.625c1.205 0 2.41.46 3.33 1.379.918.92 1.378 2.124 1.378 3.33 0 1.204-.46 2.41-1.379 3.329h0l-7.1 7.1-7.101-7.1c-.92-.92-1.379-2.125-1.379-3.33s.46-2.41 1.379-3.329c.92-.92 2.124-1.379 3.33-1.379 1.204 0 2.41.46 3.329 1.379.161.162.309.332.442.51.133-.178.28-.349.442-.51.919-.92 2.124-1.379 3.329-1.379z"></path>
 					   		</svg>
-					   		<span class="goWishList">위시리스트에 담기</span>
+					   		<span class="goWishList" >위시리스트에 담기</span>
 				   		</button>
-			   		<p class="IfgoWish_message"></p>
+			   			<p class="IfgoWish_message" style="font-size: 12px; margin-top:10px; text-align: center;"></p>
 			   	</div>
+			   	<!-- wishlist 버튼 -->
    	   		
    	   		</div>
    	   		
-   	   		<div id="title_line" style="width:1080px; height: 0.5px; background: lightgray;"></div>
+   	   		<div id="title_line" style="width:1080px; height: 0.5px; background: lightgray; margin: 10px 0px;"></div>
     	   <div class="TrainerClassView_part1" style="width:1080px; heigth:auto;"> 
     	   			
 	    	   		
 		    	   <div class="TrainerClassInfo" >
+		    	   		<div class="subTitle" style="margin-top: auto;">모임 소개</div>
+		    	   		<div class="title">자세한 정보를 알려드릴게요</div>
+		    	   		<div  class="info_row">
+		    	   			<i class="fas fa-user-friends"></i>
+		    	   			<span>최소 ${trainerClassDto.meeting_min}명 ~ 최대 ${trainerClassDto.meeting_max}명</span>
+		    	   		</div>
+		    	   		<div  class="info_row">
+		    	   			<i class="far fa-calendar-alt"></i>
+		    	   			<span>약속일 ${trainerClassDto.meeting_date}</span>
+		    	   		</div>
+		    	   		<div class="info_row">
+							<i class="fas fa-hourglass-half"></i>
+							<span>모집 기간 ${trainerClassDto.start_gather_date} ~ ${trainerClassDto.end_gather_date}</span>
+						</div>
+						<div class="info_row">
+							<i class="fas fa-map-marked-alt"></i>
+							<span>${trainerClassDto.location1_name} ${trainerClassDto.location2_name}</span>
+						</div>
+						<div class="info_row">
+							<i class="fas fa-dumbbell"></i>
+							<span>${trainerClassDto.exercise_name}</span>
+						</div>
 		    	   		
-					   모임일 : ${trainerClassDto.meeting_date}<br/><br/>
-					   모집 기간 : ${trainerClassDto.start_gather_date} ~ ${trainerClassDto.end_gather_date}<br/><br/>
-					   모집 인원 : 최소 ${trainerClassDto.meeting_min}명 ~ 최대 ${trainerClassDto.meeting_max}<br/><br/>
-					   운동 종목 : ${trainerClassDto.exercise_name}<br/><br/>
-					   모임장소 : ${trainerClassDto.location1_name} ${trainerClassDto.location2_name}<br/><br/>
+					  
 					   <div>상세 주소</div>
 					 	<div id="map" style="width:500px;height:200px;"></div>
 						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74162e293be31e9dc5e8e7b8c8e0be9c"></script>
 						<script>
-							var detailLocation = ' ${trainerClassDto.detail_location}';
+							var detailLocation = '${trainerClassDto.detail_location}';
 							var locationIdx = detailLocation.indexOf('/');
 							var lat = detailLocation.substring(0, locationIdx);
 							var lng = detailLocation.substring(locationIdx+1);
@@ -129,10 +150,17 @@
 						    var zoomControl = new kakao.maps.ZoomControl();
 						    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 						</script>
-					   준비물 :
-					   <c:forEach var="materialsDto" items="${list}">
-						   	${materialsDto.materials_name}
-					   </c:forEach>
+						
+						<div style="width:1080px; height: 0.5px; background: lightgray; margin:10px 0px;"></div>
+						
+						<div class="subTitle" style="margin-top: auto;">준비사항</div>
+		    	   		<div class="title">함께 준비하면 좋아요</div>
+					   <i class="fas fa-american-sign-language-interpreting"></i>
+					   <span class="info_row">준비물 : 
+						   <c:forEach var="materialsDto" items="${list}">
+						   		${materialsDto.materials_name}&nbsp;
+						   </c:forEach>
+					   </span>
 					   <br/><br/>
 					   <div>상세내용</div>
 					   <div id="content" >
@@ -198,12 +226,15 @@
     	   <script>
     
     	   $(document).ready(function() {
+    		   
+    		   $('#loveIcon_1').attr('stroke', '#CED4DA');
+			   $('#loveIcon_1').attr('fill', 'none');
+				
     		   $('.OfferWishListBtn_Box').on('click', '.WishListBtn' , function(){
-    			   
-	    		  var data_state = $('#loveIcon_1').attr('fill');
+			    	var data_state = $('#loveIcon_1').attr('fill');
 	    		  alert(data_state);
 	    		   if (data_state == 'none') {
-		    		   WishListInsert();    			   
+		    		   WishListInsert();
 	    		   } else if (data_state == '#FA5B4A') {
 		    		   WishListDelete();
 	    		   }
@@ -211,6 +242,7 @@
     		   WishListTotal();
     		});
     	   
+	    	
     		function WishListInsert() {
     			//$('.WishListBtn').click(function(){
 	    		   var meeting_no = '${trainerClassDto.meeting_no}';
