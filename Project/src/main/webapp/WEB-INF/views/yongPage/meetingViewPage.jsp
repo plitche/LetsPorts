@@ -439,10 +439,18 @@
 					contentType: 'application/json; charset=utf-8',
 					dataType: 'json',
 					success: function(responseObj) {
-						if (responseObj.result) {
-							
+						if (responseObj.isFull) {
+							Swal.fire('신청 할 수 없습니다.', '이미 최대 인원이 신청한 모입입니다.', 'error');
 						} else {
-							
+							if(responseObj.isApply) {
+								Swal.fire('신청 할 수 없습니다.', '이미 현재 모임에 신청하셨습니다.', 'error');
+							} else {
+								if(responseObj.apply) {
+									Swal.fire('신청이 완료되었습니다.', '신청한 모임 정보는 마이페이지에서 확인하세요.', 'success');
+								} else {
+									alert('신청에 실패하였습니다.')
+								}
+							}
 						}
 					},
 					error: function(){alert('신청하기 실패')}

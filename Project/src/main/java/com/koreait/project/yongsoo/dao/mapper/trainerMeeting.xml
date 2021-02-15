@@ -73,19 +73,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    ON U.EXERCISE_NO = E.EXERCISE_NO
 		 WHERE U.USER_NO = #{user_no}
 	</select>
-	<select id="isFull" parameterType="int" resultType="int">
-		SELECT COUNT(*)
-		  FROM MEETING_PARTICIPANTS
-		 WHERE MEETING_NO = #{meeting_no}
-	</select>
-	<select id="isApply" resultType="int">
-		SELECT PARTICIPANTS_NO
-		  FROM MEETING_PARTICIPANTS
-		 WHERE MEETING_NO = #{param2}
-		   AND USER_NO = #{param1}
-	</select>
 
- 	
+
  	<select id="isInWishList" resultType="int">
  		SELECT COUNT(*)
  		  FROM SCRAP
@@ -171,5 +160,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		 ORDER BY END_GATHER_DATE
 	</select>
 
+
+	<select id="isFull" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM MEETING_PARTICIPANTS
+		 WHERE MEETING_NO = #{meeting_no}
+	</select>
+	<select id="isApply" resultType="int">
+		SELECT PARTICIPANTS_NO
+		  FROM MEETING_PARTICIPANTS
+		 WHERE MEETING_NO = #{param2}
+		   AND USER_NO = #{param1}
+	</select>
+	<insert id="apply">
+		INSERT INTO MEETING_PARTICIPANTS
+		VALUES (MEETING_PARTICIPANTS_SEQ.NEXTVAL, #{param2}, #{param1}, SYSDATE, 0, null)
+	</insert>
+ 		
  		
 </mapper>
