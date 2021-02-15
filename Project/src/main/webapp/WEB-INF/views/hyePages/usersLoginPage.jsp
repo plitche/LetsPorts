@@ -70,8 +70,8 @@ function fn_loginCheck(f) {
 		</div>
 		<div>
 			<hr/>
-			<input type="button" class="login_btns" value="페이스북으로 로그인"><br/>
-			<input type="button" class="login_btns" value="카카오톡으로 로그인"><br/>
+			<input type="button" class="login_btns1" value="페이스북으로 로그인"><br/>
+			<input type="button" class="login_btns2" value="카카오톡으로 로그인"><br/>
 			<hr/>
 		</div>
 		<div>
