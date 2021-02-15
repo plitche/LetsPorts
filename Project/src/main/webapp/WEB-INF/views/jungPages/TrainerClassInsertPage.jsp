@@ -34,7 +34,7 @@
 	<div class="TrainerClassInsert_all">
 		<form action="TrainerClassInsert.leo"  id="insertForm" method="post" enctype="multipart/form-data">
 			
-			<span style="font-size:14px; font-weight: 900; width: 300px; height: 100px; background: #2ed8b6;">새로운 모임 만들기</span>
+			<span style="font-size:14px; font-weight: 900; width: 300px; height: 100px; background: #fa8072;">새로운 모임 만들기</span>
 			<div style="width: 1000px; height: 0.5px; background: black; margin:25px 0px;"></div>
 			<div class="blank_bottom">
 			 
@@ -170,7 +170,6 @@
             <script>
             </script>
 					<!-- hidden -->
-					<input type="hidden" name="from" value="${from}" />
 				    <input type="hidden" name="temp_no" id="temp_no" />
 				    <input type="hidden" name="user_no" id="user_no" value="${loginUser.user_no}" />
 			<div class="blank_bottom">

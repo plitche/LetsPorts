@@ -30,7 +30,7 @@ ul {
 	background: #fff;
 	z-index: 999;
 	top: -7px;
-	padding-left: 21%;
+	padding-left: 13%;
 	box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 12px !important;
 }
 .top-menu > a > img {
@@ -58,7 +58,7 @@ ul {
 
 .menu-bar {
 	display: flex;
-	margin-right: 24%;
+	margin-right: 30%;
 }
 
 .header {
