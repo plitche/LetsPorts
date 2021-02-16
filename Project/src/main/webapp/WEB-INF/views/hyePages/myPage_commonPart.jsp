@@ -38,7 +38,7 @@
 }
 #myPageWrapper {
 	width: 700px;
-	height: 800px;
+	height: 900px;
 	transform: translate(25%, 7%);
 }
 #policyNoticeBtn {
@@ -68,7 +68,8 @@
 	left: 50%;
 	margin: -250px 0 0 -250px;
 	padding: 50px;
-	background:#eee;
+	border: 2px solid #fa8072;
+	background:#fff;
 	z-index: 2;
 	box-shadow : 3px 3px 7px #999;
 }
@@ -196,6 +197,21 @@ i:hover {
 	text-align: center;
 }
 
+table {
+	width: 695px;
+	height: 300px;
+	border-bottom: 1px solid silver;
+	margin-top: 10px;
+}
+th {
+	text-align: center;
+}
+#title {
+	text-align: center;
+}
+.content.flex.wrap {
+	text-align: center;
+}
 </style>
 
 <!-- 영욱님 수정 내용 -->
@@ -386,9 +402,8 @@ $(document).on('click', '#updateMsgBtn', function(){
 					<!-- 모달 창으로 본인 인증 -->
 				<a href="#" id="modal_btn">정보 수정</a><br/>
 				<br/><br/><br/>
-					<div class="black_bg"></div>
 					<div class="modal_wrap">
-						<p class="modal_close" ><a href="#">X</a></p>
+						<p class="modal_close" ><a href="#"><i class="far fa-times-circle fa-2x"></i></a></p>
 							<div id="verification_content">
 								<h3>회원 정보 수정을 위한 인증</h3>
 								<input type="password" id="userAuthPw" placeholder="비밀번호 입력"><br/><br/>
