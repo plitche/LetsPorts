@@ -144,13 +144,13 @@
 				}
 				
 				var board_qna_title = qna.board_qna_title;
-				// if (board_qna_title.length > 20) {
-				//	board_qna_title = board_qna_title.substring(0, 16);
-				//	board_qna_title += '...';
-				//}
+				if (board_qna_title.length > 20) {
+					board_qna_title = board_qna_title.substring(0, 16);
+					board_qna_title += '...';
+				}
 				
 				$('#mainQnAList')
-				.append( $('<tr>').html('<td><a href="goQnAViewPage.plitche?board_qna_no='+qna.board_qna_no+'&page=1"> ⊙'+ qna.board_qna_title +'</a></td>')
+				.append( $('<tr>').html('<td><a href="goQnAViewPage.plitche?board_qna_no='+qna.board_qna_no+'&page=1"> ⊙'+ board_qna_title +'</a></td>')
 					.append( $(isSolved) )
 					.append( $('<td>'+ qna.user_nickname +'</td>') )
 				)
