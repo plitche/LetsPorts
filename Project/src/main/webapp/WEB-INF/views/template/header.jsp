@@ -49,7 +49,7 @@
 					<img alt="mainLogo" src="resources/images/mainLogo.JPG">
 				</a>
 				<ul class="menu-bar">
-					<li><a href="GoBoard_KnowHowList.limyeng">KnowHow</a></li>
+					<!-- <li><a href="GoBoard_KnowHowList.limyeng">KnowHow</a></li> -->
 					<li><a href="TrainerClassListPage.leo" >Community</a></li>
 					<li><a href="goTrainerList.plitche" >Trainer</a></li>
 					<li><a href="goQnAPage.plitche" >Q&A</a></li>

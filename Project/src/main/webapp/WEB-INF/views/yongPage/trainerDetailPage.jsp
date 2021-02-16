@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link type="text/css" rel="stylesheet" href="resources/style/soo/trainerDetailPage.css" >
 <script src="https://kit.fontawesome.com/6b75fdce2b.js" crossorigin="anonymous"></script>
 <!DOCTYPE html>
 
 <jsp:include page="../template/header.jsp">
 	<jsp:param value="트레이너 상세 페이지" name="title"/>
 </jsp:include>
+
+<link type="text/css" rel="stylesheet" href="resources/style/soo/trainerDetailPage.css" >
 
 <!-- sweetalert -->
 <script>
@@ -44,7 +45,7 @@
 			if ('${trainerTemDto.profile_photo}' == '') {
 				showProfile = $('<span>').html('<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">');
 			} else {
-				showProfile = $('<span>').html('<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}" />');		
+				showProfile = $('<span>').html('<img alt="${trainerTemDto.profile_photo}" src="resources/storage/profile_photo/${trainerTemDto.profile_photo}" />');		
 			}
 			
 			var now = new Date();
@@ -165,7 +166,7 @@
 			if (review.profile_photo == null) {
 				showProfile = '<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">';
 			} else {
-				showProfile = '<img alt="'+review.profile_photo+'" src="resources/storage/'+review.profile_photo+'">';		
+				showProfile = '<img alt="'+review.profile_photo+'" src="resources/storage/profile_photo/'+review.profile_photo+'">';		
 			}
 			
 			var star = '<span class="starResult">';
@@ -712,51 +713,47 @@
 		});
 	} */
 	
-	/* *********************************************************** 위시리스트 담기 시작점 *************************************************************/
+	
 
-	
-	 
-		$(document).ready(function() {
-   		   
-   		   $('#TrainerloveIcon').attr('stroke', '#CED4DA');
-		   $('#TrainerloveIcon').attr('fill', 'none');
-			
-   		   $('#wishTrainerAdd').on('click', '.WishTrainerBtn' , function(){
-		    	var data_state = $('#TrainerloveIcon').attr('fill');
-    		   if (data_state == 'none') {
-    			   WishTrainerListInsert();
-    		   } else if (data_state == '#FA5B4A') {
-    			   WishTrainerDelete();
-    		   }
-   		   });
-   		});
-	   
-		function WishTrainerListInsert() {
- 		   var scrap_referer_no = '${trainerTemDto.user_no}';
- 		   var user_no = '${loginUser.user_no}';
-		   	 
- 		   $.ajax({
- 			  url: 'WishTrainerInsert.leo',
- 			  type: 'get',
- 		      data: 'scrap_referer_no=' + scrap_referer_no + '&user_no=' +user_no,
-		      dataType: 'json',
-  			  success: function (responseObj) {
-  				if (responseObj.result > 0) {
-	    				$('#TrainerloveIcon').attr('stroke', '#FA5B4A');
-	    				$('#TrainerloveIcon').attr('fill', '#FA5B4A');
-	 	    		    $('.goWishTrainer').html('관심리스트 추가됨');
-  				} else {
-  					alert('관심트레이너리스트 삽입에 실패하였습니다.');
-  				}
-  			  },
-  			  error: function(){alert('실패');}
- 	  	   });
- 		   
-			
-		}
+</script>
+ <script>
+	$(document).ready(function() {
+	   $('#TrainerloveIcon').attr('stroke', '#CED4DA');
+	   $('#TrainerloveIcon').attr('fill', 'none');
 		
+	   $('#wishTrainerAdd').on('click', '.WishTrainerBtn' , function(){
+	    	var data_state = $('#TrainerloveIcon').attr('fill');
+   		   if (data_state == 'none') {
+   			   WishTrainerListInsert();
+   		   } else if (data_state == '#FA5B4A') {
+   			   WishTrainerDelete();
+   		   }
+  		   });
+  		});
+   
+	function WishTrainerListInsert() {
+		 var scrap_referer_no = '${trainerTemDto.user_no}';
+		 var user_no = '${loginUser.user_no}';
+	   	 
+		 $.ajax({
+			url: 'WishTrainerInsert.leo',
+			type: 'get',
+		    data: 'scrap_referer_no=' + scrap_referer_no + '&user_no=' +user_no,
+	      	dataType: 'json',
+ 			success: function (responseObj) {
+ 				if (responseObj.result > 0) {
+    				$('#TrainerloveIcon').attr('stroke', '#FA5B4A');
+    				$('#TrainerloveIcon').attr('fill', '#FA5B4A');
+ 	    		    $('.goWishTrainer').html('관심리스트 추가됨');
+ 				} else {
+ 					alert('관심트레이너리스트 삽입에 실패하였습니다.');
+ 				}
+ 			},
+ 			error: function(){alert('실패');}
+	  	 });
 		
-	
+	}
+
 		function WishTrainerDelete() {
  			 var user_no = '${trainerTemDto.user_no}';
  			 alert(user_no);
@@ -778,13 +775,34 @@
 		
 		
 		/* *********************************************************** 위시리스트 담기 끝점 ********************************************************** */
+
+
 	
+
+	function WishTrainerDelete() {
+		var user_no = '${trainerTemDto.user_no}';
+		$.ajax({
+ 			url: 'WishTrainerDelete.leo',
+			type: 'get',
+			data: 'user_no=' + user_no,
+	    	dataType: 'json',
+  			success: function (responseObj) {
+				if (responseObj.result > 0) {
+  					$('#TrainerloveIcon').attr('stroke', '#CED4DA');
+    				$('#TrainerloveIcon').attr('fill', 'none');
+ 	    		    $('.TrainerloveIcon').html('위시리스트에 담기');
+  				}
+  			},
+  			error: function(){alert('실패1');}
+ 	  	});
+	}
+		
 </script>
 
 <div id="trainerInfo">
 	<div id="trainerSimple">
 		<div id="trainerImage">
-			<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}" >
+			<img alt="${trainerTemDto.profile_photo}" src="resources/storage/profile_photo/${trainerTemDto.profile_photo}" >
 		</div>
 		<p style="font-size: 2rem; font-weight: bold; margin: 10px 0 0 0;">
 			${trainerTemDto.user_nickname}
@@ -806,9 +824,9 @@
 	   		</button>
 	   		</div>
 		</div>
-		<div style="background: none; border: none; padding-top: 20px;">
+		<pre style="background: none; border: none; padding-top: 20px; white-space: pre-wrap;">
 ${trainerTemDto.profile}
-		</div>
+		</pre>
 		<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
 			<!-- <input type="button" class="TrainerDetailBtn" value="새 프로그램 등록" onclick="location.href='goCreateMeetingPage.plitche'"/> -->
 			<input type="button" class="TrainerDetailBtn" value="새 프로그램 등록" onclick="location.href='TrainerClassInsertPage.leo'"/>

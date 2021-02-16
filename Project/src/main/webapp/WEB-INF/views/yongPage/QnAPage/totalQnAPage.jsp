@@ -95,7 +95,7 @@
 		<col width="60">
 		<col width="100">
 		<col width="*">
-		<col width="150">
+		<col width="170">
 		<col width="110">
 	</colgroup>
 	<thead>

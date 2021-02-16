@@ -30,7 +30,7 @@ ul {
 	background: #fff;
 	z-index: 10;
 	top: -7px;
-	padding-left: 13%;
+	padding: 0 24%;
 	box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 12px !important;
 }
 .top-menu > a > img {
@@ -58,7 +58,7 @@ ul {
 
 .menu-bar {
 	display: flex;
-	margin-right: 30%;
+	margin-right: 40%;
 }
 
 .header {
@@ -81,14 +81,14 @@ ul {
 }
 
 .imageWrap {
-	height: 400px;
+	height: 425px;
 	width: 100%;
 	background-image: url("../images/man.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
-	padding-top: 11%;
-	padding-left: 15.2%;
-	background-position: 20% 65%;
+	padding-top: 10%;
+	padding-left: 25%;
+	background-position: 0 64%;
 	position: absolute;
 	top: 65px;
 }
@@ -97,6 +97,7 @@ ul {
 	font-size: 60px;
 	color: white;
 	line-height: 50px;
+	font-weight: bold;
 }
 .introduce div:nth-child(1) span {
 	margin: -8px;
@@ -153,7 +154,7 @@ ul {
 /* 모임 파트 css */
 #meetingList {
 	white-space: nowrap;
-	border-top: 2px solid #fa8072;
+	border-top: 2px solid darkslategray;
 	height: 94%;	
 }
 #meetingList > a {
@@ -165,7 +166,7 @@ ul {
 	background: #fff;
 	transition: 0.2s ease;
 	border-radius: 6%;
-	box-shadow: 2px 1px 1px gray;
+	box-shadow: 0px 4px 30px -10 hsl(0deg 2% 72% / 30%);
 }
 #meetingList > a:hover {
 	transform: scale(1.05, 1.05);
@@ -208,8 +209,11 @@ ul {
 
 /* 트레이너 파트 css */
 #trainer h3 {
-	border-bottom: 2px solid #fa8072;
 	padding-bottom: 10px;
+	border-bottom: 2px solid darkslategray;
+}
+#container h3 {
+	color: #fa8072;	
 }
 #trainer-list {
 	flex-wrap: wrap;
@@ -232,6 +236,7 @@ ul {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
 	transition: 0.7s ease;
+	border-radius: 5%;
 }
 
 .trainer:hover .overlay {
@@ -245,7 +250,7 @@ ul {
 }
 .trainer {
 	margin: 0 15px;
-	box-shadow: 2px 1px 1px gray;
+	box-shadow: 0px 4px 30px -10 hsl(0deg 2% 72% / 30%);
 	border-radius: 6%;
 }
 .trainer-picture img {
@@ -292,7 +297,7 @@ ul {
 #qna thead td {
 	padding: 8px;
 	font-weight: bold;
-	border-top: 2px solid #fa8072;
+	border-top: 2px solid darkslategray;
 	border-bottom: 1px solid #d7d7d7;
 	background: #fcfcfc;
 	font-size: 16px;
@@ -314,16 +319,6 @@ ul {
 #qna tbody td:nth-child(3) {
 	text-align: center;
 }
-#qna tbody tr:nth-last-child(1) {
-	border-bottom: 2px solid #fa8072;
-}
-
-
-
-
-
-
-
 
 
 .footer {

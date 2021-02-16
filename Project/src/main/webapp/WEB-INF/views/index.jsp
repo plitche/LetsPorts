@@ -137,20 +137,20 @@
 			$('#mainQnAList').empty();
 			$.each(qnaList, function(idx, qna){
 				var isSolved = null
-				if (qna.is_answered == 0) {
+				if (qna.is_resolved == '0') {
 					isSolved = '<td style="color:orangered;">미 해결</td>';
 				} else {
 					isSolved = '<td style="color:green;">해결완료</td>';
 				}
 				
 				var board_qna_title = qna.board_qna_title;
-				// if (board_qna_title.length > 20) {
-				//	board_qna_title = board_qna_title.substring(0, 16);
-				//	board_qna_title += '...';
-				//}
+				if (board_qna_title.length > 20) {
+					board_qna_title = board_qna_title.substring(0, 16);
+					board_qna_title += '...';
+				}
 				
 				$('#mainQnAList')
-				.append( $('<tr>').html('<td><a href="goQnAViewPage.plitche?board_qna_no='+qna.board_qna_no+'&page=1"> ⊙'+ qna.board_qna_title +'</a></td>')
+				.append( $('<tr>').html('<td><a href="goQnAViewPage.plitche?board_qna_no='+qna.board_qna_no+'&page=1"> ⊙'+ board_qna_title +'</a></td>')
 					.append( $(isSolved) )
 					.append( $('<td>'+ qna.user_nickname +'</td>') )
 				)
@@ -175,7 +175,7 @@
 				<table>
 					<colgroup>
 						<col width="300">
-						<col width="80">
+						<col width="100">
 						<col width="150">
 					</colgroup>
 					<thead>

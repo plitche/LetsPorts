@@ -746,7 +746,7 @@ function trainerUserList(list, paging, totalRecord, recordPerPage, page) {
 		.append($('<td>').html(user.user_no))
 		.append($('<td>').html(user.career + '년'))
 		.append($('<td>').html(user.trainer_name))
-		.append($('<td>').html(`<span onclick="fn_viewCertificate('${user.certificate_filename}')">${user.certificate_filename}</span>`))
+		.append($('<td>').html(`<span id="certificateBtn" onclick="fn_viewCertificate('${user.certificate_filename}')">${user.certificate_filename}</span>`))
 		.append($('<td>').html(user.employment))
 		.append($('<td>').html(result))
 		.append($('<input type="hidden" name="user_no" id="user_no" />').val(user.user_no))
@@ -882,19 +882,35 @@ function fn_deleteTrainerUser() {
 // 트레이너 - 자격증 이미지 보기
 function fn_viewCertificate(src) {
 	let code = `
-	<div class="black-background" id="viewCertificate">
+	<div class="black-background" id="viewCertificate" style="display: none;">
 		<div class="canvas">
 			<img src="resources/storage/certificate/${src}" />
 		</div>
 	</div>`;
 	$('body').append(code);
-	let width = $('.canvas img').width();
-	let height = $('.canvas img').height();
-	if(width >= height) {
-		$('.canvas img').css('width', '510px');
-	} else {
-		$('.canvas img').css('height', '680px');
-	}
+	setTimeout(() => {
+		$('#viewCertificate').show();
+		let width = $('.canvas img').width();
+		let height = $('.canvas img').height();
+		if(width >= height) {
+			let vw = document.body.offsetWidth
+			$('.canvas').css('width', `${vw*0.7}px`);
+			$('.canvas').css('max-width', '1000px');
+			$('.canvas').css('min-width', '700px');
+			$('.canvas').css('height', `${vw*0.525}px`);
+			$('.canvas').css('max-height', '750px');
+			$('.canvas').css('min-height', '525px');
+			$('.canvas img').css('width', '100%');
+		} else {
+			$('.canvas').css('width', '60vh');
+			$('.canvas').css('max-width', '562.5px');
+			$('.canvas').css('min-width', '375px');
+			$('.canvas').css('height', '80vh');
+			$('.canvas').css('max-height', '750px');
+			$('.canvas').css('min-height', '500px');
+			$('.canvas img').css('height', '100%');
+		}
+	}, 300);
 }
 
 // 트레이너 - 자격증 모달 닫기
@@ -920,7 +936,6 @@ function fn_boardsPage() {
 						<td>
 							<select name="boardSep">
 								<option value="100">선택안함</option>
-								<option value="0">노하우</option>
 								<option value="1">질문과답변</option>
 								<option value="2">모임</option>
 							</select>
@@ -1137,7 +1152,6 @@ function fn_commentsPage() {
 						<td>
 							<select name="commentSep">
 								<option value="100">선택안함</option>
-								<option value="0">노하우</option>
 								<option value="1">질문과답변</option>
 								<option value="2">모임</option>
 							</select>
@@ -1747,10 +1761,10 @@ function fn_photoPage() {
 						<td>
 							<select name="photoSep">
 								<option value="100">선택안함</option>
-								<option value="0">노하우</option>
 								<option value="1">질문과답변</option>
 								<option value="2">모임</option>
 								<option value="3">임시게시글</option>
+								<option value="4">모임커버사진</option>
 							</select>
 						</td>
 					</tr>
@@ -1850,7 +1864,7 @@ function fn_insertPhotoList(list, paging, totalRecord, recordPerPage, page) {
 		} else {
 			is_on_hide = '<input type="button" value="보이기" id="showPhotoBtn" />';
 		}
-		let photoSepName = ['노하우', '질문과답변', '모임', '임시게시글', '모임'];
+		let photoSepName = ['노하우', '질문과답변', '모임', '임시게시글', '모임커버'];
 		let tbody = `
 		<tr>
 			<td>${totalRecord - (recordPerPage * (page - 1)) - idx}</td>
