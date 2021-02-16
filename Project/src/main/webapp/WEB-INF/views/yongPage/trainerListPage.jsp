@@ -48,7 +48,7 @@
 							<div style="bottom: 30px;"><i class="fas fa-check-circle"></i> 활동경력 : ${trainer.career}년 </div>
 							<div style="bottom: 0px;"><i class="fas fa-check-circle"></i> ${trainer.user_message} </div>
 						</div>
-						<img alt="${trainer.profile_photo}" src="resources/storage/${trainer.profile_photo}" >
+						<img alt="${trainer.profile_photo}" src="resources/storage/profile_photo/${trainer.profile_photo}" >
 					</div>
 					<div class="trainer-info">
 						<div>${trainer.trainer_name}</div>

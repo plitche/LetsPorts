@@ -137,7 +137,7 @@
 			$('#mainQnAList').empty();
 			$.each(qnaList, function(idx, qna){
 				var isSolved = null
-				if (qna.is_answered == 0) {
+				if (qna.is_resolved == '0') {
 					isSolved = '<td style="color:orangered;">미 해결</td>';
 				} else {
 					isSolved = '<td style="color:green;">해결완료</td>';
@@ -175,7 +175,7 @@
 				<table>
 					<colgroup>
 						<col width="300">
-						<col width="80">
+						<col width="100">
 						<col width="150">
 					</colgroup>
 					<thead>

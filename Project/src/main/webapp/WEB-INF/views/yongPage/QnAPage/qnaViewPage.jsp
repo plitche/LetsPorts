@@ -116,7 +116,7 @@
 			if (qnaComment.profile_photo == null) {
 				showProfile = $('<div class="profile">').html('<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">');
 			} else {
-				showProfile = $('<div class="profile">').html('<img alt="'+qnaComment.profile_photo+'" src="resources/storage/'+qnaComment.profile_photo+'">');		
+				showProfile = $('<div class="profile">').html('<img alt="'+qnaComment.profile_photo+'" src="resources/storage/profile_photo/'+qnaComment.profile_photo+'">');		
 			}
 			
 			if ('${loginUser.user_no}' == qnaComment.user_no) {
@@ -322,10 +322,10 @@
 </script>
 
 <c:if test="${qnaTemDto.is_resolved eq 1}">
-	<h3>해결 완료된 질문입니다!! 많은 정보를 얻어가세요.^^</h3>
+	<div>해결 완료된 질문입니다!! 많은 정보를 얻어가세요.^^</div>
 </c:if>
 <c:if test="${qnaTemDto.is_resolved eq 0}">
-	<h3>아직 해결되지 않은 질문입니다!! 빠른 해결에 도움을 주세요.^^</h3>
+	<div>아직 해결되지 않은 질문입니다!! 빠른 해결에 도움을 주세요.^^</div>
 </c:if>
 
 <c:if test="${loginUser.user_no ne null}">
@@ -367,7 +367,7 @@
 		<tr>
 			<td rowspan="2">
 				<c:if test="${qnaTemDto.profile_photo ne null}">
-					<img alt="${qnaTemDto.profile_photo}" src="resources/storage/${qnaTemDto.profile_photo}">
+					<img alt="${qnaTemDto.profile_photo}" src="resources/storage/profile_photo/${qnaTemDto.profile_photo}">
 				</c:if>
 				<c:if test="${qnaTemDto.profile_photo eq null}">
 					<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">
