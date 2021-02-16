@@ -50,6 +50,7 @@
 	height: auto;
 }
 #tab ul li{
+	background: #fff;
 	display: inline-block;
 	width: 30%;
 	margin: 20px 10px 30px 10px;
@@ -98,6 +99,8 @@
 	margin-bottom: 20px;
 }
 
+
+
 /* tap에서 모임 탭의 css */
 #trainerMeetingList > a {
 	width: 30%;
@@ -117,6 +120,9 @@
 	height: auto;
 	border-radius: 16px;
 	border: 1px solid #f1f1f1;
+}
+#meetingList {
+	border: none;
 }
 .trainerMeeting > div:nth-child(1) {
 	height: 120px;
