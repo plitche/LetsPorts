@@ -11,6 +11,9 @@
 <%-- sweetalert --%>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<%-- CDN --%>
+<!-- <script defer src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" integrity="sha384-9/D4ECZvKMVEJ9Bhr3ZnUAF+Ahlagp1cyPC7h5yDlZdXs4DQ/vRftzfd+2uFUuqS" crossorigin="anonymous"></script> -->
+<script src="https://kit.fontawesome.com/07b67006ce.js"></script>
 
 <link type="text/css" rel="stylesheet" href="resources/joon/css/usersLoginPage.css" >
 <script src="resources/joon/js/usersLoginPage.js"></script>
@@ -37,7 +40,92 @@ function fn_loginCheck(f) {
 	f.submit();
 }
 
-// 이 페이지에서 스윗 알람 안되고 있음,,,
+
+//<!-- 모달창 만들기 위함 -->
+window.onload = function() {
+
+function onClick() {
+    document.querySelector('.modal_wrap').style.display ='block';
+}   
+function offClick() {
+    document.querySelector('.modal_wrap').style.display ='none';
+}
+
+document.getElementById('modal_btn').addEventListener('click', onClick);
+document.querySelector('.modal_close').addEventListener('click', offClick);
+
+};
+
+
+//페이지 로드
+$(document).ready(function(){
+	userCheck();
+	sendTempPw();
+});
+function userCheck() {
+	
+	// 이메일 키업 체크
+	$("#regEmail").keyup(function(){
+	var email = $('#regEmail').val();
+	var obj = {"email" : email};
+	
+		$.ajax({
+			url : "emailCheck.hey",
+			type : "post",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			dataType : "json",
+			success : function(data) {
+				
+				if (data.result == 1) {
+					$("#email_check").text("회원이시네요.");
+					$("#email_check").css('color', 'green');
+					console.log("회원임");
+					
+					
+				} else {
+					
+						$("#email_check").text("등록된 정보가 없습니다.");
+						$("#email_check").css('color', 'red');
+						console.log("정보 없음");
+			
+				}
+					
+			},error : function() {
+					console.log("실패");
+			}
+			
+		});
+	});
+}
+
+	// 임시비번 보내기
+function sendTempPw(){
+	$(document).on("click", "#sendTempPw", function() {
+		// alert('이메일 인증 시작!');
+		var email = $('#regEmail').val();
+		var tempPw; // 임시비번
+		/* 0 = 메일 전송 전, 1=메일 전송 됨*/
+		
+		$.ajax({
+			url : "sendTempPw.hey",
+			type : "post",
+			data : email,
+			contentType : "text/plain",
+			dataType : "json",
+			success : function(data) {
+				Swal.fire('임시 비밀번호 발송! 메일을 확인해주세요.');
+				tempPw = data.tempPw;
+				console.log(tempPw);
+					
+			}, error : function() {
+					console.log("뭐가 그리 문제야 say something!");
+			}
+			
+		}); // ajax
+		
+	});
+}
 </script>
 
 
@@ -52,14 +140,13 @@ function fn_loginCheck(f) {
 		</form>
 				<!-- 모달 창으로 비밀번호 확인 -->
 		<p><a href="#" id="modal_btn">비밀번호 찾기</a></p><br/>
-			<div class="black_bg"></div>
 			<div class="modal_wrap">
-				<p class="modal_close" ><a href="#">X</a></p>
+				<p class="modal_close" ><a href="#"><i class="far fa-times-circle fa-lg"></i></a></p>
 				<div id="verification_content">
 					<h3>임시 비밀번호 발급</h3>
 					<input type="text" id="regEmail" name="email" placeholder="가입한 이메일 주소 입력"><br/>
 					<!-- emailCheck은 발송확인 메세지를 위함 -->
-					<div class="check_font" id="email_check"></div>
+					<div class="check_font" id="email_check"></div><br/>
 				  	<input type="button" id="sendTempPw" value="임시 비밀번호 발송"><br/><br/>
 				</div>
 			</div>
@@ -70,12 +157,12 @@ function fn_loginCheck(f) {
 		</div>
 		<div>
 			<br><br/>
-			<button class="login_btns2" ><img alt="kakaoLogo" src="resources/images/joon/kakao.png">카카오톡으로 가입</button><br/>
-			<button class="login_btns3" ><img alt="facebookLogo" src="resources/images/joon/facebook.png">페이스북으로 가입</button><br/>
+			<button class="login_btns2" ><img alt="kakaoLogo" src="resources/images/joon/kakao.png">카카오톡으로 로그인</button><br/>
+			<button class="login_btns3" ><img alt="facebookLogo" src="resources/images/joon/facebook.png">페이스북으로 로그인</button><br/>
 		</div>
-		<div>
+		<!-- <div>
 			<a href="#">혹시 로그인이 안 되시나요?</a><br/>
-		</div>
+		</div> -->
 	
 </body>
 </html>
