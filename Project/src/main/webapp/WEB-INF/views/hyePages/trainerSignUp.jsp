@@ -30,7 +30,65 @@
 		f.submit();
 	}
 </script>
+<style>
+form {
+	transform: translate(20%, 10%);
+	height: 700px;
+}
+td, th {
+    padding: 20px;
+}
+h3 {
+	text-align: center;
+}
+input[type=text]{
+	width: 475px;
+	height: 30px;
+	color: #6c757d;
+	font-weight: 500;
+	font-size: 15px;
+	padding:6px 12px;
+	margin-top: 10px;
+	border: 0.5px solid silver;
+	appearance: textfield;
+}
+input:focus {
+	outline:1px solid #fa8072;
+}
+textarea {
+	width: 475px;
+	resize: none;
+	color: #6c757d;
+	font-weight: 500;
+	font-size: 15px;
+	padding:6px 12px;
+	margin-top: 10px;
+	border: 0.5px solid silver;
+}
+#file-upload-button {
+	width: 100px;
+	height: 50px;
+	margin-left: 80px;
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	background: #fa8072;
+	color: #ffffff;
+}
+#signUpSubmit {
+	width: 500px;
+	height: 50px;
+	margin-left: 80px;
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	background: #fa8072;
+	color: #ffffff;
+}
 
+</style>
+
+<h3>트레이너 전용 회원가입</h3>
 <form method="post" action="insertTrainer.wooki" enctype="multipart/form-data">
 	<table>
 		<tbody>
@@ -53,8 +111,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td>자기소개 및 수상내역</td>
+				<td>자기소개 및 <br>수상내역</td>
 				<td>
+					<br/>
 					<textarea rows="10" cols="40" name="profile"></textarea>
 				</td>
 			</tr>
@@ -66,8 +125,10 @@
 			</tr>
 		</tbody>
 	</table>
+					<br/>
+					<br/>
 	<input type="hidden" name="user_no" value="${param.user_no}" />
-	<input type="button" value="가입하기" onclick="fn_send(this.form)">
+	<input type="button" id="signUpSubmit" value="가입하기" onclick="fn_send(this.form)">
 </form>
 
 <%@ include file="../template/footer.jsp" %>

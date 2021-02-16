@@ -148,7 +148,7 @@ function fn_addPastList(list, paging, page) {
 	$('.paging').empty();
 	if(list.length == 0) {
 		let content = `
-		<div>참여한 모임이 없습니다.</div>`;
+		<div id="joinMeeting">참여한 모임이 없습니다.</div>`;
 		$('#contentBox .content').append(content);
 	} else {
 		$.each(list, function(idx, meeting) {

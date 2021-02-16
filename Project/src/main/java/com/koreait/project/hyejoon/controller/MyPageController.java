@@ -53,6 +53,12 @@ public class MyPageController {
 	public String myPage() {
 		return "hyePages/myPage_commonPart";
 	}
+	
+	// 정보지침 안내 페이지로 이동한다.
+	@RequestMapping(value="notice.hey")
+	public String notice() {
+		return "hyePages/notice";
+	}
 
 	
 	
