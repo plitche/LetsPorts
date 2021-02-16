@@ -7,6 +7,7 @@ import com.koreait.project.wooki.command.textEditor.BoardUpdatePageCommand;
 import com.koreait.project.wooki.command.textEditor.InsertBoardTestCommand;
 import com.koreait.project.wooki.command.textEditor.IsnertTempBoardCommand;
 import com.koreait.project.wooki.command.textEditor.PhotoDeleteCommand;
+import com.koreait.project.wooki.command.textEditor.PhotoHideCheckCommand;
 import com.koreait.project.wooki.command.textEditor.PhotoUploadCommand;
 import com.koreait.project.wooki.command.textEditor.TestViewCommand;
 
@@ -26,6 +27,11 @@ public class EditorAppContext {
 	@Bean
 	public PhotoDeleteCommand photoDeleteCommand() {
 		return new PhotoDeleteCommand();
+	}
+	
+	@Bean
+	public PhotoHideCheckCommand photoHideCheckCommand() {
+		return new PhotoHideCheckCommand();
 	}
 	
 	

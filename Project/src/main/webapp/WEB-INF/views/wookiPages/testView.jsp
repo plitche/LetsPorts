@@ -12,11 +12,13 @@
 	        
 	<!-- css파일 및 js파일 -->
 	<link rel="stylesheet" href="resources/wooki/css/textEditor.css">
+	<script src="resources/wooki/js/textEditor.js"></script>
 	
 	<script type="text/javascript">
 	    $(document).ready(function() {
 	        $('div[contenteditable="true"]').attr('contenteditable', 'false');
 	        $('.btn').hide();
+	        fn_photoList();
 	    })
 	</script>
 </head>

@@ -55,9 +55,16 @@
 				doneCss = 'filter: brightness(1.0)';
 			}
 
+			var showCover = null;
+			if (meeting.photo_referer_sep == 4) {
+				showCover = $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >');
+			} else {
+				showCover = $('<div>').html('<img alt="meeting_basic_corver" src="resources/images/meeting_basic_corver.jpg" >');		
+			}
+			
 			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;" style="'+doneCss+'">')
 			.append( $('<div>').addClass('trainerMeeting') 
-				.append( $('<div>').html('<img alt="' + meeting.photo_filename + '" src="resources/storage/' + meeting.photo_filename + '" >') )
+				.append(showCover)
 				.append( $('<div class="meetingContent">')
 					.append( $('<div>').text(meeting.meeting_title) )
 					.append( $('<div>')
@@ -420,11 +427,18 @@
 		$('#currentPage').empty();
 		$('#currentPage').text('현재 ' +  qnaPageNo  + ' 페이지');
 		$.each(list, function(idx, qna){
+			var publishedTitle = null;
+			if (qna.is_published == '0') {
+				publishedTitle = '비공개 질문 입니다.';
+			} else {
+				publishedTitle = qna.trainer_qna_title;
+			}
+			
 			if (qna.is_answered==0) {
 				$('<tr>')
 				.append( $('<td name="qnA_no">').html( totalQnACount-((qnaPageNo-1)*10 + idx) ) )
-				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
-				.append( $('<td>').html(trainerInfo.user_nickname) )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + publishedTitle + '</a>') )
+				.append( $('<td>').html(qna.user_nickname) )
 				.append( $('<td>').html(qna.created_at2) )
 				.append( $('<input type="hidden" name="' + qna.trainer_qna_no + '" value="' + idx + '"/>') )
 				.append( $('<td name="isAnswered">').addClass('isAnswered').html('미답변').css('color', 'orangered').css('font-weight', 'bold') )
@@ -432,8 +446,8 @@
 			} else {
 				$('<tr>')
 				.append( $('<td name="qnA_no">').html( totalQnACount-((qnaPageNo-1)*10 + idx) ) )
-				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + qna.trainer_qna_title + '</a>') )
-				.append( $('<td>').html(trainerInfo.user_nickname) )
+				.append( $('<td>').html('<a href="#" onclick="fn_showQnA(' + qna.trainer_qna_no + '); return false;">' + publishedTitle + '</a>') )
+				.append( $('<td>').html(qna.user_nickname) )
 				.append( $('<td>').html(qna.created_at2) )
 				.append( $('<td name="isAnswered">').addClass('isAnswered').html('답변완료').css('color', 'darkblue').css('font-weight', 'bold') )
 				.appendTo('#qnaList');
@@ -516,7 +530,7 @@
 				.append( $('<input type="text" id="content" name="trainer_qna_content" placeholder="질문 내용을 입력하세요."/>')  )
 				.append( $('<br/>') )
 				.append( $('<div>') 
-					.append( $('<input type="checkbox" name="is_published" id="is_published" value="1"/>') )
+					.append( $('<input type="checkbox" name="is_published" id="is_published" value="0"/>') )
 					.append( $('<label for="is_published">').html(' 비밀글 처리하기') )		
 					.append( $('<input type="button" value="작성완료" id="writeQuestion"/>') )
 				)
@@ -530,14 +544,19 @@
 		$(document).on("click", "#writeQuestion", function() {
 			if ($('input[name="trainer_qna_title"]').val() == '' || 
 				$('input[name="trainer_qna_content"]').val() == '' ) {
-				Swal.fire('정보가 전부 입력되지 않았습니다.', '질문 제목과 내용을 확인해주세요!', 'error');
-				$('input[name="trainer_qna_title"]').focus();
+					Swal.fire('정보가 전부 입력되지 않았습니다.', '질문 제목과 내용을 확인해주세요!', 'error');
+					$('input[name="trainer_qna_title"]').focus();
 			} else {
 				var question_user_no = '${loginUser.user_no}'
 				var trainer_user_no = ${trainerTemDto.user_no};
 				var trainer_qna_title = $('input[name="trainer_qna_title"]').val();
 				var trainer_qna_content = $('input[name="trainer_qna_content"]').val();
-				var is_published = $('input[name="is_published"]').val();
+				var is_published = null;
+				if($('input[name="is_published"]').is(":checked")) {
+					var is_published = 0;
+				} else {
+					var is_published = 1;
+				}
 				var sendObj = {
 					"question_user_no" : question_user_no,	
 					"trainer_user_no" : trainer_user_no,
@@ -545,7 +564,7 @@
 					"trainer_qna_content" : trainer_qna_content,
 					"is_published" : is_published
 				};
-				
+
 				$.ajax({
 					url: 'writeQnA.plitche',
 					type: 'post',
@@ -578,25 +597,31 @@
 			dataType: 'json',
 			success: function (responseObj) {
 				if (responseObj.result) {
+					
 					if (responseObj.answer) {
-						$('#modal').attr("style", "display:block");
-						$('.modal_title').empty();
-						$('.modal_title')
-						.append( $('<div>').text('답변 작성이 완료된 질문입니다^^') )
-						.append( $('<div>').text('질문을 통해서 더 많은 정보를 확인하세요.') )
-						
-						$('#modalDetail').empty();
-						$('<div>').addClass('questionContent')
-						.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
-						.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
-						.append( $('<div>').text('질문자: ' + responseObj.qna.user_nickname) )
-						.append( $('<div>').text('작성일: ' + responseObj.qna.created_at2) )
-						.append( $('<div id="trainerAnswer">')
-							.append( $('<h4>').text('${trainerTemDto.user_nickname}의 답변') )
-							.append( $('<div id="answerContent">').text(responseObj.qna.trainer_qna_answered) )
-							.append( $('<div>').text('답변일: '+ responseObj.qna.answered_date2) )		
-						)
-						.appendTo('#modalDetail');
+						if(responseObj.qna.is_published == '0' && 
+						   '${loginUser.user_no}' != responseObj.qna.question_user_no) {
+							Swal.fire('비공개 질문입니다.', '현재 페이지의 트레이너이시면 로그인해주세요.', 'error');
+						} else {
+							$('#modal').attr("style", "display:block");
+							$('.modal_title').empty();
+							$('.modal_title')
+							.append( $('<div>').text('답변 작성이 완료된 질문입니다^^') )
+							.append( $('<div>').text('질문을 통해서 더 많은 정보를 확인하세요.') )
+							
+							$('#modalDetail').empty();
+							$('<div>').addClass('questionContent')
+							.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
+							.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
+							.append( $('<div>').text('질문자: ' + responseObj.qna.user_nickname) )
+							.append( $('<div>').text('작성일: ' + responseObj.qna.created_at2) )
+							.append( $('<div id="trainerAnswer">')
+								.append( $('<h4>').text('${trainerTemDto.user_nickname}의 답변') )
+								.append( $('<div id="answerContent">').text(responseObj.qna.trainer_qna_answered) )
+								.append( $('<div>').text('답변일: '+ responseObj.qna.answered_date2) )		
+							)
+							.appendTo('#modalDetail');	
+						}
 					} else {
 						if ('${loginUser.user_no}' == ${trainerTemDto.user_no}) {
 							$('#modal').attr("style", "display:block");
@@ -610,15 +635,21 @@
 							.append( $('<input type="button" value="답변 작성하기" onclick="fn_openAnswer('+ trainer_qna_no +')">') )
 							.appendTo('#modalDetail');
 						} else {
-							$('#modal').attr("style", "display:block");
-							$('.modal_title').empty();
-							$('#modalDetail').empty();
-							$('<div>').addClass('questionContent')
-							.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
-							.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
-							.append( $('<div>').text('질문자: ' + responseObj.qna.user_nickname) )
-							.append( $('<div>').text('작성일: ' + responseObj.qna.created_at2) )
-							.appendTo('#modalDetail');
+							if(responseObj.qna.is_published == '0' && 
+							   '${loginUser.user_no}' != responseObj.qna.question_user_no) {
+									Swal.fire('비공개 질문입니다.', '해당 질문을 확인하실 수 없습니다.', 'error');
+							} else {
+								$('#modal').attr("style", "display:block");
+								$('.modal_title').empty();
+								$('#modalDetail').empty();
+								$('<div>').addClass('questionContent')
+								.append( $('<div>').text(responseObj.qna.trainer_qna_title) )
+								.append( $('<div>').text(responseObj.qna.trainer_qna_content) )
+								.append( $('<div>').text('질문자: ' + responseObj.qna.user_nickname) )
+								.append( $('<div>').text('작성일: ' + responseObj.qna.created_at2) )
+								.appendTo('#modalDetail');
+							}
+							
 						}
 					}
 				}
@@ -683,13 +714,24 @@
 	
 	/* *********************************************************** 위시리스트 담기 시작점 *************************************************************/
 
-	   $(document).ready(function() {
-		   WishTrainerListInsert();
-		   //WishTrainerDelete();
-		});
+	
+	 
+		$(document).ready(function() {
+   		   
+   		   $('#TrainerloveIcon').attr('stroke', '#CED4DA');
+		   $('#TrainerloveIcon').attr('fill', 'none');
+			
+   		   $('#wishTrainerAdd').on('click', '.WishTrainerBtn' , function(){
+		    	var data_state = $('#TrainerloveIcon').attr('fill');
+    		   if (data_state == 'none') {
+    			   WishTrainerListInsert();
+    		   } else if (data_state == '#FA5B4A') {
+    			   WishTrainerDelete();
+    		   }
+   		   });
+   		});
 	   
 		function WishTrainerListInsert() {
-			$('.WishTrainerBtn').click(function(){
  		   var scrap_referer_no = '${trainerTemDto.user_no}';
  		   var user_no = '${loginUser.user_no}';
 		   	 
@@ -710,33 +752,30 @@
   			  error: function(){alert('실패');}
  	  	   });
  		   
-	  		});
 			
 		}
 		
 		
-		/* 
+	
 		function WishTrainerDelete() {
- 		$('.WishListBtn').click(function(){
- 			 var meeting_no = '${trainerClassDto.meeting_no}';
+ 			 var user_no = '${trainerTemDto.user_no}';
+ 			 alert(user_no);
  			 $.ajax({
-		  			  url: 'WishClassDelete.leo',
+		  			  url: 'WishTrainerDelete.leo',
 		  			  type: 'get',
-		  		      data: 'meeting_no=' + meeting_no,
+		  		      data: 'user_no=' + user_no,
 				      dataType: 'json',
 		   			  success: function (responseObj) {
 		   				  if (responseObj.result > 0) {
-		   					$('#loveIcon').attr('stroke', '#CED4DA');
-	 	    				$('#loveIcon').attr('fill', 'none');
-	 	 	    		    $('.goWishList').html('위시리스트에 담기');
-	 	 	    		  	WishListTotal();
+		   					$('#TrainerloveIcon').attr('stroke', '#CED4DA');
+	 	    				$('#TrainerloveIcon').attr('fill', 'none');
+	 	 	    		    $('.TrainerloveIcon').html('위시리스트에 담기');
 		   				  }
 		   			  },
-		   			  error: function(){alert('실패');}
+		   			  error: function(){alert('실패1');}
 		  	  	   });
-			});
 		}
-		 */
+		
 		
 		/* *********************************************************** 위시리스트 담기 끝점 ********************************************************** */
 	
@@ -758,7 +797,7 @@
 	<div id="trainerDetail" style="border-top: 2px solid #000; padding-top: 20px;">
 		<div style="display: flex;">
 			<div style="font-size: 32px; font-weight: 400;">트레이너 프로필</div>
-			<div>
+			<div id="wishTrainerAdd">
 			<button type="button" class="WishTrainerBtn" style="margin-left:332px; border: 0.5px solid lightgray; width: 170px; height: 40px; background: white; font-size:12px; font-weight: 600">
 		   		<svg class="WishTrainerIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 		   			<path id="TrainerloveIcon" fill="none" fill-rule="evenodd" stroke="#CED4DA" stroke-width="1.25" d="M15.876 4.625c1.205 0 2.41.46 3.33 1.379.918.92 1.378 2.124 1.378 3.33 0 1.204-.46 2.41-1.379 3.329h0l-7.1 7.1-7.101-7.1c-.92-.92-1.379-2.125-1.379-3.33s.46-2.41 1.379-3.329c.92-.92 2.124-1.379 3.33-1.379 1.204 0 2.41.46 3.329 1.379.161.162.309.332.442.51.133-.178.28-.349.442-.51.919-.92 2.124-1.379 3.329-1.379z"></path>
@@ -767,11 +806,12 @@
 	   		</button>
 	   		</div>
 		</div>
-		<pre style="background: none; border: none; padding-top: 20px;">
+		<div style="background: none; border: none; padding-top: 20px;">
 ${trainerTemDto.profile}
-		</pre>
+		</div>
 		<c:if test="${loginUser.user_no eq trainerTemDto.user_no}">
-			<input type="button" class="TrainerDetailBtn" value="새 프로그램 등록" onclick="location.href='goCreateMeetingPage.plitche'"/>
+			<!-- <input type="button" class="TrainerDetailBtn" value="새 프로그램 등록" onclick="location.href='goCreateMeetingPage.plitche'"/> -->
+			<input type="button" class="TrainerDetailBtn" value="새 프로그램 등록" onclick="location.href='TrainerClassInsertPage.leo'"/>
 		</c:if>	
 	</div>
 </div>
@@ -819,7 +859,7 @@ ${trainerTemDto.profile}
 					<col width="80">
 					<col width="*">
 					<col width="90">
-					<col width="10%">
+					<col width="12%">
 					<col width="10%">
 				</colgroup>
 				<thead>

@@ -127,3 +127,37 @@ function fn_photoDelete() {
 		}
 	});
 }
+
+// 뷰페이지 진입시 img태그 파일네임 배열화 및 숨김사진 분기
+function fn_photoList() {
+	let photoList = [];
+	$('#content img').each(function() {
+		let index = $(this).attr('src').lastIndexOf('/');
+		let filename = $(this).attr('src').substr(index + 1);
+		photoList.push(filename);
+	});
+	let filesname = photoList.toString();
+	$.ajax({
+		url: `photoHideCheck/${filesname}.wooki`,
+		type: 'get',
+		dataType: 'json',
+		success: function(obj) {
+			if(obj.list == null) {
+				return;
+			}
+			let hideList = obj.list.split(',');
+			$('#content img').each(function() {
+				let index = $(this).attr('src').lastIndexOf('/');
+				let filename = $(this).attr('src').substr(index + 1);
+				for(let i = 0; i < hideList.length; i++) {
+					if(filename == hideList[i]) {
+						$(this).hide();
+					}
+				}
+			});
+		},
+		error: function() {
+			alert('실패');
+		}
+	});
+}

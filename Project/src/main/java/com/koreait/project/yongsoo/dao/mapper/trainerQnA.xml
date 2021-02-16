@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.koreait.project.yongsoo.dao.TrainerQnADao">
 	
-	<select id="getTrainerQnAList" parameterType="int" resultType="com.koreait.project.dto.Trainer_qnaDto">
+	<select id="getTrainerQnAList" parameterType="int" resultType="com.koreait.project.yongsoo.dto.QnATemDto">
 		SELECT *
 		  FROM (SELECT T1.*, ROWNUM RN
 		        FROM (SELECT *
@@ -13,7 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        	  WHERE TRAINER_USER_NO = #{param2}
 		        	    AND ON_HIDE = 0
 		              ORDER BY TRAINER_QNA_NO DESC) T1
-		       )
+		       ) T2
+		       FULL OUTER JOIN USERS U
+		       ON U.USER_NO = T2.QUESTION_USER_NO 
 		 WHERE RN BETWEEN (#{param1}*10-9) AND (#{param1}*10)
 	</select>
 	<select id="TrainerQnACount" parameterType="int" resultType="int">

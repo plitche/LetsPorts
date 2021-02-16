@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.koreait.project.jungho.command.WishTrainerCommand.WishTrainerDeleteCommand;
 import com.koreait.project.jungho.command.WishTrainerCommand.WishTrainerInsertCommand;
 import com.koreait.project.jungho.command.WishTrainerCommand.WishTrainerListCommand;
 import com.koreait.project.jungho.command.WishTrainerCommand.WishTrainerTotalCommand;
@@ -58,6 +59,32 @@ public class WishTrainerController {
 		WishTrainerTotalCommand wishTrainerTotalCommand = ctx.getBean("wishTrainerTotalCommand", WishTrainerTotalCommand.class);
 		return wishTrainerTotalCommand.execute(sqlSession, model);
 	}
+	
+	
+	@RequestMapping(value="WishTrainerDelete.leo",
+							   method=RequestMethod.GET,
+							   produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> WishTrainerDelete(@RequestParam("user_no") int user_no,
+																	Model model) {
+		model.addAttribute("user_no", user_no);
+		WishTrainerDeleteCommand wishTrainerDeleteCommand = ctx.getBean("wishTrainerDeleteCommand", WishTrainerDeleteCommand.class);
+		return wishTrainerDeleteCommand.execute(sqlSession, model);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

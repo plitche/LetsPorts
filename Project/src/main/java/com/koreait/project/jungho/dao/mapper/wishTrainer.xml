@@ -37,6 +37,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE SCRAP_REFERER_NO = #{param1}
 	</select>
 	
+	<delete id="WishTrainerDelete" parameterType="int">
+		DELETE FROM SCRAP
+		WHERE SCRAP_REFERER_NO = #{param1}
+	</delete>
+	
 	
 	
 </mapper>
