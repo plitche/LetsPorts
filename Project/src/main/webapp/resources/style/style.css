@@ -342,10 +342,12 @@ ul {
 	font-family: 'Dancing Script', cursive;
 }
 .company {
-	margin-right: 31%;
+	color: #39424a;
+	margin-right: 37%;
 	width: 40%;
 	text-align: right;
 }
 .us {
 	width: 45%;
+	color: #39424a;
 }
