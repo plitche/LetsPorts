@@ -769,7 +769,7 @@
 		   				  if (responseObj.result > 0) {
 		   					$('#TrainerloveIcon').attr('stroke', '#CED4DA');
 	 	    				$('#TrainerloveIcon').attr('fill', 'none');
-	 	 	    		    $('.TrainerloveIcon').html('위시리스트에 담기');
+	 	 	    		    $('.goWishTrainer').html('위시리스트에 담기');
 		   				  }
 		   			  },
 		   			  error: function(){alert('실패1');}

@@ -13,5 +13,4 @@ public class User_interestDto {
 	private int user_interest_no;
 	private int user_no;
 	private int exercise_no;
-	
 }

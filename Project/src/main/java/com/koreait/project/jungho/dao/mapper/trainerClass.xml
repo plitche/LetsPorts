@@ -129,8 +129,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				 ON M.USER_NO = U.USER_NO
 			JOIN PHOTO P
 				 ON M.MEETING_NO = P.PHOTO_REFERER_NO
+			JOIN TRAINER_INFO TI
+				ON U.USER_NO = TI.USER_NO
 		WHERE M.MEETING_NO = #{param1}
 	    AND P.PHOTO_REFERER_SEP = 4
+	</select>
+	
+	<select id="trainerClassInfo" parameterType="int" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
+		SELECT USER_NO
+		FROM MEETING
+		WHERE MEETING_NO = #{param1}
 	</select>
 		
 	<!-- materials 테이블에 저장된 내용을 가져가는 쿼리문 -->
@@ -139,6 +147,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM MATERIALS
 		WHERE MEETING_NO = #{param1}
 	</select>
+	
+	<!-- user_interest 테이블에서 흥미운동 내용 가져오는 쿼리문 -->
+	<select id="interestView" resultType="String" parameterType="int">
+		SELECT E.EXERCISE_NAME
+		FROM USER_INTEREST UI
+			JOIN EXERCISE E
+				ON E.EXERCISE_NO = UI.EXERCISE_NO
+		WHERE UI.USER_NO = #{param1}
+	</select>
+	
 	
 	<!-- 뷰페이지에 들어왔을때 조회수 증가 -->
 	<update id="addhit" parameterType="int">
