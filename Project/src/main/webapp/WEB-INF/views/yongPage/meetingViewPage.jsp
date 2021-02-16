@@ -43,7 +43,7 @@
 			if (meeting.profile_photo == null) {
 				showProfile = $('<span>').html('<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">');
 			} else {
-				showProfile = $('<span>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/'+meeting.profile_photo+'">');		
+				showProfile = $('<span>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/profile_photo/'+meeting.profile_photo+'">');		
 			}
 			
 			var showCover = null;
@@ -137,7 +137,7 @@
 			if (meeting.profile_photo == null) {
 				showProfile = $('<div>').html('<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">');
 			} else {
-				showProfile = $('<div>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/'+meeting.profile_photo+'">');		
+				showProfile = $('<div>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/profile_photo/'+meeting.profile_photo+'">');		
 			}
 			
 			var showCover = null;
@@ -219,7 +219,7 @@
 			if (comment.profile_photo == null) {
 				showProfile = $('<div class="profile">').html('<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">');
 			} else {
-				showProfile = $('<div class="profile">').html('<img alt="'+comment.profile_photo+'" src="resources/storage/'+comment.profile_photo+'">');		
+				showProfile = $('<div class="profile">').html('<img alt="'+comment.profile_photo+'" src="resources/storage/profile_photo/'+comment.profile_photo+'">');		
 			}
 			
 			if ('${loginUser.user_no}' == comment.user_no) {
@@ -735,7 +735,7 @@
 		<div id="infoHost">
 			<div id="hostImage">
 				<c:if test="${trainerTemDto.profile_photo ne null}">
-					<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}">
+					<img alt="${trainerTemDto.profile_photo}" src="resources/storage/profile_photo/${trainerTemDto.profile_photo}">
 				</c:if>
 				<c:if test="${trainerTemDto.profile_photo eq null}">
 					<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">
@@ -759,7 +759,7 @@
 	<c:if test="${trainerTemDto.user_separator eq 1}"> <!-- 모임 작성자가 트레이너 일 때 -->
 		<div id="infoHost">
 			<div id="hostImage">
-				<img alt="${trainerTemDto.profile_photo}" src="resources/storage/${trainerTemDto.profile_photo}">
+				<img alt="${trainerTemDto.profile_photo}" src="resources/storage/profile_photo/${trainerTemDto.profile_photo}">
 			</div>
 			<div>
 				<div>Let'sPorts 트레이너</div>

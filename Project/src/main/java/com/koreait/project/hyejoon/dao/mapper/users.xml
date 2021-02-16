@@ -61,14 +61,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE EXERCISE_NO = #{exercise_no}
 	</select>
 	
-	<update id="updateAccount">
-		UPDATE USERS
-		   SET PASSWORD = #{param1},
-		   	   USER_NICKNAME = #{param2},
-		   	   LOCATION1_NO = #{param3}
-		   	   LOCATION2_NO = #{param4}
-		 WHERE USER_NO = #{user_no}
-	</update>
 	<delete id="deleteAccount" parameterType="int">
 		DELETE FROM USERS
 		 WHERE USER_NO = #{user_no}
@@ -95,7 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	<select id="viewMeetingInfo" parameterType="int" resultType="int">
 		SELECT meeting.meeting_no, meeting.meeting_max, meeting.meeting_min, meeting.meeting_title,
-		COUNT(meeting_participants.meeting_participants) as count, meeting_participants.meeting_status
+		 COUNT (meeting_participants.meeting_participants) as count, meeting_participants.meeting_status
 		  FROM MEETING
 		  join meeting_participants
 		  on meeting.user_no = meeting_participants.user_no

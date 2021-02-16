@@ -15,7 +15,6 @@ import com.koreait.project.hyejoon.command.signUp.EmailCheckCommand;
 import com.koreait.project.hyejoon.command.signUp.InsertJoinCommand;
 import com.koreait.project.hyejoon.command.signUp.NickCheckCommand;
 import com.koreait.project.hyejoon.command.userAccount.DeleteAccountCommand;
-import com.koreait.project.hyejoon.command.userAccount.UpdateAccountCommand;
 import com.koreait.project.hyejoon.command.userAccount.UserUpdateViewCommand;
 
 @Configurable
@@ -62,10 +61,6 @@ public class HyeAppContext {
 	@Bean
 	public UserUpdateViewCommand userUpdateViewCommand() {
 		return new UserUpdateViewCommand();
-	}
-	@Bean
-	public UpdateAccountCommand updateAccountCommand() {
-		return new UpdateAccountCommand();
 	}
 	@Bean
 	public DeleteAccountCommand deleteAccountCommand() {

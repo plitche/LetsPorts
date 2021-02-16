@@ -267,17 +267,18 @@ input[type="button"]:focus {
 }
 
 .canvas {
-    width: 550px;
-    height: 720px;
-    border-radius: 5px;
-    background: white;
-    margin: 150px auto;
-    padding: 20px;
-}
-
-.canvas img {
 	position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+	border-radius: 5px;
+	background: white;
+	padding: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#certificateBtn {
+	cursor: pointer;
 }
