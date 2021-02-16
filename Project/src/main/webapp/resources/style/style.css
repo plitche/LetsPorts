@@ -145,9 +145,9 @@ ul {
 .body-wrap {
 	width: 1080px;
 	margin: 0 auto;
+	display: flow-root;
 	margin-bottom: 80px;
 	height: auto;
-	display: flow-root;
 	margin-top: 50px;
 }
 

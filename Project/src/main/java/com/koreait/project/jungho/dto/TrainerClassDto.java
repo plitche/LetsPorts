@@ -21,6 +21,10 @@ public class TrainerClassDto {
 	private Date meeting_date;
 	private Date start_gather_date;
 	private Date end_gather_date;
+	private Date meeting_date2;
+	private Date start_gather_date2;
+	private Date end_gather_date2;
+	private int user_separator;
 	private int meeting_min;
 	private int meeting_max;
 	private int exercise_no;
@@ -35,6 +39,7 @@ public class TrainerClassDto {
 	private String user_nickname;
 	private String user_message;
 	private String profile_photo;
+	private String trainer_name;
 	private String email;
 	private int meeting_hit;
 	private MultipartFile mainPhoto;

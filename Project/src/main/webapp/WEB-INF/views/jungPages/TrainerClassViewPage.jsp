@@ -402,11 +402,63 @@
 	<div class="title">우리 반갑게 만나요!</div>
     <div class="trainerHostInfo_all">
 		<a href="#" onclick="">
+			<c:if test="${trainerClassDto.user_separator eq 1}"><!-- 회원 구분 : 트레이너 -->
 	    		<div class="trainerHostInfo">
-				    <div>${trainerClassDto.profile_photo}</div>
-	    			<div>${trainerClassDto.user_nickname}</div>
+	    			<div id="profileAndName" style="display:flex;">
+		    			<div style="background: lightgray; width: 80px; height: 80px; ">
+		    				<c:if test="${empty trainerClassDto.profile_photo}">
+			    				<img alt="기본사진" src="resources/images/blank-profile-picture.png" style="width:100%; height: 100%; border-radius:100px;"/>
+		    				</c:if>
+		    				<c:if test="${not empty trainerClassDto.profile_photo}">
+			    				<img alt="${trainerClassDto.profile_photo}" src="resources/storage/profile_photo/${trainerClassDto.profile_photo}" style="width:100%; height: 100%; border-radius:100px;"/>
+		    				</c:if>
+		    			</div>
+		    			<div class="user_names">
+			    			<div class="user_separator">Let'sPorts 트레이너</div>
+			    			<div class="user_nameInfo">${trainerClassDto.user_nickname} [${trainerClassDto.trainer_name}]</div>
+		    			</div>
+	    			</div>
+	    			<div id="location">
+		    			<span>${trainerClassDto.location1_name}</span>
+		    			<span>${trainerClassDto.location2_name}</span>
+	    			</div>
+	    			<div id="materials">
+	    				<c:forEach var="interestList" items="${interestList}">
+	    					<span>${interestList}</span>
+	    				</c:forEach>
+	    			</div>
+		    		<div class="trainer_message">
+		    			${trainerClassDto.user_message}
+		    		</div>
+	    		
 	    		</div>
-	    		<div>${trainerClassDto.user_message}</div>
+			</c:if>
+			<c:if test="${trainerClassDto.user_separator eq 2}"><!-- 회원 구분 : 유저일때 -->
+	    		<div class="trainerHostInfo">
+	    			<div id="profileAndName" style="display:flex;">
+		    			<div style="background: lightgray; width: 80px; height: 80px; ">
+		    				<img alt="${trainerClassDto.profile_photo}" src="resources/storage/profile_photo/${trainerClassDto.profile_photo}" style="width:100%; height: 100%; border-radius:100px;"/>
+		    			</div>
+		    			<div class="user_names">
+			    			<div  class="user_separator">Let'sPorts 회원</div>
+			    			<div class="user_nameInfo">${trainerClassDto.user_nickname} [${trainerClassDto.trainer_name}]</div>
+		    			</div>
+	    			</div>
+	    			<div id="location">
+		    			<span>${trainerClassDto.location1_name}</span>
+		    			<span>${trainerClassDto.location2_name}</span>
+	    			</div>
+	    			<div id="materials">
+	    				<c:forEach var="interestLists" items="${interestList}">
+	    					<span>${interestLists.exercise_name}</span>
+	    				</c:forEach>
+	    			</div>
+		    		<div class="trainer_message">
+		    			${trainerClassDto.user_message}
+		    		</div>
+	    		
+	    		</div>
+			</c:if>
  		</a>
   	 </div>
     
@@ -469,9 +521,27 @@
     		});
     	}
     		
+    	
     	function relatedClassListContent(list) {
     		$('.relatedClass_all').empty();
 			$.each(list, function(idx, relatedClass) {
+				
+				var viewphoto = null;
+				if (relatedClass.profile_photo == null) {
+					viewphoto = $('<div>').html('<img alt="' + relatedClass.profile_photo + '" src="resources/images/blank-profile-picture.png" class="profile_photo">');
+				} else if (relatedClass.profile_photo != null) {
+					viewphoto = $('<div>').html('<img alt="' + relatedClass.profile_photo + '" src="resources/storage/profile_photo/' + relatedClass.profile_photo + '" class="profile_photo">');
+				}
+				
+				/*
+				var viewcover = null;
+				if (relatedClass.photo_filename == null) {
+					viewcover = $('<div>').html('<img alt="' + relatedClass.photo_filename + '" src="resources/storage/' + relatedClass.photo_filename + '" style="border-radius: 16px 16px 0 0; width:250px; height:100px;">');
+				} else if (relatedClass.photo_filename != null) {
+					viewcover =  $('<div>').html('<img alt="' + relatedClass.photo_filename + '" src="resources/storage/' + relatedClass.photo_filename + '" style="border-radius: 16px 16px 0 0; width:250px; height:100px;">');
+				}
+				*/
+				
 				$('<div>').addClass('relatedClass')
 					.append( $('<a href="#" onclick="fn_showRelatedMeeting(' + relatedClass.meeting_no + '); return false;">')
 								.append($('<img alt="' + relatedClass.photo_filename + '" src="resources/storage/' + relatedClass.photo_filename + '" style="border-radius: 16px 16px 0 0; width:250px; height:100px;">'))
@@ -482,7 +552,7 @@
 										.append($('<i class="fas fa-map-marker-alt"></i><span class="location">' + relatedClass.location1_name + ' ' +relatedClass.location2_name + ' · ' + relatedClass.meeting_date + '</span>'))
 									)
 									.append($('<div style="display:flex;">')
-										.append($('<img alt="' + relatedClass.profile_photo + '" src="resources/storage/' + relatedClass.profile_photo + '" class="profile_photo">'))
+										.append(viewphoto)
 										.append($('<div style="margin-top:10px; margin-left:5px;">' + relatedClass.user_nickname + '</div>'))
 										.append($('<i class="fas fa-eye" style="color: lightgray; margin-left: 90px; margin-top:12px;"></i><div style="font-size:10px; margin-top:13px; margin-left: 5px;">' + relatedClass.meeting_hit + '</div>'))
 									)
