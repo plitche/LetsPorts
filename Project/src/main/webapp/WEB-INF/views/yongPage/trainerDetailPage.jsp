@@ -773,30 +773,9 @@
 		  	  	   });
 		}
 		
-		
-		/* *********************************************************** 위시리스트 담기 끝점 ********************************************************** */
-
-
 	
+		/* *********************************************************** 위시리스트 담기 끝점 ********************************************************** */=======
 
-	function WishTrainerDelete() {
-		var user_no = '${trainerTemDto.user_no}';
-		$.ajax({
- 			url: 'WishTrainerDelete.leo',
-			type: 'get',
-			data: 'user_no=' + user_no,
-	    	dataType: 'json',
-  			success: function (responseObj) {
-				if (responseObj.result > 0) {
-  					$('#TrainerloveIcon').attr('stroke', '#CED4DA');
-    				$('#TrainerloveIcon').attr('fill', 'none');
- 	    		    $('.TrainerloveIcon').html('위시리스트에 담기');
-  				}
-  			},
-  			error: function(){alert('실패1');}
- 	  	});
-	}
-		
 </script>
 
 <div id="trainerInfo">
