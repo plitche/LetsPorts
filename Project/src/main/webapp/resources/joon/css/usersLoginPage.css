@@ -1,6 +1,68 @@
 @charset "UTF-8";
 
 	/* 모달 css */
+<<<<<<< HEAD
+.modal_wrap{
+	display: none;
+	width: 500px;
+	height: 300px;
+	position: fixed;
+	top:50%;
+	left: 50%;
+	margin: -100px 0 0 -250px;
+	padding: 30px;
+	border: 2px solid #fa8072;
+	background:#fff;
+	z-index: 2;
+	box-shadow : 3px 3px 7px #999;
+}
+.modal_close{
+	width: 26px;
+	height: 26px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+.modal_close> a{
+   	
+	font-weight: bold;
+	color: black;
+	display: block;
+	width: 100%;
+	height: 100%;
+	z-index: 3;
+}
+i {
+	color: #fa8072;
+}
+i:hover {
+	color: #ff6600;
+}
+
+#regEmail {
+	width: 300px;
+	height: 30px;
+	color: #6c757d;
+	font-weight: 500;
+	font-size: 15px;
+	padding:6px 12px;
+	margin-top: 20px;
+	border: 0.5px solid silver;
+}
+
+input:focus {
+	outline:1px solid #fa8072;
+	
+}
+
+#sendTempPw {
+	width: 200px;
+	height: 40px;
+	border: none;
+	color: #fff;
+	background: #fa8072;
+}
+=======
 	.modal_wrap{
         display: none;
         width: 500px;
@@ -44,6 +106,7 @@
         z-index: 3;
         text-align: center;
     }
+>>>>>>> 6d7ecf1159d1c3f547e51402bdda8200ede9587f
     
     
   	
@@ -69,7 +132,7 @@
 		font-size: 30px;
 		margin: 0px auto;
 		margin-botom: 400px;
-		padding: 50px;
+		padding: 20px;
 	}
 	
 	
@@ -91,8 +154,7 @@
 
 	input [type=button] {
 		border: none;
-		background: #ff6600;
-		color: #fff;
+		background: #fa8072;
 	}
 	
 	button {
@@ -112,10 +174,9 @@
 	}
 	
 	.login_btns1 {
-		background: #ff6600;
+		background: #fa8072;
+		color: #fff;
 	}
-	
-	
 	
 	.login_btns2 {
 		background: #ffe800;
