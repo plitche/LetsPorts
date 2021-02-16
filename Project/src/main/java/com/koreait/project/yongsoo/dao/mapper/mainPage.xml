@@ -73,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		                 ORDER BY BOARD_QNA_NO DESC) B1) B2 
       		   FULL OUTER JOIN USERS U
 		       ON B2.USER_NO = U.USER_NO
-		 WHERE B2.RN BETWEEN 1 AND 10
+		 WHERE B2.RN BETWEEN 1 AND 20
 	</select>
 
 	

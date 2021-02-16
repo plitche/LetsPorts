@@ -136,6 +136,12 @@
 }
 .meetingContent  {
 	padding: 13px;
+	position: relative;
+}
+.meetingContent > span {
+	position: absolute;
+	bottom: 25px;
+	right: 10px;
 }
 .meetingContent > div:nth-child(1) {
 	font-size: 16px;
@@ -147,10 +153,10 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-.meetingContent > div:nth-child(2) {
+.meetingContent > div:nth-child(3) {
 	display: flex;
 }
-.meetingContent > div:nth-child(2) > div {
+.meetingContent > div:nth-child(3) > div {
 	border: 1px solid #f1f1f1;
 	display: inline-block;
 	font-weight: 400;
@@ -349,12 +355,10 @@
 	border-radius: 25%;
 }
 .reviewHeader > div > span:nth-child(3) {
-	font-size: 16px;
-	margin-left: 74%;
-	border: 1px solid;
+	font-size: 13px;
 	padding: 3px;
-	border-radius: 29%;
 	font-weight: bold;
+	float: right;
 }
 .reviewContent {
 	margin: 15px 0px 20px 0;
@@ -407,8 +411,9 @@
 	margin: 0;
 	text-align: center;
 }
+
 #questionList > tbody td:nth-child(2) {
-	/* font-weight: bold; */	
+	text-align: left;	
 }
 #questionList a:hover {
 	color: orangered;
