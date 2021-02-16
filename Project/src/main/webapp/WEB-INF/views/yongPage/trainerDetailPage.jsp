@@ -50,10 +50,10 @@
 			
 			var now = new Date();
 			var doneCss = null;
-			if (meeting.end_gather_date < now) {
-				doneCss = 'filter: brightness(0.5)';
+			if (meeting.end_gather_date > now) {
+				doneCss = '<span style="color: green">모집 진행중</span>';
 			} else {
-				doneCss = 'filter: brightness(1.0)';
+				doneCss = '<span style="color: red">모집 마감</span>';
 			}
 
 			var showCover = null;
@@ -63,11 +63,12 @@
 				showCover = $('<div>').html('<img alt="meeting_basic_corver" src="resources/images/meeting_basic_corver.jpg" >');		
 			}
 			
-			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;" style="'+doneCss+'">')
+			$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
 			.append( $('<div>').addClass('trainerMeeting') 
 				.append(showCover)
 				.append( $('<div class="meetingContent">')
 					.append( $('<div>').text(meeting.meeting_title) )
+					.append( $(doneCss) )
 					.append( $('<div>')
 						.append( $('<div>').text(meeting.exercise_name) )
 						.append( $('<div>').text(meeting.meeting_min +'명 ~ ' + meeting.meeting_max+'명') )
@@ -278,6 +279,7 @@
 			
 			$('#reviewCutBtn').empty();
 			$('#reviewCutBtn').html('<i class="fas fa-sort-up fa-3x"></i>');
+			
 		});
 	}
 	
@@ -712,10 +714,9 @@
 			$('#modal').attr("style", "display:none");
 		});
 	} */
-	
-	
 
 </script>
+
  <script>
 	$(document).ready(function() {
 	   $('#TrainerloveIcon').attr('stroke', '#CED4DA');
@@ -839,7 +840,7 @@ ${trainerTemDto.profile}
 		<div id="trainerReviewList">
 			<div id="reviewListWrap"></div>
 			<div style="text-align: center; margin-top: 20px;">
-				<span id="reviewShowBtn"></span>
+				<span id="reviewShowBtn" class="scoll"></span>
 				<span id="reviewCutBtn"></span>
 			</div>
 		</div>
@@ -853,8 +854,8 @@ ${trainerTemDto.profile}
 				<colgroup>
 					<col width="80">
 					<col width="*">
-					<col width="90">
-					<col width="12%">
+					<col width="115">
+					<col width="80">
 					<col width="10%">
 				</colgroup>
 				<thead>
