@@ -2,7 +2,7 @@
 .qnaTitle {
 	text-align: center;
 	font-weight: 600;
-	font-size: 26px;
+	font-size: 28px;
 	padding: 60px 0 30px;
 }
 
@@ -67,6 +67,7 @@
 }
 #userQnA tbody > tr > td:nth-child(3) {
 	font-weight: bold;
+	text-align: left;
 }
 #userQnA td > a {
 	text-decoration: none;

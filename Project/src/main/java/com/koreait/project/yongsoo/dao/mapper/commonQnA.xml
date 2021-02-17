@@ -41,6 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       		   FULL OUTER JOIN USERS U
 		       ON B2.USER_NO = U.USER_NO
 		 WHERE B2.RN BETWEEN #{param2} AND #{param3}
+		 ORDER BY B2.CREATED_AT DESC
 	</select>
 	
 	<select id="getQnACount1" parameterType="String" resultType="int">

@@ -322,10 +322,10 @@
 </script>
 
 <c:if test="${qnaTemDto.is_resolved eq 1}">
-	<div>해결 완료된 질문입니다!! 많은 정보를 얻어가세요.^^</div>
+	<div class="viewTitle">해결 완료된 질문입니다!! 많은 정보를 얻어가세요.^^</div>
 </c:if>
 <c:if test="${qnaTemDto.is_resolved eq 0}">
-	<div>아직 해결되지 않은 질문입니다!! 빠른 해결에 도움을 주세요.^^</div>
+	<div class="viewTitle">아직 해결되지 않은 질문입니다!! 빠른 해결에 도움을 주세요.^^</div>
 </c:if>
 
 <c:if test="${loginUser.user_no ne null}">
@@ -384,7 +384,11 @@
 			<td>${qnaTemDto.created_at2}</td>
 		</tr>
 		<tr>
-			<td colspan="3">${qnaTemDto.board_qna_content}</td>
+			<td colspan="3">
+				<div>
+					${qnaTemDto.board_qna_content}
+				</div>
+			</td>
 		</tr>
 	</tbody>
 </table>
