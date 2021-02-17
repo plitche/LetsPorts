@@ -474,7 +474,6 @@ $(document).on('click', '#updateMsgBtn', function(){
 			</span>
 		</a>
 		
-		
 
 			<script>
 				$(document).ready(function() {
