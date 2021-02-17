@@ -86,9 +86,10 @@ public class MyPageController {
 	// 상태메세지 수정
 	@RequestMapping(value="updateMsg.hey", method=RequestMethod.POST, produces="application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> updateMsg(@RequestBody UsersDto usersDto, Model model){
+	public Map<String, Object> updateMsg(@RequestBody UsersDto usersDto, Model model, HttpServletRequest request){
 		model.addAttribute("user_no", usersDto.getUser_no());
 		model.addAttribute("user_message", usersDto.getUser_message());
+		model.addAttribute("request", request);
 		return updateMsgCommand.execute(sqlSession, model);
 	}
 	

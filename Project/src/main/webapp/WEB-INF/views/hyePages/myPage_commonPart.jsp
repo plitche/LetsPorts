@@ -3,18 +3,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
+
 <!-- 헤더 인클루드 -->
 <jsp:include page="../template/header.jsp">
 	<jsp:param value="마이페이지" name="title"/>
 </jsp:include>
-<script src="resources/joon/js/myPage_commonPart.js"></script>
-<link type="text/css" rel="stylesheet" href="resources/joon/css/myPage_commonPart.css" >
 
+<link type="text/css" rel="stylesheet" href="resources/joon/css/myPage_commonPart.css" >
 <!-- css파일 적용되지 않아 style에 지정함 -->
 <style>
-	/* 마이페이지 전체 */
-
- a {
+/* 마이페이지 전체 */
+a {
 	text-decoration: none;
 	font-size: 12px;
 	color: silver;
@@ -22,7 +21,6 @@
 .interestBtns > a {
 	color: #fa8072;
 }
-
 .myPageHeader {
 	display: flex;
 	padding: 10px;
@@ -56,8 +54,6 @@
 	padding-left: 40%;
 	margin: auto;
 }
-
-
 /* 모달 css */
 .modal_wrap{
 	display: none;
@@ -89,7 +85,6 @@
 	height: 100%;
 	z-index: 3;
 }
-
 /* 파일 업로드 */
 .userImage {
 	overflow: hidden;
@@ -98,7 +93,6 @@
 	position: relative;
 	border-radius: 10px;
 }
-
 .userImage img {
 	height: 300px;
 	position: absolute;
@@ -125,7 +119,6 @@ i:hover {
 	border-radius: 8px;
 	box-shadow : 3px 3px 7px #303030;
 	cursor: pointer;
-
 }
 #fileBtn:active {
 	box-shadow : 2px 2px 5px #303030;
@@ -150,8 +143,6 @@ i:hover {
 	border: 1px solid black;
 	border-radius: 5px;
 }
-
-
 /* 상태메세지 */
 #statusName {
 	font-size: 16px;
@@ -174,7 +165,6 @@ i:hover {
 #updateMsgBtn:hover {
 	background: #ff6600;
 }
-
 /* 마이페이지 탭바 */
 .flex {
 	display: flex;
@@ -192,11 +182,9 @@ i:hover {
 .barTabs:hover {
 	background: #fa8072;
 }
-
 #contentBox {
 	text-align: center;
 }
-
 table {
 	width: 695px;
 	height: 300px;
@@ -212,6 +200,7 @@ th {
 .content.flex.wrap {
 	text-align: center;
 }
+
 </style>
 
 <!-- 영욱님 수정 내용 -->
@@ -333,6 +322,59 @@ $(document).on('click', '#deleteFileBtn', function(){
 //상태메세지
 // db에는 바뀌나, 새로고침 후 바로 변경되지 않음.
 $(document).on('click', '#updateMsgBtn', function(){
+	if($('#updateMsgBtn').val()=='수정하기') {
+		
+		this.value = '수정완료';
+		
+		/* $('#updateMsgBtn').attr('value', '수정완료'); */
+		$('#statusMsg').attr('readonly', false);
+		$('#statusMsg').on('keyup', function() {
+	        $('#limitMsg').html("("+($('#statusMsg').val().length)+" / 20)");
+	 	
+	        // 남은 글자수 알려주는 칸
+	        if($(this).val().length > 20) {
+	            $(this).val($(this).val().substring(0, 20));
+	            $('#limitMsg').html("(20 / 20)");
+	        }
+		});
+		
+
+	}else if($('#updateMsgBtn').val()=='수정완료') {
+		
+    	   let user_message = $('#statusMsg').val();
+    	   let user_no = '${loginUser.user_no}';
+    	   let obj = {"user_no" : user_no ,
+    			   	   "user_message" : user_message};
+    	   console.log('수정완료일때' + $('#updateMsgBtn').val());
+    	   
+    	   $.ajax({
+    		  	url : "updateMsg.hey",
+				type : "post",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				dataType : "json",
+		        success: function (data) {
+		        	console.log('수정완료 성공');
+		        	Swal.fire('수정 완료되었습니다.');
+		        	$('#updateMsgBtn').attr('value', '수정하기');
+		        	$('#limitMsg').hide();
+		        	$('#statusMsg').html('${loginUser.user_message}');
+		        	$('#statusMsg').attr('readonly', true);
+		        },
+		        error: function() {
+		        	console.log('수정완료 실패');
+		        	Swal.fire('실패');
+		        }
+	        });
+		}
+		
+});
+
+
+
+
+/* 
+$(document).on('click', '#updateMsgBtn', function(){
 	$('#updateMsgBtn').attr('value', '수정완료');
 	$('#statusMsg').attr('readonly', false);
     $('#statusMsg').on('keyup', function() {
@@ -375,7 +417,7 @@ $(document).on('click', '#updateMsgBtn', function(){
         
     });
 });
-
+ */ 
 </script>
 
 <div id="myPageWrapper">
@@ -471,3 +513,5 @@ $(document).on('click', '#updateMsgBtn', function(){
 </div>
 
 <%@ include file="../template/footer.jsp" %>
+
+

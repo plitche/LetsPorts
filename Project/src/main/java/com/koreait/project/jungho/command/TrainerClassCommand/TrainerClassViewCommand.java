@@ -24,12 +24,13 @@ public class TrainerClassViewCommand implements CommonVoidCommand {
 		// 모임에 관련된 값들을 받아오고 trainerClassDto에 저장
 		TrainerClassDto trainerClassDto = trainerClassDao.trainerClassView(meeting_no);
 		
-		System.out.println(trainerClassDto.getMeeting_max());
-		System.out.println(trainerClassDto.getMeeting_min());
-		
-		
 		// 준비물에 관련된 값들을 받아오고 list에 저장
 		List<MaterialsDto> list = trainerClassDao.materialsView(meeting_no);
+		
+		int user_no = trainerClassDto.getUser_no();
+		System.out.println(user_no);
+		
+		
 		
 		// 조회수 늘려주는 명령
 		trainerClassDao.addhit(meeting_no);
@@ -38,7 +39,8 @@ public class TrainerClassViewCommand implements CommonVoidCommand {
 		model.addAttribute("trainerClassDto", trainerClassDto);
 		// 준비물에 대한 값들을 보내주는 값
 		model.addAttribute("list", list);
-		
+		// 유저의 흥미리스트
+		model.addAttribute("interestList", trainerClassDao.interestView(user_no));
 		
 		
 	}

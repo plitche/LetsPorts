@@ -331,6 +331,7 @@ textarea[name="question_content"] {
 }
 
 
+
 /* 관련 트레이너 클래스 */
 
 .relatedClass_all {
@@ -353,11 +354,59 @@ textarea[name="question_content"] {
 .trainerHostInfo_all {
 	margin-top: 20px;
 	width: 500px;
-	height: 200px;
+	height: auto;
 	border-radius: 16px;
 	border: 0.5px solid #cacfd5;
-	}
+}
 
+.trainerHostInfo_all > a {
+	text-decoration: none;
+	color: #2f2d40;
+}
+
+.trainerHostInfo {
+	padding: 20px;
+}
+
+.user_names {
+	margin-top: 20px;
+	margin-left: 10px;
+}
+
+.user_separator {
+	font-size: 10px;
+}
+
+.user_nameInfo {
+	font-size: 18px;
+	font-weight:900;
+}
+
+#location {
+	margin-top:10px;
+}
+
+#location > span {
+	padding: 5px;
+	border-radius: 100px;
+	background: #ebebeb;
+	font-size: 12px;
+}
+
+#materials {
+	margin-top: 10px;
+}
+
+#materials > span {
+	padding: 5px;
+	border-radius: 100px;
+	background: #ebebeb;
+	font-size: 12px;
+}
+
+.trainer_message {
+	margin-top:10px;
+}
 
 /* 관련리스트 */
 .related_meeting_content {

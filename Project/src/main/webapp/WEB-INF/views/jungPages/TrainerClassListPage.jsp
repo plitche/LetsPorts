@@ -55,6 +55,22 @@
 
 
 <form method="get">
+
+
+	<div id="Tag">
+		<div id="Tag_content">
+			<c:forEach var="Tags" items="${ClassTags}">
+				<input type="button" value="#${Tags.exercise_name}" onclick="Tag${Tags.exercise_no}(this.form)" />
+				<input type="hidden" name="${Tags.exercise_name}" value="${Tags.exercise_name}" />
+			</c:forEach>
+		</div>
+	</div>	
+	
+
+	<div id="line1"></div>
+	
+	<br/>
+	
 		<div class="filter_content">
 			<div class="QueryAndTag">
 				<div id="Query">
@@ -86,23 +102,7 @@
 			    </div>
 			</div>
 		</div>
-
-
-	<div id="Tag">
-		<div id="Tag_name">운동종목</div>
-		<div id="Tag_content">
-			<c:forEach var="Tags" items="${ClassTags}">
-				<input type="button" value="#${Tags.exercise_name}" onclick="Tag${Tags.exercise_no}(this.form)" />
-				<input type="hidden" name="${Tags.exercise_name}" value="${Tags.exercise_name}" />
-			</c:forEach>
-		</div>
-	</div>	
-	
-
-	<div id="line1"></div>
-	
-	<br/>
-	
+		
 	<!-- 필터링 부분 처리 -->
 	<c:if test="${Lists eq 0}">
 		<script type="text/javascript">
@@ -276,7 +276,12 @@
 							<div class="location"><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;${MeetingDto.location1_name} ${MeetingDto.location2_name} · ${MeetingDto.meeting_date}</div>
 							<div style="width:220px; height:0.3px; background: lightgray; margin: 10px 0px;"></div>
 							<div style="display: flex; align-items: center;">
-								<div style="width: 35px; height: 35px; border-radius: 100px; background: #c2c2c2;"><img alt="${MeetingDto.profile_photo}" src="resources/storage/${MeetingDto.profile_photo}"></div>
+							<c:if test="${empty MeetingDto.profile_photo}">
+								<div style="width: 35px; height: 35px; border-radius: 100px; background: #c2c2c2;"><img alt="${MeetingDto.profile_photo}" id="profile_photo" src="resources/images/blank-profile-picture.png"></div>
+							</c:if>
+							<c:if test="${not empty MeetingDto.profile_photo}">
+								<div style="width: 35px; height: 35px; border-radius: 100px; background: #c2c2c2;"><img alt="${MeetingDto.profile_photo}" id="profile_photo" src="resources/storage/profile_photo/${MeetingDto.profile_photo}"></div>
+							</c:if>
 								<div style="height: 20px; line-height: 20px; margin-left: 5px; font-size: 12px;">${MeetingDto.user_nickname}</div>
 								<div style="margin-left:110px; font-size: 12px; color: lightgray;"><i class="fas fa-eye" style="color: lightgray;"></i> ${MeetingDto.meeting_hit}</div>
 							</div>

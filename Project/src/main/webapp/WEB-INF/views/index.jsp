@@ -89,9 +89,9 @@
 		
 		/* 가져온 트레이너 list를 append해주기 위한 서브함수 */
 		function fn_mainQnAList(trainerList) {
-			$('#trainer-list').empty();
+			$('#trainer_list').empty();
 			$.each(trainerList, function(idx, trainer) {
-				$('#trainer-list')
+				$('#trainer_list')
 				.append( $('<a href="goTrainerDetail.plitche?user_no='+ trainer.user_no +'">') 
 					.append( $('<div>').addClass('trainer')
 						.append( $('<div>').addClass('trainer-picture')
@@ -160,8 +160,6 @@
 	</script>
 
 
-	<div>이미지</div>
-	
 	<div id="container">
 		<div id="meeting">
 			<h3>Last! Community</h3>
@@ -190,7 +188,7 @@
 		<div id="trainer">
 			<h3>Hit! Trainer</h3>
 			<span><a href="goTrainerList.plitche">전체 트레이너 목록 보기 ></a></span>
-			<div id="trainer-list"></div>
+			<div id="trainer_list"></div>
 		</div>
 	</div>
 

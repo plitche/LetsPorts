@@ -5,6 +5,7 @@ import java.util.List;
 import com.koreait.project.dto.ExerciseDto;
 import com.koreait.project.dto.MaterialsDto;
 import com.koreait.project.dto.MeetingDto;
+import com.koreait.project.dto.User_interestDto;
 import com.koreait.project.jungho.dto.MakeTrainerClassDto;
 import com.koreait.project.jungho.dto.TrainerClassDto;
 
@@ -33,8 +34,12 @@ public interface TrainerClassDao {
 	
 	public TrainerClassDto trainerClassView(int meeting_no);
 	
+	
 	// 여러가지를 받아오기 때문에 list로 받아서 처리해야한다. 
 	public List<MaterialsDto> materialsView(int meeting_no);
+	
+	// 흥미운동들을 불러오는 list
+	public List<String> interestView(int user_no);
 	
 	public int addhit(int meeting_no);
 	

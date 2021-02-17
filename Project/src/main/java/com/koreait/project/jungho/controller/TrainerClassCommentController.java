@@ -56,7 +56,6 @@ public class TrainerClassCommentController {
 	}
 	
 	// delete 하는 역할
-	
 	@RequestMapping(value="commentDelete.leo/{comment_no}",
 								method=RequestMethod.GET,
 								produces="application/json; charset=utf-8")

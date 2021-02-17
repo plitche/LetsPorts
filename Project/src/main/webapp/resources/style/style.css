@@ -58,7 +58,7 @@ ul {
 
 .menu-bar {
 	display: flex;
-	margin-right: 40%;
+	margin-right: 36%;
 }
 
 .header {
@@ -145,9 +145,9 @@ ul {
 .body-wrap {
 	width: 1080px;
 	margin: 0 auto;
+	display: flow-root;
 	margin-bottom: 80px;
 	height: auto;
-	display: flow-root;
 	margin-top: 50px;
 }
 
@@ -205,9 +205,21 @@ ul {
 .meetingContent  {
 	padding: 13px;
 }
-
+.meetingContent > div:nth-child(2) > div {
+	border: 1px solid #f1f1f1;
+	display: inline-block;
+	font-weight: 400;
+	color: #353535;
+	border-radius: 12px;
+	background: #f4f4f4;
+	padding: 0 8px;
+	margin: 4px 8px 0 8px;
+}
 
 /* 트레이너 파트 css */
+#container {
+	margin-top: 50px;
+}
 #trainer h3 {
 	padding-bottom: 10px;
 	border-bottom: 2px solid darkslategray;
@@ -215,16 +227,19 @@ ul {
 #container h3 {
 	color: #fa8072;	
 }
-#trainer-list {
+#trainer_list {
 	flex-wrap: wrap;
 }
-#trainer-list a {
-	width: 44%;
+#trainer_list a {
+	width: 47%;
 	color: inherit;
 	text-decoration: none;
 	margin: auto;
 	float: left;
-	margin: 10px;
+}
+#trainer_list a:nth-child(1) {
+	margin-left: 10px;
+	margin-right: 15px;	
 }
 .trainer-picture {
 	position: relative;

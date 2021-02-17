@@ -8,7 +8,7 @@ INSERT INTO USERS values (14, 'user14@xxx.xxx', '1111', 1, SYSDATE, SYSDATE, 3, 
 INSERT INTO USERS values (15, 'user15@xxx.xxx', '1111', 1, SYSDATE, SYSDATE, 3, 3, 0, 'naver', '다이너마이트', '잘부탁드려요', 'trainer6', 2000, 12, 31, 2, 1);
 
 
--- 클래스 생성 
+-- *** 모임 생성 *** 
 INSERT INTO MEETING values (meeting_seq.nextval, 1, 21, 2, 0, SYSDATE, 2021-02-11 00:00:00.0, 2021-02-14 00:00:00.0, 2021-02-16 00:00:00.0, 0, 23, '동네 족구하실분~', '족구 한번 합시다!', 0, null, 0, null, 0);
 INSERT INTO MEETING values (meeting_seq.nextval, 2, 18, 3, 1, SYSDATE, 2021-02-10 00:00:00.0, 2021-02-13 00:00:00.0, 2021-02-14 00:00:00.0, 0, 22, '6 대 6 풋살 배틀신청합니다.', '축구선수 6명으로 구성되어있습니다. 자신있으면 신청하세요.', 0, null, 0, null, 0);
 INSERT INTO MEETING values (meeting_seq.nextval, 3, 12, 5, 2, SYSDATE, 2021-02-12 00:00:00.0, 2021-02-18 00:00:00.0, 2021-02-30 00:00:00.0, 0, 24, '농구초보자, 한 수 배우겠습니다.', '재밌게 농구하실 분 구합니다.', 0, null, 0, null, 0);
@@ -40,11 +40,21 @@ INSERT INTO MEETING values (meeting_seq.nextval, 26, 12, 2, 1, SYSDATE, 2021-02-
 INSERT INTO MEETING values (meeting_seq.nextval, 33, 12, 2, 2, SYSDATE, 2021-02-15 00:00:00.0, 2021-02-23 00:00:00.0, 2021-02-26 00:00:00.0, 0, 2, '농구 강습', '농구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
 INSERT INTO MEETING values (meeting_seq.nextval, 41, 12, 2, 3, SYSDATE, 2021-02-16 00:00:00.0, 2021-02-26 00:00:00.0, 2021-02-28 00:00:00.0, 0, 1, '볼링 강습', '볼링하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
 
--- * PHOTO_REFERER_SEP 구분자
--- MEETING 대표사진 : 4
--- MEETING 컨텐츠 사진 : 2
+-- 모임 준비물
+INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 1, '운동화', SYSDATE);
+INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 1, '헤어밴드', SYSDATE);
+INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 1, '든든한 겉옷', SYSDATE);
+INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 2, '축구공', SYSDATE);
+INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 2, '축구화', SYSDATE);
+INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 2, '이온음료', SYSDATE);
+INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 3, '농구공', SYSDATE);
+INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 3, '양말', SYSDATE);
+INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 3, '모자', SYSDATE);
 
--- 유저
+
+
+-- *** 모임대표사진 생성 *** 
+-- 1. 유저
 INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 1, 1, 'volleyball1.jpg', SYSDATE, 0);
 INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 2, 2, 'football1.jpg', SYSDATE, 0);
 INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 3, 3, 'basketball1.jpg', SYSDATE, 0);
@@ -59,7 +69,7 @@ INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 11, 4, 'basketball2.jpg', SYSDAT
 INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 12, 5, 'bowling2.jpg', SYSDATE, 0);
 INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 13, 6, 'crossfit2.jpg', SYSDATE, 0);
 INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 14, 7, 'spinning2.jpg', SYSDATE, 0);
--- 트레이너
+-- 2. 트레이너
 INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 15, 17, 'dance2.jpg', SYSDATE, 0);
 INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 16, 26, 'yoga2.jpg', SYSDATE, 0);
 INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 17, 33, 'meditation2.jpg', SYSDATE, 0);
@@ -77,7 +87,29 @@ INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 28, 26, 'soccer7.jpg', SYSDATE, 
 INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 29, 33, 'basketball2.jpg', SYSDATE, 0);
 INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 30, 38, 'bowling4.jpg', SYSDATE, 0);
 
-
+-- 모임 스크랩
+INSERT INTO scrap VALUES (scrap_seq.nextval, 2, 2, 1, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 3, 2, 2, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 3, 2, 1, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 3, 2, 4, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 3, 2, 5, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 7, 2, 6, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 8, 2, 7, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 9, 2, 1, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 9, 2, 2, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 9, 2, 79, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 9, 2, 89, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 13, 2, 93, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 14, 2, 17, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 15, 2, 26, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 16, 2, 33, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 16, 2, 38, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 16, 2, 41, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 16, 2, 51, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 21, 2, 60, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 22, 2, 66, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 23, 2, 74, null, sysdate);
+INSERT INTO scrap VALUES (scrap_seq.nextval, 23, 2, 79, null, sysdate);
 
 
 

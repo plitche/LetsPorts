@@ -270,12 +270,13 @@ function rePwCheck(){
 
 	<br />
 	<br />
-		<form method="post">
+		<form method="post" action="insertJoin.hey">
 			<!-- 닉네임 -->
 			<div class="form-group">
-				<label for="user_nickname">닉네임</label><br /> <input type="text"
+				<label for="user_nickname">닉네임</label><br /> 
+				<input type="text"
 					class="form-control" id="user_nickname" name="user_nickname"
-					placeholder="닉네임 입력" required /><br />
+					placeholder="닉네임 입력" required/><br />
 				<div class="check_font" id="nick_check"></div>
 				<br />
 			</div>
@@ -283,14 +284,14 @@ function rePwCheck(){
 			<!-- 이메일 -->
 			<div class="form-group">
 				<label for="email">이메일</label><br /> 
-				<input type="text"	class="form-control" id="email" name="email" placeholder="이메일 주소 입력 (예: abcd123@domain.com)" /><br />
+				<input type="text"	class="form-control" id="email" name="email" placeholder="이메일 주소 입력 (예: abcd123@domain.com)" required/><br />
 				<!-- emailCheck은 인증 완료 메세지를 위함 -->
-				<div class="check_font" id="email_check"></div>
+				<div class="check_font" id="email_check"  ></div>
 				<br />
 			</div>
 			<div class="check_font" id="authEmail">
 				<label for="email">이메일 인증</label><br /> 
-				<input type="text" id="authNum" placeholder="인증번호 입력" />
+				<input type="text" id="authNum" placeholder="인증번호 입력"  />
 				<input type="button" id="sendAuth_btn" value="발송" />
 				<input type="button" id="successAuth_btn" value="확인" />
 				<!-- successAuth은 인증 완료 메세지를 위함 -->
@@ -301,14 +302,14 @@ function rePwCheck(){
 		<!-- 비밀번호 -->
 			<div class="form-group">
 				<label for="password">비밀번호 </label><br/>
-				<input type="password" class="form-control" id='password' name="password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)"><br/>
+				<input type="password" class="form-control" id='password' name="password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)" required><br/>
 				<div class="check_font" id="pw_check"></div><br/>
 			</div>
 			
 		<!-- 비밀번호 확인 -->
 			<div class="form-group">
 				<label for="re_password">비밀번호 확인 </label><br/>
-				<input type="password" class="form-control" id="re_password" name="re_password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)"><br/>
+				<input type="password" class="form-control" id="re_password" name="re_password" placeholder="비밀번호 입력(영문, 숫자, 특수문자(!@#%&_) 조합 8~16자)" required><br/>
 				<div class="check_font" id="pw_reCheck"></div><br/>
 			</div>
 			
@@ -352,20 +353,20 @@ function rePwCheck(){
 			<hr />
 
 			<div class="radio-form">
-				<input type="radio" class="radioBtn" />(필수)<br>
+				<input type="radio" name="radio" class="radioBtn" required />(필수)<br>
 				<textarea rows="2" cols="72" style="resize: none">이용약관</textarea>
 			</div>
 			<br />
 			<div class="radio-form">
-				<input type="radio" class="radioBtn"/>(필수)<br />
+				<input type="radio" name="radio" class="radioBtn" required />(필수)<br />
 				<textarea rows="2" cols="72" style="resize: none">개인정보처리방침</textarea>
 			</div>
 			<br/>
 			<br/>
 			<br/>
 			
-
-			<input type="button" id="signUpSubmit" value="회원가입하기" onclick="fn_signUpSubmit(this.form)">
+<!-- onclick="fn_signUpSubmit(this.form)"  -->
+			<input type="submit" id="signUpSubmit" value="회원가입하기" >
 			<br/>
 			<br/>
 			<br/>

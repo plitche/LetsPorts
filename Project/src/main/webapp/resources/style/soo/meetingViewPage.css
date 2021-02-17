@@ -173,7 +173,7 @@
 #otherMeeting {
 	margin-bottom: 20px;
 	white-space: nowrap;
-	overflow-x: scroll;
+	overflow-x: auto;
 }
 #otherMeeting > a {
 	display: inline-block;
@@ -232,6 +232,7 @@
 .writerInfo {
 	border-top: .5px solid #dbdbdb;
 	padding-top: 10px;
+	display: flex;
 }
 .writerInfo img {
 	width: 40px;
@@ -248,7 +249,7 @@
 /* 다른 호스트의 같은 종목 모임 */
 #otherHostMeeting {
 	white-space: nowrap;
-	overflow-x: scroll;
+	overflow-x: auto;
 }
 #otherHostMeeting > a {
 	display: inline-block;
