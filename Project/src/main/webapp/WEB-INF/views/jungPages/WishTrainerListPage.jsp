@@ -30,12 +30,12 @@
 				<div style="margin-top: 20px; margin-bottom:15px;">
 					<span id="location1">${WishTrainerList.location1_name}</span>&nbsp;<span id="location2">${WishTrainerList.location2_name}</span>
 				</div>
-				<!-- 
-				<c:forEach var="interestList" items="${interestList}">
-					<span id="exercise_name">${interestList.exercise_name}</span>
+			
+				<c:forEach var="interest" items="${WishTrainerList.exercise_name}">
+					<span id="exercise_name">${interest}</span>
 				</c:forEach>
 				
-				 -->
+			
 				<div style="margin-top:15px;">${WishTrainerList.user_message}</div>
 			</div>
 		</a>

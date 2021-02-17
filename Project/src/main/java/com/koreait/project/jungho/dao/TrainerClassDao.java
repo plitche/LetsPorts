@@ -56,6 +56,15 @@ public interface TrainerClassDao {
 	// 관련 트레이너 클래스 리스트 추출
 	public List<TrainerClassDto> relatedClass(int user_no, int exercise_no);
 	
+	// 모임 신청하기 (삽입
+	public int applyClass(int meeting_no, int user_no);
+	
+	// 모임에 내가 신청을 했는지 파악하기
+	public int isApply(int meeting_no, int user_no);
+	
+	// 현재 모임 신청한 숫자 보기
+	public int nowApplyNum(int meeting_no);
+	
 	// 검색한 내용과 일치하는 트레이너클래스를 뿌려주는 역할
 	public List<TrainerClassDto> searchClass(int beginRecord, int endRecord, String search_content);
 	public int searchClassCount(String search_content); // 검색한 클래스의 총 갯수

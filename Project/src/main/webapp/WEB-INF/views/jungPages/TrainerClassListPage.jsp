@@ -264,10 +264,11 @@
 						
 				</div>
 			</a>
+		
 	
 		<!-- 트레이너 클래스 리스트 -->	
 		<c:forEach var="MeetingDto" items="${MeetingList}">
-			<a href="TrainerClassViewPage.leo?meeting_no=${MeetingDto.meeting_no}">
+				<a href="TrainerClassViewPage.leo?meeting_no=${MeetingDto.meeting_no}">
 				<div class="MeetingClass">
 					<div id="MeetingClassPhoto"><img alt="${MeetingDto.photo_filename}" src="resources/storage/${MeetingDto.photo_filename}" style="width:250px; height:100px;"></div>
 						<div style="padding:15px;">

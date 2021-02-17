@@ -3,6 +3,8 @@ package com.koreait.project.jungho.command.TrainerClassCommand;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
@@ -19,6 +21,9 @@ public class TrainerClassViewCommand implements CommonVoidCommand {
 		Map<String, Object> map = model.asMap();
 		int meeting_no = (int)map.get("meeting_no");
 		
+		
+		
+		
 		TrainerClassDao trainerClassDao = sqlSession.getMapper(TrainerClassDao.class);
 		
 		// 모임에 관련된 값들을 받아오고 trainerClassDto에 저장
@@ -28,7 +33,8 @@ public class TrainerClassViewCommand implements CommonVoidCommand {
 		List<MaterialsDto> list = trainerClassDao.materialsView(meeting_no);
 		
 		int user_no = trainerClassDto.getUser_no();
-		System.out.println(user_no);
+		
+		
 		
 		
 		
@@ -41,7 +47,7 @@ public class TrainerClassViewCommand implements CommonVoidCommand {
 		model.addAttribute("list", list);
 		// 유저의 흥미리스트
 		model.addAttribute("interestList", trainerClassDao.interestView(user_no));
-		
+		// 현재 로그인 된 사람의 프로필을 뷰페이지에 뿌려주기 위한 command
 		
 	}
 

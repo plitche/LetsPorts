@@ -12,6 +12,7 @@ import com.koreait.project.jungho.command.TagCommand.Tag5Command;
 import com.koreait.project.jungho.command.TagCommand.Tag6Command;
 import com.koreait.project.jungho.command.TagCommand.Tag7Command;
 import com.koreait.project.jungho.command.TagCommand.Tag8Command;
+import com.koreait.project.jungho.command.TrainerClassCommand.ApplyClassCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.ExerciseMateListCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.GetUpdateContentCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.RelatedClassCommand;
@@ -75,6 +76,11 @@ public class JungAppContext {
 	@Bean
 	public SearchClassCommand searchClassCommand() {
 		return new SearchClassCommand();
+	}
+	
+	@Bean
+	public ApplyClassCommand applyClassCommand() {
+		return new ApplyClassCommand();
 	}
 	
 	// 태그에 대한 bean

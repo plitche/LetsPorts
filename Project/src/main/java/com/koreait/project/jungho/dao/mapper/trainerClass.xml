@@ -165,7 +165,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE UI.USER_NO = #{param1}
 	</select>
 	
-	
 	<!-- 뷰페이지에 들어왔을때 조회수 증가 -->
 	<update id="addhit" parameterType="int">
 		UPDATE MEETING
@@ -236,6 +235,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE M.USER_NO != #{param1}
 	    AND M.EXERCISE_NO = #{param2}
 	</select>
+	
+	
+	
+	<select id="isApply" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETING_PARTICIPANTS MP
+		WHERE MP.MEETING_NO = #{param1}
+		AND MP.USER_NO = #{param2}
+	</select>
+	
+	<insert id="applyClass" >
+		INSERT INTO MEETING_PARTICIPANTS VALUES
+		(MEETING_PARTICIPANTS_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE, 0, NULL)
+	</insert>
+	
+	<select id="nowApplyNum" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM MEETING_PARTICIPANTS
+		WHERE MEETING_NO = #{param1}
+	</select>
+	
+	
 	
 	<!-- 트레이너 클래스 목록 페이지 검색창 쿼리문 -->
 	<select id="searchClass" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
