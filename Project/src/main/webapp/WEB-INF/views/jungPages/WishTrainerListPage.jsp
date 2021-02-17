@@ -16,17 +16,27 @@
 		<a href="goTrainerDetail.plitche?user_no=${WishTrainerList.scrap_referer_no} ">
 			<div class="WishTrainerListBox">
 				<div id="WishTrainerPhoto_Name">
-					<div id="WishTrainerProfile"><img alt="${WishTrainerList.profile_photo}" src="resources/storage/${WishTrainerList.profile_photo}" style="width:250px; height:100px;"></div>
+					<c:if test="${empty WishTrainerList.profile_photo}">
+						<div id="WishTrainerProfile"><img alt="${WishTrainerList.profile_photo}" src="resources/images/blank-profile-picture.png" style="width:60px; height:60px; border-radius:100px;"></div>
+					</c:if>
+					<c:if test="${not empty WishTrainerList.profile_photo}">
+						<div id="WishTrainerProfile"><img alt="${WishTrainerList.profile_photo}" src="resources/storage/profile_photo/${WishTrainerList.profile_photo}" style="width:60px; height:60px; border-radius:100px;"></div>
+					</c:if>
 					<div style="margin-left:5px;">
 						<div style="font-size: 10px; color:gray;">트레이너</div>
 						<div style="font-size: 15px; font-weight: 900;">${WishTrainerList.user_nickname}[${WishTrainerList.trainer_name}]</div>
 					</div>
 				</div>
-				<div style="margin-top: 20px;">
+				<div style="margin-top: 20px; margin-bottom:15px;">
 					<span id="location1">${WishTrainerList.location1_name}</span>&nbsp;<span id="location2">${WishTrainerList.location2_name}</span>
 				</div>
-				<div style="margin-top:15px;" id="exercise_name">축구${WishTrainerList.exercise_name}</div>
-				<div style="margin-top:15px;">${WishTrainerList.profile}</div>
+				<!-- 
+				<c:forEach var="interestList" items="${interestList}">
+					<span id="exercise_name">${interestList.exercise_name}</span>
+				</c:forEach>
+				
+				 -->
+				<div style="margin-top:15px;">${WishTrainerList.user_message}</div>
 			</div>
 		</a>
 	</c:forEach>

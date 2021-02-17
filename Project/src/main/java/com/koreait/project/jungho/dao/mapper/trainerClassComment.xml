@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM (SELECT A.*, ROWNUM AS RN
 		          FROM (SELECT *
 						   FROM COMMENTS C
-						   INNER JOIN USERS U
+						   FULL OUTER JOIN USERS U
 						   ON U.USER_NO = C.USER_NO 
 						   WHERE COMMENT_REFERER_NO = #{param3}
 						   ORDER BY C.COMMENT_NO DESC) A) B

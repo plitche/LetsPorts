@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonVoidCommand;
 import com.koreait.project.jungho.dao.WishTrainerDao;
+import com.koreait.project.jungho.dto.WishTrainerListDto;
 
 public class WishTrainerListCommand implements CommonVoidCommand {
 
@@ -21,8 +22,13 @@ public class WishTrainerListCommand implements CommonVoidCommand {
 		int user_no = Integer.parseInt(request.getParameter("user_no"));
 		WishTrainerDao wishTrainerDao = sqlSession.getMapper(WishTrainerDao.class);
 		
+		//WishTrainerListDto wishTrainerListDto = (WishTrainerListDto);
+		
+	//	int user_nos = wishTrainerListDto.getUser_no();
+		
 		model.addAttribute("WishTrainerList", wishTrainerDao.WishTrainerList(user_no)); // 로그인 되어 있는 사람의 트레이너 정보를 가져온다.
 		
+		//model.addAttribute("interestList", wishTrainerDao.interestList(user_nos));
 	}
 
 }
