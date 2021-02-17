@@ -24,11 +24,6 @@
 
 <!-- 회원가입하기! -->
 <script type="text/javascript">
-	function fn_signUpSubmit(f) {
-		f.action='insertJoin.hey',
-		f.submit();
-	}
-	
 	
 	/*정규식 체크
 	//모든 공백 체크 정규식
@@ -253,6 +248,10 @@ function rePwCheck(){
 		}
 	});
 }
+
+function fn_frmSubmit(){
+	alert('회원가입이 완료되었습니다. 로그인 후 이용해주세요 :D');
+}
 </script>
 
 <title>회원가입 입력</title>
@@ -270,7 +269,7 @@ function rePwCheck(){
 
 	<br />
 	<br />
-		<form method="post" action="insertJoin.hey">
+		<form method="post" action="insertJoin.hey" onsubmit="fn_frmSubmit();">
 			<!-- 닉네임 -->
 			<div class="form-group">
 				<label for="user_nickname">닉네임</label><br /> 
@@ -353,13 +352,13 @@ function rePwCheck(){
 			<hr />
 
 			<div class="radio-form">
-				<input type="radio" name="radio" class="radioBtn" required />(필수)<br>
-				<textarea rows="2" cols="72" style="resize: none">이용약관</textarea>
+				<input type="radio" name="radio1" class="radioBtn" required />(필수)<br>
+				<textarea rows="2" cols="72" style="resize: none" readonly="readonly">이용약관</textarea>
 			</div>
 			<br />
 			<div class="radio-form">
-				<input type="radio" name="radio" class="radioBtn" required />(필수)<br />
-				<textarea rows="2" cols="72" style="resize: none">개인정보처리방침</textarea>
+				<input type="radio" name="radio2" class="radioBtn" required />(필수)<br />
+				<textarea rows="2" cols="72" style="resize: none" readonly="readonly">개인정보처리방침</textarea>
 			</div>
 			<br/>
 			<br/>
