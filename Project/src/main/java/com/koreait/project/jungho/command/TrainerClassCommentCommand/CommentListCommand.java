@@ -8,8 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.koreait.project.common.CommonMapCommand;
-import com.koreait.project.dto.CommentsDto;
 import com.koreait.project.jungho.dao.TrainerClassCommentDao;
+import com.koreait.project.jungho.dto.MeetingCommentDto;
 
 public class CommentListCommand implements CommonMapCommand {
 
@@ -47,7 +47,7 @@ public class CommentListCommand implements CommonMapCommand {
 		
 		
 		Map<String, Object> resultMap = new HashMap<>();
-		List<CommentsDto> commentList = trainerClassCommentDao.commentList(beginRecord, endRecord, meeting_no);
+		List<MeetingCommentDto> commentList = trainerClassCommentDao.commentList(beginRecord, endRecord, meeting_no);
 		resultMap.put("commentList", commentList);
 		resultMap.put("paging", paging);
 		

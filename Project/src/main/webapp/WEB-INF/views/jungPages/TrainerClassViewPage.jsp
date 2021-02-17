@@ -210,7 +210,6 @@
 				   <c:forEach var="materialsList" items="${list}">
 					   <input type="hidden" name="materials_name" value="${materialsList.materials_name}" />
 				   </c:forEach>
-    	   
     	   </div>
     	   
     	   <script>
@@ -234,19 +233,51 @@
     	   
     	   </script>
 			   
+			   
+			   
+			   
     	   <script>
     	   
 	    	   // 클래스 신청 클릭시 작동
 	    	   $(document).ready(function() {
-	    		   ClassApply();
+	    		   fn_TrainerClassApply();
 				});
 	    	   
-	    	   function ClassApply() {
+	    	   function fn_TrainerClassApply() {
 		    	   $(document).on('click', '#ClassApplyBtn', function() {
 					   if ('${loginUser.user_no}' == '') {
 						   loginAlert();	
 					   } else {
-						   location.href = '';  // 클래스 신청했을 때 넘어가는 경로
+						   var user_no = '${loginUser.user_no}';
+						   var meeting_no = ${trainerClassDto.meeting_no};
+						   var meeting_max = ${trainerClassDto.meeting_max};
+						   alert(user_no);
+						   alert(meeting_no);
+						   alert(meeting_max);
+						   
+						   $.ajax({
+							 url: 'ApplyClass.leo',
+							 type: 'get',
+							 data: 'user_no=' + user_no + '&meeting_no=' + meeting_no + '&meeting_max=' + meeting_max,
+							 dataType: 'json',
+							 contentType: 'application/json; charset=utf-8',
+							 success: function(responseObj) {
+								 if (responseObj.isMax) {
+									 Swal.fire('신청할 수 없습니다.', '최대 인원을 초과했습니다.', 'error');
+								 } else {
+									 if (responseObj.isAlreadyApply) {
+										 Swal.fire('신청할 수 없습니다.', '이미 신청한 모임입니다.', 'error');
+									 } else {
+										 if (responseObj.goApply) {
+											 Swal.fire('신청되었습니다', '신청한 모임은 마이페이지에서 확인해주세요.', 'success');
+										 } else {
+											 Swal.fire('신청 실패하였습니다.');
+										 }
+									 }
+								 }
+							 },
+							 error: function() {alert('실패1');}
+						   });
 					   }
 				   });
 	    	   }
@@ -340,20 +371,17 @@
     	   </script>
 							   
 <!-- *********************************************************** 위시리스트 담기 마감 ************************************************************ -->
-    
+<form>
 			   <!-- 버튼들(수정, 삭제, 등록) -->
 				   <div class="Btns1" style="display:flex;">
-				   
-						   <div><input type="button" value="모임신청" onclick="fn_TrainerClassApply(this.form)" id="ClassApplyBtn" /></div>
+				   			
+						   <div><input type="button" value="모임신청" id="ClassApplyBtn" /></div>
 						   <div><input type="button" value="모임 질문" id="modal-open-btn" class="ClassQuestionBtn" /></div>
 						   <div><input type="button" value="모임 목록"  id="meeting_List" onclick="fn_TrainerClassList()"/></div>
 						   <div><input type="button" value="수정" onclick="fn_TrainerClassViewUpdatePage(this.form)" id="ClassUpdateBtn" /></div>
 						   <div><input type="button" value="삭제" onclick="fn_TrainerClassViewDelete(this.form)" id="ClassDeleteBtn" /></div>
 				   
 				   </div>
-				   
-				   
-				   
 				   
 </form>
 
@@ -401,7 +429,7 @@
 	<div class="subTitle" >호스트 소개</div>
 	<div class="title">우리 반갑게 만나요!</div>
     <div class="trainerHostInfo_all">
-		<a href="#" onclick="">
+		<a href="#" onclick="location.href='goTrainerDetail.plitche?user_no=${trainerClassDto.user_no}'">
 			<c:if test="${trainerClassDto.user_separator eq 1}"><!-- 회원 구분 : 트레이너 -->
 	    		<div class="trainerHostInfo">
 	    			<div id="profileAndName" style="display:flex;">
@@ -547,14 +575,14 @@
 								.append($('<img alt="' + relatedClass.photo_filename + '" src="resources/storage/' + relatedClass.photo_filename + '" style="border-radius: 16px 16px 0 0; width:250px; height:100px;">'))
 								.append( $('<div>').addClass('related_meeting_content')
 									.append($('<div class="related_meeting_title">' +relatedClass.meeting_title + '</div>'))
-									.append($('<div class="related_exercise_name">' + relatedClass.exercise_name + '</div>'))
-									.append($('<div style="margin-top:5px;">')
+									.append($('<span class="related_exercise_name">' + relatedClass.exercise_name + '</span>'))
+									.append($('<div style="margin-top:10px;">')
 										.append($('<i class="fas fa-map-marker-alt"></i><span class="location">' + relatedClass.location1_name + ' ' +relatedClass.location2_name + ' · ' + relatedClass.meeting_date + '</span>'))
 									)
 									.append($('<div style="display:flex;">')
 										.append(viewphoto)
-										.append($('<div style="margin-top:10px; margin-left:5px;">' + relatedClass.user_nickname + '</div>'))
-										.append($('<i class="fas fa-eye" style="color: lightgray; margin-left: 90px; margin-top:12px;"></i><div style="font-size:10px; margin-top:13px; margin-left: 5px;">' + relatedClass.meeting_hit + '</div>'))
+										.append($('<div style="margin-top:10px; margin-left:5px; width:130px;">' + relatedClass.user_nickname + '</div>'))
+										.append($('<i class="fas fa-eye" style="color: lightgray; margin-top:12px;"></i><div style="font-size:10px; margin-top:13px; margin-left: 5px;">' + relatedClass.meeting_hit + '</div>'))
 									)
 								)
 					)
@@ -613,10 +641,12 @@
 			}
     		
     		// 해당 게시물을 작성자가 등록(마이페이지의 리스트로 넘어감)
+    		/* 
     		function fn_TrainerClassApply(f) {
     			f.action = '';
     			f.submit();
     		}
+    		 */
 	</script>
 	
 	
@@ -630,6 +660,7 @@
 			commentUpdate2();
 			commentUpdateCancel();
 			commentInsertCancel();
+			commentMyProfile();
 		});
 		
 		// 페이징 처리
@@ -702,7 +733,14 @@
 				commentList();
 			});
 			
+					//$('.myPhoto').empty();
+					//$('.myPhoto').html(photostate);
+					//$('<img alt="내프로필" src="resources/storage/profile_photo/'+ comment.profile_photo +'"  class="comment_profile_photos">')
+				
 		}
+		
+		
+		
 		
 		function commentListContent(list) {
 			$('#listComment_all').empty();
@@ -716,12 +754,7 @@
 					photostate = $('<div class="comment_profile_photos">').html('<img alt="내프로필" src="resources/storage/profile_photo/'+ comment.profile_photo +'"  class="comment_profile_photos">')
 				}
 				
-				
-				$('<div>')
-				.append(photostate)
-				.appendTo('.myPhoto');
-				
-				
+			
 				$('<div>').addClass('commentContent')
 				.append( $('<div>').addClass('myPhoto').append(photostate))
 				.append( $('<div>').addClass('comment_wrap')
@@ -901,9 +934,12 @@
 			<div>댓글&nbsp;<span id="totalCount"></span>개</div><br/>
 			<!-- 댓글 작성란 -->
 			<div class="createComment_all">
-				
-					<div class="myPhoto"></div>
-				
+				<c:if test="${not empty loginUser.user_no}">
+					<div class="myPhoto" style="width:60px; height:  60px;"><img alt="${loginUser.profile_photo}" src="resources/storage/profile_photo/${loginUser.profile_photo}" style="width:100%; height:100%; border-radius: 100px;"></div>
+				</c:if>
+				<c:if test="${empty loginUser.user_no}">
+					<div class="myPhoto" style="width:60px; height:  60px;"><img alt="blank-profile-picture.png" src="resources/images/blank-profile-picture.png" style="width:100%; height:100%; border-radius: 100px;"></div>
+				</c:if>
 				<div id="createComment"><input type="text" name="comment_content" id="comment_content" placeholder="댓글작성.."></textarea></div>
 				<div class="btns">
 					<input type="button" value="댓글" id="commentBtn" /> 

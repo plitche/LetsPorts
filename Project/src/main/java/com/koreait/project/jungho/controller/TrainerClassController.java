@@ -10,13 +10,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.jungho.command.TagCommand.Tag0Command;
 import com.koreait.project.jungho.command.TagCommand.Tag1Command;
@@ -27,6 +27,7 @@ import com.koreait.project.jungho.command.TagCommand.Tag5Command;
 import com.koreait.project.jungho.command.TagCommand.Tag6Command;
 import com.koreait.project.jungho.command.TagCommand.Tag7Command;
 import com.koreait.project.jungho.command.TagCommand.Tag8Command;
+import com.koreait.project.jungho.command.TrainerClassCommand.ApplyClassCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.ExerciseMateListCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.GetUpdateContentCommand;
 import com.koreait.project.jungho.command.TrainerClassCommand.RelatedClassCommand;
@@ -94,8 +95,9 @@ public class TrainerClassController {
 	// 목록 리스트 중 하나를 클릭하면 리스트 정보를 보여주는 페이지
 	@RequestMapping(value="TrainerClassViewPage.leo")
 	public String TrainerClassViewPage(@RequestParam("meeting_no") int meeting_no, Model model) {
-		
+
 		model.addAttribute("meeting_no", meeting_no);
+	
 		TrainerClassViewCommand trainerClassViewCommand = ctx.getBean("trainerClassViewCommand", TrainerClassViewCommand.class);
 		trainerClassViewCommand.execute(sqlSession, model);
 		
@@ -157,6 +159,24 @@ public class TrainerClassController {
 		RelatedClassCommand relatedClassCommand = ctx.getBean("relatedClassCommand", RelatedClassCommand.class);
 		return relatedClassCommand.execute(sqlSession, model);
 		
+	}
+	
+	// 모임 신청하는 역할
+	@RequestMapping(value="ApplyClass.leo",
+			method=RequestMethod.GET,
+			produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public Map<String, Object> ApplyMeeting(@RequestParam("meeting_no") int meeting_no,
+															 @RequestParam("user_no") int user_no,
+															 @RequestParam("meeting_max") int meeting_max,
+															 Model model) {
+
+	model.addAttribute("meeting_no", meeting_no);
+	model.addAttribute("user_no", user_no);
+	model.addAttribute("meeting_max", meeting_max);
+	ApplyClassCommand applyClassCommand = ctx.getBean("applyClassCommand", ApplyClassCommand.class);
+	return applyClassCommand.execute(sqlSession, model);
+	
 	}
 	
 	

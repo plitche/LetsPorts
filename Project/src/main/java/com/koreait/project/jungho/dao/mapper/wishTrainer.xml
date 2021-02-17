@@ -7,24 +7,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.koreait.project.jungho.dao.WishTrainerDao">
 
 	<select id="WishTrainerList" resultType="com.koreait.project.yongsoo.dto.TrainerTemDto" parameterType="int">
-		SELECT *
+	SELECT *
 		FROM SCRAP S
 			FULL OUTER JOIN USERS U
 				ON S.SCRAP_REFERER_NO = U.USER_NO
 			FULL OUTER JOIN TRAINER_INFO T
 				ON S.SCRAP_REFERER_NO = T.USER_NO
-			FULL OUTER JOIN USER_INTEREST I
-				ON S.SCRAP_REFERER_NO = I.USER_NO
 			FULL OUTER JOIN PHOTO P
 				ON S.SCRAP_REFERER_NO = P.USER_NO
 			FULL OUTER JOIN LOCATION1 L1
 				ON U.LOCATION1_NO = L1.LOCATION1_NO
 			FULL OUTER JOIN LOCATION2 L2
 				ON U.LOCATION2_NO = L2.LOCATION2_NO
-			FULL OUTER JOIN EXERCISE E
-				ON I.EXERCISE_NO = E.EXERCISE_NO
 		WHERE S.USER_NO = #{param1}
+		AND SCRAP_SEPARATOR = 1
 	</select>	
+	
+	<select id="interestList" resultType="String" parameterType="int">
+		SELECT EXERCISE_NAME
+		FROM EXERCISE E
+		FULL OUTER JOIN USER_INTEREST U
+		 ON E.EXERCISE_NO = U.EXERCISE_NO
+		WHERE U.USER_NO = #{param1}
+	</select>
 	
 	<insert id="WishTrainerInsert">
 		INSERT INTO SCRAP VALUES

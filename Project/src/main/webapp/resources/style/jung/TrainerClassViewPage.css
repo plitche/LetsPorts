@@ -422,16 +422,14 @@ textarea[name="question_content"] {
 
 .related_meeting_title {
 	font-weight: 800;
+	margin-bottom:25px;
 }
 
 .related_exercise_name {
-	margin-top:25px;
+	font-size: 12px;
 	margin-bottom:8px;
-	width: 45px;
-	height: 25px;
+	padding:5px;
 	border-radius: 25px;
-	text-align:center;
-	line-height: 25px;
 	background: #e8eaec;
 }
 

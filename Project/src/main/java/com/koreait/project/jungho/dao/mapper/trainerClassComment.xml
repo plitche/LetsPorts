@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- Spring에서 새로 배우는 스타일 -->
 <mapper namespace="com.koreait.project.jungho.dao.TrainerClassCommentDao">
 	
-	<select id="commentList" parameterType="int" resultType="com.koreait.project.dto.CommentsDto">
+	<select id="commentList" parameterType="int" resultType="com.koreait.project.jungho.dto.MeetingCommentDto">
 		SELECT B.*
 		  FROM (SELECT A.*, ROWNUM AS RN
 		          FROM (SELECT *

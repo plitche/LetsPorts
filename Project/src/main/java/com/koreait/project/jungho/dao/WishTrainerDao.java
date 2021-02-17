@@ -11,6 +11,8 @@ public interface WishTrainerDao {
 	public int WishTrainerInsert(int user_no, int scrap_referer_no);
 	
 	public int WishTrainerListTotal(int scrap_referer_no);
+	
+	public String[] interestList(int user_no);
 
 	//public List<String> interestList(int user_no);
 	
