@@ -40,7 +40,7 @@ public class GetQnAListCommand implements CommonVoidCommand {
 		}
 		
 		CommonQnADao commonQnADao = sqlSession.getMapper(CommonQnADao.class);
-		
+
 		// 페이징
 		int page = 1;
 		if (request.getParameter("page") != null) {
@@ -84,6 +84,7 @@ public class GetQnAListCommand implements CommonVoidCommand {
 			qnaList = commonQnADao.getQnAListByKeyword3(beginRecord, endRecord, searchKeyword); 
 			break;
 			}
+			
 			paging = Paging.getPaging("goQnAPage.plitche?searchCategory="+searchCategory+"&searchKeyword="+searchKeyword, totalRecord, recordPerPage, page);
 		}
 		

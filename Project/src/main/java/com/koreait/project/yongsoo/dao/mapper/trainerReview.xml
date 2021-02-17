@@ -19,6 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		             ON M.LOCATION2_NO = L2.LOCATION2_NO 
 		 WHERE R.TARGET_USER_NO = #{user_no}
 		   AND R.ON_HIDE = 0
+		 ORDER BY R.CREATED_AT DESC
 	</select>
 	<select id="listCount" parameterType="int" resultType="int">
 		SELECT COUNT(*)

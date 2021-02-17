@@ -20,9 +20,9 @@ img {
 	margin-right: 15px;
 	
 }
-input[type=button]{
+.choiceBtn1 {
 	border: none;
-	background: #ff6600;
+	background: #fa8072;
 	color: #fff;
 }
 button{

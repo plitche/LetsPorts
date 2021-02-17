@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		              FROM MEETING
 		              WHERE USER_NO = #{param2}
 		                AND ON_HIDE = 0
-		              ORDER BY MEETING_DATE DESC) M1
+		              ORDER BY MEETING_DATE) M1
 		        ) M2 
 		  	    FULL OUTER JOIN USERS U 
 		        ON M2.USER_NO = U.USER_NO
@@ -133,7 +133,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   AND M.MEETING_NO != #{param2} 
 		   AND M.ON_HIDE = 0
 		   AND M.END_GATHER_DATE > SYSDATE
-		 ORDER BY END_GATHER_DATE
+		 ORDER BY M.MEETING_DATE
 	</select>
 
  	
@@ -153,7 +153,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   AND M.EXERCISE_NO = #{param2}
 		   AND M.ON_HIDE = 0
    		   AND M.END_GATHER_DATE > SYSDATE
-   		 ORDER BY END_GATHER_DATE
+   		 ORDER BY M.MEETING_DATE
 	</select>
 
 

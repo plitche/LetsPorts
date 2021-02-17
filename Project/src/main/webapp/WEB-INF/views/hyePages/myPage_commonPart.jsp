@@ -9,16 +9,19 @@
 	<jsp:param value="마이페이지" name="title"/>
 </jsp:include>
 
-<link type="text/css" rel="stylesheet" href="resources/joon/css/myPage_commonPart.css" >
 <!-- css파일 적용되지 않아 style에 지정함 -->
 <style>
 /* 마이페이지 전체 */
 a {
 	text-decoration: none;
-	font-size: 12px;
 	color: silver;
 }
+.interestBtns {
+	display: flex;
+}
 .interestBtns > a {
+	margin-right: 100px;
+	text-align: center;
 	color: #fa8072;
 }
 .myPageHeader {
@@ -44,13 +47,13 @@ a {
 	height: 70px;
 	line-height: 70px;
 	margin-bottom: 20px;
-	background: #20c997;
 	color: #fff;
 	align-content: center;
+	font-size: 20px;
 }
 #policyNotice {
-	font-size: 20px;
 	text-align: ceneter;
+	background: #20c997;
 	padding-left: 40%;
 	margin: auto;
 }
@@ -193,6 +196,9 @@ table {
 }
 th {
 	text-align: center;
+}
+.tdHeight {
+	max-height: 20px;
 }
 #title {
 	text-align: center;
@@ -443,7 +449,7 @@ $(document).on('click', '#updateMsgBtn', function(){
 				<h3>${loginUser.user_nickname}님</h3>
 					<!-- 모달 창으로 본인 인증 -->
 				<a href="#" id="modal_btn">정보 수정</a><br/>
-				<br/><br/><br/>
+				<br/><br/>
 					<div class="modal_wrap">
 						<p class="modal_close" ><a href="#"><i class="far fa-times-circle fa-2x"></i></a></p>
 							<div id="verification_content">
@@ -468,12 +474,13 @@ $(document).on('click', '#updateMsgBtn', function(){
 			</div>
 		
 		</div>
-		<a id="policyNoticeBtn" href="notice.hey" >
-			<span id="policyNotice">
-				모임 방역 수칙😷
-			</span>
-		</a>
-		
+		<div id="policyNotice">
+			<a id="policyNoticeBtn" href="notice.hey" >
+				<span >
+					모임 방역 수칙😷
+				</span>
+			</a>
+		</div>
 		
 
 			<script>

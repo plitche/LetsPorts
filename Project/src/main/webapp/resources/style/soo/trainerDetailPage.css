@@ -231,7 +231,7 @@
 	z-index: -1;
 }
 .modal_title {
-	margin-bottom: 15px;
+	margin-bottom: 25px;
 }
 .modal_title > div {
 	text-align: center;
@@ -272,6 +272,8 @@
 }
 .modal_content {
 	text-align: right;
+	min-width: 20%;
+	max-width: 25%;
 }
 #closeModalBtn {
 	margin-bottom: 5px;
@@ -520,6 +522,8 @@
 	padding: 6px;
 	min-height: 100px;
 	margin-bottom: 10px;
+	font-size: 16px;
+	font-weight: normal;
 }
 
 #trainerAnswer > div:nth-child(3) {

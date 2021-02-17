@@ -178,7 +178,7 @@
 					</colgroup>
 					<thead>
 						<tr>
-							<td colspan="3">Today's Question</td>
+							<td colspan="3">What U want to know?</td>
 						</tr>
 					</thead>
 					<tbody id="mainQnAList"></tbody>
