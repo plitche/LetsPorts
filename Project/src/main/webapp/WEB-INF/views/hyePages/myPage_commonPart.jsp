@@ -188,8 +188,49 @@ i:hover {
 #contentBox {
 	text-align: center;
 }
+/* 참여예정모임 */
+.meeting {
+	width: 150px;
+	heigh: 200px;
+	margin: 5px;
+	padding: 0;
+	border: 1px solid silver;
+	border-radius: 10px;
+	cursor: poiter;
+}
+.cover {
+	overflow: hidden;
+	width: 150px;
+	height: 100px;
+	position: relative;
+	border-radius: 10px;
+}
+.cover img {
+	height: 100px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	
+}
+.profiePhoto {
+	overflow: hidden;
+	width: 30px;
+	height: 30px;
+	position: relative;
+	border-radius: 10px;
+}
+.profiePhoto img {
+	height: 30px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	
+}
+/* 질의응답 */
 table {
-	width: 695px;
+	width: 100%;
 	height: 300px;
 	border-bottom: 1px solid silver;
 	margin-top: 10px;

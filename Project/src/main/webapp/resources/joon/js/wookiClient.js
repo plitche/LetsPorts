@@ -210,7 +210,6 @@ function fn_myQnAForm() {
 		<thead id="title">
 			<tr>
 				<th>번호</th>
-				<th>해결여부</th>
 				<th>제목</th>
 				<th>답변수</th>
 				<th>작성일</th>
