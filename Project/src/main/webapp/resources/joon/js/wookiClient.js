@@ -258,7 +258,7 @@ function fn_addMyQnAList(list, paging, totalRecord, recordPerPage, page) {
 			<tr>
 				<td>${totalRecord - (recordPerPage * (page - 1)) - idx}</td>
 				<td>
-					${qna.board_qna_title}
+					<span onclick="fn_goQnA('${qna.board_qna_no}')" >${qna.board_qna_title}</span>
 					<input type="hidden" name="board_qna_no" id="board_qna_no" value="${qna.board_qna_no}" />
 				</td>
 				<td>${qna.comment_count}</td>
@@ -273,4 +273,9 @@ function fn_addMyQnAList(list, paging, totalRecord, recordPerPage, page) {
 		</tr>`;
 		$('tfoot.paging').append(tfoot);
 	}
+}
+
+// QNA 바로가기
+function fn_goQnA(board_no) {
+	location.href = `goQnAViewPage.plitche?board_qna_no=${board_no}&page=1`;
 }
