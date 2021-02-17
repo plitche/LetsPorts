@@ -5,3 +5,5 @@ INSERT INTO USERS values (12, 'user12@xxx.xxx', '1111', 1, SYSDATE, SYSDATE, 3, 
 
 SELECT * FROM USERS;
 SELECT * FROM USER_INTEREST;
+
+drop table users cascade constraints;
