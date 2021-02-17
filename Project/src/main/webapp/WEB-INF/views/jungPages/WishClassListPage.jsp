@@ -16,14 +16,19 @@
 	<c:forEach var="wishClassList" items="${WishClassList}">
 		<a href="TrainerClassViewPage.leo?meeting_no=${wishClassList.meeting_no}">
 			<div id="WishListBox" >
-				<div class="WishListPhoto"><img alt="${wishClassList.photo_filename}" src="resources/storage/${wishClassList.photo_filename}" style="width:250px; height:100px;"></div>
+				<c:if test="${empty wishClassList.photo_filename}">
+					<div class="WishListPhoto"><img alt="사진" src="resources/images/meeting_basic_corver" style="width:250px; height:100px;"></div>
+				</c:if>
+				<c:if test="${not empty wishClassList.photo_filename}">
+					<div class="WishListPhoto"><img alt="${wishClassList.photo_filename}" src="resources/storage/${wishClassList.photo_filename}" style="width:250px; height:100px;"></div>
+				</c:if>
 					<div style="padding:15px;">
 						<div style="font-weight: 900;">${wishClassList.meeting_title}</div>
 						<div class="exercise_name" style="margin-top: 20px;">${wishClassList.exercise_name}</div>
 						<div class="location"><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;${wishClassList.location1_name} ${wishClassList.location2_name} · ${wishClassList.meeting_date}</div>
 						<div style="width:220px; height:0.3px; background: lightgray; margin: 10px 0px;"></div>
 						<div style="display: flex; align-items: center;">
-							<div style="width: 35px; height: 35px; border-radius: 100px; background: #c2c2c2;"><img alt="${wishClassList.profile_photo}" src="resources/storage/${MeetingDto.profile_photo}"></div>
+							<div style="width: 35px; height: 35px; border-radius: 100px; background: #c2c2c2;"><img alt="${wishClassList.profile_photo}" src="resources/storage/profile_photo/${wishClassList.profile_photo}" style="border-radius: 100px;width:100%; height:100%;"></div>
 							<div style="height: 20px; line-height: 20px; margin-left: 5px; font-size: 12px;">${wishClassList.user_nickname}</div>
 							<div style="margin-left:110px; font-size: 12px; color: lightgray;"><i class="fas fa-eye" style="color: lightgray;"></i>${wishClassList.meeting_hit}</div>
 						</div>

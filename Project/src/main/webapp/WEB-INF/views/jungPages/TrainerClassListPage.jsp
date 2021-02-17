@@ -271,8 +271,8 @@
 				<div class="MeetingClass">
 					<div id="MeetingClassPhoto"><img alt="${MeetingDto.photo_filename}" src="resources/storage/${MeetingDto.photo_filename}" style="width:250px; height:100px;"></div>
 						<div style="padding:15px;">
-							<div style="font-weight: 900;">${MeetingDto.meeting_title}</div>
-							<div class="exercise_name">${MeetingDto.exercise_name}</div>
+							<div style="font-weight: 900; margin-bottom: 25px;">${MeetingDto.meeting_title}</div>
+							<span class="exercise_name">${MeetingDto.exercise_name}</span>
 							<div class="location"><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;${MeetingDto.location1_name} ${MeetingDto.location2_name} · ${MeetingDto.meeting_date}</div>
 							<div style="width:220px; height:0.3px; background: lightgray; margin: 10px 0px;"></div>
 							<div style="display: flex; align-items: center;">
@@ -282,8 +282,8 @@
 							<c:if test="${not empty MeetingDto.profile_photo}">
 								<div style="width: 35px; height: 35px; border-radius: 100px; background: #c2c2c2;"><img alt="${MeetingDto.profile_photo}" id="profile_photo" src="resources/storage/profile_photo/${MeetingDto.profile_photo}"></div>
 							</c:if>
-								<div style="height: 20px; line-height: 20px; margin-left: 5px; font-size: 12px;">${MeetingDto.user_nickname}</div>
-								<div style="margin-left:110px; font-size: 12px; color: lightgray;"><i class="fas fa-eye" style="color: lightgray;"></i> ${MeetingDto.meeting_hit}</div>
+								<div style="height: 20px; line-height: 20px; margin-left: 5px; font-size: 12px; width:145px;">${MeetingDto.user_nickname}</div>
+								<div style="font-size: 12px; color: lightgray;"><i class="fas fa-eye" style="color: lightgray;"></i> ${MeetingDto.meeting_hit}</div>
 							</div>
 						</div>
 				</div>

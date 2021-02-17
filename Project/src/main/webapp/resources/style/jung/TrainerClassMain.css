@@ -74,8 +74,15 @@
 	margin-right: 20px;
 	margin-top: 20px;
 	border-radius: 20px;
+	box-shadow: 0 4px 30px -10px hsl(0deg 2% 72% / 30%);
+	transition: 0.2s ease;
 }
 
+.MeetingClass:hover {
+	transform: translateY(15px);
+	transition: 0.2s ease;
+}
+	
 #MeetingplusIcon{
 	line-height: 50px;
 	text-align: center;
@@ -88,12 +95,9 @@
 
 .exercise_name {
 	font-size: 10px;
-	width: 50px;
-	height: 25px;
-	padding:7px;
+	padding:6px;
 	text-align: center;
 	border-radius: 30px;
-	margin-top: 25px;
 	background: #f0f0f0;
 }
 
@@ -201,7 +205,7 @@
 
 
 #Tag_content {
-	margin-top: 5px;
+	margin-top: 20px;
 }
 
 
@@ -307,4 +311,37 @@
    	text-decoration: none;
    	color: black;
    }
+ 
+.paging > .disable {
+	color: #fa8072;
+	margin: 0px 5px;
+} 
+
+.paging > a {
+	color: lightgray;
+	text-decoration: none;
+	margin: 0px 5px;
+}
+
+.paging > a:hover {
+	color: #fa8072;
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 

@@ -405,7 +405,7 @@
 			<c:if test="${trainerClassDto.user_separator eq 1}"><!-- 회원 구분 : 트레이너 -->
 	    		<div class="trainerHostInfo">
 	    			<div id="profileAndName" style="display:flex;">
-		    			<div style="background: lightgray; width: 80px; height: 80px; ">
+		    			<div style="width: 80px; height: 80px; ">
 		    				<c:if test="${empty trainerClassDto.profile_photo}">
 			    				<img alt="기본사진" src="resources/images/blank-profile-picture.png" style="width:100%; height: 100%; border-radius:100px;"/>
 		    				</c:if>
@@ -706,10 +706,24 @@
 		
 		function commentListContent(list) {
 			$('#listComment_all').empty();
+			
+			
 			$.each(list, function(idx, comment){
-					
+				var photostate = null
+				if (comment.profile_photo == null) {
+					photostate = $('<div class="comment_profile_photos">').html('<img alt="내프로필" src="resources/images/blank-profile-picture.png" class="comment_profile_photos">')
+				} else if(comment.profile_photo != null) {
+					photostate = $('<div class="comment_profile_photos">').html('<img alt="내프로필" src="resources/storage/profile_photo/'+ comment.profile_photo +'"  class="comment_profile_photos">')
+				}
+				
+				
+				$('<div>')
+				.append(photostate)
+				.appendTo('.myPhoto');
+				
+				
 				$('<div>').addClass('commentContent')
-				.append( $('<div>').addClass('myPhoto').append( $('<img alt="내프로필" src="'+ comment.profile_photo +'">') ))
+				.append( $('<div>').addClass('myPhoto').append(photostate))
 				.append( $('<div>').addClass('comment_wrap')
 					.append( $('<div>').addClass('comment_all')
 						.append( $('<div>').addClass('comment1')
@@ -887,7 +901,9 @@
 			<div>댓글&nbsp;<span id="totalCount"></span>개</div><br/>
 			<!-- 댓글 작성란 -->
 			<div class="createComment_all">
-				<div class="myPhoto"><img alt="내 프로필" src="" /></div>
+				
+					<div class="myPhoto"></div>
+				
 				<div id="createComment"><input type="text" name="comment_content" id="comment_content" placeholder="댓글작성.."></textarea></div>
 				<div class="btns">
 					<input type="button" value="댓글" id="commentBtn" /> 
