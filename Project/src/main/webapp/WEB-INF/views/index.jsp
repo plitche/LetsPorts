@@ -41,7 +41,7 @@
 				if (meeting.profile_photo == null) {
 					showProfile = $('<span>').html('<img alt="blank-profile-picture" src="resources/images/blank-profile-picture.png">');
 				} else {
-					showProfile = $('<span>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/'+meeting.profile_photo+'">');		
+					showProfile = $('<span>').html('<img alt="'+meeting.profile_photo+'" src="resources/storage/profile_photo/'+meeting.profile_photo+'">');		
 				}
 				
 				$('<a href="#" onclick="fn_showMeeting(' + meeting.meeting_no + '); return false;">')
@@ -100,7 +100,7 @@
 								.append( $('<div style="bottom: 30px;">').html('<i class="fas fa-check-circle"></i> 활동경력 : '+trainer.career+'년') )
 								.append( $('<div style="bottom: 0px;">').html('<i class="fas fa-check-circle"></i> '+trainer.user_message) )
 							)
-							.append( $('<img alt="'+ trainer.profile_photo +'" src="resources/storage/'+ trainer.profile_photo +'" >') )
+							.append( $('<img alt="'+ trainer.profile_photo +'" src="resources/storage/profile_photo/'+ trainer.profile_photo +'" >') )
 						)
 						.append( $('<div>').addClass('trainer-info') 
 							.append( $('<div>').text(trainer.trainer_name) )
@@ -144,7 +144,7 @@
 				}
 				
 				var board_qna_title = qna.board_qna_title;
-				if (board_qna_title.length > 20) {
+				if (board_qna_title.length > 16) {
 					board_qna_title = board_qna_title.substring(0, 16);
 					board_qna_title += '...';
 				}
