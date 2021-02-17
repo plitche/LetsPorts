@@ -26,19 +26,15 @@ public class UpdateMsgCommand implements CommonMapCommand {
 		String user_message = (String) map.get("user_message");
 		
 		UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
-		UsersDto loginUser = usersDao.getUserSession(user_no);
-		
-		
-		
-		System.out.println("유저넘버 : " + user_no + " 유저메시지: " + user_message);
-		
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		result.put("result", usersDao.updateMsg(user_no, user_message));
+		UsersDto loginUser = usersDao.getUserSession(user_no);
 		
 		session.removeAttribute("loginUser");
 		session.setAttribute("loginUser", loginUser);
+		
 		return result;
 	}
 
