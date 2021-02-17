@@ -41,6 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       		   FULL OUTER JOIN USERS U
 		       ON B2.USER_NO = U.USER_NO
 		 WHERE B2.RN BETWEEN #{param2} AND #{param3}
+		 ORDER BY B2.CREATED_AT DESC
 	</select>
 	
 	<select id="getQnACount1" parameterType="String" resultType="int">
@@ -57,12 +58,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		                  FROM BOARD_QNA
 		                 WHERE BOARD_QNA_NO IS NOT NULL
 		                   AND ON_HIDE = 0
+		                   AND (BOARD_QNA_TITLE LIKE '%'||#{param3}||'%'
+            				OR BOARD_QNA_CONTENT LIKE '%'||#{param3}||'%')
 		                 ORDER BY BOARD_QNA_NO DESC) B1) B2 
       		   FULL OUTER JOIN USERS U
 		       ON B2.USER_NO = U.USER_NO
 		 WHERE RN BETWEEN #{param1} AND #{param2}
-		   AND (BOARD_QNA_TITLE LIKE '%'||#{param3}||'%'
-            OR BOARD_QNA_CONTENT LIKE '%'||#{param3}||'%')
 	</select>
 	
 	<select id="getQnACount2" parameterType="String" resultType="int">
@@ -78,11 +79,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		                  FROM BOARD_QNA
 		                 WHERE BOARD_QNA_NO IS NOT NULL
 		                   AND ON_HIDE = 0
+		                   AND BOARD_QNA_TITLE LIKE '%'||#{param3}||'%'
 		                 ORDER BY BOARD_QNA_NO DESC) B1) B2 
       		   FULL OUTER JOIN USERS U
 		       ON B2.USER_NO = U.USER_NO
 		 WHERE B2.RN BETWEEN #{param1} AND #{param2}
-           AND B2.BOARD_QNA_TITLE LIKE '%'||#{param3}||'%'
 	</select>
 	
 	<select id="getQnACount3" parameterType="String" resultType="int">
@@ -96,14 +97,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT *
 		  FROM (SELECT ROWNUM RN, B1.*
 		          FROM (SELECT *
-		                  FROM BOARD_QNA
-		                 WHERE BOARD_QNA_NO IS NOT NULL
-		                   AND ON_HIDE = 0
+		                  FROM BOARD_QNA B
+		                  FULL OUTER JOIN USERS U
+		       				ON B.USER_NO = U.USER_NO
+		                 WHERE B.BOARD_QNA_NO IS NOT NULL
+		                   AND B.ON_HIDE = 0
+		                   AND U.USER_NICKNAME LIKE '%'||#{param3}||'%' 
 		                 ORDER BY BOARD_QNA_NO DESC) B1) B2 
-      		   FULL OUTER JOIN USERS U
-		       ON B2.USER_NO = U.USER_NO
 		 WHERE B2.RN BETWEEN #{param1} AND #{param2}
-		   AND U.USER_NICKNAME LIKE '%'||#{param3}||'%'
 	</select>
 	
 	<insert id="writeQnA">

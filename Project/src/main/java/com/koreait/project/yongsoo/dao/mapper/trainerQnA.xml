@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       FULL OUTER JOIN USERS U
 		       ON U.USER_NO = T2.QUESTION_USER_NO 
 		 WHERE RN BETWEEN (#{param1}*10-9) AND (#{param1}*10)
+		 ORDER BY T2.CREATED_AT DESC
 	</select>
 	<select id="TrainerQnACount" parameterType="int" resultType="int">
 		SELECT COUNT(*)
