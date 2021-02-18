@@ -574,6 +574,12 @@ INSERT INTO TRAINER_INFO VALUES (trainer_info_seq.nextval, 93,  6, '유수연', 
 INSERT INTO users VALUES (users_seq.nextval, 'user101@letsports.com', '1111', 2, TO_DATE('2021-02-16 8:15:05', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '느타리묵', '감사원은 원장을 포함...', null, 1997, 2, 18, 0, 2);
 INSERT INTO users VALUES (users_seq.nextval, 'user102@letsports.com', '1111', 2, TO_DATE('2021-02-16 10:18:24', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '도토리묵', '감사원은 원장을 포함...', null, 1994, 1, 20, 0, 4);
 INSERT INTO users VALUES (users_seq.nextval, 'user103@letsports.com', '1111', 2, TO_DATE('2021-02-16 12:25:35', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '또또리묵', '감사원은 원장을 포함...', null, 1993, 12, 27, 1, 26);
+INSERT INTO users VALUES (users_seq.nextval, 'user104@letsports.com', '1111', 2, TO_DATE('2021-02-17 11:13:55', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '호히', '감사원은 원장을 포함...', null, 1996, 1, 7, 1, 26);
+INSERT INTO users VALUES (users_seq.nextval, 'user105@letsports.com', '1111', 2, TO_DATE('2021-02-17 19:22:11', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '또묵', '감사원은 원장을 포함...', null, 1991, 2, 2, 1, 26);
+INSERT INTO users VALUES (users_seq.nextval, 'user106@letsports.com', '1111', 2, TO_DATE('2021-02-18 10:13:32', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '또리', '감사원은 원장을 포함...', null, 1990, 1, 4, 1, 26);
+INSERT INTO users VALUES (users_seq.nextval, 'user107@letsports.com', '1111', 2, TO_DATE('2021-02-18 13:32:27', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '또리묵', '감사원은 원장을 포함...', null, 1995, 3, 24, 1, 26);
+INSERT INTO users VALUES (users_seq.nextval, 'user108@letsports.com', '1111', 2, TO_DATE('2021-02-18 15:54:51', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '리묵', '감사원은 원장을 포함...', null, 1983, 10, 17, 1, 26);
+INSERT INTO users VALUES (users_seq.nextval, 'user109@letsports.com', '1111', 2, TO_DATE('2021-02-18 18:33:24', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '묵미이', '감사원은 원장을 포함...', null, 1986, 11, 23, 1, 26);
 
 -- 유저 관심분야 146건
 INSERT INTO user_interest VALUES (user_interest_seq.nextval, 1, 0);
