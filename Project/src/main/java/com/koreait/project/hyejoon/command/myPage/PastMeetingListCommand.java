@@ -20,7 +20,7 @@ public class PastMeetingListCommand implements CommonMapCommand {
 		int user_no = (int) model.asMap().get("user_no");
 		
 		int totalRecord = wookiClientDao.totalRecord(user_no, 1);
-		int recordPerPage = 4;
+		int recordPerPage = 5;
 		int page = (int) model.asMap().get("page");
 		int beginRecord = (page - 1) * recordPerPage + 1;
 		int endRecord = beginRecord + recordPerPage - 1;

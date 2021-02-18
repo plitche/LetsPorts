@@ -11,13 +11,17 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.dto.UsersDto;
+import com.koreait.project.hyejoon.command.InsertTrainerCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailAuthCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailCheckCommand;
 import com.koreait.project.hyejoon.command.signUp.InsertJoinCommand;
@@ -34,6 +38,8 @@ public class UsersSignUpController {
 	private EmailCheckCommand emailCheckCommand = ctx.getBean("emailCheckCommand", EmailCheckCommand.class);
 	private EmailAuthCommand emailAuthCommand = ctx.getBean("emailAuthCommand", EmailAuthCommand.class);
 	private InsertJoinCommand insertJoinCommand = ctx.getBean("insertJoinCommand", InsertJoinCommand.class);
+	private InsertTrainerCommand insertTrainerCommand = ctx.getBean("insertTrainerCommand", InsertTrainerCommand.class);
+
 	
 	// 회원 가입 닉네임 중복체크를 위한 ajax용
 	@RequestMapping(value="nickCheck.hey", method=RequestMethod.POST, produces="application/json; charset=utf-8")
@@ -75,11 +81,18 @@ public class UsersSignUpController {
 		return "redirect:usersLoginPage.hey";
 	}
 	
-	
 	// 트레이너 회원가입 페이지
-	@RequestMapping(value="trainerSignUp.hey")
+	@GetMapping(value="trainerSignUp.wooki")
 	public String trainerSignUp() {
 		return "hyePages/trainerSignUp";
+	}
+	
+	// 트레이너 회원가입
+	@PostMapping(value="insertTrainer.wooki")
+	public String insertTrainer(MultipartHttpServletRequest multipartRequest, Model model) {
+		model.addAttribute("multipartRequest", multipartRequest);
+		insertTrainerCommand.execute(sqlSession, model);
+		return "redirect:/";
 	}
 	
 }

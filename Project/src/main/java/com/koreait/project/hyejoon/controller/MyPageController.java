@@ -10,7 +10,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,13 +23,17 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.koreait.project.dto.UsersDto;
 import com.koreait.project.hyejoon.command.myPage.DeletePhotoCommand;
+import com.koreait.project.hyejoon.command.myPage.MyQnAListCommand;
+import com.koreait.project.hyejoon.command.myPage.PastMeetingListCommand;
+import com.koreait.project.hyejoon.command.myPage.PreparingMeetingListCommand;
 import com.koreait.project.hyejoon.command.myPage.UpdateMsgCommand;
 import com.koreait.project.hyejoon.command.myPage.UploadProfilePhotoCommand;
-import com.koreait.project.hyejoon.command.myPage.ViewMeetingInfoCommand;
 import com.koreait.project.hyejoon.command.signUp.NickCheckCommand;
 import com.koreait.project.hyejoon.command.userAccount.DeleteAccountCommand;
+import com.koreait.project.hyejoon.command.userAccount.UserUpdateCommand;
 import com.koreait.project.hyejoon.command.userAccount.UserUpdateViewCommand;
 import com.koreait.project.hyejoon.config.HyeAppContext;
+import com.koreait.project.hyejoon.dto.UserUpdateDto;
 
 @Controller
 public class MyPageController {
@@ -41,7 +48,11 @@ public class MyPageController {
 	private UploadProfilePhotoCommand uploadProfilePhotoCommand = ctx.getBean("uploadProfilePhotoCommand", UploadProfilePhotoCommand.class);
 	private DeletePhotoCommand deletePhotoCommand = ctx.getBean("deletePhotoCommand", DeletePhotoCommand.class);
 	private UpdateMsgCommand updateMsgCommand = ctx.getBean("updateMsgCommand", UpdateMsgCommand.class);
-	private ViewMeetingInfoCommand viewMeetingInfoCommand = ctx.getBean("viewMeetingInfoCommand", ViewMeetingInfoCommand.class);
+	private PreparingMeetingListCommand preparingMeetingListCommand = ctx.getBean("preparingMeetingListCommand", PreparingMeetingListCommand.class);
+	private PastMeetingListCommand pastMeetingListCommand = ctx.getBean("pastMeetingListCommand", PastMeetingListCommand.class);
+	private MyQnAListCommand myQnAListCommand = ctx.getBean("myQnAListCommand", MyQnAListCommand.class);
+	private UserUpdateCommand userUpdateCommand = ctx.getBean("userUpdateCommand", UserUpdateCommand.class);
+	
 	
 	
 	/***** 단순 이동 *****/
@@ -122,15 +133,47 @@ public class MyPageController {
 	}
 	
 	/**** 탭 ****/
-	// 내가 주최하는 모임 정보 가져오기
-	@RequestMapping(value="meetingInfo.hey", method=RequestMethod.POST, produces="application/json; charset=utf-8")
+	
+	// 참가 예정 모임중 진행예정 모임 
+	@GetMapping(value="preparingMeetingList.wooki", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> meetingInfo(@RequestBody UsersDto usersDto, Model model){
-		model.addAttribute("user_no", usersDto.getUser_no());
-		return viewMeetingInfoCommand.execute(sqlSession, model);
+	public Map<String, Object> preparingMeetingList(
+			@ModelAttribute("user_no") int user_no,
+			@ModelAttribute("page") int page,
+			Model model) {
+		return preparingMeetingListCommand.execute(sqlSession, model);
 	}
 	
-	// 질의응답
+	// 회원정보 업데이트
+	@PostMapping(value="userUpdate.wooki")
+	public String userUpdate(
+			HttpServletRequest request,
+			UserUpdateDto userUpdateDto,
+			Model model) {
+		model.addAttribute("request", request);
+		model.addAttribute("userUpdateDto", userUpdateDto);
+		userUpdateCommand.execute(sqlSession, model);
+		return "redirect:myPage_commonPart.hey";
+	}
 	
+	// 참가했던 지난모임
+	@GetMapping(value="pastMeetingList.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> pastMeetingList(
+			@ModelAttribute("user_no") int user_no,
+			@ModelAttribute("page") int page,
+			Model model) {
+		return pastMeetingListCommand.execute(sqlSession, model);
+	}
+	
+	// 질문과 답변 리스트
+	@GetMapping(value="myQnAList.wooki", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> myQnAList(
+			@ModelAttribute("user_no") int user_no,
+			@ModelAttribute("page") int page,
+			Model model) {
+		return myQnAListCommand.execute(sqlSession, model);
+	}
 	
 }
