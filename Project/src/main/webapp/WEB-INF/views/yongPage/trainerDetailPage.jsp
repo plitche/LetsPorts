@@ -757,7 +757,6 @@
 
 		function WishTrainerDelete() {
  			 var user_no = '${trainerTemDto.user_no}';
- 			 alert(user_no);
  			 $.ajax({
 		  			  url: 'WishTrainerDelete.leo',
 		  			  type: 'get',

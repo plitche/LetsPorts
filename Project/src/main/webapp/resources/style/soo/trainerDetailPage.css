@@ -210,12 +210,12 @@
 	width: 30px;
 	height: 30px;
 }
-#modal .modal_content {
+#modal > .modal_content {
 	position: fixed;
 	top:50%; left:50%;
 	transform: translate(-50%,-50%);
 	max-width: 30%;
-	min-height: 25%;
+	min-height: 20%;
 	background: #fff;
 	border: 2px black solid;
 	margin: 0 auto;
@@ -449,7 +449,7 @@
 	text-align: left;
 }
 .questionContent > div:nth-child(1) {
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: bold;
 	color: #000;
 	padding-bottom: 5px;
