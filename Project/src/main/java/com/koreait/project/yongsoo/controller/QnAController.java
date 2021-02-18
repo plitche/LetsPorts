@@ -80,7 +80,9 @@ public class QnAController {
 	
 	// 질문 view페이지에서 수정하기 클릭 시 update 페이지로 이동하기 위한 메소드
 	@RequestMapping(value="goUpdateQnAPage.plitche", method=RequestMethod.GET)
-	public String goUpdateQnAPage(@ModelAttribute("board_qna_no") int board_qna_no, Model model) {
+	public String goUpdateQnAPage(@ModelAttribute("board_qna_no") int board_qna_no, 
+								  @ModelAttribute("page") int page,
+								  Model model) {
 		model.addAttribute("board_qna_no", board_qna_no);
 		GoUpdateQnAPageCommand goUpdateQnAPageCommand = ctx.getBean("goUpdateQnAPageCommand", GoUpdateQnAPageCommand.class);
 		goUpdateQnAPageCommand.execute(sqlSession, model);
@@ -102,10 +104,11 @@ public class QnAController {
 	public String updateQnA(HttpServletRequest request, RedirectAttributes rttr, Model model) {
 		model.addAttribute("request", request);
 		model.addAttribute("rttr", rttr);
+		int page = Integer.parseInt(request.getParameter("page"));
 		UpdateQnACommand updateQnACommand = ctx.getBean("updateQnACommand", UpdateQnACommand.class);
 		updateQnACommand.execute(sqlSession, model);
 		int board_qna_no = Integer.parseInt(request.getParameter("board_qna_no"));
-		return "redirect:goQnAViewPage.plitche?board_qna_no="+board_qna_no;
+		return "redirect:goQnAViewPage.plitche?board_qna_no="+board_qna_no+"&page="+page;
 	}
 	
 	// 질문 view 페이지에서 해결 완료 클릭시 데이터에 접근하기 위한 메소드
