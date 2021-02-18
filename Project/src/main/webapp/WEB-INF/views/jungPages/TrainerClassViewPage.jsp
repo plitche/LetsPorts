@@ -288,10 +288,8 @@
     	   <script>
     
     	   $(document).ready(function() {
-    		   
     		   $('#loveIcon_1').attr('stroke', '#CED4DA');
 			   $('#loveIcon_1').attr('fill', 'none');
-				
     		   $('.OfferWishListBtn_Box').on('click', '.WishListBtn' , function(){
 			    	var data_state = $('#loveIcon_1').attr('fill');
 	    		   if (data_state == 'none') {
@@ -309,7 +307,6 @@
 	    		   var scrap_user_no = '${trainerClassDto.user_no}';
 	    		   var user_no = '${loginUser.user_no}';
 	    		   var end_gather_date = '${trainerClassDto.end_gather_date}';
-    		   	 
 	    		   $.ajax({
 	    			  url: 'WishClassInsert.leo',
 	    			  type: 'post',
