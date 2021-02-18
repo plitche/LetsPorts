@@ -300,7 +300,6 @@
 		    		   WishListDelete();
 	    		   }
     		   });
-    		   WishListTotal();
     		});
     	   
 	    	

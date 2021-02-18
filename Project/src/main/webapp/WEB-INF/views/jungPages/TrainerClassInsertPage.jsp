@@ -26,13 +26,15 @@
 
 	function fn_TrainerClassInsert(f) {
 		fn_submit();
+		f.action='TrainerClassInsert.leo'
+		f.submit();
 	}
 
 </script>
 
 
 	<div class="TrainerClassInsert_all">
-		<form action="TrainerClassInsert.leo"  id="insertForm" method="post" enctype="multipart/form-data">
+		<form id="insertForm" method="post" enctype="multipart/form-data">
 			
 			<span style="font-size:14px; font-weight: 900; width: 300px; height: 100px; background: #fa8072;">새로운 모임 만들기</span>
 			<div style="width: 1000px; height: 0.5px; background: black; margin:25px 0px;"></div>
