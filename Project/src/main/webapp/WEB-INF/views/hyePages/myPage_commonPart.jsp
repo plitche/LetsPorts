@@ -61,7 +61,7 @@ a {
 .modal_wrap{
 	display: none;
 	width: 500px;
-	height: 500px;
+	height: 280px;
 	position: fixed;
 	top:50%;
 	left: 50%;
@@ -87,6 +87,24 @@ a {
 	width: 100%;
 	height: 100%;
 	z-index: 3;
+}
+#verification_content {
+	text-align: center;
+}
+#userAuthPw {
+	border: 1px solid silver;
+}
+#userAuthPw:focus {
+	outline:1px solid #fa8072;
+}
+#forUpdateInfo_btn {
+	width: 150px;
+	height: 30px;
+	font-size: 14px;
+	font-weight: bold;
+	border: none;
+	background: #fa8072;
+	color: #ffffff;
 }
 /* 파일 업로드 */
 .userImage {
@@ -149,6 +167,8 @@ i:hover {
 /* 상태메세지 */
 #statusName {
 	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 5px;
 }
 #statusMsg {
 	border: 1px solid silver;
@@ -156,10 +176,11 @@ i:hover {
 #statusMsg:focus {
 	outline:1px solid #fa8072;
 }
+
 #updateMsgBtn {
-	width: 100px;
-	height: 40px;
-	font-size: 16px;
+	width: 70px;
+	height: 30px;
+	font-size: 14px;
 	font-weight: bold;
 	border: none;
 	background: #fa8072;
@@ -188,8 +209,69 @@ i:hover {
 #contentBox {
 	text-align: center;
 }
+/* 참여예정모임 */
+.meeting {
+	width: 120px;
+	heigh: 150px;
+	text-align: center;
+	margin: 10px;
+	padding: 0;
+	border: 1px solid silver;
+	border-radius: 10px;
+	cursor: poiter;
+}
+.meetingTitle {
+	font-size: 12px;
+}
+.meetingContent  {
+	font-size: 10px;
+	padding: 0;
+	text-align: center;
+}
+.nickName {
+	height: 20px;
+	line-height: 20px;
+	font-size: 12px;
+	margin: auto;
+}
+.cover {
+	overflow: hidden;
+	width: 120px;
+	height: 50px;
+	position: relative;
+}
+.cover img {
+	width: 100%;
+	height: 50px;
+	position: absolute;
+	border-radius: 10px 10px 0 0;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	
+}
+.profiePhoto {
+	overflow: hidden;
+	width: 20px;
+	height: 20px;
+	margin: 10px;
+	position: relative;
+	border-radius: 20px;
+}
+.profiePhoto img {
+	height: 20px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	
+}
+.flex {
+	text-align: center;
+}
+/* 질의응답 */
 table {
-	width: 695px;
+	width: 100%;
 	height: 300px;
 	border-bottom: 1px solid silver;
 	margin-top: 10px;
@@ -434,7 +516,7 @@ $(document).on('click', '#updateMsgBtn', function(){
 			<div class="userImage">
 				<c:if test="${loginUser.profile_photo ne null}">
 					<img src="resources/storage/profile_photo/${loginUser.profile_photo}" />
-					<i class="fas fa-backspace imageBtn" id="deleteFileBtn"></i>
+					<i class="fas fa-eraser imageBtn" id="deleteFileBtn"></i>
 				</c:if>
 				<c:if test="${loginUser.profile_photo eq null}">
 					<img src="resources/images/blank-profile-picture.png" />
@@ -446,11 +528,11 @@ $(document).on('click', '#updateMsgBtn', function(){
 			</div>
 		
 			<div class="myPageInfo">
-				<h3>${loginUser.user_nickname}님</h3>
+				<h3 style="font-weight: bold">${loginUser.user_nickname}님</h3>
 					<!-- 모달 창으로 본인 인증 -->
 				<a href="#" id="modal_btn">정보 수정</a><br/>
 				<br/><br/>
-					<div class="modal_wrap">
+					<div class="modal_wrap" >
 						<p class="modal_close" ><a href="#"><i class="far fa-times-circle fa-2x"></i></a></p>
 							<div id="verification_content">
 								<h3>회원 정보 수정을 위한 인증</h3>
@@ -464,6 +546,7 @@ $(document).on('click', '#updateMsgBtn', function(){
 					<a href="WishClassListPage.leo?user_no=${loginUser.user_no}" ><i class="fas fa-heart fa-lg"></i><br/>관심모임</a>
 					<a href="WishTrainerListPage.leo?user_no=${loginUser.user_no}"><i class="fas fa-id-badge fa-lg"></i><br/>관심 트레이너</a>
 					<!-- <a href="#"><i class="far fa-file-alt fa-lg"></i><br/>관심 노하우</a> -->		</div>
+				<br/>
 				<br/>
 				<div class="status">
 					<span id="statusName">상태 메세지</span><br/>

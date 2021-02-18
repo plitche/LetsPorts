@@ -86,13 +86,13 @@ function fn_filesend() {
 // div, img 삭제
 function deleteContent() {
 	$('body').on('click', '.fa-trash-alt', (e) => {
-		let target = $(e.target).parent('div');
-		let img = $(e.target).parent('div').find('img');
-		let src = img.attr('src');
-		if(src != undefined) {
+		let target = $(e.target).parent('div');	// 삭제해야 하는 태그 선택
+		let img = $(e.target).parent('div').find('img');	// 이미지인 경우를 분기하기 위한 선택자
+		let src = img.attr('src');	// 이미지 파일명 추출을 위한 src 추출
+		if(src != undefined) {	// 이미지인경우
 			let index = src.lastIndexOf('/');
 			let filename = src.substr(index + 1);
-			deleteList.push(filename);
+			deleteList.push(filename);	// 이미지 파일명
 		}
 		target.remove();
 	});

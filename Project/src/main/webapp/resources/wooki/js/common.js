@@ -353,10 +353,12 @@ function fn_changeEmail() {
 		let email = $('#change_email').val();
 		let user_no = $('#change_user_no').val();
 		if(email == '') {
+			is_progress = false;
 			alert('변경할 이메일을 입력하세요.');
 			$('#change_email').focus();
 			return;
 		} else if(!is_possible) {
+			is_progress = false;
 			alert('사용가능한 이메일을 입력하세요.');
 			$('#change_email').focus();
 			return;

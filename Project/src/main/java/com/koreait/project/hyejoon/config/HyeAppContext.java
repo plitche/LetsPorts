@@ -3,10 +3,14 @@ package com.koreait.project.hyejoon.config;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 
+import com.koreait.project.hyejoon.command.InsertTrainerCommand;
 import com.koreait.project.hyejoon.command.login.SendTempPwCommand;
 import com.koreait.project.hyejoon.command.login.UserCheckCommand;
 import com.koreait.project.hyejoon.command.login.UsersLoginCommand;
 import com.koreait.project.hyejoon.command.myPage.DeletePhotoCommand;
+import com.koreait.project.hyejoon.command.myPage.MyQnAListCommand;
+import com.koreait.project.hyejoon.command.myPage.PastMeetingListCommand;
+import com.koreait.project.hyejoon.command.myPage.PreparingMeetingListCommand;
 import com.koreait.project.hyejoon.command.myPage.UpdateMsgCommand;
 import com.koreait.project.hyejoon.command.myPage.UploadProfilePhotoCommand;
 import com.koreait.project.hyejoon.command.myPage.ViewMeetingInfoCommand;
@@ -15,6 +19,7 @@ import com.koreait.project.hyejoon.command.signUp.EmailCheckCommand;
 import com.koreait.project.hyejoon.command.signUp.InsertJoinCommand;
 import com.koreait.project.hyejoon.command.signUp.NickCheckCommand;
 import com.koreait.project.hyejoon.command.userAccount.DeleteAccountCommand;
+import com.koreait.project.hyejoon.command.userAccount.UserUpdateCommand;
 import com.koreait.project.hyejoon.command.userAccount.UserUpdateViewCommand;
 
 @Configurable
@@ -82,5 +87,28 @@ public class HyeAppContext {
 	public ViewMeetingInfoCommand viewMeetingInfoCommand() {
 		return new ViewMeetingInfoCommand();
 	}
+	@Bean
+	public PreparingMeetingListCommand preparingMeetingListCommand() {
+		return new PreparingMeetingListCommand();
+	}
 	
+	@Bean
+	public PastMeetingListCommand pastMeetingListCommand() {
+		return new PastMeetingListCommand();
+	}
+	
+	@Bean
+	public MyQnAListCommand myQnAListCommand() {
+		return new MyQnAListCommand();
+	}
+	
+	@Bean
+	public UserUpdateCommand userUpdateCommand() {
+		return new UserUpdateCommand();
+	}
+	
+	@Bean
+	public InsertTrainerCommand insertTrainerCommand() {
+		return new InsertTrainerCommand();
+	}
 }

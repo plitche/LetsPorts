@@ -59,7 +59,7 @@ function fn_addPreparingList(list, paging, page) {
 	$('.paging').empty();
 	if(list.length == 0) {
 		let content = `
-		<div>진행 예정인 모임이 없습니다.</div>`;
+		<div style="text-align: center">진행 예정인 모임이 없습니다.</div>`;
 		$('#contentBox .content').append(content);
 	} else {
 		$.each(list, function(idx, meeting) {
@@ -83,23 +83,23 @@ function fn_addPreparingList(list, paging, page) {
 					<img src="resources/${meetingCorver}">
 				</div>
 				<div>
-					<div>
+					<div class="meetingTitle">
 						${meeting.meeting_title}
 					</div>
 					<div>
-						<div>
+						<div class="meetingContent">
 							${meeting.exercise_name}
 						</div>
-						<div>
+						<div class="meetingContent">
 							${meeting.min}명 ~ ${meeting.max}명
 						</div>
 					</div>
-					<div>
+					<div class="meetingContent">
 						<i class="fas fa-map-marker-alt"></i> ${meeting.location1} ${meeting.location2} ∙ ${date}
 					</div>
 					<div class="flex">
 						<div class="profiePhoto"><img src="resources/${profilePhoto}"></div>
-						<div>${meeting.nickname}</div>
+						<div class="nickName">${meeting.nickname}</div>
 					</div>
 				</div>
 				<input type="hidden" name="meeting_no" id="meeting_no" value="${meeting.meeting_no}" />
@@ -148,7 +148,7 @@ function fn_addPastList(list, paging, page) {
 	$('.paging').empty();
 	if(list.length == 0) {
 		let content = `
-		<div id="joinMeeting">참여한 모임이 없습니다.</div>`;
+		<div id="joinMeeting" style="text-align: center">참여한 모임이 없습니다.</div>`;
 		$('#contentBox .content').append(content);
 	} else {
 		$.each(list, function(idx, meeting) {
@@ -172,23 +172,23 @@ function fn_addPastList(list, paging, page) {
 					<img src="resources/${meetingCorver}">
 				</div>
 				<div>
-					<div>
+					<div class="meetingTitle">
 						${meeting.meeting_title}
 					</div>
 					<div>
-						<div>
+						<div class="meetingContent">
 							${meeting.exercise_name}
 						</div>
-						<div>
+						<div class="meetingContent">
 							${meeting.min}명 ~ ${meeting.max}명
 						</div>
 					</div>
-					<div>
+					<div class="meetingContent">
 						<i class="fas fa-map-marker-alt"></i> ${meeting.location1} ${meeting.location2} ∙ ${date}
 					</div>
 					<div class="flex">
 						<div class="profiePhoto"><img src="resources/${profilePhoto}"></div>
-						<div>${meeting.nickname}</div>
+						<div class="nickName">${meeting.nickname}</div>
 					</div>
 				</div>
 				<input type="hidden" name="meeting_no" id="meeting_no" value="${meeting.meeting_no}" />
@@ -210,7 +210,6 @@ function fn_myQnAForm() {
 		<thead id="title">
 			<tr>
 				<th>번호</th>
-				<th>해결여부</th>
 				<th>제목</th>
 				<th>답변수</th>
 				<th>작성일</th>

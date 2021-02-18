@@ -256,7 +256,7 @@ ul {
 
 .trainer:hover .overlay {
 	opacity: 1;
-	color: yellow;
+	color: coral;
 }
 .overlay > div {
 	padding: 20px;
@@ -335,29 +335,70 @@ ul {
 	text-align: center;
 }
 
-
 .footer {
-	padding: 5px;
-	grid-template-rows: 50px 120px;
-	grid-template-columns: 40% 30% 30%;
 	align-items: center;
 	width: 100%;
+	background: #f9f9fb;
+}
+#footer-navBar {
+	width: 100%;
+	border-bottom: 1px solid #e5e6e9;
+	border-top: 1px solid #e5e6e9;
+	padding: 12px;
+}
+#innerNavBar, #footer_bottom {
+	width: 1080px;
 	margin: 0 auto;
-	background-image: url("../images/cityscape.jpg");
-	background-repeat: no-repeat;
-	background-position: 47% 77%;
+}
+#innerNavBar > span:nth-child(2n) {
+	color: #cdcdcd;
+}
+#innerNavBar > span:nth-child(2n-1) {
+	color: #444;
+	padding: 13px;
+}
+#innerNavBar > span:nth-child(16) {
+	margin-left: 66px;
+}
+#innerNavBar > span:nth-child(16),
+#innerNavBar > span:nth-child(17),
+#innerNavBar > span:nth-child(18) {
+	font-size: 22px;
+	
+}
+#project-title {
+	font-family: 'Dancing Script', cursive;
+	font-size: 33px;
+	color: orangered;
+	margin: 5px 0;
+	margin-top: 30px;
+}
+#project-detail {
+	display: flex;
+	padding-bottom: 30px;
+}
+#project-detail span, #project-detail div {
+	color: #777;
+	margin-bottom: 5px;
+}
+#groupMember {
+	margin-left: 26%;
+}
+#last {
+	color: #999;
+	font-size: 13px;
+	margin-top: 30px;
 }
 
-.footer-title {
-	font-family: 'Dancing Script', cursive;
-}
-.company {
-	color: #39424a;
-	margin-right: 37%;
-	width: 40%;
-	text-align: right;
-}
-.us {
-	width: 45%;
-	color: #39424a;
-}
+
+
+
+
+
+
+
+
+
+
+
+

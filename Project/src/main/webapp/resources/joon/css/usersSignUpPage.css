@@ -48,6 +48,10 @@ input[type=password]{
 	border: 0.5px solid silver;
 	appearance: textfield;
 }
+input[type=checkbox] {
+	color: #6c757d;
+	vertical-align: -3px;
+}
 
 input:focus {
 	outline:1px solid #fa8072;
