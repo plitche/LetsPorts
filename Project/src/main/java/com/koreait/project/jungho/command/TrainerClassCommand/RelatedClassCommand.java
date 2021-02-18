@@ -1,5 +1,6 @@
 package com.koreait.project.jungho.command.TrainerClassCommand;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,15 @@ public class RelatedClassCommand implements CommonMapCommand {
 		int meeting_no = trainerClassDto.getMeeting_no();
 		
 		
+		
+		
 		TrainerClassDao trainerClassDao = sqlSession.getMapper(TrainerClassDao.class);
 		List<TrainerClassDto> relatedClassList = trainerClassDao.relatedClass(user_no, exercise_no);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd(E)");
+		for (int i =0; i < relatedClassList.size(); i++) {
+			relatedClassList.get(i).setMeeting_date2(format.format(relatedClassList.get(i).getMeeting_date()));
+		}
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		

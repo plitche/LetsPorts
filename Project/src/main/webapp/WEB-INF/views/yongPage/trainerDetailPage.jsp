@@ -724,11 +724,15 @@
 		
 	   $('#wishTrainerAdd').on('click', '.WishTrainerBtn' , function(){
 	    	var data_state = $('#TrainerloveIcon').attr('fill');
-   		   if (data_state == 'none') {
-   			   WishTrainerListInsert();
-   		   } else if (data_state == '#FA5B4A') {
-   			   WishTrainerDelete();
-   		   }
+	    	if ('${loginUser.user_no}' == '') {
+	    		loginAlert();
+	    	} else {
+	   		   if (data_state == 'none') {
+	   			   WishTrainerListInsert();
+	   		   } else if (data_state == '#FA5B4A') {
+	   			   WishTrainerDelete();
+	   		   }
+	    	}
   		   });
   		});
    
@@ -757,7 +761,6 @@
 
 		function WishTrainerDelete() {
  			 var user_no = '${trainerTemDto.user_no}';
- 			 alert(user_no);
  			 $.ajax({
 		  			  url: 'WishTrainerDelete.leo',
 		  			  type: 'get',

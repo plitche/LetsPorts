@@ -19,11 +19,9 @@ public class TrainerClassDto {
 	private int user_no;
 	private String meeting_title;
 	private Date meeting_date;
+	private String meeting_date2;
 	private Date start_gather_date;
 	private Date end_gather_date;
-	private Date meeting_date2;
-	private Date start_gather_date2;
-	private Date end_gather_date2;
 	private int user_separator;
 	private int meeting_min;
 	private int meeting_max;

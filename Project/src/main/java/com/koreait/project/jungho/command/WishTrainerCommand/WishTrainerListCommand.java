@@ -1,5 +1,6 @@
 package com.koreait.project.jungho.command.WishTrainerCommand;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,22 +21,24 @@ public class WishTrainerListCommand implements CommonVoidCommand {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
-		int user_no = Integer.parseInt(request.getParameter("user_no"));
+		int user_no = Integer.parseInt(request.getParameter("user_no")); //로그인한 유저의 유저번호
 		WishTrainerDao wishTrainerDao = sqlSession.getMapper(WishTrainerDao.class);
 		
 		//WishTrainerListDto wishTrainerListDto = (WishTrainerListDto);
 		
-	//	int user_nos = wishTrainerListDto.getUser_no();
+		//	int user_nos = wishTrainerListDto.getUser_no();
 		
 		List<TrainerTemDto> list = wishTrainerDao.WishTrainerList(user_no);
 		
-		for (int i = 0; i < list.size(); i++) {
-			list.get(i).setExercise_name ( wishTrainerDao.interestList(list.get(i).getScrap_referer_no()));
-			
-			System.out.println((list.get(i).getScrap_referer_no()));
-			System.out.println(wishTrainerDao.interestList(list.get(i).getScrap_referer_no())[0]);
-			System.out.println(wishTrainerDao.interestList(list.get(i).getScrap_referer_no())[1]);
-		}
+		//List<TrainerTemDto> interestList = new ArrayList<>();
+		//for (int i = 0; i < list.size(); i++) {
+		//	interestList= list.get(i).setExercise_name2(wishTrainerDao.interestList(user_no));
+		//}
+		
+		
+		//for (int i = 0; i < list.size(); i++) {
+		//	list.get(i).setExercise_name2(list.get(i).getExercise_name());
+		//}
 		
 		
 		model.addAttribute("WishTrainerList", list); // 로그인 되어 있는 사람의 트레이너 정보를 가져온다.

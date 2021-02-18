@@ -24,6 +24,7 @@ public class TrainerClassViewCommand implements CommonVoidCommand {
 		
 		
 		
+		
 		TrainerClassDao trainerClassDao = sqlSession.getMapper(TrainerClassDao.class);
 		
 		// 모임에 관련된 값들을 받아오고 trainerClassDto에 저장

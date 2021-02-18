@@ -54,15 +54,6 @@
 	
 </script>
 
-<script>
-
-	$(document).on('click', '.WishListBtn', function() {
-		if ('${loginUser.user_no}' == '') {
-			loginAlert();
-		}
-	});
-
-</script>
 
 
     <!--  <form method="post">-->
@@ -292,11 +283,15 @@
 			   $('#loveIcon_1').attr('fill', 'none');
     		   $('.OfferWishListBtn_Box').on('click', '.WishListBtn' , function(){
 			    	var data_state = $('#loveIcon_1').attr('fill');
+			    if ('${loginUser.user_no}' == '') {
+			    	loginAlert();
+			    } else {
 	    		   if (data_state == 'none') {
 		    		   WishListInsert();
 	    		   } else if (data_state == '#FA5B4A') {
 		    		   WishListDelete();
 	    		   }
+			    }
     		   });
     		});
     	   
@@ -461,11 +456,16 @@
 	    		<div class="trainerHostInfo">
 	    			<div id="profileAndName" style="display:flex;">
 		    			<div style="background: lightgray; width: 80px; height: 80px; ">
-		    				<img alt="${trainerClassDto.profile_photo}" src="resources/storage/profile_photo/${trainerClassDto.profile_photo}" style="width:100%; height: 100%; border-radius:100px;"/>
+		    				<c:if test="${empty trainerClassDto.profile_photo}">
+			    				<img alt="기본사진" src="resources/images/blank-profile-picture.png" style="width:100%; height: 100%; border-radius:100px;"/>
+		    				</c:if>
+		    				<c:if test="${not empty trainerClassDto.profile_photo}">
+			    				<img alt="${trainerClassDto.profile_photo}" src="resources/storage/profile_photo/${trainerClassDto.profile_photo}" style="width:100%; height: 100%; border-radius:100px;"/>
+		    				</c:if>
 		    			</div>
 		    			<div class="user_names">
 			    			<div  class="user_separator">Let'sPorts 회원</div>
-			    			<div class="user_nameInfo">${trainerClassDto.user_nickname} [${trainerClassDto.trainer_name}]</div>
+			    			<div class="user_nameInfo">${trainerClassDto.user_nickname}</div>
 		    			</div>
 	    			</div>
 	    			<div id="location">
@@ -573,7 +573,7 @@
 									.append($('<div class="related_meeting_title">' +relatedClass.meeting_title + '</div>'))
 									.append($('<span class="related_exercise_name">' + relatedClass.exercise_name + '</span>'))
 									.append($('<div style="margin-top:10px;">')
-										.append($('<i class="fas fa-map-marker-alt"></i><span class="location">' + relatedClass.location1_name + ' ' +relatedClass.location2_name + ' · ' + relatedClass.meeting_date + '</span>'))
+										.append($('<i class="fas fa-map-marker-alt"></i><span class="location">' + relatedClass.location1_name + ' ' +relatedClass.location2_name + ' · ' + relatedClass.meeting_date2 + '</span>'))
 									)
 									.append($('<div style="display:flex;">')
 										.append(viewphoto)
@@ -756,8 +756,8 @@
 				.append( $('<div>').addClass('comment_wrap')
 					.append( $('<div>').addClass('comment_all')
 						.append( $('<div>').addClass('comment1')
-								.append( $('<div>').html(comment.user_nickname))
-								.append( $('<div>').html(comment.created_at))
+								.append( $('<div>').addClass('user_nickname').html(comment.user_nickname))
+								.append( $('<div>').addClass('created_at2').html(comment.created_at2))
 						)
 						.append( $('<div>').addClass('comment2').html(comment.comment_content) )
 					)
@@ -931,7 +931,12 @@
 			<!-- 댓글 작성란 -->
 			<div class="createComment_all">
 				<c:if test="${not empty loginUser.user_no}">
-					<div class="myPhoto" style="width:60px; height:  60px;"><img alt="${loginUser.profile_photo}" src="resources/storage/profile_photo/${loginUser.profile_photo}" style="width:100%; height:100%; border-radius: 100px;"></div>
+					<c:if test="${not empty loginUser.profile_photo}">
+						<div class="myPhoto" style="width:60px; height:  60px;"><img alt="${loginUser.profile_photo}" src="resources/storage/profile_photo/${loginUser.profile_photo}" style="width:100%; height:100%; border-radius: 100px;"></div>
+					</c:if>
+					<c:if test="${empty loginUser.profile_photo}">
+						<div class="myPhoto" style="width:60px; height:  60px;"><img alt="${loginUser.profile_photo}" src="resources/images/blank-profile-picture.png" style="width:100%; height:100%; border-radius: 100px;"></div>
+					</c:if>
 				</c:if>
 				<c:if test="${empty loginUser.user_no}">
 					<div class="myPhoto" style="width:60px; height:  60px;"><img alt="blank-profile-picture.png" src="resources/images/blank-profile-picture.png" style="width:100%; height:100%; border-radius: 100px;"></div>
