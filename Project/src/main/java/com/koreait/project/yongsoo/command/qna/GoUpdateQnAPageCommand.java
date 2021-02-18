@@ -16,6 +16,7 @@ public class GoUpdateQnAPageCommand implements CommonVoidCommand {
 
 		Map<String, Object> map = model.asMap();
 		int board_qna_no = (int)map.get("board_qna_no");
+		int page = (int)map.get("page");
 		
 		BoardQnATemDto boardQnATemDto = new BoardQnATemDto();
 		CommonQnADao commonQnADao = sqlSession.getMapper(CommonQnADao.class);
@@ -23,6 +24,7 @@ public class GoUpdateQnAPageCommand implements CommonVoidCommand {
 		boardQnATemDto = commonQnADao.getUpdateQnAInfo(board_qna_no);
 		
 		model.addAttribute("boardQnATemDto", boardQnATemDto);
+		model.addAttribute("page", page);
 	}
 
 }

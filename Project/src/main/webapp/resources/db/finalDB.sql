@@ -574,6 +574,12 @@ INSERT INTO TRAINER_INFO VALUES (trainer_info_seq.nextval, 93,  6, '유수연', 
 INSERT INTO users VALUES (users_seq.nextval, 'user101@letsports.com', '1111', 2, TO_DATE('2021-02-16 8:15:05', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '느타리묵', '감사원은 원장을 포함...', null, 1997, 2, 18, 0, 2);
 INSERT INTO users VALUES (users_seq.nextval, 'user102@letsports.com', '1111', 2, TO_DATE('2021-02-16 10:18:24', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '도토리묵', '감사원은 원장을 포함...', null, 1994, 1, 20, 0, 4);
 INSERT INTO users VALUES (users_seq.nextval, 'user103@letsports.com', '1111', 2, TO_DATE('2021-02-16 12:25:35', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '또또리묵', '감사원은 원장을 포함...', null, 1993, 12, 27, 1, 26);
+INSERT INTO users VALUES (users_seq.nextval, 'user104@letsports.com', '1111', 2, TO_DATE('2021-02-17 11:13:55', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '호히', '감사원은 원장을 포함...', null, 1996, 1, 7, 1, 26);
+INSERT INTO users VALUES (users_seq.nextval, 'user105@letsports.com', '1111', 2, TO_DATE('2021-02-17 19:22:11', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '또묵', '감사원은 원장을 포함...', null, 1991, 2, 2, 1, 26);
+INSERT INTO users VALUES (users_seq.nextval, 'user106@letsports.com', '1111', 2, TO_DATE('2021-02-18 10:13:32', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '또리', '감사원은 원장을 포함...', null, 1990, 1, 4, 1, 26);
+INSERT INTO users VALUES (users_seq.nextval, 'user107@letsports.com', '1111', 2, TO_DATE('2021-02-18 13:32:27', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '또리묵', '감사원은 원장을 포함...', null, 1995, 3, 24, 1, 26);
+INSERT INTO users VALUES (users_seq.nextval, 'user108@letsports.com', '1111', 2, TO_DATE('2021-02-18 15:54:51', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '리묵', '감사원은 원장을 포함...', null, 1983, 10, 17, 1, 26);
+INSERT INTO users VALUES (users_seq.nextval, 'user109@letsports.com', '1111', 2, TO_DATE('2021-02-18 18:33:24', 'yyyy-mm-dd hh24:mi:ss'), sysdate, 1, 0, 0, '일반회원가입', '묵미이', '감사원은 원장을 포함...', null, 1986, 11, 23, 1, 26);
 
 -- 유저 관심분야 146건
 INSERT INTO user_interest VALUES (user_interest_seq.nextval, 1, 0);
@@ -747,8 +753,8 @@ INSERT INTO MEETING values (meeting_seq.nextval, 51, 12, 2, 2, SYSDATE, TO_DATE(
 INSERT INTO MEETING values (meeting_seq.nextval, 60, 12, 2, 3, SYSDATE, TO_DATE('2021-02-11', 'yyyy-mm-dd'), TO_DATE('2021-02-24', 'yyyy-mm-dd'), TO_DATE('2021-02-28', 'yyyy-mm-dd'), 0, 10, '볼링 강습.', '볼링 1대1 강습입니다.', 0, null, 0, null, 0);
 INSERT INTO MEETING values (meeting_seq.nextval, 66, 12, 2, 4, SYSDATE, TO_DATE('2021-02-13', 'yyyy-mm-dd'), TO_DATE('2021-02-28', 'yyyy-mm-dd'), TO_DATE('2021-03-03', 'yyyy-mm-dd'), 0, 9, '고투헬스장에서 크로스핏 10명 강습합니다.', '크로스핏의 대가 나정호와 함께하세요.', 0, null, 0, null, 0);
 INSERT INTO MEETING values (meeting_seq.nextval, 74, 12, 2, 5, SYSDATE, TO_DATE('2021-02-10', 'yyyy-mm-dd'), TO_DATE('2021-02-23', 'yyyy-mm-dd'), TO_DATE('2021-02-25', 'yyyy-mm-dd'), 0, 8, '스피닝선수 권용수입니다.', '함께 스피닝을 즐겨요.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (meeting_seq.nextval, 79, 12, 2, 6, SYSDATE, TO_DATE('2021-02-12', 'yyyy-mm-dd'), TO_DATE('2021-02-25', 'yyyy-mm-dd'), TO_DATE('2021-02-27', 'yyyy-mm-dd'), 0, 7, '클럽팝핀댄서 권용수입니다.', '클럽춤의 모든 것을 알려드릴게요.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (meeting_seq.nextval, 89, 12, 2, 7, SYSDATE, TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-24', 'yyyy-mm-dd'), TO_DATE('2021-02-28', 'yyyy-mm-dd'), 0, 6, '이보희의 요가클럽.', '자세교정, 허리디스크를 앓던 저는 요가를 통해 새로운 삶을 찾았습니다. 여러분도 시작해보세요.', 0, null, 0, null, 0);
+INSERT INTO MEETING values (meeting_seq.nextval, 79, 12, 2, 6, SYSDATE, TO_DATE('2021-02-12', 'yyyy-mm-dd'), TO_DATE('2021-02-20', 'yyyy-mm-dd'), TO_DATE('2021-02-27', 'yyyy-mm-dd'), 0, 7, '클럽팝핀댄서 권용수입니다.', '클럽춤의 모든 것을 알려드릴게요.', 0, null, 0, null, 0);
+INSERT INTO MEETING values (meeting_seq.nextval, 89, 12, 2, 7, SYSDATE, TO_DATE('2021-02-03', 'yyyy-mm-dd'), TO_DATE('2021-02-21', 'yyyy-mm-dd'), TO_DATE('2021-02-28', 'yyyy-mm-dd'), 0, 6, '이보희의 요가클럽.', '자세교정, 허리디스크를 앓던 저는 요가를 통해 새로운 삶을 찾았습니다. 여러분도 시작해보세요.', 0, null, 0, null, 0);
 INSERT INTO MEETING values (meeting_seq.nextval, 93, 12, 2, 8, SYSDATE, TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-25', 'yyyy-mm-dd'), TO_DATE('2021-02-28', 'yyyy-mm-dd'), 0, 5, '명상 강습', '명상하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
 INSERT INTO MEETING values (meeting_seq.nextval, 17, 12, 2, 0, SYSDATE, TO_DATE('2021-02-12', 'yyyy-mm-dd'), TO_DATE('2021-02-23', 'yyyy-mm-dd'), TO_DATE('2021-02-25', 'yyyy-mm-dd'), 0, 4, '족구 강습', '족구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
 INSERT INTO MEETING values (meeting_seq.nextval, 26, 12, 2, 1, SYSDATE, TO_DATE('2021-02-11', 'yyyy-mm-dd'), TO_DATE('2021-02-22', 'yyyy-mm-dd'), TO_DATE('2021-02-24', 'yyyy-mm-dd'), 0, 3, '축구 강습', '축구하면 얼마나 좋게요~!? 다같이 합시다.', 0, null, 0, null, 0);
@@ -993,7 +999,7 @@ INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 30, 4
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 30, 47, SYSDATE, 1, null);
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 30, 48, SYSDATE, 1, null);
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 30, 49, SYSDATE, 1, null);
-
+select * from review
 -- 리뷰
 INSERT INTO review VALUES (review_seq.nextval, 17, 5, 15, '쫑샘!!! 항상 재밌는 수업 만들어주시는 샘!! 운동하기 전엔 항상 피곤했는데 수업만 하면 개운하고 기분도 좋고! 항상 샘 덕분입니다!! 운동도 빡세게 하지만 재밌게 시켜주셔서 저질체력이지만 잘 따라갈수 있었어요! 앞으로도 하시는 일 잘되시길 바래요! 조만간 짐에서 또 뵙겠습니다!! 샘 화이팅입니닷!!!!', SYSDATE, 0, 10);
 INSERT INTO review VALUES (review_seq.nextval, 17, 4, 15, '주말에 저희보다 더 열정적으로 수업 이끌어주셔서 힘들지만 재미있었어요 ㅎㅎㅎ 주중에 늦게 일이 끝나서 주말반 들었는데, 그래도 주말에라도 쫑쌤 덕분에 그나마 운동해서 좋았습니다. 코로나때문에 수업이 지연됐을때도 끝까지 함께 재미있는 수업 해주셔서 너무 좋았어요^^ 다시 돌아오세요~ 주말반 다시 하시면 또 빡세게 부탁드립니다!!', SYSDATE, 0, 11);
@@ -1007,7 +1013,6 @@ INSERT INTO review VALUES (review_seq.nextval, 17, 4, 27, '샘이랑 같이 운�
 INSERT INTO review VALUES (review_seq.nextval, 17, 5, 27, '아니 좀... 힘들다는 데도 왜 자꾸 시키시는 거에요? 근육량 늘게... 왜 토하기 직전까지만 시키시는 거에요? 안 다치게...', SYSDATE, 0, 15);
 INSERT INTO review VALUES (review_seq.nextval, 17, 3, 27, '처음 시작한 게 엊그제 같은데 벌써! 쌤 덕분에 운동하는 재미가 생기는 것 같아 감사드려요 :) 매 수업마다 하나하나 다 짚어주시고 가르쳐 주셔서 쉽게 배울 수 있었던 것 같아요👍 다음 기수에도 잘 부탁드립니당~ 쌤 부드러운 카리스마 멋져요!! :D', SYSDATE, 0, 16);
 INSERT INTO review VALUES (review_seq.nextval, 17, 4, 27, '운동할땐 저승사자같으셔서 이가 갈리지만 운동끝나고 집에돌아가면 말못할 뿌듯함과 개운함에 다음회차 출석날이 또 기다려져요.  뭔가 흐트러진 몸의축이 바로서고 코로나로 축쳐진생활에 활력이생기는 느낌이에요. 샘의 존잘비주얼 역시 운동하루재끼고픈 나태함을 극복하게하는 큰이유😍', SYSDATE, 0, 18);
-INSERT INTO review VALUES (review_seq.nextval, 17, 5, 27, '건강관리사 쫑쌤 수업을 들으며 운동할 때 자세도 꼼꼼하게 봐주셔서 그룹운동이 이렇게 맞춤형일수도 있구나 싶었어요 퇴근 후 지친 직장인들은 항상 밝은 에너지로 수업 이끌어주셔서 감사해요! *그동안 후기를 안올린 것은 너무 몰릴까봐 다들 안올리신거라고 생각하시면 됩니다.^^;', SYSDATE, 0, 19);
 INSERT INTO review VALUES (review_seq.nextval, 17, 3, 27, '엣지 수업을 쫑쌤과 함께하면서 운동도 꾸준히 할 수 있게 되어서 좋았어요!! 엣지 수업을 한 날은 성취감 뿜뿜하고, 하루가 꽉 찬 느낌이 종일 들더라구요. 도수치료를 받고와서 하루는 웨이트 운동을 못 했는데, 맞춤형으로 수업 내내 상하체 풀어주는 스트레칭을 같이 해주신 것도 넘나 감동이었던거 쫑쌤은 모르겠죠..하하 평일에도 와서 운동하라고 신경써주셨는데 못 가서 미안한 마음..ㅋㅋㅋ', SYSDATE, 0, 20);
 INSERT INTO review VALUES (review_seq.nextval, 26, 4, 16, '어떤 수업을 들어야 고민끝에 선택한 핏부스터 with 뽀쌤. 역쉬 첫 수업...끝나고 팔다리 후덜덜 .그동안 얼마나 운동을 안했던지 체력과 근력의 부재를 절실히 느끼고 돌아간하루ㅜㅜ... 하지만 5주간 이어진 뽀쌤의 가르침( 운동 자세도 잘 따라하게 한명 한명 자세도 잘 잡아주시고 힘들때 파이팅!!!도 많이 해주시고^^*) 그룹원들과 함께하는 운동은 개인운동.팀전등등. 그간 운동의 재미를 못느끼던 저에겐 운동의 묘미를 다시금 느끼게 되던 요인이였습니다. 4주차 되던때 나름 힘든운동을 받고 늠름히 버틴 저와 그룹원들을 보며 "어..체력/근력이 늘었네!" 라고 나름 자화자찬! ㅋ 을 하게 되었죠. 이 모든게 뽀쌤과 함께 하지 않았더라면 불가능했을거 같네요. 또 기회가 된다면 뽀쌤 수업 또 듣구 싶어요!', SYSDATE, 0, 21);
 INSERT INTO review VALUES (review_seq.nextval, 26, 5, 16, '뽀쌤과의 수업은 버핏에서의 수업 2번째였는데, 진짜 확실히 체력이 오른게 눈에 보이고 느껴져서 너무 기쁩니다!! 제 스스로의 한계를 뽑아내는 시간이 되는거 같아서 힘들지만 하고나면 뿌듯한 수업이었어요! 땀 좀 흘리고 힘들어야 운동한 맛 아니겠습니깧ㅎㅎㅎㅎ 믿고 고고싱하려고 다음기수에도 양토두 신청했다구요 너무 즐거운 수업이었어요! :-)ㅎㅎㅎ 다음주에 봬요♥', SYSDATE, 0, 22);
@@ -1022,7 +1027,6 @@ INSERT INTO review VALUES (review_seq.nextval, 26, 4, 28, '뽀쌤때문에 계�
 INSERT INTO review VALUES (review_seq.nextval, 26, 5, 28, '화기애애한 분위기를 이끌어주신 예쁜 보현쌤 한 기수동안 정말 감사했습니다 :) 많이 해서 지루할 수 있었던 케틀벨과 맨몸운동이었는데 자세나 각도 등등 하나하나 꼼꼼하고 다정하게 알려주셔서 더 재밌게 운동할 수 있었어요! 무거운 케틀벨도 쌤이 들면 가벼워보이는 기적..! 다음 기수도 망설임없이 등록합니당 잘 부탁드려요 :D', SYSDATE, 0, 28);
 INSERT INTO review VALUES (review_seq.nextval, 26, 3, 28, '귀엽고 예쁜뽀쌤~안녕하세요? 예쁘게 웃는 얼굴로 동작보여주실때 깜박속아 만만히봤다가 생각보다 힘든동작에 현타가 왔던 기억이 새록새록나고 노래맞추기겜했을때 우리반이 노래를 잘몰라서 당황당황하셨던.. 귀염탱모습도 기억나요 ㅎㅎ 덕분에 플랭크를 오랫동안즐겼어요 ㅎㅎㅎㅎ 뽀쌤 담기수때는 못뵈지만 우리 조만간 또 만날수있겠죠?? ㅎㅎㅎ 감사합니다 또봐요^^', SYSDATE, 1, 29);
 INSERT INTO review VALUES (review_seq.nextval, 26, 5, 28, '제가 운동화를 두고 왔을때 건네주신 뽀쌤의 운동화..제 땀나는 발에 기꺼이 내주심에 감동받았어요ㅠ.ㅠ 제가 동작 어설플때 다시한번 세심하게 잡아주셔서 감사합니다. 영상으로만 보던 연예인을 실제로 뵈어서 신기방기.', SYSDATE, 0, 30);
-INSERT INTO review VALUES (review_seq.nextval, 26, 4, 28, '저는 뽀쌤 덕에 처음 겪어봤어요... 카운트 7 다음에 7,또 7;;;;;;;; 10개만 할게요 하고 10개 더!!!ㅋㅋ 뽀쌤 덕에 5주간 참 즐겁게 운동했네요:) 쉬는 시간에 알려주신 척추스트레칭은 정말이지 참 감사했습니다(날마다 할게요)', SYSDATE, 0, 31);
 INSERT INTO review VALUES (review_seq.nextval, 33, 4, 17, '운동도 하면서 건강한 에너지도 주는 쌤!! 재밌게 또 건강하게 운동을 할 수 있어서 너무 좋았고, 쌤을 보면 운동하는 동안 건강하고 행복한 에너지를 받을 수 있어서 더더욱 좋았습니다:) 새해 복 많이 받으시고 쌤 화이팅:)', SYSDATE, 0, 10);
 INSERT INTO review VALUES (review_seq.nextval, 33, 4, 17, '아름답고 건강한 몸매 로 바라만 봐도 운동 을 열심히 해야 한다는 동기부여 를 🙈 주셔서 더욱더 열심히 할수 있었어요 !! 앞에 가만히 계시기만 해도 운동을 해야한다는 생각이 드는데, 수업 까지 정말 최고 !! 너무 멋지세요 👍🏻 2020 새해 복 많이 받으시구요 🐥 지금처럼 언제나 건강하고 예쁘게 - 힘내세요 💪🏻 감사해요 🙏🏻', SYSDATE, 0, 11);
 INSERT INTO review VALUES (review_seq.nextval, 33, 5, 17, '운동자체를 좋아하지 않아 운동에 관심도 없었는데, 체력에 한계에 부딪혀 헬린이 탈출하기 프로그램을 접하게 되었습니다. 운동기구 자체도 무섭고 두려웠는데 에디 코치님의 운동 설명과 운동자세를 잘 설명해 주시고, 같이 운동하는 동기들도 발전하는 모습을 보며 운동에 흥미와 재미를 느끼게 되었습니다. 운동시작 작심삼일이였는데 .... 현재 운동을 안하면 몸이 아플정도로 운동을 꾸준이 할수있는 제 자신이 놀랍고, 특히 틀어진 자세 교정도 되어 너무너무 뿌듯하고 코치님과 동기들에게 너무 감사하다고 전하고 싶습니다.', SYSDATE, 0, 12);
