@@ -15,8 +15,8 @@ import com.koreait.project.hyejoon.command.myPage.UploadProfilePhotoCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailAuthCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailCheckCommand;
 import com.koreait.project.hyejoon.command.signUp.InsertJoinCommand;
+import com.koreait.project.hyejoon.command.signUp.InsertTrainerCommand;
 import com.koreait.project.hyejoon.command.signUp.NickCheckCommand;
-import com.koreait.project.hyejoon.command.userAccount.InsertTrainerCommand;
 import com.koreait.project.hyejoon.command.userAccount.UserUpdateCommand;
 import com.koreait.project.hyejoon.command.userAccount.UserUpdateViewCommand;
 

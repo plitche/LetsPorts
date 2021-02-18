@@ -1,4 +1,4 @@
-package com.koreait.project.hyejoon.command.userAccount;
+package com.koreait.project.hyejoon.command.signUp;
 
 import java.io.File;
 
