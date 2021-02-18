@@ -61,6 +61,7 @@
 		<div>질문 제목</div>
 		<input type="text" name="board_qna_title" value="${boardQnATemDto.board_qna_title}"/>
 	</div>
+	<input type="hidden" name="page" value="${page}" />
 	<input type="hidden" name="temp_no" id="temp_no" />
 	<input type="hidden" name="user_no" id="user_no" value="${loginUser.user_no}" />
 	<input type="hidden" name="board_qna_no" value="${boardQnATemDto.board_qna_no}" />

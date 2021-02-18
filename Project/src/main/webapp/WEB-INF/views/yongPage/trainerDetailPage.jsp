@@ -423,7 +423,6 @@
 		openQnAPopUp();
 	});
 	
-	var qnaPageNo = 1;
 	// 해당 트레이너에게 달린 질문 data를 append하는 서브함수
 	function trainerQnAListTable(list, trainerInfo, totalQnACount) {
 		$('#qnaList').empty();
@@ -458,6 +457,7 @@
 		});
 	}
 	
+	var qnaPageNo = 1;
 	// 현재 페이지로 이동시 자동으로 뎃글 리스트를 불러올 ajax함수
 	function getTrainerQnAList() {
 		var user_no = ${trainerTemDto.user_no}

@@ -47,7 +47,7 @@
 	/* 수정하기 버튼 클릭 시 작동할 function */
 	function fn_goUpdate() {
 		Swal.fire('수정 페이지로 이동합니다.', '질문 내용을 꼼꼼히 확인해주세요!', 'info').then((result)=> {
-			location.href='goUpdateQnAPage.plitche?board_qna_no='+${qnaTemDto.board_qna_no};
+			location.href='goUpdateQnAPage.plitche?board_qna_no='+${qnaTemDto.board_qna_no}+'&page='+${page};
 		});
 	}
 	

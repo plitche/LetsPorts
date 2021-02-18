@@ -25,7 +25,6 @@ public class GetTrainerCommand implements CommonMapCommand {
 				double score = trainerList.get(i).getScore();
 				score = Math.round(score*100);
 				trainerList.get(i).setScore(score/100);
-				
 				trainerList.get(i).setReviews(mainPageDao.reviewCount(trainerList.get(i).getUser_no()));
 			}
 			

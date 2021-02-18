@@ -214,8 +214,8 @@
 	position: fixed;
 	top:50%; left:50%;
 	transform: translate(-50%,-50%);
-	max-width: 60%;
-	min-height: 30%;
+	max-width: 30%;
+	min-height: 25%;
 	background: #fff;
 	border: 2px black solid;
 	margin: 0 auto;
