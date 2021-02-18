@@ -26,6 +26,7 @@ public class TrainerTemDto {
 	private int reviews;
 	private int scrap_referer_no;
 	private String[] exercise_name;
+	private String[] exercise_name2;
 	
 	private String profile_photo;
 	private int photo_referer_sep;

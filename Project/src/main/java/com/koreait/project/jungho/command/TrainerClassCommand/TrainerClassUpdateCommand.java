@@ -57,7 +57,7 @@ public class TrainerClassUpdateCommand implements CommonVoidCommand {
 		makeTrainerClassDto.setLocation1_no(location1_no);
 		makeTrainerClassDto.setLocation2_no(location2_no);
 		makeTrainerClassDto.setDetail_location(detail_location);
-		makeTrainerClassDto.setMeeting_content(meeting_content);
+		makeTrainerClassDto.setContent(meeting_content);
 		
 		System.out.println(makeTrainerClassDto.getMeeting_title());
 		

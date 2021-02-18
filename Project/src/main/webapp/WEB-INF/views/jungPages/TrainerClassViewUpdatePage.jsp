@@ -27,9 +27,9 @@
 
 
 	<div class="TrainerClassInsert_all">
-		<form action="TrainerClassViewUpdate.leo"  id="insertForm" method="post" enctype="multipart/form-data">
+		<form id="insertForm" method="post" enctype="multipart/form-data">
 	
-			<span style="font-size:14px; font-weight: 900; width: 300px; height: 100px; background: #fa8072;">새로운 모임 만들기</span>
+			<span style="font-size:14px; font-weight: 900; width: 300px; height: 100px; background: #fa8072;">모임 정보 수정</span>
 			<div style="width: 1000px; height: 0.5px; background: black; margin:25px 0px;"></div>
 			<div class="blank_bottom">
 			 
@@ -96,6 +96,7 @@
 			<div style="display:flex;" class="blank_bottom">
 				<div>
 					<span id="detail_location">상세주소</span>
+					<input type="hidden" id="detailLocation" name="detail_location"/>
 					<span  id="detail_location1"><input type="text" name="detail_location" value="${getTrainerClassUpdate.detail_location}" style="font-size: 12px;"/></span>
 				</div>
 			</div>
@@ -153,9 +154,9 @@
 			<div class="coverPhoto_all" style="margin-bottom:25px;">
 				<span  id="coverPhoto_title">커버사진</span>
 				 <span class="st_team_logo input_search_ic">
-					 
-					 <input type="file" id="coverPhoto" class="upload-hidden" value="${getTrainerClassUpdate.photo_filename}"name="coverphoto" style="font-size: 12px;">
+					 <input type="file" id="coverPhoto" class="upload-hidden" value="${getTrainerClassUpdate.photo_filename}" name="coverphotoUpdate" style="font-size: 12px;">
                  </span>
+					 <img alt="${getTrainerClassUpdate.photo_filename}" src="resources/storage/${getTrainerClassUpdate.photo_filename}" style="width: 100px;height: 100px;"/>
             </div>
             
             <script>
@@ -306,6 +307,8 @@ $(document).ready(function () {
 		
 		function fn_TrainerClassViewUpdate(f) {
 			fn_submit();
+			f.action = 'TrainerClassViewUpdate.leo';
+			f.submit();
 		}
 	
 	</script>

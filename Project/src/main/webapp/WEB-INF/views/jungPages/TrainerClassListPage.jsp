@@ -77,7 +77,7 @@
 					<input type="text" name="search_content" placeholder="원하는 모임을 찾아보세요"/>
 					<button onclick="fn_SearchClass(this.form)" aria-expanded="false" type="button" data-testid="structured-search-input-search-button">
 						<div class="_1hb5o3s">
-							<div class="_14lk9e14">
+							<div class="_14lk9e14" style="margin-top:4px;">
 							<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="fill:lightgray;height:16px;width:16px;stroke:currentColor;stroke-width:4;overflow:visible" >
 							<g fill="none">
 							<path d="m13 24c6.0751322 0 11-4.9248678 11-11 0-6.07513225-4.9248678-11-11-11-6.07513225 0-11 4.92486775-11 11 0 6.0751322 4.92486775 11 11 11zm8-3 9 9">
@@ -237,7 +237,7 @@
 			if ('${loginUser}' == '') {
 				loginAlert();
 			} else {
-				location.href = 'TrainerClassInsertPage.leo?from=community';
+				location.href = 'TrainerClassInsertPage.leo';
 			}
 			
 		}
