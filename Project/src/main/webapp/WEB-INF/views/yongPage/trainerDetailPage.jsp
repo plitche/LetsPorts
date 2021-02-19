@@ -803,7 +803,7 @@
 		   		<svg class="WishTrainerIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 		   			<path id="TrainerloveIcon" fill="none" fill-rule="evenodd" stroke="#CED4DA" stroke-width="1.25" d="M15.876 4.625c1.205 0 2.41.46 3.33 1.379.918.92 1.378 2.124 1.378 3.33 0 1.204-.46 2.41-1.379 3.329h0l-7.1 7.1-7.101-7.1c-.92-.92-1.379-2.125-1.379-3.33s.46-2.41 1.379-3.329c.92-.92 2.124-1.379 3.33-1.379 1.204 0 2.41.46 3.329 1.379.161.162.309.332.442.51.133-.178.28-.349.442-.51.919-.92 2.124-1.379 3.329-1.379z"></path>
 		   		</svg>
-		   		<span class="goWishTrainer">관심트레이너 등록</span>
+		   		<span class="goWishTrainer" style="vertical-align: 8px;">관심트레이너 등록</span>
 	   		</button>
 	   		</div>
 		</div>

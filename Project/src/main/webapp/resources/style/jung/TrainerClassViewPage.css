@@ -16,6 +16,10 @@
 	display: flex;
 }
 
+#content {
+	line-height: 24px;
+}
+
 .OfferWishListBtn_Box {
 	width: 280;
 	text-align:right;
