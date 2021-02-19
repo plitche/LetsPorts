@@ -63,7 +63,11 @@ ul {
 
 .menu-bar {
 	display: flex;
+
 	margin-right: 50%;
+
+	margin-right: 49%;
+
 }
 
 .header {
