@@ -104,7 +104,7 @@ public class TrainerClassController {
 	}
 	
 	// view페이지에서 삭제
-	@RequestMapping(value="TrainerClassViewDelete.leo", method=RequestMethod.POST)
+	@RequestMapping(value="TrainerClassViewDelete.leo", method=RequestMethod.GET)
 	public String TrainerClassViewDelete(@RequestParam("meeting_no") int meeting_no, Model model) {
 		
 		model.addAttribute("meeting_no", meeting_no);

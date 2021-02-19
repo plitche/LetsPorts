@@ -247,9 +247,6 @@
 						   var user_no = '${loginUser.user_no}';
 						   var meeting_no = ${trainerClassDto.meeting_no};
 						   var meeting_max = ${trainerClassDto.meeting_max};
-						   alert(user_no);
-						   alert(meeting_no);
-						   alert(meeting_max);
 						   
 						   $.ajax({
 							 url: 'ApplyClass.leo',
@@ -367,7 +364,7 @@
     	   </script>
 							   
 <!-- *********************************************************** 위시리스트 담기 마감 ************************************************************ -->
-<form>
+<form method="post">
 			   <!-- 버튼들(수정, 삭제, 등록) -->
 				   <div class="Btns1" style="display:flex;">
 				   			

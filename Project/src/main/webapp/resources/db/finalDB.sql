@@ -1053,14 +1053,14 @@ INSERT INTO review VALUES (review_seq.nextval, 41, 4, 30, '맨날 화낸다고 �
 INSERT INTO review VALUES (review_seq.nextval, 41, 5, 30, '쌤~ 쌤이 알려주셨던 이 동작은 왜 해야하고, 어디를 튼튼하게 해주며 일상생활에 어떻게 도움이 되는지에 대한 자세한 설명이 하나하나 잊혀지지 않아요! 운동에 대한 정확한 이해를 도와주셔서 정말 감사합니다! ', SYSDATE, 0, 47);
 
 -- 질문과 답변
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '운동 방법 질문이요!', '요즘 홈트레이닝을 하는 중인데 근력을 키울 만한 동작이 뭐가 있을까요? 요즘엔 스쿼트 동작만 하고 있는데 다른 동작도 하고싶어서 질문 남깁니다.', 2, SYSDATE, 0, NULL, 0);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '유산소 운동이랑 근력운동 비율', '헬스장에서 pt 받으면서 유산소 운동이랑 근력운동을 하고 있는데 제가 근력을 먼저하고 있기는 한데 어떤 운동 비중을 더 크게 둬야하나 고민입니다. 한시간에서 한시간 반정도 운동을 하는데 근력운동은 2-30분 정도하고 나머지는 유산소 운동 위주로 하고 있습니다.보통 비율이 어떻게 되시나요?', 3, SYSDATE, 1, SYSDATE, 0);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '운동 자세 관련 질문이요!', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 5, SYSDATE, 1, SYSDATE, 1);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '트레이너 추천해주세요!', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 6, SYSDATE, 1, SYSDATE, 0);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '족구 모임은 보통 인원 몇명이 평균인가요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 9, SYSDATE, 0, NULL, 0);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '축구 모임은 보통 인원 몇명이 평균인가요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 11, SYSDATE, 0, NULL, 1);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '하체 운동 꼭 필요한가요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 13, SYSDATE, 1, SYSDATE, 0);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '헬스 트레이너 자격증 문의요!', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 14, SYSDATE, 0, NULL, 0);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '운동 방법 질문이요!', '요즘 홈트레이닝을 하는 중인데 근력을 키울 만한 동작이 뭐가 있을까요? 요즘엔 스쿼트 동작만 하고 있는데 다른 동작도 하고싶어서 질문 남깁니다.', 2, TO_DATE('2021-02-12 10:54:26', 0, NULL, 0);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '유산소 운동이랑 근력운동 비율', '헬스장에서 pt 받으면서 유산소 운동이랑 근력운동을 하고 있는데 제가 근력을 먼저하고 있기는 한데 어떤 운동 비중을 더 크게 둬야하나 고민입니다. 한시간에서 한시간 반정도 운동을 하는데 근력운동은 2-30분 정도하고 나머지는 유산소 운동 위주로 하고 있습니다.보통 비율이 어떻게 되시나요?', 3, TO_DATE('2021-02-13 10:54:26', 1, SYSDATE, 0);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '운동 자세 관련 질문이요!', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 5, TO_DATE('2021-02-14 10:54:26', 1, SYSDATE, 1);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '트레이너 추천해주세요!', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 6, TO_DATE('2021-02-15 10:54:26', 1, SYSDATE, 0);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '족구 모임은 보통 인원 몇명이 평균인가요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 9, TO_DATE('2021-02-16 10:54:26', 0, NULL, 0);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '축구 모임은 보통 인원 몇명이 평균인가요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 11, TO_DATE('2021-02-17 10:54:26', 0, NULL, 1);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '하체 운동 꼭 필요한가요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 13, TO_DATE('2021-02-18 10:54:26', 1, SYSDATE, 0);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '헬스 트레이너 자격증 문의요!', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 14, TO_DATE('2021-02-19 10:54:26', 0, NULL, 0);
 INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '제 인바디 좀 봐주실수 있나요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 20, SYSDATE, 1, SYSDATE, 0);
 INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '직장인 분들 일주일에 운동 몇번 하시나요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 21, SYSDATE, 1, SYSDATE, 1);
 INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '다이어트 식단 질문있습니다', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 23, SYSDATE, 1, SYSDATE, 0);
