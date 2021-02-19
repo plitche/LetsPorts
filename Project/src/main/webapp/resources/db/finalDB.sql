@@ -951,7 +951,7 @@ INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 27, 1
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 27, 19, SYSDATE, 1, null);
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 27, 20, SYSDATE, 1, null);
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 26, SYSDATE, 1, null);
-INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 21, SYSDATE, 1, null);
+INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 31, SYSDATE, 1, null);
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 22, SYSDATE, 1, null);
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 16, 23, SYSDATE, 1, null);
 INSERT INTO meeting_participants VALUES (meeting_participants_seq.nextval, 28, 26, SYSDATE, 1, null);
@@ -1018,7 +1018,6 @@ INSERT INTO review VALUES (review_seq.nextval, 17, 5, 27, '아니 좀... 힘들�
 INSERT INTO review VALUES (review_seq.nextval, 17, 3, 27, '처음 시작한 게 엊그제 같은데 벌써! 쌤 덕분에 운동하는 재미가 생기는 것 같아 감사드려요 :) 매 수업마다 하나하나 다 짚어주시고 가르쳐 주셔서 쉽게 배울 수 있었던 것 같아요👍 다음 기수에도 잘 부탁드립니당~ 쌤 부드러운 카리스마 멋져요!! :D', SYSDATE, 0, 16);
 INSERT INTO review VALUES (review_seq.nextval, 17, 4, 27, '운동할땐 저승사자같으셔서 이가 갈리지만 운동끝나고 집에돌아가면 말못할 뿌듯함과 개운함에 다음회차 출석날이 또 기다려져요.  뭔가 흐트러진 몸의축이 바로서고 코로나로 축쳐진생활에 활력이생기는 느낌이에요. 샘의 존잘비주얼 역시 운동하루재끼고픈 나태함을 극복하게하는 큰이유😍', SYSDATE, 0, 18);
 INSERT INTO review VALUES (review_seq.nextval, 17, 3, 27, '엣지 수업을 쫑쌤과 함께하면서 운동도 꾸준히 할 수 있게 되어서 좋았어요!! 엣지 수업을 한 날은 성취감 뿜뿜하고, 하루가 꽉 찬 느낌이 종일 들더라구요. 도수치료를 받고와서 하루는 웨이트 운동을 못 했는데, 맞춤형으로 수업 내내 상하체 풀어주는 스트레칭을 같이 해주신 것도 넘나 감동이었던거 쫑쌤은 모르겠죠..하하 평일에도 와서 운동하라고 신경써주셨는데 못 가서 미안한 마음..ㅋㅋㅋ', SYSDATE, 0, 20);
-INSERT INTO review VALUES (review_seq.nextval, 26, 4, 16, '어떤 수업을 들어야 고민끝에 선택한 핏부스터 with 뽀쌤. 역쉬 첫 수업...끝나고 팔다리 후덜덜 .그동안 얼마나 운동을 안했던지 체력과 근력의 부재를 절실히 느끼고 돌아간하루ㅜㅜ... 하지만 5주간 이어진 뽀쌤의 가르침( 운동 자세도 잘 따라하게 한명 한명 자세도 잘 잡아주시고 힘들때 파이팅!!!도 많이 해주시고^^*) 그룹원들과 함께하는 운동은 개인운동.팀전등등. 그간 운동의 재미를 못느끼던 저에겐 운동의 묘미를 다시금 느끼게 되던 요인이였습니다. 4주차 되던때 나름 힘든운동을 받고 늠름히 버틴 저와 그룹원들을 보며 "어..체력/근력이 늘었네!" 라고 나름 자화자찬! ㅋ 을 하게 되었죠. 이 모든게 뽀쌤과 함께 하지 않았더라면 불가능했을거 같네요. 또 기회가 된다면 뽀쌤 수업 또 듣구 싶어요!', SYSDATE, 0, 21);
 INSERT INTO review VALUES (review_seq.nextval, 26, 5, 16, '뽀쌤과의 수업은 버핏에서의 수업 2번째였는데, 진짜 확실히 체력이 오른게 눈에 보이고 느껴져서 너무 기쁩니다!! 제 스스로의 한계를 뽑아내는 시간이 되는거 같아서 힘들지만 하고나면 뿌듯한 수업이었어요! 땀 좀 흘리고 힘들어야 운동한 맛 아니겠습니깧ㅎㅎㅎㅎ 믿고 고고싱하려고 다음기수에도 양토두 신청했다구요 너무 즐거운 수업이었어요! :-)ㅎㅎㅎ 다음주에 봬요♥', SYSDATE, 0, 22);
 INSERT INTO review VALUES (review_seq.nextval, 26, 5, 16, '두 기수 간 수행한 바디 부스터 클래스를 통해서 건강해진 몸뚱이와 좋아진 체력을 안고 갑니다 ㅎㅎ 친절하고 빡셌던 바디 클래스 쌤들... 잊지 않고 언젠가 양재로 다시 돌아오겠습니다 ㅎㅎ 수고많으셨습니다~', SYSDATE, 0, 23);
 INSERT INTO review VALUES (review_seq.nextval, 26, 5, 28, '뽀쌤과 맨몸FIT 레벨 1부터해서 라인2기 바디부스터까지 함께 하면서 가까운 양재 헬스장 주말이 너무 좋았습니다! 다환챌로 식단 상담 받으며 이것저것 꿀팁 알려주신 덕분에 2단계 성공했어요~! 체지방률은 생각보다 많이 빠지지 않았지만 몸무게는 리즈시절로 돌아가서 좋아요! ^0^ 맨몸핏 때는 밝게 웃으시면서 살벌하게 운동횟수를 무한반복으로 시키셨었는데 라인때부터는 그 역할을 기수쌤이 하셔서 뽀쌤과 운동할때는 쉬는 시간 같아서 좋았습니다! 기수쌤과의 시너지가 잘 맞는것 같아요! 맘 같아서는 바디부스터 또 하고 싶지만, 빠진 살 다시 찌우고 나서 다시 기회가 되면 찾아올게요! ^^', SYSDATE, 0, 12);

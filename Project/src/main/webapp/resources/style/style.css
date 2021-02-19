@@ -35,7 +35,7 @@ ul {
 	background: #fff;
 	z-index: 10;
 	top: -7px;
-	padding: 0 24%;
+	padding: 0 20%;
 	box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 12px !important;
 }
 .top-menu > a > img {
@@ -63,7 +63,7 @@ ul {
 
 .menu-bar {
 	display: flex;
-	margin-right: 36%;
+	margin-right: 49%;
 }
 
 .header {
@@ -339,6 +339,8 @@ ul {
 #qna tbody td:nth-child(3) {
 	text-align: center;
 }
+
+
 
 .footer {
 	align-items: center;
