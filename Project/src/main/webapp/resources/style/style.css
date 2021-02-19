@@ -1,6 +1,11 @@
 @charset "UTF-8";
 
 * {
+	font-family: 'Gothic A1', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+* {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
