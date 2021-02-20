@@ -9,7 +9,7 @@
 
 
 # Model
-#6 (빨간 박스 : 제가 주로 사용했던 테이블입니다.)
+> _빨간 박스 : 제가 주로 사용했던 테이블입니다._
 ![tables](https://user-images.githubusercontent.com/70326085/108591854-34118800-73ae-11eb-91c5-f1a7eb456ef8.jpg)
 
 # Technologies
