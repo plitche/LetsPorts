@@ -745,7 +745,8 @@ INSERT INTO MEETING values (meeting_seq.nextval, 5, 14, 2, 3, SYSDATE, TO_DATE('
 INSERT INTO MEETING values (meeting_seq.nextval, 6, 16, 6, 4, SYSDATE, TO_DATE('2021-02-16', 'yyyy-mm-dd'), TO_DATE('2021-02-22', 'yyyy-mm-dd'), TO_DATE('2021-03-05', 'yyyy-mm-dd'), 0, 18, '혼자시작하기 두려운 크로스핏도전자 구함.', '혼자 시작하기 무서워.. 같이 시작해..난 겁쟁이야..', 0, null, 0, null, 0);
 INSERT INTO MEETING values (meeting_seq.nextval, 7, 18, 7, 5, SYSDATE, TO_DATE('2021-02-13', 'yyyy-mm-dd'), TO_DATE('2021-02-28', 'yyyy-mm-dd'), TO_DATE('2021-03-22', 'yyyy-mm-dd'), 0, 17, '열정적인 스피닝인들이여', '열정적인 사람만 같이할 맛나니까 열정적인 사람만 들어와.', 0, null, 0, null, 0);
 INSERT INTO MEETING values (meeting_seq.nextval, 17, 5, 2, 6, SYSDATE, TO_DATE('2021-02-12', 'yyyy-mm-dd'), TO_DATE('2021-03-18', 'yyyy-mm-dd'), TO_DATE('2021-03-21', 'yyyy-mm-dd'), 0, 16, '유행하는 틱톡 춤 강의합니다', '애브리바디 틱톡커~!~!여러분들도 틱톡커가 될 수 있습니다!.', 0, null, 0, null, 0);
-INSERT INTO MEETING values (meeting_seq.nextval, 26, 5, 1, 7, SYSDATE, TO_DATE('2021-02-11', 'yyyy-mm-dd'), TO_DATE('2021-02-23', 'yyyy-mm-dd'), TO_DATE('2021-02-24', 'yyyy-mm-dd'), 0, 15, '황아영의 요가 클럽', '등이 굽으신분들, 거북목이신 분들 모두 제가 맡겨주세요! 1달이면 눈에 띄게 좋아지실 겁니다!', 0, null, 0, null, 0);
+INSERT INTO MEETING values (meeting_seq.nextval, 26, 5, 1, 7, SYSDATE, TO_DATE('2021-02-11', 'yyyy-mm-dd'), TO_DATE('2021-02-23', 'yyyy-mm-dd'), TO_DATE('2021-02-24', 'yyyy-mm-dd'), 0, 15, '황아영의 요가 클럽', '몸은 우리에게 통증으로 신호를 보낸다고 한다. 머리가 지끈거린다든지, 허리를 펴기가 힘들어진다든지, 목과 어깨가 결린다든지. ‘갑자기’ 통증이 찾아왔다고 생각하기 쉽지만 사실 몸은 계속 신호를 보내고 있었는지도 모른다. 일에 파묻혀 몸이 보내는 메시지를 무시하다 보면 결국 더 큰 고통을 만나 그제야 후회한다. 그렇게 입원을 한 적이 몇 번 있었다. 때문에 평소에 오늘의 몸 컨디션은 어떤지 관심을 가져야 한다. 마음도 마찬가지다.
+누구에게나 자신에게 맞는 운동이 있을 거다. 걷기, 뛰기, 등산, 자전거 타기, 간단한 스트레칭 등 스스로 맞는 운동을 찾아 건강을 챙겨보자. 요가는 몸과 마음의 건강을 챙기도록 도와주는 내게 잘 맞는 운동이다. 태리 선생님과 나눈 이야기를 통해 ‘요가’와 한 층 더 가까워져서 좋다. 요즘 여러 일이 겹쳐 몸과 마음에서 멀어져 있었는데 다시금 맘 다잡고 열심히 수련하겠다고 다짐해본다 .등이 굽으신분들, 거북목이신 분들 모두 제가 맡겨주세요! 1달이면 눈에 띄게 좋아지실 겁니다!', 0, null, 0, '37.5799/126.9927', 0);
 INSERT INTO MEETING values (meeting_seq.nextval, 33, 8, 6, 8, SYSDATE, TO_DATE('2021-02-02', 'yyyy-mm-dd'), TO_DATE('2021-02-25', 'yyyy-mm-dd'), TO_DATE('2021-02-26', 'yyyy-mm-dd'), 0, 14, '명상의 신.', '명상방법을 모르시고 하시는 분들이 생각보다 많습니다. 저에게 배워 명상의 신이 되어보세요.', 0, null, 0, null, 0);
 INSERT INTO MEETING values (meeting_seq.nextval, 38, 9, 2, 0, SYSDATE, TO_DATE('2021-02-10', 'yyyy-mm-dd'), TO_DATE('2021-02-24', 'yyyy-mm-dd'), TO_DATE('2021-02-28', 'yyyy-mm-dd'), 0, 13, '족구 1 대 1 강습', '족구대회에서 5번 우승한 족구 챔피언입니다. 족구계의 호날두로 만들어드리겠습니다.', 0, null, 0, null, 0);
 INSERT INTO MEETING values (meeting_seq.nextval, 41, 10, 3, 1, SYSDATE, TO_DATE('2021-02-05', 'yyyy-mm-dd'), TO_DATE('2021-02-24', 'yyyy-mm-dd'), TO_DATE('2021-02-26', 'yyyy-mm-dd'), 0, 12, '안녕하세요. 안정환입니다.', '축구를 관두고 새로운 시작을 letsport에서 하려고 합니다. 많은 참여바랍니다.', 0, null, 0, null, 0);
@@ -771,6 +772,9 @@ INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 2, '이온음료', SYSDATE)
 INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 3, '농구공', SYSDATE);
 INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 3, '양말', SYSDATE);
 INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 3, '모자', SYSDATE);
+INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 16, '매트', SYSDATE);
+INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 16, '요가복', SYSDATE);
+INSERT INTO MATERIALS values (MATERIALS_SEQ.NEXTVAL, 16, '안정된 심신', SYSDATE);
 
 -- MEETING 대표사진
 INSERT INTO PHOTO values (PHOTO_SEQ.NEXTVAL, 4, 1, 1, 'volleyball1.jpg', SYSDATE, 0);
@@ -1049,14 +1053,14 @@ INSERT INTO review VALUES (review_seq.nextval, 41, 4, 30, '맨날 화낸다고 �
 INSERT INTO review VALUES (review_seq.nextval, 41, 5, 30, '쌤~ 쌤이 알려주셨던 이 동작은 왜 해야하고, 어디를 튼튼하게 해주며 일상생활에 어떻게 도움이 되는지에 대한 자세한 설명이 하나하나 잊혀지지 않아요! 운동에 대한 정확한 이해를 도와주셔서 정말 감사합니다! ', SYSDATE, 0, 47);
 
 -- 질문과 답변
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '운동 방법 질문이요!', '요즘 홈트레이닝을 하는 중인데 근력을 키울 만한 동작이 뭐가 있을까요? 요즘엔 스쿼트 동작만 하고 있는데 다른 동작도 하고싶어서 질문 남깁니다.', 2, SYSDATE, 0, NULL, 0);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '유산소 운동이랑 근력운동 비율', '헬스장에서 pt 받으면서 유산소 운동이랑 근력운동을 하고 있는데 제가 근력을 먼저하고 있기는 한데 어떤 운동 비중을 더 크게 둬야하나 고민입니다. 한시간에서 한시간 반정도 운동을 하는데 근력운동은 2-30분 정도하고 나머지는 유산소 운동 위주로 하고 있습니다.보통 비율이 어떻게 되시나요?', 3, SYSDATE, 1, SYSDATE, 0);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '운동 자세 관련 질문이요!', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 5, SYSDATE, 1, SYSDATE, 1);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '트레이너 추천해주세요!', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 6, SYSDATE, 1, SYSDATE, 0);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '족구 모임은 보통 인원 몇명이 평균인가요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 9, SYSDATE, 0, NULL, 0);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '축구 모임은 보통 인원 몇명이 평균인가요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 11, SYSDATE, 0, NULL, 1);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '하체 운동 꼭 필요한가요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 13, SYSDATE, 1, SYSDATE, 0);
-INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '헬스 트레이너 자격증 문의요!', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 14, SYSDATE, 0, NULL, 0);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '운동 방법 질문이요!', '요즘 홈트레이닝을 하는 중인데 근력을 키울 만한 동작이 뭐가 있을까요? 요즘엔 스쿼트 동작만 하고 있는데 다른 동작도 하고싶어서 질문 남깁니다.', 2, TO_DATE('2021-02-12 10:54:26', 0, NULL, 0);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '유산소 운동이랑 근력운동 비율', '헬스장에서 pt 받으면서 유산소 운동이랑 근력운동을 하고 있는데 제가 근력을 먼저하고 있기는 한데 어떤 운동 비중을 더 크게 둬야하나 고민입니다. 한시간에서 한시간 반정도 운동을 하는데 근력운동은 2-30분 정도하고 나머지는 유산소 운동 위주로 하고 있습니다.보통 비율이 어떻게 되시나요?', 3, TO_DATE('2021-02-13 10:54:26', 1, SYSDATE, 0);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '운동 자세 관련 질문이요!', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 5, TO_DATE('2021-02-14 10:54:26', 1, SYSDATE, 1);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '트레이너 추천해주세요!', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 6, TO_DATE('2021-02-15 10:54:26', 1, SYSDATE, 0);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '족구 모임은 보통 인원 몇명이 평균인가요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 9, TO_DATE('2021-02-16 10:54:26', 0, NULL, 0);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '축구 모임은 보통 인원 몇명이 평균인가요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 11, TO_DATE('2021-02-17 10:54:26', 0, NULL, 1);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '하체 운동 꼭 필요한가요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 13, TO_DATE('2021-02-18 10:54:26', 1, SYSDATE, 0);
+INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '헬스 트레이너 자격증 문의요!', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 14, TO_DATE('2021-02-19 10:54:26', 0, NULL, 0);
 INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '제 인바디 좀 봐주실수 있나요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 20, SYSDATE, 1, SYSDATE, 0);
 INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '직장인 분들 일주일에 운동 몇번 하시나요?', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 21, SYSDATE, 1, SYSDATE, 1);
 INSERT INTO board_qna VALUES (board_qna_seq.NEXTVAL, '다이어트 식단 질문있습니다', '요즘 헬스를 다닐까 생각중인데 아직 트레이너 경험이없어서 고민되요 혹시 사이트에 유산소 위주 pt 트레이너 추천해주시면 감사하겠습니다~!!', 23, SYSDATE, 1, SYSDATE, 0);

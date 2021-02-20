@@ -70,7 +70,7 @@
 					   		<svg class="WishIcon-module__container--cAypQ" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 					   			<path id="loveIcon_1" fill="none" fill-rule="evenodd" stroke="#CED4DA" stroke-width="1.25" d="M15.876 4.625c1.205 0 2.41.46 3.33 1.379.918.92 1.378 2.124 1.378 3.33 0 1.204-.46 2.41-1.379 3.329h0l-7.1 7.1-7.101-7.1c-.92-.92-1.379-2.125-1.379-3.33s.46-2.41 1.379-3.329c.92-.92 2.124-1.379 3.33-1.379 1.204 0 2.41.46 3.329 1.379.161.162.309.332.442.51.133-.178.28-.349.442-.51.919-.92 2.124-1.379 3.329-1.379z"></path>
 					   		</svg>
-					   		<span class="goWishList">위시리스트에 담기</span>
+					   		<span class="goWishList" style="vertical-align: super;">위시리스트에 담기</span>
 				   		</button>
 			   			<p class="IfgoWish_message"></p>
 			   	</div>
@@ -110,7 +110,12 @@
 	    	   			<div class="WishList_all">
 			   		
 						   <div class="TrainerClassPhoto">
+						   <c:if test="${trainerClassDto.photo_filename eq '첨부없음'}">
+						   		<img alt="meeting_basic_corver.jpg" src="resources/images/meeting_basic_corver.jpg" style="width: 500px; height:500px;">
+						   </c:if>
+						   <c:if test="${trainerClassDto.photo_filename ne '첨부없음'}">
 						   		<img alt="${trainerClassDto.photo_filename}" src="resources/storage/${trainerClassDto.photo_filename}" style="width: 500px; height:500px;">
+						   	</c:if>
 						   </div>
 					   
 					   </div>
@@ -242,9 +247,6 @@
 						   var user_no = '${loginUser.user_no}';
 						   var meeting_no = ${trainerClassDto.meeting_no};
 						   var meeting_max = ${trainerClassDto.meeting_max};
-						   alert(user_no);
-						   alert(meeting_no);
-						   alert(meeting_max);
 						   
 						   $.ajax({
 							 url: 'ApplyClass.leo',
@@ -362,7 +364,7 @@
     	   </script>
 							   
 <!-- *********************************************************** 위시리스트 담기 마감 ************************************************************ -->
-<form>
+<form method="post">
 			   <!-- 버튼들(수정, 삭제, 등록) -->
 				   <div class="Btns1" style="display:flex;">
 				   			
@@ -656,7 +658,6 @@
 			commentUpdate2();
 			commentUpdateCancel();
 			commentInsertCancel();
-			commentMyProfile();
 		});
 		
 		// 페이징 처리

@@ -270,7 +270,12 @@
 		<c:forEach var="MeetingDto" items="${MeetingList}">
 				<a href="TrainerClassViewPage.leo?meeting_no=${MeetingDto.meeting_no}">
 				<div class="MeetingClass">
-					<div id="MeetingClassPhoto"><img alt="${MeetingDto.photo_filename}" src="resources/storage/${MeetingDto.photo_filename}" style="width:250px; height:100px;"></div>
+					<c:if test="${MeetingDto.photo_filename eq '첨부없음'}">
+						<div id="MeetingClassPhoto"><img alt="기본사진" src="resources/images/meeting_basic_corver.jpg" style="width:250px; height:100px;"/></div>
+					</c:if>
+					<c:if test="${MeetingDto.photo_filename ne '첨부없음'}">
+						<div id="MeetingClassPhoto"><img alt="${MeetingDto.photo_filename}" src="resources/storage/${MeetingDto.photo_filename}" style="width:250px; height:100px;"></div>
+					</c:if>
 						<div style="padding:15px;">
 							<div style="font-weight: 900; margin-bottom: 25px;">${MeetingDto.meeting_title}</div>
 							<span class="exercise_name">${MeetingDto.exercise_name}</span>

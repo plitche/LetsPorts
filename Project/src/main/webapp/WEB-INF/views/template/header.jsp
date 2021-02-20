@@ -31,8 +31,10 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <%-- font --%>
+<link href="https://fonts.googleapis.com/css2?family=Coda+Caption:wght@800&family=Poppins:ital,wght@1,900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <%-- favicon --%>
 <link rel="icon" href="resources/images/favicon.ico">
 
@@ -44,7 +46,7 @@
 		<div class="top-wrap" >
 			<div class="top-menu">
 				<a href="http://localhost:9090/project/" id="logo">
-					<span>Let'sPorts</span>
+					<span style="font-family: 'Dancing Script', cursive;">Let'sPorts</span>
 					<img alt="mainLogo" src="resources/images/mainLogo.JPG">
 				</a>
 				<ul class="menu-bar">
@@ -69,16 +71,16 @@
 			<div class="imageWrap">
 				<div class="introduce">
 					<div>
-						<span>L</span>
-						<span>e</span>
-						<span>t</span>
-						<span>'</span>
-						<span>s</span>
-						<span>P</span>
-						<span>o</span>
-						<span>r</span>
-						<span>t</span>
-						<span>s</span>
+						<span style="font-family: 'Poppins', sans-serif;">L</span>
+						<span style="font-family: 'Poppins', sans-serif;">e</span>
+						<span style="font-family: 'Poppins', sans-serif;">t</span>
+						<span style="font-family: 'Poppins', sans-serif;">'</span>
+						<span style="font-family: 'Poppins', sans-serif;">s</span>
+						<span style="font-family: 'Poppins', sans-serif;">P</span>
+						<span style="font-family: 'Poppins', sans-serif;">o</span>
+						<span style="font-family: 'Poppins', sans-serif;">r</span>
+						<span style="font-family: 'Poppins', sans-serif;">t</span>
+						<span style="font-family: 'Poppins', sans-serif;">s</span>
 					</div>
 					<div>우리만의 다양한 <span>Let'sPorts</span>이야기를 만들어봐요!</div>
 				</div>

@@ -14,8 +14,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						   FULL OUTER JOIN USERS U
 						   ON U.USER_NO = C.USER_NO 
 						   WHERE COMMENT_REFERER_NO = #{param3}
+						   AND COMMENT_REFERER_SEP = 2
 						   ORDER BY C.COMMENT_NO DESC) A) B
 		 WHERE B.RN BETWEEN #{param1} AND #{param2}
+		 
 	</select>
 	
 	<select id="commentCount" parameterType="int" resultType="int">
@@ -26,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="commentInsert" parameterType="com.koreait.project.dto.CommentsDto">
 		INSERT INTO COMMENTS VALUES
-		(COMMENTS_SEQ.NEXTVAL, 1, #{comment_referer_no}, #{board_user_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
+		(COMMENTS_SEQ.NEXTVAL, 2, #{comment_referer_no}, #{board_user_no}, #{user_no}, #{comment_content}, SYSDATE, 0)
 	</insert>
 	
 	<delete id="commentDelete" parameterType="int">
