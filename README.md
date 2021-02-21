@@ -15,13 +15,11 @@
 # Technologies
 
 * Java
-* Django
-* Beautifulsoup, Selenium
-* Bcrypt
-* JWT
-* MySQL
-* CORS headers
-* Git, Github
+* HTML/CSS
+* Oracle
+* Apache Tomcat
+* Spring
+* MyBatis
 
 # Features
 
