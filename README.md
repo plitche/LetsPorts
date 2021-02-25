@@ -6,6 +6,7 @@
 * 개발인원 : 5명
 
 # Demo
+![캡처](https://user-images.githubusercontent.com/70326085/109097682-23bd2c80-7763-11eb-98a8-7fa5a59c3f3a.PNG)
 
 
 # Model
