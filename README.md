@@ -23,6 +23,7 @@
 * MyBatis
 
 # Features
+![캡처](https://user-images.githubusercontent.com/70326085/109098123-0fc5fa80-7764-11eb-8b34-d7b890ac4b89.PNG)
 
 * mainPage (전체 ajax통신을 이용)
    - 모임 마감시간이 임박한 list
@@ -72,4 +73,11 @@
      - 댓글 기능 (작성, 수정, 삭제 - ajax)
    - 질문 수정 페이지 구현
 
-# API Documentation
+# Detail Code
+### 제가 구현한 주요 핵심 코드입니다.
+![1](https://user-images.githubusercontent.com/70326085/109098073-f4f38600-7763-11eb-80d6-fedf8cefaf4f.PNG)
+![2](https://user-images.githubusercontent.com/70326085/109098081-f755e000-7763-11eb-8830-e56ccea7196c.PNG)
+![3](https://user-images.githubusercontent.com/70326085/109098085-f8870d00-7763-11eb-9f0e-1ada24e3cddd.PNG)
+![4](https://user-images.githubusercontent.com/70326085/109098089-f91fa380-7763-11eb-83d2-a78d48c6226d.PNG)
+![5](https://user-images.githubusercontent.com/70326085/109098092-f9b83a00-7763-11eb-8b0a-58d03f9b77cf.PNG)
+
