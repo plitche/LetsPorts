@@ -5,8 +5,8 @@
 * 개발기간 : 2021.01.25 ~ 2021.02.19(약 4주)
 * 개발인원 : 5명
 * 저의 상세 코드를 보길 희망하시면 아래의 경로를 확인해주세요.
-### LetsPorts/Project/src/main/java/com/koreait/project/yongsoo/
-### LetsPorts/Project/src/main/webapp/WEB-INF/views/yongPage/
+##### LetsPorts/Project/src/main/java/com/koreait/project/yongsoo/
+##### LetsPorts/Project/src/main/webapp/WEB-INF/views/yongPage/
 
 # Demo
 ![캡처](https://user-images.githubusercontent.com/70326085/109097682-23bd2c80-7763-11eb-98a8-7fa5a59c3f3a.PNG)
@@ -77,7 +77,7 @@
    - 질문 수정 페이지 구현
 
 # Detail Code
-### 제가 구현한 주요 핵심 코드입니다.
+##### 제가 구현한 주요 핵심 코드입니다.
 ![1](https://user-images.githubusercontent.com/70326085/109098073-f4f38600-7763-11eb-80d6-fedf8cefaf4f.PNG)
 ![2](https://user-images.githubusercontent.com/70326085/109098081-f755e000-7763-11eb-8830-e56ccea7196c.PNG)
 ![3](https://user-images.githubusercontent.com/70326085/109098085-f8870d00-7763-11eb-9f0e-1ada24e3cddd.PNG)
