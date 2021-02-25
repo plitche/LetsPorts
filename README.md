@@ -4,6 +4,9 @@
 * 주제 : Let'sPort - 사용자를 위한 운동 모임 커뮤니티
 * 개발기간 : 2021.01.25 ~ 2021.02.19(약 4주)
 * 개발인원 : 5명
+* 저의 상세 코드를 보길 희망하시면 아래의 경로를 확인해주세요.
+### LetsPorts/Project/src/main/java/com/koreait/project/yongsoo/
+### LetsPorts/Project/src/main/webapp/WEB-INF/views/yongPage/
 
 # Demo
 ![캡처](https://user-images.githubusercontent.com/70326085/109097682-23bd2c80-7763-11eb-98a8-7fa5a59c3f3a.PNG)
