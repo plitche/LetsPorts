@@ -29,6 +29,7 @@
 ![캡처](https://user-images.githubusercontent.com/70326085/109098123-0fc5fa80-7764-11eb-8b34-d7b890ac4b89.PNG)
 
 * mainPage (전체 ajax통신을 이용)
+   ###### [JSP](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/index.jsp) [Controller](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/MainPageController.java) [Command](https://github.com/plitche/LetsPorts/tree/main/Project/src/main/java/com/koreait/project/yongsoo/command/mainPage) [dao](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/MainPageDao.java) [Mapper](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/mainPage.xml)
    - 모임 마감시간이 임박한 list
      - 모집 마감 시간이 현재시간기준 12시간 전인 모임 중 짧게 남은 순서
    - 최근에 작성된 질의응답 게시글 list
