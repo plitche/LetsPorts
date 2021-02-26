@@ -5,8 +5,8 @@
 * 개발기간 : 2021.01.25 ~ 2021.02.19(약 4주)
 * 개발인원 : 5명
 * 저의 상세 코드를 보길 희망하시면 아래의 경로를 확인해주세요.
-##### LetsPorts/Project/src/main/java/com/koreait/project/yongsoo/
-##### LetsPorts/Project/src/main/webapp/WEB-INF/views/yongPage/
+##### [JSPFiles](https://github.com/plitche/LetsPorts/tree/main/Project/src/main/webapp/WEB-INF/views/yongPage)
+##### [JavaFiles](https://github.com/plitche/LetsPorts/tree/main/Project/src/main/java/com/koreait/project/yongsoo)
 
 # Demo
 ![캡처](https://user-images.githubusercontent.com/70326085/109097682-23bd2c80-7763-11eb-98a8-7fa5a59c3f3a.PNG)
@@ -37,11 +37,9 @@
      - 최소 작성된 리뷰 개수가 5개 이상인 트레이너 중 평균 score가 높은 순서
 
 * trainer
-   - 트레이너 List 페이지 구현
-      ###### TrainerList - [(JSP)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/yongPage/trainerListPage.jsp) [(Controller)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/TrainerController.java) [(Command)](https://github.com/plitche/LetsPorts/tree/main/Project/src/main/java/com/koreait/project/yongsoo/command/trainer) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/TrainerDao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/trainer.xml)
+   - 트레이너 List 페이지 구현 ###### [(JSP)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/yongPage/trainerListPage.jsp) [(Controller)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/TrainerController.java) [(Command)](https://github.com/plitche/LetsPorts/tree/main/Project/src/main/java/com/koreait/project/yongsoo/command/trainer) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/TrainerDao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/trainer.xml)
      - hover시 트레이너 정보 표기
-   - 트레이너 상세정보 페이지 구현 (전체 ajax통신을 이용)
-   - [(JSP)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/yongPage/trainerDetailPage.jsp) 
+   - 트레이너 상세정보 페이지 구현 (전체 ajax통신을 이용) ###### [(JSP)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/yongPage/trainerDetailPage.jsp) 
      - 모임, 리뷰, 질문 탭으로 구성(페이지 이동X)
      - 해당 트레이너로 로그인 시 '새 모임 개설' 가능
      - 모집 마감일 기준 모집중/모집마감 분기
