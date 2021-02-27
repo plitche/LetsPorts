@@ -35,33 +35,33 @@
 
 * trainer
    - 트레이너 List 페이지 구현 [(JSP)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/yongPage/trainerListPage.jsp) [(Controller)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/TrainerController.java) [(Command)](https://github.com/plitche/LetsPorts/tree/main/Project/src/main/java/com/koreait/project/yongsoo/command/trainer) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/TrainerDao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/trainer.xml)
-     - hover시 트레이너 정보 표기
+     - hover시 트레이너 정보 표기   
    
    - 트레이너 상세정보 페이지 구현 (전체 ajax통신을 이용)
      - TrainerMeeting - [(JSP)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/yongPage/trainerDetailPage.jsp) [(Controller)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/TrainerMeetingController.java) [(Command)](https://github.com/plitche/LetsPorts/tree/main/Project/src/main/java/com/koreait/project/yongsoo/command/trainerMeeting) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/TrainerMeetingDao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/trainerMeeting.xml)
      - 모임, 리뷰, 질문 탭으로 구성(페이지 이동X)
      - 해당 트레이너로 로그인 시 '새 모임 개설' 가능
-     - 모집 마감일 기준 모집중/모집마감 분기
+     - 모집 마감일 기준 모집중/모집마감 분기   
      
      - TrainerReview - [(Controller)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/TrainerReviewController.java) [(Command)](https://github.com/plitche/LetsPorts/tree/main/Project/src/main/java/com/koreait/project/yongsoo/command/trainerReview) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/TrainerReviewDao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/trainerReview.xml)
      - 함께한 모임이 있을 경우에만 리뷰 작성 가능(modal)
      - 1개의 모임에 1개의 리뷰만 작성하도록 제한
      - 리뷰내용은 특정 길이 초과시 기준으로... 표시
      - 리뷰 내용 클릭시 전체 리뷰 내용 표기
-     - 리뷰 내용 다시 클릭시 다시 ...표시
+     - 리뷰 내용 다시 클릭시 다시 ...표시   
      
      - TrainerQnA - [(Controller)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/TrainerQnAController.java) [(Command)](https://github.com/plitche/LetsPorts/tree/main/Project/src/main/java/com/koreait/project/yongsoo/command/trainerQnA) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/TrainerQnADao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/trainerQnA.xml)
      - 질문 list table형식 (ajax paging)
      - 질문작성시 동적 게시글 생성
      - 질문작성시 비밀글 처리 가능(modal)
      - 질문작성자, 해당트레이너 이외에 비밀글 view 불가
-     - 해당트레이너 로그인시 질문에 답변 작성 가능(modal)
+     - 해당트레이너 로그인시 질문에 답변 작성 가능(modal)   
      
      
 * meeting(모임)
    - 모임 개설 페이지 구현
      - CreateMeeting - [(JSP)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/yongPage/createMeetingPage.jsp) [(Controller)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/TrainerMeetingController.java) [(Command)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/command/trainerMeeting/CreateMeetingCommand.java) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/TrainerMeetingDao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/trainerMeeting.xml)
-     - 지도 마커 기능 (kakao map api)
+     - 지도 마커 기능 (kakao map api)   
     
    - 모임 상세정보 페이지 구현
      - MeetingView - [(JSP)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/yongPage/meetingViewPage.jsp) [(Controller)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/TrainerMeetingController.java) [(Command)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/command/trainerMeeting/GoMeetingViewCommand.java) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/TrainerMeetingDao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/trainerMeeting.xml)
@@ -69,13 +69,13 @@
      - 동일 운동 다른 유져의 모임 list [(Command)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/command/trainerMeeting/GetOtherHostMeetingCommand.java)
      - 동일 유져의 다른 운동 모임 list [(Command)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/command/trainerMeeting/GetOtherMeetingCommand.java)
      - 모임 작성자에게 질문하기(modal)
-     - 댓글 기능 (작성, 수정, 삭제 - ajax)
+     - 댓글 기능 (작성, 수정, 삭제 - ajax)   
 
 * Q&A
    - 질의응답 table형식 list 구현
      - QnAPage - [(JSP)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/yongPage/QnAPage/totalQnAPage.jsp) [(Controller)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/QnAController.java) [(Command)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/command/qna/GetQnAListCommand.java) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/CommonQnADao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/commonQnA.xml)
      - 질문 해결완료/미해결에 따른 필터링 기능
-     - 검색 기능('제목+내용', '제목만', '작성자')
+     - 검색 기능('제목+내용', '제목만', '작성자')   
      
    - 질문 작성 페이지 구현
      - WriteQnA - [(JSP)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/yongPage/QnAPage/writeQnAPage.jsp) [(Controller)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/QnAController.java) [(Command)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/command/qna/WriteQnACommand.java) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/CommonQnADao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/commonQnA.xml)
@@ -84,7 +84,7 @@
      - QnAView - [(JSP)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/yongPage/QnAPage/qnaViewPage.jsp) [(Controller)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/QnAController.java) [(Command)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/command/qna/GoQnAViewPageCommand.java) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/CommonQnADao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/commonQnA.xml)
      - 질문작성자가 로그인시 해결완료/수정/삭제 기능
      - 질문 해결완료시 수정/삭제/댓글 작성 불가능(ajax)
-     - 댓글 기능 (작성, 수정, 삭제 - ajax)
+     - 댓글 기능 (작성, 수정, 삭제 - ajax)   
     
    - 질문 수정 페이지 구현
      - QnAUpdate - [(JSP)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/yongPage/QnAPage/qnaUpdatePage.jsp) [(Controller)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/QnAController.java) [(Command)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/command/qna/UpdateQnACommand.java) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/CommonQnADao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/commonQnA.xml)
