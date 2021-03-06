@@ -90,7 +90,7 @@
      - QnAUpdate - [(JSP)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/webapp/WEB-INF/views/yongPage/QnAPage/qnaUpdatePage.jsp) [(Controller)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/controller/QnAController.java) [(Command)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/command/qna/UpdateQnACommand.java) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/CommonQnADao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/commonQnA.xml)
 
 * Comment
-   - 댓글 관련된 내용은 페이지에 적용하여서 따로 참고 부탁드립니다.
+   - 댓글은 각각 페이지마다 따로 적용하였으므로 아래 경로를 참고해주세요.
    ###### [(GetCommentCommand)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/command/qna/GetQnACommentCommand.java) [(AddCommentCommand)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/command/qna/AddQnACommnetCommand.java) [(UpdateCommentCommand)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/command/qna/UpdateQnACommentContentCommand.java) [(DeleteCommentCommand)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/command/qna/DeleteQnACommentCommand.java) [(Dao)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/CommonQnADao.java) [(Mapper)](https://github.com/plitche/LetsPorts/blob/main/Project/src/main/java/com/koreait/project/yongsoo/dao/mapper/commonQnA.xml)
 
 # Detail Code
