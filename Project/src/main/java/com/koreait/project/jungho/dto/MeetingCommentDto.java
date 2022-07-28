@@ -18,8 +18,10 @@ public class MeetingCommentDto {
 	private int comment_referer_no;
 	private int board_user_no;
 	private int user_no;
+	private String user_nickname;
 	private String comment_content;
 	private Date created_at;
+	private String created_at2;
 	private int on_hide;	// 숨김:1, 안숨김:0
 
 }

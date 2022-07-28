@@ -1,5 +1,6 @@
 package com.koreait.project.jungho.command.TrainerClassCommentCommand;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,8 @@ public class CommentListCommand implements CommonMapCommand {
 		Map<String, Object> map = model.asMap();
 		int meeting_no = (int)map.get("meeting_no"); 			// command에 받는다
 		int commentPage = (int)map.get("commentPage");	// command에 받는다.
+		
+		System.out.println(meeting_no);
 		
 		TrainerClassCommentDao trainerClassCommentDao = sqlSession.getMapper(TrainerClassCommentDao.class);
 		
@@ -48,6 +51,12 @@ public class CommentListCommand implements CommonMapCommand {
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		List<MeetingCommentDto> commentList = trainerClassCommentDao.commentList(beginRecord, endRecord, meeting_no);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd(E)");
+		for (int i = 0; i < commentList.size(); i++) {
+			commentList.get(i).setCreated_at2(format.format(commentList.get(i).getCreated_at()));
+		}
+		
 		resultMap.put("commentList", commentList);
 		resultMap.put("paging", paging);
 		

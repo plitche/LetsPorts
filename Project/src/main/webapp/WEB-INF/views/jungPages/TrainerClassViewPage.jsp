@@ -54,15 +54,6 @@
 	
 </script>
 
-<script>
-
-	$(document).on('click', '.WishListBtn', function() {
-		if ('${loginUser.user_no}' == '') {
-			loginAlert();
-		}
-	});
-
-</script>
 
 
     <!--  <form method="post">-->
@@ -79,7 +70,7 @@
 					   		<svg class="WishIcon-module__container--cAypQ" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 					   			<path id="loveIcon_1" fill="none" fill-rule="evenodd" stroke="#CED4DA" stroke-width="1.25" d="M15.876 4.625c1.205 0 2.41.46 3.33 1.379.918.92 1.378 2.124 1.378 3.33 0 1.204-.46 2.41-1.379 3.329h0l-7.1 7.1-7.101-7.1c-.92-.92-1.379-2.125-1.379-3.33s.46-2.41 1.379-3.329c.92-.92 2.124-1.379 3.33-1.379 1.204 0 2.41.46 3.329 1.379.161.162.309.332.442.51.133-.178.28-.349.442-.51.919-.92 2.124-1.379 3.329-1.379z"></path>
 					   		</svg>
-					   		<span class="goWishList">위시리스트에 담기</span>
+					   		<span class="goWishList" style="vertical-align: super;">위시리스트에 담기</span>
 				   		</button>
 			   			<p class="IfgoWish_message"></p>
 			   	</div>
@@ -119,7 +110,12 @@
 	    	   			<div class="WishList_all">
 			   		
 						   <div class="TrainerClassPhoto">
+						   <c:if test="${trainerClassDto.photo_filename eq '첨부없음'}">
+						   		<img alt="meeting_basic_corver.jpg" src="resources/images/meeting_basic_corver.jpg" style="width: 500px; height:500px;">
+						   </c:if>
+						   <c:if test="${trainerClassDto.photo_filename ne '첨부없음'}">
 						   		<img alt="${trainerClassDto.photo_filename}" src="resources/storage/${trainerClassDto.photo_filename}" style="width: 500px; height:500px;">
+						   	</c:if>
 						   </div>
 					   
 					   </div>
@@ -251,9 +247,6 @@
 						   var user_no = '${loginUser.user_no}';
 						   var meeting_no = ${trainerClassDto.meeting_no};
 						   var meeting_max = ${trainerClassDto.meeting_max};
-						   alert(user_no);
-						   alert(meeting_no);
-						   alert(meeting_max);
 						   
 						   $.ajax({
 							 url: 'ApplyClass.leo',
@@ -288,19 +281,20 @@
     	   <script>
     
     	   $(document).ready(function() {
-    		   
     		   $('#loveIcon_1').attr('stroke', '#CED4DA');
 			   $('#loveIcon_1').attr('fill', 'none');
-				
     		   $('.OfferWishListBtn_Box').on('click', '.WishListBtn' , function(){
 			    	var data_state = $('#loveIcon_1').attr('fill');
+			    if ('${loginUser.user_no}' == '') {
+			    	loginAlert();
+			    } else {
 	    		   if (data_state == 'none') {
 		    		   WishListInsert();
 	    		   } else if (data_state == '#FA5B4A') {
 		    		   WishListDelete();
 	    		   }
+			    }
     		   });
-    		   WishListTotal();
     		});
     	   
 	    	
@@ -310,7 +304,6 @@
 	    		   var scrap_user_no = '${trainerClassDto.user_no}';
 	    		   var user_no = '${loginUser.user_no}';
 	    		   var end_gather_date = '${trainerClassDto.end_gather_date}';
-    		   	 
 	    		   $.ajax({
 	    			  url: 'WishClassInsert.leo',
 	    			  type: 'post',
@@ -371,7 +364,7 @@
     	   </script>
 							   
 <!-- *********************************************************** 위시리스트 담기 마감 ************************************************************ -->
-<form>
+<form method="post">
 			   <!-- 버튼들(수정, 삭제, 등록) -->
 				   <div class="Btns1" style="display:flex;">
 				   			
@@ -465,11 +458,16 @@
 	    		<div class="trainerHostInfo">
 	    			<div id="profileAndName" style="display:flex;">
 		    			<div style="background: lightgray; width: 80px; height: 80px; ">
-		    				<img alt="${trainerClassDto.profile_photo}" src="resources/storage/profile_photo/${trainerClassDto.profile_photo}" style="width:100%; height: 100%; border-radius:100px;"/>
+		    				<c:if test="${empty trainerClassDto.profile_photo}">
+			    				<img alt="기본사진" src="resources/images/blank-profile-picture.png" style="width:100%; height: 100%; border-radius:100px;"/>
+		    				</c:if>
+		    				<c:if test="${not empty trainerClassDto.profile_photo}">
+			    				<img alt="${trainerClassDto.profile_photo}" src="resources/storage/profile_photo/${trainerClassDto.profile_photo}" style="width:100%; height: 100%; border-radius:100px;"/>
+		    				</c:if>
 		    			</div>
 		    			<div class="user_names">
 			    			<div  class="user_separator">Let'sPorts 회원</div>
-			    			<div class="user_nameInfo">${trainerClassDto.user_nickname} [${trainerClassDto.trainer_name}]</div>
+			    			<div class="user_nameInfo">${trainerClassDto.user_nickname}</div>
 		    			</div>
 	    			</div>
 	    			<div id="location">
@@ -577,7 +575,7 @@
 									.append($('<div class="related_meeting_title">' +relatedClass.meeting_title + '</div>'))
 									.append($('<span class="related_exercise_name">' + relatedClass.exercise_name + '</span>'))
 									.append($('<div style="margin-top:10px;">')
-										.append($('<i class="fas fa-map-marker-alt"></i><span class="location">' + relatedClass.location1_name + ' ' +relatedClass.location2_name + ' · ' + relatedClass.meeting_date + '</span>'))
+										.append($('<i class="fas fa-map-marker-alt"></i><span class="location">' + relatedClass.location1_name + ' ' +relatedClass.location2_name + ' · ' + relatedClass.meeting_date2 + '</span>'))
 									)
 									.append($('<div style="display:flex;">')
 										.append(viewphoto)
@@ -660,7 +658,6 @@
 			commentUpdate2();
 			commentUpdateCancel();
 			commentInsertCancel();
-			commentMyProfile();
 		});
 		
 		// 페이징 처리
@@ -760,8 +757,8 @@
 				.append( $('<div>').addClass('comment_wrap')
 					.append( $('<div>').addClass('comment_all')
 						.append( $('<div>').addClass('comment1')
-								.append( $('<div>').html(comment.user_nickname))
-								.append( $('<div>').html(comment.created_at))
+								.append( $('<div>').addClass('user_nickname').html(comment.user_nickname))
+								.append( $('<div>').addClass('created_at2').html(comment.created_at2))
 						)
 						.append( $('<div>').addClass('comment2').html(comment.comment_content) )
 					)
@@ -935,7 +932,12 @@
 			<!-- 댓글 작성란 -->
 			<div class="createComment_all">
 				<c:if test="${not empty loginUser.user_no}">
-					<div class="myPhoto" style="width:60px; height:  60px;"><img alt="${loginUser.profile_photo}" src="resources/storage/profile_photo/${loginUser.profile_photo}" style="width:100%; height:100%; border-radius: 100px;"></div>
+					<c:if test="${not empty loginUser.profile_photo}">
+						<div class="myPhoto" style="width:60px; height:  60px;"><img alt="${loginUser.profile_photo}" src="resources/storage/profile_photo/${loginUser.profile_photo}" style="width:100%; height:100%; border-radius: 100px;"></div>
+					</c:if>
+					<c:if test="${empty loginUser.profile_photo}">
+						<div class="myPhoto" style="width:60px; height:  60px;"><img alt="${loginUser.profile_photo}" src="resources/images/blank-profile-picture.png" style="width:100%; height:100%; border-radius: 100px;"></div>
+					</c:if>
 				</c:if>
 				<c:if test="${empty loginUser.user_no}">
 					<div class="myPhoto" style="width:60px; height:  60px;"><img alt="blank-profile-picture.png" src="resources/images/blank-profile-picture.png" style="width:100%; height:100%; border-radius: 100px;"></div>

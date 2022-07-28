@@ -16,6 +16,10 @@
 	display: flex;
 }
 
+#content {
+	line-height: 24px;
+}
+
 .OfferWishListBtn_Box {
 	width: 280;
 	text-align:right;
@@ -168,8 +172,13 @@ i, .intro_values {
 	border-radius: 100px;
 	background: lightgray;
 }
+.user_nickname {
+	font-weight: 700;
+}
 
-
+.created_at2 {
+	color: gray;
+}
 
 .createComment_all {
 	display: flex;
@@ -207,6 +216,7 @@ i, .intro_values {
 }
 
 .comment2 {
+	margin-top:5px;
 	width:700px;
 }
 
@@ -215,7 +225,7 @@ i, .intro_values {
 }
 
 .comment1 > div:nth-of-type(2) {
-	margin-left: 20px;
+	margin-left: 10px;
 }
 
 .comment_all {

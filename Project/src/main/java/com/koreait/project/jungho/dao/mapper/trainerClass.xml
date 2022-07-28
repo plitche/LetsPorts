@@ -26,7 +26,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
               FULL OUTER JOIN LOCATION2 L2
               ON M2.LOCATION2_NO = L2.LOCATION2_NO
        WHERE RN BETWEEN #{param1} AND #{param2}
-         AND P.PHOTO_REFERER_SEP = 4
 	</select>
 	<!-- 모든 클래스 갯수 가져오기 -->
 	<select id="allClassCount" resultType="int">
@@ -127,17 +126,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="trainerClassView" parameterType="int" resultType="com.koreait.project.jungho.dto.TrainerClassDto">
 		SELECT *
 		FROM MEETING M
-		   JOIN LOCATION1 L1
+		   FULL OUTER JOIN LOCATION1 L1
 		    	 ON M.LOCATION1_NO = L1.LOCATION1_NO
-			JOIN LOCATION2 L2
+		   FULL OUTER JOIN LOCATION2 L2
 				 ON M.LOCATION2_NO = L2.LOCATION2_NO
-			JOIN EXERCISE E
+			FULL OUTER JOIN EXERCISE E
 			 	 ON M.EXERCISE_NO = E.EXERCISE_NO
-			JOIN USERS U
+			FULL OUTER JOIN USERS U
 				 ON M.USER_NO = U.USER_NO
-			JOIN PHOTO P
+			FULL OUTER JOIN PHOTO P
 				 ON M.MEETING_NO = P.PHOTO_REFERER_NO
-			JOIN TRAINER_INFO TI
+			FULL OUTER JOIN TRAINER_INFO TI
 				ON U.USER_NO = TI.USER_NO
 		WHERE M.MEETING_NO = #{param1}
 	    AND P.PHOTO_REFERER_SEP = 4
@@ -202,7 +201,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 트레이너 클래스의 meeting테이블의 내용들을 수정하는 쿼리문 -->
 	<update id="trainerClassUpdate" parameterType="com.koreait.project.jungho.dto.MakeTrainerClassDto">
 		UPDATE MEETING
-		SET MEETING_TITLE = #{meeting_title}, MEETING_DATE = #{meeting_date}, START_GATHER_DATE = #{start_gather_date}, END_GATHER_DATE = #{end_gather_date}, MEETING_MIN = #{meeting_min}, MEETING_MAX = #{meeting_max}, EXERCISE_NO = #{exercise_no}, LOCATION1_NO = #{location1_no}, LOCATION2_NO = #{location2_no}, DETAIL_LOCATION = #{detail_location}, MEETING_CONTENT = #{meeting_content}
+		SET MEETING_TITLE = #{meeting_title}, MEETING_DATE = #{meeting_date}, START_GATHER_DATE = #{start_gather_date}, END_GATHER_DATE = #{end_gather_date}, MEETING_MIN = #{meeting_min}, MEETING_MAX = #{meeting_max}, EXERCISE_NO = #{exercise_no}, LOCATION1_NO = #{location1_no}, LOCATION2_NO = #{location2_no}, DETAIL_LOCATION = #{detail_location}, MEETING_CONTENT = #{content}
 		WHERE MEETING_NO = #{meeting_no}
 	</update>
 	<!-- 트레이너 클래스의 materials테이블의 내용들을 수정하는 쿼리문 -->

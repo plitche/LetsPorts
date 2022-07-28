@@ -8,6 +8,8 @@ INSERT INTO USERS values (14, 'user14@xxx.xxx', '1111', 1, SYSDATE, SYSDATE, 3, 
 INSERT INTO USERS values (15, 'user15@xxx.xxx', '1111', 1, SYSDATE, SYSDATE, 3, 3, 0, 'naver', '다이너마이트', '잘부탁드려요', 'trainer6', 2000, 12, 31, 2, 1);
 
 
+select * from comments;
+
 select * from
 meeting_participants
 
@@ -146,47 +148,51 @@ SELECT *
 			FULL OUTER JOIN TRAINER_INFO T
 				ON S.SCRAP_REFERER_NO = T.USER_NO
 			FULL OUTER JOIN PHOTO P
-				ON S.SCRAP_REFERER_NO = P.USER_NO
+				ON S.SCRAP_REFERER_NO = P.PHOTO_REFERER_NO
 			FULL OUTER JOIN LOCATION1 L1
 				ON U.LOCATION1_NO = L1.LOCATION1_NO
 			FULL OUTER JOIN LOCATION2 L2
 				ON U.LOCATION2_NO = L2.LOCATION2_NO
-		WHERE S.USER_NO = 13
+		WHERE S.USER_NO = 12
 		AND SCRAP_SEPARATOR = 1
-		
-		
-		select * from scrap
-		where user_no = 13
-		and SCRAP_SEPARATOR = 2
-		
-		SELECT EXERCISE_NAME
-		FROM EXERCISE E
-		FULL OUTER JOIN USER_INTEREST U
-		 ON E.EXERCISE_NO = U.EXERCISE_NO
-		WHERE U.USER_NO = 13
-		
-		
-			SELECT EXERCISE_NAME
-		FROM EXERCISE E
-		FULL OUTER JOIN USER_INTEREST U
-		 ON E.EXERCISE_NO = U.EXERCISE_NO
-		WHERE U.USER_NO = 93
-		
-		
-		SELECT B.*
-		  FROM (SELECT A.*, ROWNUM AS RN
-		          FROM (SELECT *
-						   FROM COMMENTS C
-						   FULL OUTER JOIN USERS U
-						   ON U.USER_NO = C.USER_NO 
-						   WHERE COMMENT_REFERER_NO = 30
-						   ORDER BY C.COMMENT_NO DESC) A) B
-		 WHERE B.RN BETWEEN 1 AND 100
-	  
-         
-         SELECT PROFILE_PHOTO
-		FROM USERS
-		WHERE USER_NO = 13
-         
-         
+				
+				
+		SELECT *
+		FROM SCRAP S
+			FULL OUTER JOIN USERS U
+				ON S.SCRAP_REFERER_NO = U.USER_NO
+			FULL OUTER JOIN TRAINER_INFO T
+				ON S.SCRAP_REFERER_NO = T.USER_NO
+			FULL OUTER JOIN PHOTO P
+				ON S.SCRAP_REFERER_NO = P.PHOTO_REFERER_NO
+			FULL OUTER JOIN LOCATION1 L1
+				ON U.LOCATION1_NO = L1.LOCATION1_NO
+			FULL OUTER JOIN LOCATION2 L2
+				ON U.LOCATION2_NO = L2.LOCATION2_NO
+			FULL OUTER JOIN USER_INTEREST UI
+				ON T.USER_NO = UI.USER_NO
+			FULL OUTER JOIN EXERCISE E
+			    ON UI.EXERCISE_NO = E.EXERCISE_NO
+		WHERE S.USER_NO = 12
+		AND SCRAP_SEPARATOR = 1
+				
+				
+				select * from MEETING
+				
+			select * from users where user_nickname = '리을기역'	
+				
+				
+			
+			update meeting set meeting_content = '몸은 우리에게 통증으로 신호를 보낸다고 한다. 머리가 지끈거린다든지, 허리를 펴기가 힘들어진다든지, 목과 어깨가 결린다든지. ‘갑자기’ 통증이 찾아왔다고 생각하기 쉽지만 사실 몸은 계속 신호를 보내고 있었는지도 모른다. 일에 파묻혀 몸이 보내는 메시지를 무시하다 보면 결국 더 큰 고통을 만나 그제야 후회한다. 그렇게 입원을 한 적이 몇 번 있었다. 때문에 평소에 오늘의 몸 컨디션은 어떤지 관심을 가져야 한다. 마음도 마찬가지다.
+누구에게나 자신에게 맞는 운동이 있을 거다. 걷기, 뛰기, 등산, 자전거 타기, 간단한 스트레칭 등 스스로 맞는 운동을 찾아 건강을 챙겨보자. 요가는 몸과 마음의 건강을 챙기도록 도와주는 내게 잘 맞는 운동이다. 태리 선생님과 나눈 이야기를 통해 ‘요가’와 한 층 더 가까워져서 좋다. 요즘 여러 일이 겹쳐 몸과 마음에서 멀어져 있었는데 다시금 맘 다잡고 열심히 수련하겠다고 다짐해본다.'
+			where meeting_no = 16
+				
+				
+				
+				
+				
+				
+				
+				
+				
 

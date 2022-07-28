@@ -1,6 +1,11 @@
 @charset "UTF-8";
 
 * {
+	font-family: 'Gothic A1', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+* {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -30,7 +35,7 @@ ul {
 	background: #fff;
 	z-index: 10;
 	top: -7px;
-	padding: 0 24%;
+	padding: 0 20%;
 	box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 12px !important;
 }
 .top-menu > a > img {
@@ -58,7 +63,11 @@ ul {
 
 .menu-bar {
 	display: flex;
-	margin-right: 36%;
+
+	margin-right: 50%;
+
+	margin-right: 49%;
+
 }
 
 .header {
@@ -87,7 +96,7 @@ ul {
 	background-size: cover;
 	background-repeat: no-repeat;
 	padding-top: 10%;
-	padding-left: 25%;
+	padding-left: 22.5%;
 	background-position: 0 64%;
 	position: absolute;
 	top: 65px;
@@ -334,6 +343,8 @@ ul {
 #qna tbody td:nth-child(3) {
 	text-align: center;
 }
+
+
 
 .footer {
 	align-items: center;

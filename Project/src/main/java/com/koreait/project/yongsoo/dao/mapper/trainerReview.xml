@@ -42,7 +42,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   					       WHERE TARGET_USER_NO = #{param1}
 	   					         AND WRITER_USER_NO = #{param2})
         -->
-	<select id="findJoinMeetingList" resultType="com.koreait.project.dto.MeetingDto">
+        
+        <!-- 
          SELECT *
            FROM MEETING
           WHERE USER_NO = #{param1}
@@ -51,9 +52,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                 WHERE TARGET_USER_NO = #{param1}
                                   AND WRITER_USER_NO = #{param2}
                                   AND STATUS != 2)
+        
+         -->
+	<select id="findJoinMeetingList" resultType="com.koreait.project.dto.MeetingDto">
+    SELECT * 
+	  FROM MEETING
+	 WHERE USER_NO = ${param1}
+	   AND MEETING_NO IN (SELECT MEETING_NO
+	 					   FROM MEETING_PARTICIPANTS
+	 					  WHERE USER_NO = #{param2}
+	 					    AND STATUS = 1)
+	   AND MEETING_NO NOT IN (SELECT MEETING_NO
+	   					        FROM REVIEW
+	   					       WHERE TARGET_USER_NO = #{param1}
+	   					         AND WRITER_USER_NO = #{param2})
 	</select>
 	
-	<select id="findAlreadyRevied" resultType="int">
+	
+	
+	<!-- 
 		 SELECT COUNT(*)
            FROM MEETING
           WHERE USER_NO = #{param1}
@@ -62,6 +79,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                 WHERE TARGET_USER_NO = #{param1}
                                   AND WRITER_USER_NO = #{param2}
                                   AND STATUS != 0)
+	 -->
+	<select id="findAlreadyRevied" resultType="int">
+    SELECT count(*) 
+	  FROM MEETING
+	 WHERE USER_NO = ${param1}
+	   AND MEETING_NO NOT IN (SELECT MEETING_NO
+	   					        FROM REVIEW
+	   					       WHERE TARGET_USER_NO = #{param1}
+	   					         AND WRITER_USER_NO = #{param2})
 	</select>
 	
 	

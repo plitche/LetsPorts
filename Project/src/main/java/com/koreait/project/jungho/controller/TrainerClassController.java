@@ -77,8 +77,7 @@ public class TrainerClassController {
 	
 	// 트레이너 클래스 작성 페이지로 넘겨주는 역할
 	@RequestMapping(value="TrainerClassInsertPage.leo")
-	public String maketrainerClass(@RequestParam("from") String from, Model model) {
-		model.addAttribute("from", from);
+	public String maketrainerClass(Model model) {
 		return "jungPages/TrainerClassInsertPage";
 	}
 	
@@ -95,7 +94,7 @@ public class TrainerClassController {
 	// 목록 리스트 중 하나를 클릭하면 리스트 정보를 보여주는 페이지
 	@RequestMapping(value="TrainerClassViewPage.leo")
 	public String TrainerClassViewPage(@RequestParam("meeting_no") int meeting_no, Model model) {
-
+		
 		model.addAttribute("meeting_no", meeting_no);
 	
 		TrainerClassViewCommand trainerClassViewCommand = ctx.getBean("trainerClassViewCommand", TrainerClassViewCommand.class);
@@ -105,7 +104,7 @@ public class TrainerClassController {
 	}
 	
 	// view페이지에서 삭제
-	@RequestMapping(value="TrainerClassViewDelete.leo", method=RequestMethod.POST)
+	@RequestMapping(value="TrainerClassViewDelete.leo", method=RequestMethod.GET)
 	public String TrainerClassViewDelete(@RequestParam("meeting_no") int meeting_no, Model model) {
 		
 		model.addAttribute("meeting_no", meeting_no);

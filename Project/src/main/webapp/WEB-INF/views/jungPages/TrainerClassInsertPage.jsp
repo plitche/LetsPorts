@@ -23,16 +23,91 @@
 </script>
 
 <script>
+	
+	/*
+	function fn_writeQnA(f) {
+			if($('input[name="board_qna_title"]').val() == '') {
+				Swal.fire('제목이 없습니다.', '질문 제목을 작성해주세요!', 'error');
+				return;
+			}
+			if($('#content').text() == '') {
+				Swal.fire('내용이 없습니다.', '질문 내용을 작성해주세요!', 'error');
+				return;
+			}
+			fn_submit();
+		}
+	*/
 
 	function fn_TrainerClassInsert(f) {
+		
+		if ($('input[name="meeting_title"]').val() == '') {
+			Swal.fire('모임제목은 필수입니다.', '모임제목을 입력해주세요', 'error');
+			return;
+		}
+		if ($('input[name="meeting_date"]').val() == '' && 
+			$('input[name="start_gather_date"]').val() == '' &&
+			$('input[name="end_gather_date"]').val() == '') {
+			Swal.fire('모임일과 모집기간은 필수입니다.', '모집일과 모집기간을 입력해주세요.', 'error' );
+			return;
+		}
+		let today = new Date();
+		if ($('input[name="meeting_date"]').val() <= today) {
+			Swal.fire('선택할 수없는 모임일입니다.', '최소 7일의 간격을 두고 만들어주세요', 'error' );
+			return;
+		}
+		if ($('input[name="meeting_date"]').val() < $('input[name="start_gather_date"]').val() &&
+			$('input[name="meeting_date"]').val() < $('input[name="end_gather_date"]').val()	) {
+			Swal.fire('선택할 수없는 날짜입니다.', '모임일보다 앞서나간 모집기간은 선택할 수 없습니다.', 'error' );
+			return;
+		}
+		if ( $('input[name="start_gather_date"]').val() >= $('input[name="end_gather_date"]').val() ) {
+			Swal.fire('선택할 수없는 날짜입니다.', '마감일보다 앞서나간 시작일은 선택할 수 없습니다.', 'error' );
+			return;
+		}
+		if ($('input[name="meeting_min"]').val() >= $('input[name="meeting_max"]').val() ) {
+			Swal.fire('선택할 수없는 최소인원입니다.', '최소,최대인원을 다시 입력해주세요.', 'error');
+			return;
+		}
+		if ($('input[name="meeting_min"]').val() == '' &&
+			$('input[name="meeting_max"]').val() == '') {
+			Swal.fire('최소, 최대인원은 필수입니다.', '최소,최대인원을 입력해주세요.', 'error');
+			return;
+		}
+		if ($('select[name="exercise_no"]').val() == '') {
+			Swal.fire('운동종목은 필수입니다.', '운동종목을 입력하세요', 'error');
+			return;
+		}
+		if ($('select[name="location1_no"]').val() == '' &&
+			$('select[name="location2_no"]').val() == '') {
+			Swal.fire('모임장소는 필수입니다.', '모임장소를 입력하세요', 'error');
+			return;
+		}
+		if ($('input[name="detail_location"]').val() == '') {
+			Swal.fire('상세주소는 필수입니다.', '상세주소를 입력하세요', 'error');
+			return;
+		}
+		if ($('input[name="materials_name"]').val() == '') {
+			Swal.fire('준비물은 필수입니다.', '준비물을 입력하세요', 'error');
+			return;
+		}
+		if ($('input[name="coverphoto"]').val() == '') {
+			Swal.fire('커버사진은 필수입니다.', '커버사진을 입력하세요', 'error');
+			return;
+		}
+		if ($('input[name="content"]').val() == '') {
+			Swal.fire('상세내용은 필수입니다.', '상세내용을 입력하세요', 'error');
+			return;
+		}
 		fn_submit();
+		f.action='TrainerClassInsert.leo'
+		f.submit();
 	}
 
 </script>
 
 
 	<div class="TrainerClassInsert_all">
-		<form action="TrainerClassInsert.leo"  id="insertForm" method="post" enctype="multipart/form-data">
+		<form id="insertForm" method="post" enctype="multipart/form-data">
 			
 			<span style="font-size:14px; font-weight: 900; width: 300px; height: 100px; background: #fa8072;">새로운 모임 만들기</span>
 			<div style="width: 1000px; height: 0.5px; background: black; margin:25px 0px;"></div>
@@ -167,8 +242,6 @@
                  </span>
             </div>
             
-            <script>
-            </script>
 					<!-- hidden -->
 				    <input type="hidden" name="temp_no" id="temp_no" />
 				    <input type="hidden" name="user_no" id="user_no" value="${loginUser.user_no}" />
