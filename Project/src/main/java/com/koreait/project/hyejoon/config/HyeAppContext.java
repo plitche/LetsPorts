@@ -3,7 +3,6 @@ package com.koreait.project.hyejoon.config;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 
-import com.koreait.project.hyejoon.command.InsertTrainerCommand;
 import com.koreait.project.hyejoon.command.login.SendTempPwCommand;
 import com.koreait.project.hyejoon.command.login.UserCheckCommand;
 import com.koreait.project.hyejoon.command.login.UsersLoginCommand;
@@ -13,12 +12,11 @@ import com.koreait.project.hyejoon.command.myPage.PastMeetingListCommand;
 import com.koreait.project.hyejoon.command.myPage.PreparingMeetingListCommand;
 import com.koreait.project.hyejoon.command.myPage.UpdateMsgCommand;
 import com.koreait.project.hyejoon.command.myPage.UploadProfilePhotoCommand;
-import com.koreait.project.hyejoon.command.myPage.ViewMeetingInfoCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailAuthCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailCheckCommand;
 import com.koreait.project.hyejoon.command.signUp.InsertJoinCommand;
+import com.koreait.project.hyejoon.command.signUp.InsertTrainerCommand;
 import com.koreait.project.hyejoon.command.signUp.NickCheckCommand;
-import com.koreait.project.hyejoon.command.userAccount.DeleteAccountCommand;
 import com.koreait.project.hyejoon.command.userAccount.UserUpdateCommand;
 import com.koreait.project.hyejoon.command.userAccount.UserUpdateViewCommand;
 
@@ -68,10 +66,6 @@ public class HyeAppContext {
 		return new UserUpdateViewCommand();
 	}
 	@Bean
-	public DeleteAccountCommand deleteAccountCommand() {
-		return new DeleteAccountCommand();
-	}
-	@Bean
 	public UploadProfilePhotoCommand uploadProfilePhotoCommand() {
 		return new UploadProfilePhotoCommand();
 	}
@@ -82,10 +76,6 @@ public class HyeAppContext {
 	@Bean
 	public UpdateMsgCommand updateMsgCommand() {
 		return new UpdateMsgCommand();
-	}
-	@Bean
-	public ViewMeetingInfoCommand viewMeetingInfoCommand() {
-		return new ViewMeetingInfoCommand();
 	}
 	@Bean
 	public PreparingMeetingListCommand preparingMeetingListCommand() {

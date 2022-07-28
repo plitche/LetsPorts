@@ -29,7 +29,6 @@ import com.koreait.project.hyejoon.command.myPage.PreparingMeetingListCommand;
 import com.koreait.project.hyejoon.command.myPage.UpdateMsgCommand;
 import com.koreait.project.hyejoon.command.myPage.UploadProfilePhotoCommand;
 import com.koreait.project.hyejoon.command.signUp.NickCheckCommand;
-import com.koreait.project.hyejoon.command.userAccount.DeleteAccountCommand;
 import com.koreait.project.hyejoon.command.userAccount.UserUpdateCommand;
 import com.koreait.project.hyejoon.command.userAccount.UserUpdateViewCommand;
 import com.koreait.project.hyejoon.config.HyeAppContext;
@@ -44,7 +43,6 @@ public class MyPageController {
 	private AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(HyeAppContext.class);
 	private NickCheckCommand nickCheckCommand = ctx.getBean("nickCheckCommand", NickCheckCommand.class);
 	private UserUpdateViewCommand userUpdateViewCommand = ctx.getBean("userUpdateViewCommand", UserUpdateViewCommand.class);
-	private DeleteAccountCommand deleteAccountCommand = ctx.getBean("deleteAccountCommand", DeleteAccountCommand.class);
 	private UploadProfilePhotoCommand uploadProfilePhotoCommand = ctx.getBean("uploadProfilePhotoCommand", UploadProfilePhotoCommand.class);
 	private DeletePhotoCommand deletePhotoCommand = ctx.getBean("deletePhotoCommand", DeletePhotoCommand.class);
 	private UpdateMsgCommand updateMsgCommand = ctx.getBean("updateMsgCommand", UpdateMsgCommand.class);
@@ -121,15 +119,6 @@ public class MyPageController {
 	public Map<String, Object> updateNickCheck(@RequestBody UsersDto usersDto, Model model){
 		model.addAttribute("user_nickname", usersDto.getUser_nickname());
 		return nickCheckCommand.execute(sqlSession, model);
-	}
-	
-	// 회원 탈퇴하기
-	@ResponseBody
-	@RequestMapping(value="deleteAccount.hey", method=RequestMethod.POST, produces="application/json; charset=utf-8")
-	public Map<String, Object> deleteAccount(@RequestBody UsersDto usersDto, Model model) {
-		model.addAttribute("user_no", usersDto.getUser_no());
-		System.out.println("user_no: " + usersDto.getUser_no());
-		return deleteAccountCommand.execute(sqlSession, model);
 	}
 	
 	/**** 탭 ****/

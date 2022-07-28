@@ -21,10 +21,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.project.dto.UsersDto;
-import com.koreait.project.hyejoon.command.InsertTrainerCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailAuthCommand;
 import com.koreait.project.hyejoon.command.signUp.EmailCheckCommand;
 import com.koreait.project.hyejoon.command.signUp.InsertJoinCommand;
+import com.koreait.project.hyejoon.command.signUp.InsertTrainerCommand;
 import com.koreait.project.hyejoon.command.signUp.NickCheckCommand;
 import com.koreait.project.hyejoon.config.HyeAppContext;
 
