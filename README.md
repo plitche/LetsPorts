@@ -1,17 +1,17 @@
 # introduction
 
-* Korea It Academy final Project (코리아IT아카데미 최종 프로젝트)
+* Korea It Academy final Project (코리아IT아카데미 Spring 최종 프로젝트)
 * 주제 : Let'sPort - 사용자를 위한 운동 모임 커뮤니티
 * 개발기간 : 2021.01.25 ~ 2021.02.19(약 4주)
 * 개발인원 : 5명
-* 저의 상세 코드를 보길 희망하시면 아래의 경로를 확인해주세요.  [(JSPFiles)](https://github.com/plitche/LetsPorts/tree/main/Project/src/main/webapp/WEB-INF/views/yongPage) [(JavaFiles)](https://github.com/plitche/LetsPorts/tree/main/Project/src/main/java/com/koreait/project/yongsoo)
+* 저의 상세 코드를 보길 희망하시면 아래의 링크를 확인해주세요.  [(JSPFiles)](https://github.com/plitche/LetsPorts/tree/main/Project/src/main/webapp/WEB-INF/views/yongPage) [(JavaFiles)](https://github.com/plitche/LetsPorts/tree/main/Project/src/main/java/com/koreait/project/yongsoo)
 
 # Demo
 ![캡처](https://user-images.githubusercontent.com/70326085/109097682-23bd2c80-7763-11eb-98a8-7fa5a59c3f3a.PNG)
 
 
 # Model
-> _빨간 박스 : 제가 주로 사용했던 테이블입니다._
+> _빨간 박스 : 제가 주로 사용했던 테이블_
 ![tables](https://user-images.githubusercontent.com/70326085/108591854-34118800-73ae-11eb-91c5-f1a7eb456ef8.jpg)
 
 # Technologies
